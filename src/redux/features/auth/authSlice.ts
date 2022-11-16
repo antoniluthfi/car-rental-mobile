@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import { authLogin, authRegister } from './authAPI';
+import { authLogin, authRegister, authRegisterConfirmation } from './authAPI';
 
 interface IInitState {
   status: string;
@@ -67,6 +67,24 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(authRegister.rejected, (state, action) => {
+        state.status = 'failed';
+        state.isLoading = false;
+        console.log('err = ', action.payload);
+        state.errors = action.payload;
+      })
+
+      .addCase(authRegisterConfirmation.pending, state => {
+        state.status = 'loading';
+        state.isLoading = true;
+      })
+      .addCase(authRegisterConfirmation.fulfilled, (state, action) => {
+        state.status = 'idle';
+        console.log(action.payload)
+        state.auth = action.payload;
+        state.isLoading = false;
+        state.isSignIn = true;
+      })
+      .addCase(authRegisterConfirmation.rejected, (state, action) => {
         state.status = 'failed';
         state.isLoading = false;
         console.log('err = ', action.payload);

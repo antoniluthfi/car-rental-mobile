@@ -4,7 +4,7 @@ import { apiWithInterceptor } from '../../../utils/interceptor';
 import { ApiResponse } from 'apisauce';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiKind, IResponApi } from 'types/global.types';
-import { IParamLogin, IParamRegister, IResultLogin } from 'types/auth.types';
+import { IParamConfirmation, IParamLogin, IParamRegister, IResultLogin } from 'types/auth.types';
 import { showToast } from 'utils/Toast';
 
 export const authLogin = createAsyncThunk(
@@ -45,8 +45,8 @@ export const  authRegister = createAsyncThunk(
       console.log('respn = ', response.data);
       if(!response.ok) {
         showToast({
-          message: 'Terjadi kesalahan',
-          title: 'Warning',
+          message: response?.data?.slug || 'Terjadi kesalahan',
+          title: 'Error',
           type: 'error',
         })
         return thunkAPI.rejectWithValue(response.data);
@@ -61,13 +61,14 @@ export const  authRegister = createAsyncThunk(
 
 export const  authRegisterConfirmation = createAsyncThunk(
   'auth/registerConfirmation',
-  async function (params: IParamRegister, thunkAPI)
-  : Promise<IResponApi<IResultLogin> | any> {
+  async function (params: IParamConfirmation, thunkAPI)
+  : Promise<IResponApi<any> | any> {
     try {
       let response: ApiResponse<any> = await apiWithInterceptor.post(
         `/api/authorization/register/confirmation`,
         { ...params }
       );
+      console.log('res confirm = ', response.data);
       if(!response.ok) {
         showToast({
           message: 'Terjadi kesalahan',

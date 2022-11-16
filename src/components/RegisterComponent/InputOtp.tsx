@@ -7,7 +7,8 @@ import {h1, h5} from 'utils/styles';
 import Button from 'components/Button';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {utilsState} from 'redux/features/utils/utilsSlice';
-import {authRegister} from 'redux/features/auth/authAPI';
+import {authRegister, authRegisterConfirmation} from 'redux/features/auth/authAPI';
+import { authState } from 'redux/features/auth/authSlice';
 // const TIMER = 299;
 const TIMER = 5;
 
@@ -15,6 +16,7 @@ const inputOtp: FC = () => {
   const [seconds, setSeconds] = useState(TIMER);
   const userData = useAppSelector(utilsState).userData;
   const dispatch = useAppDispatch();
+  const token = useAppSelector(authState).token;
 
   useEffect(() => {
     if (seconds > 0) {
@@ -39,7 +41,11 @@ const inputOtp: FC = () => {
       return '0' + mDisplay + ':' + (sDisplay > 9 ? sDisplay : '0' + sDisplay);
     },
     handleConfirmationOTp:async()=> {
-      
+      console.log(token)
+      let res = await dispatch(authRegisterConfirmation({
+        session: token.session,
+        token: token.token,
+      }));
     }
   };
 
@@ -67,7 +73,7 @@ const inputOtp: FC = () => {
       <Button
         _theme="navy"
         title="Submit"
-        onPress={() => {}}
+        onPress={methods.handleConfirmationOTp}
         styleWrapper={{
           marginTop: 44,
         }}

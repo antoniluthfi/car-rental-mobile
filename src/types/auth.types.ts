@@ -19,3 +19,8 @@ export interface IResultLogin {
     refresh_token: string;
     // }
 }
+
+export interface IParamConfirmation {
+    session: string;
+    token: string;
+}
