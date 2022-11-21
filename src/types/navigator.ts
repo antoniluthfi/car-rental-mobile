@@ -12,6 +12,7 @@ type RootStackParamList = {
   RegisterVerification: {
     page: IRegisterVerificationStep;
   };
+  ForgotPassword: undefined;
 };
 
 type RootTabParamList = {

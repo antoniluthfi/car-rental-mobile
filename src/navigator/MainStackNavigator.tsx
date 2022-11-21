@@ -3,6 +3,7 @@ import React from 'react';
 import {RootStackParamList} from '../types/navigator';
 import {
   AuthScreen,
+  ForgotPasswordScreen,
   LoginScreen,
   ProductDetail,
   RegisterPasswordScreen,
@@ -49,6 +50,7 @@ const MainStack: React.FC = () => {
           <RootStack.Screen name="Register" component={RegisterScreen} />
           <RootStack.Screen name="RegisterPassword" component={RegisterPasswordScreen} />
           <RootStack.Screen name="RegisterVerification" component={RegisterVerificationScreen} />
+          <RootStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         </>
       )}
       {auth.isSignIn && (
