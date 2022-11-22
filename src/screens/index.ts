@@ -9,3 +9,4 @@ export {default as RegisterScreen} from './RegisterScreen/RegisterScreen';
 export {default as RegisterPasswordScreen} from './RegisterPasswordScreen/RegisterPasswordScreen';
 export {default as RegisterVerificationScreen} from './RegisterVerificationScreen/RegisterVerificationScreen';
 export {default as ForgotPasswordScreen} from './ForgotPasswordScreen/ForgotPasswordScreen';
+export {default as ResetPasswordScreen} from './ResetPasswordScreen/ResetPasswordScreen';

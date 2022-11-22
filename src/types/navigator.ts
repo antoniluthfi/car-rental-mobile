@@ -13,6 +13,7 @@ type RootStackParamList = {
     page: IRegisterVerificationStep;
   };
   ForgotPassword: undefined;
+  ResetPassword: undefined;
 };
 
 type RootTabParamList = {

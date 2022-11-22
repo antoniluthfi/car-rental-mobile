@@ -9,6 +9,7 @@ import {
   RegisterPasswordScreen,
   RegisterScreen,
   RegisterVerificationScreen,
+  ResetPasswordScreen,
 } from '../screens';
 import MainTabNavigator from './MainTabNavigator';
 import {useAppSelector} from 'redux/hooks';
@@ -51,6 +52,7 @@ const MainStack: React.FC = () => {
           <RootStack.Screen name="RegisterPassword" component={RegisterPasswordScreen} />
           <RootStack.Screen name="RegisterVerification" component={RegisterVerificationScreen} />
           <RootStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+          <RootStack.Screen name="ResetPassword" component={ResetPasswordScreen} />
         </>
       )}
       {auth.isSignIn && (

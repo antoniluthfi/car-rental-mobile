@@ -12,43 +12,55 @@ import Button from 'components/Button';
 import {useAppDispatch} from 'redux/hooks';
 import {toggleLoader} from 'redux/features/utils/utilsSlice';
 import {showToast} from 'utils/Toast';
-import {IParamForgotPasswordRequest} from 'types/forgot-password.types';
-import {forgotPasswordRequest} from 'redux/features/forgotPassword/forgotPasswordAPI';
+import {IParamsResetPassword} from 'types/forgot-password.types';
+import {
+  forgotPasswordConfirmation,
+  forgotPasswordReset,
+} from 'redux/features/forgotPassword/forgotPasswordAPI';
 import {useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 // import {toggleLoader} from 'redux/features/loader/loaderSlice';
 
 interface IErrorMessage {
-  error_email: string;
+  error_password: string;
+  error_password_confirmation: string;
 }
 
-const ForgotPasswordScreen: FC = () => {
+const ResetPasswordScreen: FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const forgotPasswordState = useSelector(
     (state: RootState) => state.forgotPassword,
   );
 
-  const [form, setForm] = useState<IParamForgotPasswordRequest>({
-    email: 'sumaalbaroh1892@gmail.com',
+  const [form, setForm] = useState<IParamsResetPassword>({
+    password: '12345678abc',
+    password_confirmation: '12345678abc',
   });
   const [formError, setFormError] = useState<IErrorMessage>({
-    error_email: '',
+    error_password: '',
+    error_password_confirmation: '',
   });
 
   useEffect(() => {
-    if (forgotPasswordState.status === 'success_request') {
-      navigation.navigate('ResetPassword');
+    if (forgotPasswordState.status === 'success_reset') {
+      showToast({
+        message: 'Kata sandi berhasil diubah, silakan login kembali',
+        title: 'Success',
+        type: 'success',
+      });
+
+      navigation.navigate('Login')
     }
   }, [forgotPasswordState]);
 
   const methods = {
-    handleSendEmail: async () => {
+    handleConfirmPassword: async () => {
       try {
         let _errorMessage: any = {};
         let status = true;
         Object.keys(form).map((x, i) => {
-          if (!form[x as keyof IParamForgotPasswordRequest]) {
+          if (!form[x as keyof IParamsResetPassword]) {
             status = false;
             _errorMessage[`error_${x}`] = `${x} tidak boleh kosong`;
           }
@@ -58,7 +70,8 @@ const ForgotPasswordScreen: FC = () => {
           dispatch(toggleLoader(true));
 
           setTimeout(async () => {
-            await dispatch(forgotPasswordRequest(form));
+            await dispatch(forgotPasswordConfirmation());
+            await dispatch(forgotPasswordReset(form));
             dispatch(toggleLoader(false));
           }, 1500);
         }
@@ -76,35 +89,48 @@ const ForgotPasswordScreen: FC = () => {
 
   return (
     <View style={[container]}>
-      <Text style={[h1, styles.textHeader]}>Lupa Password</Text>
-      <Text style={[h3, styles.textDesc]}>
-        Masukan email anda untuk reset password
-      </Text>
+      <Text style={[h1, styles.textHeader]}>Reset Password</Text>
+      <Text style={[h3, styles.textDesc]}>Reset Password Anda</Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
-          placeholder="Masukan Email"
-          title="Email"
+          placeholder="Masukan Password anda"
+          title="Password"
+          secureTextEntry
           onChangeText={v => {
-            setForm({...form, email: v});
-            setFormError({...formError, [`error_email`]: ''});
+            setForm({...form, password: v});
+            setFormError({...formError, [`error_password`]: ''});
           }}
-          value={form.email}
-          errorMessage={formError.error_email}
+          value={form.password}
+          errorMessage={formError.error_password}
+        />
+
+        <View style={{marginTop: 18}} />
+
+        <CustomTextInput
+          placeholder="Konfirmasi Password anda"
+          title="Konfirmasi Password"
+          secureTextEntry
+          onChangeText={v => {
+            setForm({...form, password_confirmation: v});
+            setFormError({...formError, [`error_password_confirmation`]: ''});
+          }}
+          value={form.password}
+          errorMessage={formError.error_password_confirmation}
         />
 
         <View style={{marginTop: 18}} />
       </View>
       <Button
         _theme="navy"
-        title="Kirim Email"
+        title="Simpan"
         styleWrapper={{marginTop: 40}}
-        onPress={methods.handleSendEmail}
+        onPress={methods.handleConfirmPassword}
       />
     </View>
   );
 };
 
-export default hoc(ForgotPasswordScreen);
+export default hoc(ResetPasswordScreen);
 
 const styles = StyleSheet.create({
   textHeader: {
