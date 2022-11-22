@@ -6,6 +6,7 @@ import {
   DetailCarScreen,
   ListCarScreen,
   LoginScreen,
+  OrderDetailScreen,
   ProductDetail,
   RegisterPasswordScreen,
   RegisterScreen,
@@ -69,6 +70,11 @@ const MainStack: React.FC = () => {
             }
           }} />
           <RootStack.Screen name="DetailCar" component={DetailCarScreen} options={{
+            headerStyle: {
+              backgroundColor: theme.colors.navy
+            }
+          }} />
+          <RootStack.Screen name="OrderDetail" component={OrderDetailScreen} options={{
             headerStyle: {
               backgroundColor: theme.colors.navy
             }

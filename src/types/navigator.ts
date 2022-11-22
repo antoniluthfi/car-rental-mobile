@@ -16,6 +16,7 @@ type RootStackParamList = {
   DetailCar: {
     carId: number;
   };
+  OrderDetail: undefined;
 };
 
 type RootTabParamList = {

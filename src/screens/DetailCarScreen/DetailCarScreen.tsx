@@ -286,7 +286,7 @@ const DetailCarScreen: FC = () => {
           </Text>
         </View>
         <View style={{width: '50%', alignSelf: 'flex-end'}}>
-          <Button title="Lanjutkan" onPress={() => {}} _theme="navy" />
+          <Button title="Lanjutkan" onPress={() => navigation.navigate('OrderDetail')} _theme="navy" />
         </View>
       </View>
     </View>

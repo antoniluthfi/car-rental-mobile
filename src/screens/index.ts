@@ -10,3 +10,4 @@ export {default as RegisterPasswordScreen} from './RegisterPasswordScreen/Regist
 export {default as RegisterVerificationScreen} from './RegisterVerificationScreen/RegisterVerificationScreen';
 export {default as ListCarScreen} from './ListCarScreen/ListCarScreen';
 export {default as DetailCarScreen} from './DetailCarScreen/DetailCarScreen';
+export { default as OrderDetailScreen} from './OrderDetailScreen/OrderDetailScreen';
