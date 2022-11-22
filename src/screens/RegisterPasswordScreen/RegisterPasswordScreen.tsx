@@ -29,13 +29,13 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {authLogin} from 'redux/features/auth/authAPI';
 import Toast from 'components/Toast/Toast';
 import {
-  saveFormRegister,
   toggleLoader,
   utilsState,
 } from 'redux/features/utils/utilsSlice';
 import DropdownFlag from 'components/Dropdown/Dropdown';
 import countryCodes from 'utils/country-codes.json';
 import { authState } from 'redux/features/auth/authSlice';
+import { appDataState, saveFormRegister } from 'redux/features/appData/appDataSlice';
 
 interface IErrorMessage {
   error_password: string;
@@ -52,7 +52,7 @@ const RegisterPasswordScreen: FC = () => {
   const dispatch = useAppDispatch();
   const [selected, setSelected] = useState(countryCodes[0]);
   const [selectWa, setSelectWa] = useState<boolean>(false);
-  const userData = useAppSelector(utilsState).userData;
+  const userData = useAppSelector(appDataState).userData;
   const errorRegister = useAppSelector(authState).errors;
   //   const auth = useAppSelector(authSlice);
 

@@ -12,6 +12,10 @@ type RootStackParamList = {
   RegisterVerification: {
     page: IRegisterVerificationStep;
   };
+  ListCar: undefined;
+  DetailCar: {
+    carId: number;
+  };
 };
 
 type RootTabParamList = {

@@ -28,10 +28,11 @@ import {IParamLogin, IParamRegister} from 'types/auth.types';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {authLogin} from 'redux/features/auth/authAPI';
 import Toast from 'components/Toast/Toast';
-import {saveFormRegister, toggleLoader} from 'redux/features/utils/utilsSlice';
+import {toggleLoader} from 'redux/features/utils/utilsSlice';
 import DropdownFlag from 'components/Dropdown/Dropdown';
 import countryCodes from 'utils/country-codes.json';
 import { authState } from 'redux/features/auth/authSlice';
+import { saveFormRegister } from 'redux/features/appData/appDataSlice';
 
 interface IErrorMessage {
   error_fullname: '';

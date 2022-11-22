@@ -16,9 +16,10 @@ export const authLogin = createAsyncThunk(
         `/api/authorization`,
         { ...params, scope: 'app' }
       );
+      console.log(response.data)
       if(!response.ok) {
         showToast({
-          message: 'Terjadi kesalahan',
+          message: response?.data?.slug || 'Terjadi kesalahan',
           title: 'Warning',
           type: 'error',
         })
@@ -68,10 +69,9 @@ export const  authRegisterConfirmation = createAsyncThunk(
         `/api/authorization/register/confirmation`,
         { ...params }
       );
-      console.log('res confirm = ', response.data);
       if(!response.ok) {
         showToast({
-          message: 'Terjadi kesalahan',
+          message: response.data?.slug || 'Terjadi kesalahan',
           title: 'Warning',
           type: 'error',
         })

@@ -29,7 +29,6 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {authLogin} from 'redux/features/auth/authAPI';
 import Toast from 'components/Toast/Toast';
 import {
-  saveFormRegister,
   toggleLoader,
   utilsState,
 } from 'redux/features/utils/utilsSlice';
@@ -39,6 +38,7 @@ import { RootStackParamList } from 'types/navigator';
 import SelectVerificationMethod from 'components/RegisterComponent/SelectVerificationMethod';
 import SentOtp from 'components/RegisterComponent/SentOtp';
 import InputOtp from 'components/RegisterComponent/InputOtp';
+import { appDataState, saveFormRegister } from 'redux/features/appData/appDataSlice';
 
 interface IErrorMessage {
   error_password: string;
@@ -57,7 +57,7 @@ const RegisterVerificationScreen: FC = () => {
   const dispatch = useAppDispatch();
   const [selected, setSelected] = useState(countryCodes[0]);
   const [selectWa, setSelectWa] = useState<boolean>(false);
-  const userData = useAppSelector(utilsState).userData;
+  const userData = useAppSelector(appDataState).userData;
   //   const auth = useAppSelector(authSlice);
 
   const [form, setForm] = useState<IPasswordForm>({

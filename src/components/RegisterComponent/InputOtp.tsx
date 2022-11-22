@@ -9,8 +9,8 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {utilsState} from 'redux/features/utils/utilsSlice';
 import {authRegister, authRegisterConfirmation} from 'redux/features/auth/authAPI';
 import { authState } from 'redux/features/auth/authSlice';
-// const TIMER = 299;
-const TIMER = 5;
+const TIMER = 299;
+// const TIMER = 5;
 
 const inputOtp: FC = () => {
   const [seconds, setSeconds] = useState(TIMER);

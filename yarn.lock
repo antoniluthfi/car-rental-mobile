@@ -2151,6 +2151,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-native-modern-datepicker@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@types/react-native-modern-datepicker@npm:1.0.1"
+  dependencies:
+    "@types/react": "*"
+  checksum: 9d52d2932de326f58dff3d9a3120e5332e420942e255f8c72a8d03c8b43f73206f812212a82ee6ae5e1bad076820a06fe9df08570cd9602c43b21619f15f39d8
+  languageName: node
+  linkType: hard
+
 "@types/react-native@npm:^0.70.4":
   version: 0.70.6
   resolution: "@types/react-native@npm:0.70.6"
@@ -5897,6 +5906,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jalaali-js@npm:^1.1.0":
+  version: 1.2.6
+  resolution: "jalaali-js@npm:1.2.6"
+  checksum: 586083f23c59c2ce08bcf0309a86ef81980d1aa862fc2c86615183772cbd20e95f6712081a5f5d451068a9e24fce6a2fe630c715f3b7dec6b856bf88fc29588d
+  languageName: node
+  linkType: hard
+
 "jest-changed-files@npm:^26.6.2":
   version: 26.6.2
   resolution: "jest-changed-files@npm:26.6.2"
@@ -6133,14 +6149,14 @@ __metadata:
   linkType: hard
 
 "jest-pnp-resolver@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "jest-pnp-resolver@npm:1.2.2"
+  version: 1.2.3
+  resolution: "jest-pnp-resolver@npm:1.2.3"
   peerDependencies:
     jest-resolve: "*"
   peerDependenciesMeta:
     jest-resolve:
       optional: true
-  checksum: bd85dcc0e76e0eb0c3d56382ec140f08d25ff4068cda9d0e360bb78fb176cb726d0beab82dc0e8694cafd09f55fee7622b8bcb240afa5fad301f4ed3eebb4f47
+  checksum: db1a8ab2cb97ca19c01b1cfa9a9c8c69a143fde833c14df1fab0766f411b1148ff0df878adea09007ac6a2085ec116ba9a996a6ad104b1e58c20adbf88eed9b2
   languageName: node
   linkType: hard
 
@@ -7428,6 +7444,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"moment-jalaali@npm:^0.9.2":
+  version: 0.9.6
+  resolution: "moment-jalaali@npm:0.9.6"
+  dependencies:
+    jalaali-js: ^1.1.0
+    moment: ^2.22.2
+    moment-timezone: ^0.5.21
+    rimraf: ^3.0.2
+  checksum: 3ff8ab6b73346a31aeca9816fdadb362ca409ad1b882ed0842e1ec65cedc733cb2f109f8040f74a8c9cd1b37d53fa61bb02b75283599e4f3afe13eef337320d7
+  languageName: node
+  linkType: hard
+
+"moment-timezone@npm:^0.5.21":
+  version: 0.5.39
+  resolution: "moment-timezone@npm:0.5.39"
+  dependencies:
+    moment: ">= 2.9.0"
+  checksum: 9f972d3a29b2726d4fd1464df27738b756441fe57575f087cda91b7716a5a31d2cfd274255e3edfb15eb60af3ccf33fd339527b456092cac1a2a4124e4369c8b
+  languageName: node
+  linkType: hard
+
+"moment@npm:>= 2.9.0, moment@npm:^2.22.2, moment@npm:^2.29.4":
+  version: 2.29.4
+  resolution: "moment@npm:2.29.4"
+  checksum: 0ec3f9c2bcba38dc2451b1daed5daded747f17610b92427bebe1d08d48d8b7bdd8d9197500b072d14e326dd0ccf3e326b9e3d07c5895d3d49e39b6803b76e80e
+  languageName: node
+  linkType: hard
+
 "ms@npm:2.0.0":
   version: 2.0.0
   resolution: "ms@npm:2.0.0"
@@ -8396,6 +8440,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-modern-datepicker@npm:^1.0.0-beta.91":
+  version: 1.0.0-beta.91
+  resolution: "react-native-modern-datepicker@npm:1.0.0-beta.91"
+  dependencies:
+    moment-jalaali: ^0.9.2
+    prop-types: ^15.7.2
+  peerDependencies:
+    react-native: ">=0.59"
+  checksum: a5a81b2332ca5c2d253d257f7fca85ca3720932c377f07390f4afd6ae2ec30551ef82006a2a86d11cea34bdf209814b74755fb26a03177ba344e2341101d2597
+  languageName: node
+  linkType: hard
+
 "react-native-otp-inputs@npm:^7.4.0":
   version: 7.4.0
   resolution: "react-native-otp-inputs@npm:7.4.0"
@@ -8404,6 +8460,18 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 4c1398e4ee0969fd55edb58ff89f7fd23fe8b22aab6e0b96ed07e2a7744c9fa98f3e5f1ffdf019af2a2cbc5505eab1f15c13f020ce278400dc11cddbd6e9b7aa
+  languageName: node
+  linkType: hard
+
+"react-native-reanimated-carousel@npm:^3.1.5":
+  version: 3.1.5
+  resolution: "react-native-reanimated-carousel@npm:3.1.5"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-native: ">=0.6.0"
+    react-native-gesture-handler: "*"
+    react-native-reanimated: ">=2.7.0"
+  checksum: 6fc45fd745254ddd476c77b0fe7a1c45adcd2ad47f1a6cc4034b88d8f2c528effbdceca4617fa37432044e80e20c92594e2d50035ff08147205bc843e17b18e9
   languageName: node
   linkType: hard
 
@@ -8801,6 +8869,7 @@ __metadata:
     "@types/react": ^18.0.21
     "@types/react-native": ^0.70.4
     "@types/react-native-dotenv": ^0.2.0
+    "@types/react-native-modern-datepicker": ^1.0.1
     "@types/react-test-renderer": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^5.37.0
     "@typescript-eslint/parser": ^5.37.0
@@ -8811,12 +8880,15 @@ __metadata:
     jest: ^26.6.3
     lottie-react-native: ^5.1.4
     metro-react-native-babel-preset: 0.72.3
+    moment: ^2.29.4
     react: 18.1.0
     react-native: 0.70.3
     react-native-dotenv: ^3.4.2
     react-native-gesture-handler: ^2.7.1
+    react-native-modern-datepicker: ^1.0.0-beta.91
     react-native-otp-inputs: ^7.4.0
     react-native-reanimated: ^2.11.0
+    react-native-reanimated-carousel: ^3.1.5
     react-native-redash: ^18.1.0
     react-native-safe-area-context: ^4.4.1
     react-native-screens: ^3.18.2
@@ -10059,22 +10131,22 @@ __metadata:
   linkType: hard
 
 "typescript@npm:^4.8.3":
-  version: 4.8.4
-  resolution: "typescript@npm:4.8.4"
+  version: 4.9.3
+  resolution: "typescript@npm:4.9.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 3e4f061658e0c8f36c820802fa809e0fd812b85687a9a2f5430bc3d0368e37d1c9605c3ce9b39df9a05af2ece67b1d844f9f6ea8ff42819f13bcb80f85629af0
+  checksum: 17b8f816050b412403e38d48eef0e893deb6be522d6dc7caf105e54a72e34daf6835c447735fd2b28b66784e72bfbf87f627abb4818a8e43d1fa8106396128dc
   languageName: node
   linkType: hard
 
 "typescript@patch:typescript@^4.8.3#~builtin<compat/typescript>":
-  version: 4.8.4
-  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=bda367"
+  version: 4.9.3
+  resolution: "typescript@patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=bda367"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 563a0ef47abae6df27a9a3ab38f75fc681f633ccf1a3502b1108e252e187787893de689220f4544aaf95a371a4eb3141e4a337deb9895de5ac3c1ca76430e5f0
+  checksum: ef65c22622d864497d0a0c5db693523329b3284c15fe632e93ad9aa059e8dc38ef3bd767d6f26b1e5ecf9446f49bd0f6c4e5714a2eeaf352805dc002479843d1
   languageName: node
   linkType: hard
 

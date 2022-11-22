@@ -19,3 +19,8 @@ export type ApiKind =
   export type IRegisterVerificationStep = 'selectMethod' | 'sendOtp' | 'inputOtp';
 
   export type IRegisterVerificationMethod = 'phone' | 'email' | 'wa';
+
+  export type ICities = {
+    id: number;
+    name: string;
+  }

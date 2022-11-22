@@ -8,12 +8,13 @@ import { IRegisterVerificationMethod, IRegisterVerificationStep } from 'types/gl
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { saveFormRegister, utilsState } from 'redux/features/utils/utilsSlice';
+import { utilsState } from 'redux/features/utils/utilsSlice';
+import { appDataState, saveFormRegister } from 'redux/features/appData/appDataSlice';
 
 const SelectVerificationMethod: FC = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const dispatch = useAppDispatch();
-  const userData = useAppSelector(utilsState).userData;
+  const userData = useAppSelector(appDataState).userData;
 
   const methods = {
     handleNavigate:(method: IRegisterVerificationMethod) => {

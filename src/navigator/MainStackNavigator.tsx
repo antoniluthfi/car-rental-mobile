@@ -3,6 +3,8 @@ import React from 'react';
 import {RootStackParamList} from '../types/navigator';
 import {
   AuthScreen,
+  DetailCarScreen,
+  ListCarScreen,
   LoginScreen,
   ProductDetail,
   RegisterPasswordScreen,
@@ -12,6 +14,7 @@ import {
 import MainTabNavigator from './MainTabNavigator';
 import {useAppSelector} from 'redux/hooks';
 import {authState} from 'redux/features/auth/authSlice';
+import { theme } from 'utils';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -42,16 +45,17 @@ const MainStack: React.FC = () => {
         animationTypeForReplace: 'push',
       }}
       initialRouteName="Auth">
-      {!auth.isSignIn && (
+      {auth.isSignIn && (
         <>
           <RootStack.Screen name="Auth" component={AuthScreen} />
           <RootStack.Screen name="Login" component={LoginScreen} />
           <RootStack.Screen name="Register" component={RegisterScreen} />
           <RootStack.Screen name="RegisterPassword" component={RegisterPasswordScreen} />
           <RootStack.Screen name="RegisterVerification" component={RegisterVerificationScreen} />
+          
         </>
       )}
-      {auth.isSignIn && (
+      {!auth.isSignIn && (
         <>
           <RootStack.Screen
             name="MainTab"
@@ -59,6 +63,16 @@ const MainStack: React.FC = () => {
             options={leftToRightAnimation}
           />
           <RootStack.Screen name="ProductDetail" component={ProductDetail} />
+          <RootStack.Screen name="ListCar" component={ListCarScreen} options={{
+            headerStyle: {
+              backgroundColor: theme.colors.navy
+            }
+          }} />
+          <RootStack.Screen name="DetailCar" component={DetailCarScreen} options={{
+            headerStyle: {
+              backgroundColor: theme.colors.navy
+            }
+          }} />
         </>
       )}
     </RootStack.Navigator>

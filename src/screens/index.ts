@@ -8,3 +8,5 @@ export {default as AuthScreen} from './AuthScreen/AuthScreen';
 export {default as RegisterScreen} from './RegisterScreen/RegisterScreen';
 export {default as RegisterPasswordScreen} from './RegisterPasswordScreen/RegisterPasswordScreen';
 export {default as RegisterVerificationScreen} from './RegisterVerificationScreen/RegisterVerificationScreen';
+export {default as ListCarScreen} from './ListCarScreen/ListCarScreen';
+export {default as DetailCarScreen} from './DetailCarScreen/DetailCarScreen';
