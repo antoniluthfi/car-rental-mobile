@@ -1,23 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ReactNode } from "react";
+import { View } from "react-native";
 import { RootState } from "redux/store";
 import { IRegisterVerificationMethod } from "types/global.types";
-
 interface IInit {
     isShowLoader: boolean;
     isShowToast: boolean;
     titleToast: string;
     messageToast: string;
+    isShowBSHeet: boolean;
+    contentBsheet ? :ReactNode;
     typeToast: 'success' | 'warning' | 'error';
-    userData: {
-        fullname: string;
-        email: string;
-        phone: string;
-        code: string;
-        wa: string;
-        password: string;
-        password_confirmation: string;
-        registration_type: IRegisterVerificationMethod;
-    }
 }
 const initialState: IInit = {
     isShowLoader: false,
@@ -25,16 +18,8 @@ const initialState: IInit = {
     titleToast: '',
     messageToast: '',
     typeToast: 'success',
-    userData: {
-        fullname: '',
-        email: '',
-        phone: '',
-        code: '',
-        wa: '',
-        password: '',
-        password_confirmation: '',
-        registration_type: 'email'
-    }
+    isShowBSHeet: false,
+    contentBsheet: undefined,
 };
 
 export const utilsSlice = createSlice({
@@ -50,21 +35,14 @@ export const utilsSlice = createSlice({
             state.titleToast = action.payload.title;
             state.typeToast = action.payload.type;
         },
-        saveFormRegister: (state, action) => {
-            console.log(action.payload)
-            state.userData.code = action.payload?.code;
-            state.userData.email = action.payload?.email;
-            state.userData.fullname = action.payload?.fullname;
-            state.userData.phone = action.payload?.phone;
-            state.userData.wa = action.payload?.wa;
-            state.userData.password = action.payload?.password;
-            state.userData.password_confirmation = action.payload?.password_confirmation;
-            state.userData.registration_type = action.payload?.registration_type;
+        toggleBSheet: (state, action)=> {
+            state.isShowBSHeet = action.payload.show;
+            state.contentBsheet = action.payload.content;
         }
     },
 });
 
-export const { toggleLoader, toggleToast, saveFormRegister } = utilsSlice.actions;
+export const { toggleLoader, toggleToast, toggleBSheet } = utilsSlice.actions;
 
 export const utilsState = (state: RootState) => state.utils;
 export default utilsSlice.reducer;

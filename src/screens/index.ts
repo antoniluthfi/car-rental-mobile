@@ -10,3 +10,5 @@ export {default as RegisterPasswordScreen} from './RegisterPasswordScreen/Regist
 export {default as RegisterVerificationScreen} from './RegisterVerificationScreen/RegisterVerificationScreen';
 export {default as ForgotPasswordScreen} from './ForgotPasswordScreen/ForgotPasswordScreen';
 export {default as ResetPasswordScreen} from './ResetPasswordScreen/ResetPasswordScreen';
+export {default as ListCarScreen} from './ListCarScreen/ListCarScreen';
+export {default as DetailCarScreen} from './DetailCarScreen/DetailCarScreen';

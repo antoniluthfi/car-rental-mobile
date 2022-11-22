@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import { IRegisterVerificationStep } from './global.types';
+import {IRegisterVerificationStep} from './global.types';
 
 type RootStackParamList = {
   ProductDetail: {productId: string};
@@ -14,6 +14,10 @@ type RootStackParamList = {
   };
   ForgotPassword: undefined;
   ResetPassword: undefined;
+  ListCar: undefined;
+  DetailCar: {
+    carId: number;
+  };
 };
 
 type RootTabParamList = {

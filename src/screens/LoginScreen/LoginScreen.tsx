@@ -37,6 +37,8 @@ const LoginScreen: FC = () => {
   const [form, setForm] = useState<IParamLogin>({
     email: 'sumaalbaroh1892@gmail.com',
     password: '12345678abc',
+    // email: '',
+    // password: '',
   });
   const [formError, setFormError] = useState<IErrorMessage>({
     error_email: '',

@@ -1,4 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native';
+import BsheetMain from 'components/BSheet/BsheetMain';
 import GlobalLoader from 'components/GlobalLoader/GlobalLoader';
 import Toast from 'components/Toast/Toast';
 import React from 'react';
@@ -10,6 +11,7 @@ import MainStackNavigator from './MainStackNavigator';
 const Router: React.FC = () => {
   const loader = useAppSelector(utilsState).isShowLoader;
   const toastState = useAppSelector(utilsState);
+  const bsheetState = useAppSelector(utilsState).isShowBSHeet;
   return (
     <View style={{flex: 1}}>
       <NavigationContainer>
@@ -22,6 +24,7 @@ const Router: React.FC = () => {
         type={toastState.typeToast}
         show={toastState.isShowToast}
       />
+      {bsheetState && <BsheetMain/>}
     </View>
   );
 };
