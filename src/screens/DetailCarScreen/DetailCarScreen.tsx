@@ -34,13 +34,13 @@ import {
   ic_uncheck,
 } from 'assets/icons';
 import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
-import DropdownFilter from 'components/DropdownFilter/DropdownFilter';
+import {h1, h3, h4, h5} from 'utils/styles';
 import {img_car_2} from 'assets/images';
 import {theme} from 'utils';
-import {FONT_SIZE_10, FONT_SIZE_12} from 'utils/typography';
 import Carousel from 'react-native-reanimated-carousel';
 import Button from 'components/Button';
+import PaginationItem from 'components/CustomCarousel/PaginationItem';
+import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 
 const DATA_INCLUDE_PRICES = [
   {
@@ -120,24 +120,21 @@ const DetailCarScreen: FC = () => {
     <View
       style={{
         flex: 1,
-        margin: 16,
       }}>
       <ScrollView>
-        <Carousel
-          // loop
-          width={WINDOW_WIDTH}
-          height={WINDOW_HEIGHT / 4}
-          // autoPlay={true}
+        <CustomCarousel
           data={[...new Array(6).keys()]}
-          scrollAnimationDuration={1000}
-          onSnapToItem={index => console.log('current index:', index)}
+          carouselTitle="Suzuki Ertiga"
           renderItem={({index}) => (
             <View
               style={{
-                justifyContent: 'center',
+                alignItems: 'center',
                 alignSelf: 'center',
               }}>
-              <Image source={img_car_2} style={{height: 199, width: 278}} />
+              <Image
+                source={img_car_2}
+                style={{height: 250, width: WINDOW_WIDTH}}
+              />
             </View>
           )}
         />
@@ -160,7 +157,7 @@ const DetailCarScreen: FC = () => {
           </View>
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1]}>Ketentuan Mobil</Text>
           <View
             style={[
@@ -187,7 +184,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1]}>Harga Termasuk</Text>
           <View
             style={[
@@ -206,7 +203,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, margin: 16}}>
           <View style={rowCenter}>
             <Image source={ic_info_blue} style={iconSize} />
             <Text style={[h1, {color: theme.colors.blue}]}>Penting</Text>
@@ -223,7 +220,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1, {marginTop: 10}]}>
             Syarat Kelengkapan Penyewaan
           </Text>
@@ -238,7 +235,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1]}>Info Lainnya</Text>
           <View
             style={[
@@ -267,7 +264,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View>
         <TouchableOpacity
-          style={[rowCenter, {marginTop: 20, marginBottom: 20}]}
+          style={[rowCenter, {marginTop: 20, marginBottom: 20, margin: 16}]}
           onPress={() => setCheckInfo(prev => !prev)}>
           <Image
             source={checkInfo ? ic_blue_check : ic_uncheck}
@@ -277,15 +274,14 @@ const DetailCarScreen: FC = () => {
         </TouchableOpacity>
       </ScrollView>
 
-      <View
-        style={styles.bottomWrapper}>
+      <View style={styles.bottomWrapper}>
         <View>
           <Text style={[h4]}>Harga Tarif Mobil</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
             IDR 600.000 <Text style={[h3, {fontSize: 12}]}>/ 3 hari</Text>
           </Text>
         </View>
-        <View style={{width: '50%', alignSelf: 'flex-end'}}>
+        <View style={{flexBasis: '50%', alignSelf: 'flex-end'}}>
           <Button title="Lanjutkan" onPress={() => {}} _theme="navy" />
         </View>
       </View>
@@ -322,6 +318,8 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.grey5,
     padding: 20,
     borderRadius: 10,
+    marginTop: 10,
+    margin: 16,
   },
   lineHorizontal: {
     borderBottomWidth: 1,
@@ -333,5 +331,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     width: '100%',
     justifyContent: 'space-between',
-  }
+    padding: 16,
+  },
 });
