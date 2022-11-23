@@ -1,4 +1,11 @@
-import {Alert, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {FC, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
@@ -13,8 +20,8 @@ import {ic_apple, ic_facebook, ic_google} from 'assets/icons';
 import {IParamLogin} from 'types/auth.types';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {authLogin} from 'redux/features/auth/authAPI';
-import { toggleLoader } from 'redux/features/utils/utilsSlice';
-import { showToast } from 'utils/Toast';
+import {toggleLoader} from 'redux/features/utils/utilsSlice';
+import {showToast} from 'utils/Toast';
 // import {toggleLoader} from 'redux/features/loader/loaderSlice';
 
 interface IErrorMessage {
@@ -61,7 +68,7 @@ const LoginScreen: FC = () => {
         if (status) {
           dispatch(toggleLoader(true));
 
-          setTimeout(async() => {
+          setTimeout(async () => {
             await dispatch(authLogin(form));
             dispatch(toggleLoader(false));
             // showToast({
@@ -70,7 +77,6 @@ const LoginScreen: FC = () => {
             //   type: 'success',
             // });
           }, 1500);
-          
         }
       } catch (error) {
         dispatch(toggleLoader(false));
@@ -78,7 +84,7 @@ const LoginScreen: FC = () => {
           message: 'Terjadi kesalahan',
           title: 'Warning',
           type: 'error',
-        })
+        });
         console.log(error);
       }
     },
@@ -115,7 +121,9 @@ const LoginScreen: FC = () => {
           value={form.password}
           errorMessage={formError.error_password}
         />
-        <Text style={[h2, styles.textFPass]}>Lupa Password?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+          <Text style={[h2, styles.textFPass]}>Lupa Password?</Text>
+        </TouchableOpacity>
       </View>
       <Button
         _theme="navy"

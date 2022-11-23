@@ -1,20 +1,17 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, { useEffect, useState } from 'react';
-import {FC} from 'react';
-import {ic_pinpoin} from 'assets/icons';
-import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import {theme} from 'utils';
-import DropdownLocation from 'components/DropdownLocation/DropdwonLocation';
-import DatePickerComponent from 'components/DatePicker/DatePicker';
+import {useNavigation} from '@react-navigation/native';
 import Button from 'components/Button';
-import {h1} from 'utils/styles';
-import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { getAllCities } from 'redux/features/appData/appDataAPI';
-import { appDataState } from 'redux/features/appData/appDataSlice';
+import DatePickerComponent from 'components/DatePicker/DatePicker';
+import DropdownLocation from 'components/DropdownLocation/DropdwonLocation';
 import moment from 'moment';
-import { ICities } from 'types/global.types';
-import { useNavigation } from '@react-navigation/native';
+import React, {FC, useEffect, useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
+import {getAllCities} from 'redux/features/appData/appDataAPI';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {ICities} from 'types/global.types';
+import {rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
+import {h1} from 'utils/styles';
 
 interface IForm {
   location: ICities;
@@ -39,12 +36,14 @@ const DailyLayout: FC = () => {
   useEffect(() => {
     dispatch(getAllCities());
   }, []);
-  
+
   return (
     <View style={{flex: 1, margin: 16}}>
       <DropdownLocation
         data={cities}
-        onSelect={(v: ICities) => {setForm({...form, location: v})}}
+        onSelect={(v: ICities) => {
+          setForm({...form, location: v});
+        }}
         label={''}
         selected={form.location}
       />
@@ -57,7 +56,11 @@ const DailyLayout: FC = () => {
           containerStyle={{
             width: '45%',
           }}
-          value={moment(form.tanggal_sewa).format('DD MMMM YYYY')}
+          value={
+            !form.tanggal_sewa
+              ? ''
+              : moment(form.tanggal_sewa).format('DD MMMM YYYY')
+          }
           content={
             <View>
               <Text style={[h1, {marginLeft: 16}]}>Tanggal Mulai Sewa</Text>
@@ -80,7 +83,7 @@ const DailyLayout: FC = () => {
             width: '45%',
           }}
           value={form?.jam_sewa}
-          onChangeTime={(v: string)=> setForm({...form, jam_sewa: v})}
+          onChangeTime={(v: string) => setForm({...form, jam_sewa: v})}
         />
       </View>
 
@@ -93,7 +96,11 @@ const DailyLayout: FC = () => {
           containerStyle={{
             width: '45%',
           }}
-          value={moment(form.tanggal_pengembalian).format('DD MMMM YYYY')}
+          value={
+            !form.tanggal_pengembalian
+              ? ''
+              : moment(form.tanggal_pengembalian).format('DD MMMM YYYY')
+          }
           content={
             <View>
               <Text style={[h1, {marginLeft: 16}]}>Tanggal Pengembalian</Text>
@@ -116,7 +123,7 @@ const DailyLayout: FC = () => {
             width: '45%',
           }}
           value={form.jam_pengembalian}
-          onChangeTime={(v: string)=> setForm({...form, jam_pengembalian: v})}
+          onChangeTime={(v: string) => setForm({...form, jam_pengembalian: v})}
         />
       </View>
 

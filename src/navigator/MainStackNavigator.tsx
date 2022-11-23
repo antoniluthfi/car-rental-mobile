@@ -3,14 +3,16 @@ import React from 'react';
 import {RootStackParamList} from '../types/navigator';
 import {
   AuthScreen,
+  ForgotPasswordScreen,
   DetailCarScreen,
   ListCarScreen,
   LoginScreen,
   OrderDetailScreen,
-  ProductDetail,
   RegisterPasswordScreen,
   RegisterScreen,
   RegisterVerificationScreen,
+  ResetPasswordScreen,
+  PaymentMethodScreen,
 } from '../screens';
 import MainTabNavigator from './MainTabNavigator';
 import {useAppSelector} from 'redux/hooks';
@@ -46,24 +48,24 @@ const MainStack: React.FC = () => {
         animationTypeForReplace: 'push',
       }}
       initialRouteName="Auth">
-      {auth.isSignIn && (
+      {!auth.isSignIn && (
         <>
           <RootStack.Screen name="Auth" component={AuthScreen} />
           <RootStack.Screen name="Login" component={LoginScreen} />
           <RootStack.Screen name="Register" component={RegisterScreen} />
           <RootStack.Screen name="RegisterPassword" component={RegisterPasswordScreen} />
           <RootStack.Screen name="RegisterVerification" component={RegisterVerificationScreen} />
-          
+          <RootStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+          <RootStack.Screen name="ResetPassword" component={ResetPasswordScreen} />
         </>
       )}
-      {!auth.isSignIn && (
+      {auth.isSignIn && (
         <>
           <RootStack.Screen
             name="MainTab"
             component={MainTabNavigator}
             options={leftToRightAnimation}
           />
-          <RootStack.Screen name="ProductDetail" component={ProductDetail} />
           <RootStack.Screen name="ListCar" component={ListCarScreen} options={{
             headerStyle: {
               backgroundColor: theme.colors.navy
@@ -75,6 +77,11 @@ const MainStack: React.FC = () => {
             }
           }} />
           <RootStack.Screen name="OrderDetail" component={OrderDetailScreen} options={{
+            headerStyle: {
+              backgroundColor: theme.colors.navy
+            }
+          }} />
+           <RootStack.Screen name="PaymentMethod" component={PaymentMethodScreen} options={{
             headerStyle: {
               backgroundColor: theme.colors.navy
             }

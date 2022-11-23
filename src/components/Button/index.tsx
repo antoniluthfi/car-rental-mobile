@@ -1,14 +1,13 @@
+import React from 'react';
 import {
   ActivityIndicator,
-  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
-import React from 'react';
-import theme from 'utils/theme';
 import {h1} from 'utils/styles';
+import theme from 'utils/theme';
 
 interface IButton {
   title: string;
