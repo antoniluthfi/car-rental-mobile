@@ -1,65 +1,54 @@
-import {
-  Alert,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React, {FC, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
 import hoc from 'components/hoc';
-import {container, iconSize, rowCenter} from 'utils/mixins';
-import {h1, h2, h3} from 'utils/styles';
+import {container} from 'utils/mixins';
+import {h1, h3} from 'utils/styles';
 import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
 import {theme} from 'utils';
 import CustomTextInput from 'components/TextInput';
 import Button from 'components/Button';
-import {ic_apple, ic_facebook, ic_google} from 'assets/icons';
-import {IParamLogin} from 'types/auth.types';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {authLogin} from 'redux/features/auth/authAPI';
+import {useAppDispatch} from 'redux/hooks';
 import {toggleLoader} from 'redux/features/utils/utilsSlice';
 import {showToast} from 'utils/Toast';
+import {IParamForgotPasswordRequest} from 'types/forgot-password.types';
+import {forgotPasswordRequest} from 'redux/features/forgotPassword/forgotPasswordAPI';
+import {useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
 // import {toggleLoader} from 'redux/features/loader/loaderSlice';
 
 interface IErrorMessage {
   error_email: string;
-  error_password: string;
 }
 
-const LoginScreen: FC = () => {
+const ForgotPasswordScreen: FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  //   const auth = useAppSelector(authSlice);
+  const forgotPasswordState = useSelector(
+    (state: RootState) => state.forgotPassword,
+  );
 
-  const [form, setForm] = useState<IParamLogin>({
+  const [form, setForm] = useState<IParamForgotPasswordRequest>({
     email: 'sumaalbaroh1892@gmail.com',
-    password: '12345678abc',
-    // email: '',
-    // password: '',
   });
   const [formError, setFormError] = useState<IErrorMessage>({
     error_email: '',
-    error_password: '',
   });
 
   useEffect(() => {
-    navigation.setOptions(
-      appBar({
-        // title: 'Home'
-      }),
-    );
-  }, [navigation]);
+    if (forgotPasswordState.status === 'success_request') {
+      navigation.navigate('ResetPassword');
+    }
+  }, [forgotPasswordState]);
 
   const methods = {
-    handleLogin: async () => {
+    handleSendEmail: async () => {
       try {
         let _errorMessage: any = {};
         let status = true;
         Object.keys(form).map((x, i) => {
-          if (!form[x as keyof IParamLogin]) {
+          if (!form[x as keyof IParamForgotPasswordRequest]) {
             status = false;
             _errorMessage[`error_${x}`] = `${x} tidak boleh kosong`;
           }
@@ -69,13 +58,8 @@ const LoginScreen: FC = () => {
           dispatch(toggleLoader(true));
 
           setTimeout(async () => {
-            await dispatch(authLogin(form));
+            await dispatch(forgotPasswordRequest(form));
             dispatch(toggleLoader(false));
-            // showToast({
-            //   message: 'Login Berhasil',
-            //   title: 'Sukses',
-            //   type: 'success',
-            // });
           }, 1500);
         }
       } catch (error) {
@@ -92,9 +76,9 @@ const LoginScreen: FC = () => {
 
   return (
     <View style={[container]}>
-      <Text style={[h1, styles.textHeader]}>Masuk</Text>
+      <Text style={[h1, styles.textHeader]}>Lupa Password</Text>
       <Text style={[h3, styles.textDesc]}>
-        Masukan Email untuk login ke Get & Ride
+        Masukan email anda untuk reset password
       </Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
@@ -109,45 +93,18 @@ const LoginScreen: FC = () => {
         />
 
         <View style={{marginTop: 18}} />
-
-        <CustomTextInput
-          placeholder="Masukan Password anda"
-          title="Password"
-          secureTextEntry
-          onChangeText={v => {
-            setForm({...form, password: v});
-            setFormError({...formError, [`error_password`]: ''});
-          }}
-          value={form.password}
-          errorMessage={formError.error_password}
-        />
-        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={[h2, styles.textFPass]}>Lupa Password?</Text>
-        </TouchableOpacity>
       </View>
       <Button
         _theme="navy"
-        title="Login"
+        title="Kirim Email"
         styleWrapper={{marginTop: 40}}
-        onPress={methods.handleLogin}
+        onPress={methods.handleSendEmail}
       />
-      <Text style={[h3, styles.textDesc, styles.textOpsiLogin]}>
-        Atau login menggunakan
-      </Text>
-      <View style={[rowCenter, styles.iconWrapper]}>
-        <Image source={ic_google} style={iconSize} />
-        <Image source={ic_facebook} style={iconSize} />
-        <Image source={ic_apple} style={iconSize} />
-      </View>
-      <Text style={[h2, styles.textRegister]}>
-        Belum punya akun?{' '}
-        <Text style={styles.textRegister2}>Daftar Sekarang</Text>
-      </Text>
     </View>
   );
 };
 
-export default hoc(LoginScreen);
+export default hoc(ForgotPasswordScreen);
 
 const styles = StyleSheet.create({
   textHeader: {
@@ -156,7 +113,7 @@ const styles = StyleSheet.create({
   },
   textDesc: {
     fontSize: FONT_SIZE_12,
-    color: theme.colors.grey5,
+    color: theme.colors.black,
     marginTop: 12,
   },
   inputWrapper: {

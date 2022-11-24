@@ -12,11 +12,9 @@ import hoc from 'components/hoc';
 import {useNavigation} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
 import {
-  ic_arrow_left,
   ic_arrow_left_white,
   ic_blue_check,
   ic_care,
-  ic_check,
   ic_disable,
   ic_dog,
   ic_driver,

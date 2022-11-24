@@ -1,8 +1,8 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
 import BottomSheet, {WINDOW_HEIGHT, WINDOW_WIDTH} from '@gorhom/bottom-sheet';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {toggleBSheet, utilsState} from 'redux/features/utils/utilsSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 
 const BsheetMain = () => {
   // ref
@@ -13,14 +13,14 @@ const BsheetMain = () => {
   const isShowBsheet = useAppSelector(utilsState);
 
   // variables
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
+  const snapPoints = useMemo(() => ['50%', '90%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback(
     (index: number) => {
       console.log('handleSheetChanges', index);
       if (index === -1) {
-          dispatch(toggleBSheet(false));
+        dispatch(toggleBSheet(false));
       }
     },
     [isShowBsheet.isShowBSHeet],
@@ -28,10 +28,7 @@ const BsheetMain = () => {
 
   // renders
   return (
-    <View
-      style={[styles.container, 
-      {height: WINDOW_HEIGHT}
-      ]}>
+    <View style={[styles.container, {height: WINDOW_HEIGHT}]}>
       <BottomSheet
         ref={bottomSheetRef}
         index={1}
@@ -39,7 +36,7 @@ const BsheetMain = () => {
         onChange={handleSheetChanges}
         enablePanDownToClose={true}>
         <View style={styles.contentContainer}>
-          {isShowBsheet.isShowBSHeet && isShowBsheet?.contentBsheet}
+          {isShowBsheet?.contentBsheet && isShowBsheet?.contentBsheet}
         </View>
       </BottomSheet>
     </View>
