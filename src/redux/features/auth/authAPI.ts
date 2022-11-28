@@ -16,7 +16,7 @@ export const authLogin = createAsyncThunk(
         `/api/authorization`,
         { ...params, scope: 'app' }
       );
-      console.log(response.data)
+      // console.log(response.data)
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',
@@ -43,7 +43,7 @@ export const  authRegister = createAsyncThunk(
         `/api/authorization/register`,
         { ...params }
       );
-      console.log('respn = ', response.data);
+      // console.log('respn = ', response.data);
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',

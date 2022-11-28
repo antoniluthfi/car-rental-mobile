@@ -1,6 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ApiResponse} from 'apisauce';
-import axios from 'axios';
 import {
   IParamForgotPasswordRequest,
   IParamsResetPassword,
@@ -78,7 +77,7 @@ export const forgotPasswordReset = createAsyncThunk(
   async (
     payload: IParamsResetPassword,
     thunkAPI: any,
-  ): Promise<IResponApi<any>> => {
+  ): Promise<IResponApi<IResultResetPassword>> => {
     try {
       const session = thunkAPI.getState().forgotPassword.data.session;
 

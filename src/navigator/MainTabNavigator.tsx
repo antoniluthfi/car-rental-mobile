@@ -8,11 +8,11 @@ import {
   AccountScreen,
 } from '../screens';
 import BottomNavigator from './BottomNavigator';
-import { useFocusEffect } from '@react-navigation/native';
-import { Animated } from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
+import {Animated} from 'react-native';
+import {theme} from 'utils';
 
 const RootTab = createBottomTabNavigator<RootTabParamList>();
-
 
 const FadeInView = (props: any) => {
   const fadeAnim = React.useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
@@ -43,7 +43,6 @@ const FadeInView = (props: any) => {
   );
 };
 
-
 const FadeHomeScreen = (props: any) => (
   <FadeInView>
     <HomeScreen {...props} />
@@ -68,19 +67,24 @@ const FadeAccountScreen = (props: any) => (
   </FadeInView>
 );
 
-
 const MainTab: React.FC = () => {
-  
   return (
     <RootTab.Navigator
       screenOptions={{
         headerShown: false,
       }}
       initialRouteName={'Home'}
-     
       tabBar={(props: any) => <BottomNavigator {...props} />}>
       <RootTab.Screen name="Home" component={FadeHomeScreen} />
-      <RootTab.Screen name="Booking" component={FadeBookingScreen} />
+      <RootTab.Screen
+        name="Booking"
+        component={FadeBookingScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: theme.colors.navy,
+          },
+        }}
+      />
       <RootTab.Screen name="Inbox" component={FadeInboxScreen} />
       <RootTab.Screen name="Account" component={FadeAccountScreen} />
     </RootTab.Navigator>

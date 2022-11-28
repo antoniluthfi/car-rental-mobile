@@ -46,7 +46,6 @@ export const authSlice = createSlice({
       })
       .addCase(authLogin.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.auth = action.payload;
         state.isLoading = false;
         state.isSignIn = true;
@@ -62,14 +61,12 @@ export const authSlice = createSlice({
       })
       .addCase(authRegister.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log('token = ', action.payload)
         state.token = action.payload;
         state.isLoading = false;
       })
       .addCase(authRegister.rejected, (state, action) => {
         state.status = 'failed';
         state.isLoading = false;
-        console.log('err = ', action.payload);
         state.errors = action.payload;
       })
 
@@ -79,7 +76,6 @@ export const authSlice = createSlice({
       })
       .addCase(authRegisterConfirmation.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.auth = action.payload;
         state.isLoading = false;
         state.isSignIn = true;
@@ -87,7 +83,6 @@ export const authSlice = createSlice({
       .addCase(authRegisterConfirmation.rejected, (state, action) => {
         state.status = 'failed';
         state.isLoading = false;
-        console.log('err = ', action.payload);
         state.errors = action.payload;
       })
       ;

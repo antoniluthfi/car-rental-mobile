@@ -58,7 +58,7 @@ export const appDataSlice = createSlice({
       })
       .addCase(getAllCities.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
+        // console.log(action.payload)
         state.cities = action.payload;
         state.isLoading = false;
       })

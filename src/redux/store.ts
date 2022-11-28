@@ -3,12 +3,15 @@ import authReducer from './features/auth/authSlice';
 import forgotPasswordReducer from './features/forgotPassword/forgotPasswordSlice';
 import utilsReducer from './features/utils/utilsSlice';
 import appDataReducer from './features/appData/appDataSlice';
+import myBookingReducer from './features/myBooking/myBookingSlice';
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     utils: utilsReducer,
     forgotPassword: forgotPasswordReducer,
-    appData: appDataReducer
+    appData: appDataReducer,
+    myBooking: myBookingReducer
   },
 });
 

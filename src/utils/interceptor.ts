@@ -1,6 +1,7 @@
 import {create} from 'apisauce';
-import { URL_API } from "@env";
-// const URL_API = 
+import {URL_API} from '@env';
+import {store} from 'redux/store';
+// const URL_API =
 
 export const apiWithInterceptor = create({
   baseURL: URL_API,
@@ -21,7 +22,9 @@ export const apiWithInterceptor = create({
 
 apiWithInterceptor.addAsyncRequestTransform(request => async () => {
   request.baseURL = URL_API;
-  console.log(URL_API)
+  request.headers['Authorization'] = `Bearer ${
+    store.getState().auth.auth.access_token
+  }`;
 });
 
 apiWithInterceptor.addAsyncResponseTransform(response => async () => {

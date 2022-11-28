@@ -41,7 +41,7 @@ const inputOtp: FC = () => {
       return '0' + mDisplay + ':' + (sDisplay > 9 ? sDisplay : '0' + sDisplay);
     },
     handleConfirmationOTp:async()=> {
-      console.log(token)
+      // console.log(token)
       let res = await dispatch(authRegisterConfirmation({
         session: token.session,
         token: token.token,

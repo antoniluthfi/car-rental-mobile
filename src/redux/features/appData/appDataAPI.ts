@@ -15,7 +15,7 @@ export const getAllCities = createAsyncThunk(
       let response: ApiResponse<any> = await apiWithInterceptor.get(
         `/api/cities`,
       );
-      console.log(response.data)
+      // console.log(response.data)
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',

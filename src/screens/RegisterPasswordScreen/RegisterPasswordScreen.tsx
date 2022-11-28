@@ -74,7 +74,7 @@ const RegisterPasswordScreen: FC = () => {
   }, [navigation]);
 
   useEffect(() => {
-    console.log('errorRegister = ', errorRegister);
+    // console.log('errorRegister = ', errorRegister);
     let _errorMessage: any = {};
     errorRegister?.detail?.map((x: {field: string; message: string;})=> {
       _errorMessage[`error_${x.field}`] = x?.message;
