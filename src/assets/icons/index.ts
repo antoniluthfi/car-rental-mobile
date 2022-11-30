@@ -60,3 +60,5 @@ export const ic_info_error = require('./ic_info_error.png');
 export const ic_shield = require('./ic_shield.png');
 export const ic_copy = require('./ic_copy.png');
 export const ic_qr = require('./ic_qr.png');
+export const ic_rounded_arrow_left = require('./ic_rounded_arrow_left.png')
+export const ic_rounded_arrow_right = require('./ic_rounded_arrow_right.png')
