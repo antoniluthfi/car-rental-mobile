@@ -55,3 +55,4 @@ export const ic_gopay = require('./ic_gopay.png');
 export const ic_dana = require('./ic_dana.png');
 export const ic_bca = require('./ic_bca.png');
 export const ic_confirmation = require('./ic_confirmation.png');
+export const ic_download = require('./ic_download.png');

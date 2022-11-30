@@ -4,6 +4,7 @@ import forgotPasswordReducer from './features/forgotPassword/forgotPasswordSlice
 import utilsReducer from './features/utils/utilsSlice';
 import appDataReducer from './features/appData/appDataSlice';
 import myBookingReducer from './features/myBooking/myBookingSlice';
+import garagesReducer from './features/garages/garagesSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     utils: utilsReducer,
     forgotPassword: forgotPasswordReducer,
     appData: appDataReducer,
-    myBooking: myBookingReducer
+    myBooking: myBookingReducer,
+    garages: garagesReducer
   },
 });
 

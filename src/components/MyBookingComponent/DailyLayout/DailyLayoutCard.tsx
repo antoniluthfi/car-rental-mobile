@@ -38,7 +38,13 @@ export const paymentStatusStyle = (paymentStatus: string) => {
 };
 
 const DailyLayoutCard: React.FC<IProps> = ({item}) => {
-  const {order_status, expired_time, order_detail, disbursement} = item;
+  const {
+    order_status,
+    expired_time,
+    order_detail,
+    disbursement,
+    transaction_key,
+  } = item;
 
   const navigation = useNavigation();
   const myBooking = useAppSelector(state => state.myBooking);
@@ -106,7 +112,11 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
         <Button
           _theme="navy"
           title="Detail Pesanan"
-          onPress={() => {}}
+          onPress={() =>
+            navigation.navigate('DailyBookingOrderDetailScreen', {
+              transaction_key,
+            })
+          }
           styleWrapper={{marginTop: 21}}
         />
       )}

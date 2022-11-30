@@ -39,22 +39,29 @@ export const getOrders = createAsyncThunk(
   },
 );
 
-// export const getOrderById = createAsyncThunk(
-//   'booking/getOrderById',
-//   async (id, thunkAPI) => {
-//     const accessToken = thunkAPI.getState().auth.data.access_token;
-//     try {
-//       const res = await axios
-//         .get(`${url}/api/orders/${id}`, {
-//           headers: { Authorization: `Bearer ${accessToken}` },
-//         })
-//         .then((res) => res);
-//       return res.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+export const getOrderById = createAsyncThunk(
+  'booking/getOrderById',
+  async (id: string, thunkAPI: any): Promise<IResponApi<any>> => {
+    try {
+      const response: ApiResponse<any> = await apiWithInterceptor.get(
+        `/api/orders/${id}`,
+      );
+
+      if (!response.ok) {
+        showToast({
+          message: 'Terjadi kesalahan',
+          title: 'Warning',
+          type: 'error',
+        });
+        return thunkAPI.rejectWithValue(response.data) as any;
+      }
+
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  },
+);
 
 export const getVehicleOrder = createAsyncThunk(
   'booking/getVehicleById',

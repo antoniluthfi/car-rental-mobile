@@ -7,9 +7,12 @@ import { useNavigation } from '@react-navigation/native';
 import { rowCenter } from 'utils/mixins';
 import { ic_arrow_left_white } from 'assets/icons';
 import { h1 } from 'utils/styles';
+import { useAppDispatch } from 'redux/hooks';
+import { getAllGarages } from 'redux/features/garages/garagesAPI';
 
 const MyBooking: React.FC = () => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     navigation.setOptions(
@@ -34,6 +37,10 @@ const MyBooking: React.FC = () => {
       }),
     );
   }, [navigation]);
+
+  useEffect(() => {
+    dispatch(getAllGarages());
+  }, []);
 
   return (
     <View style={styles.container}>

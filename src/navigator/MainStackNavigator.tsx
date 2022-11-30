@@ -17,7 +17,8 @@ import {
 import MainTabNavigator from './MainTabNavigator';
 import {useAppSelector} from 'redux/hooks';
 import {authState} from 'redux/features/auth/authSlice';
-import { theme } from 'utils';
+import {theme} from 'utils';
+import DailyBookingOrderDetailScreen from 'screens/DailyBookingOrderDetailScreen/DailyBookingOrderDetailScreen';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -53,10 +54,22 @@ const MainStack: React.FC = () => {
           <RootStack.Screen name="Auth" component={AuthScreen} />
           <RootStack.Screen name="Login" component={LoginScreen} />
           <RootStack.Screen name="Register" component={RegisterScreen} />
-          <RootStack.Screen name="RegisterPassword" component={RegisterPasswordScreen} />
-          <RootStack.Screen name="RegisterVerification" component={RegisterVerificationScreen} />
-          <RootStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-          <RootStack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+          <RootStack.Screen
+            name="RegisterPassword"
+            component={RegisterPasswordScreen}
+          />
+          <RootStack.Screen
+            name="RegisterVerification"
+            component={RegisterVerificationScreen}
+          />
+          <RootStack.Screen
+            name="ForgotPassword"
+            component={ForgotPasswordScreen}
+          />
+          <RootStack.Screen
+            name="ResetPassword"
+            component={ResetPasswordScreen}
+          />
         </>
       )}
       {auth.isSignIn && (
@@ -66,26 +79,51 @@ const MainStack: React.FC = () => {
             component={MainTabNavigator}
             options={leftToRightAnimation}
           />
-          <RootStack.Screen name="ListCar" component={ListCarScreen} options={{
-            headerStyle: {
-              backgroundColor: theme.colors.navy
-            }
-          }} />
-          <RootStack.Screen name="DetailCar" component={DetailCarScreen} options={{
-            headerStyle: {
-              backgroundColor: theme.colors.navy
-            }
-          }} />
-          <RootStack.Screen name="OrderDetail" component={OrderDetailScreen} options={{
-            headerStyle: {
-              backgroundColor: theme.colors.navy
-            }
-          }} />
-           <RootStack.Screen name="PaymentMethod" component={PaymentMethodScreen} options={{
-            headerStyle: {
-              backgroundColor: theme.colors.navy
-            }
-          }} />
+          <RootStack.Screen
+            name="ListCar"
+            component={ListCarScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+            }}
+          />
+          <RootStack.Screen
+            name="DetailCar"
+            component={DetailCarScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+            }}
+          />
+          <RootStack.Screen
+            name="OrderDetail"
+            component={OrderDetailScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+            }}
+          />
+          <RootStack.Screen
+            name="PaymentMethod"
+            component={PaymentMethodScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+            }}
+          />
+          <RootStack.Screen
+            name="DailyBookingOrderDetailScreen"
+            component={DailyBookingOrderDetailScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+            }}
+          />
         </>
       )}
     </RootStack.Navigator>

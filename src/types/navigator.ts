@@ -20,6 +20,9 @@ type RootStackParamList = {
   };
   OrderDetail: undefined;
   PaymentMethod: undefined;
+  DailyBookingOrderDetailScreen: {
+    transaction_key: string;
+  };
 };
 
 type RootTabParamList = {

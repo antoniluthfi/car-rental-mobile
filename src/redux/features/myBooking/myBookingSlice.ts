@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getOrders, getVehicleOrder} from './myBookingAPI';
+import {getOrderById, getOrders, getVehicleOrder} from './myBookingAPI';
 
 interface IInitState {
   data: {
@@ -75,20 +75,20 @@ export const booking = createSlice({
         state.isLoading = false;
         state.data = action.payload as any;
       })
-      // .addCase(getOrderById.pending, (state) => {
-      //   state.isSelectedLoading = true;
-      //   state.isError = false;
-      //   state.errorMessage = '';
-      // })
-      // .addCase(getOrderById.rejected, (state, action) => {
-      //   state.isSelectedLoading = false;
-      //   state.isError = true;
-      //   state.errorMessage = action.payload;
-      // })
-      // .addCase(getOrderById.fulfilled, (state, action) => {
-      //   state.isSelectedLoading = false;
-      //   state.selected = action.payload;
-      // })
+      .addCase(getOrderById.pending, state => {
+        state.isSelectedLoading = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(getOrderById.rejected, (state, action) => {
+        state.isSelectedLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      })
+      .addCase(getOrderById.fulfilled, (state, action) => {
+        state.isSelectedLoading = false;
+        state.selected = action.payload;
+      })
       .addCase(getVehicleOrder.pending, state => {
         state.isError = false;
         state.errorMessage = '';
