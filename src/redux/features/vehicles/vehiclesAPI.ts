@@ -6,64 +6,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiKind, ICities, IResponApi } from 'types/global.types';
 import { IParamConfirmation, IParamLogin, IParamRegister, IResultLogin } from 'types/auth.types';
 import { showToast } from 'utils/Toast';
+import { IPaginationVehicle, IResponVehicles, IVehicles } from 'types/vehicles';
 
-export const getAllCities = createAsyncThunk(
-  'appData/getAllCities',
-  async function (params, thunkAPI)
-  : Promise<IResponApi<ICities> | any> {
+export const getVehicles = createAsyncThunk(
+  'appData/getVehicles',
+  async function (params: string, thunkAPI)
+  : Promise<IResponApi<IResponVehicles> | any> {
     try {
+      console.log('params = ', params)
       let response: ApiResponse<any> = await apiWithInterceptor.get(
-        `/api/cities`,
-      );
-      // console.log(response.data)
-      if(!response.ok) {
-        showToast({
-          message: response?.data?.slug || 'Terjadi kesalahan',
-          title: 'Warning',
-          type: 'error',
-        })
-        return thunkAPI.rejectWithValue(response.data);
-      }
-
-      return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const getUser = createAsyncThunk(
-  'appData/getUser',
-  async function (params, thunkAPI)
-  : Promise<IResponApi<any> | any> {
-    try {
-      let response: ApiResponse<any> = await apiWithInterceptor.get(
-        `/api/profile?includes=PersonalInfos`,
-      );
-      console.log(response.data)
-      if(!response.ok) {
-        showToast({
-          message: response?.data?.slug || 'Terjadi kesalahan',
-          title: 'Warning',
-          type: 'error',
-        })
-        return thunkAPI.rejectWithValue(response.data);
-      }
-
-      return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const getGarages = createAsyncThunk(
-  'appData/getGarages',
-  async function (params, thunkAPI)
-  : Promise<IResponApi<any> | any> {
-    try {
-      let response: ApiResponse<any> = await apiWithInterceptor.get(
-        `/api/garages`,
+        `/api/vehicles`+params,
       );
       console.log(response.data)
       if(!response.ok) {
@@ -83,13 +35,14 @@ export const getGarages = createAsyncThunk(
 );
 
 
-export const getPayments = createAsyncThunk(
-  'appData/getPayments',
+export const getBrands = createAsyncThunk(
+  'appData/getBrands',
   async function (params, thunkAPI)
   : Promise<IResponApi<any> | any> {
     try {
+      console.log('params = ', params)
       let response: ApiResponse<any> = await apiWithInterceptor.get(
-        `/api/payments`,
+        `/api/brands`,
       );
       console.log(response.data)
       if(!response.ok) {
@@ -107,3 +60,30 @@ export const getPayments = createAsyncThunk(
     }
   }
 );
+
+export const getVehiclesById = createAsyncThunk(
+  'appData/getVehiclesById',
+  async function (params: number, thunkAPI)
+  : Promise<IResponApi<any> | any> {
+    try {
+      console.log('params = ', params)
+      let response: ApiResponse<any> = await apiWithInterceptor.get(
+        `/api/vehicles/${params}`,
+      );
+      console.log(response.data)
+      if(!response.ok) {
+        showToast({
+          message: response?.data?.slug || 'Terjadi kesalahan',
+          title: 'Warning',
+          type: 'error',
+        })
+        return thunkAPI.rejectWithValue(response.data);
+      }
+
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+

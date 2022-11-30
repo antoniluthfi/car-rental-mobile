@@ -7,7 +7,8 @@ import React, {FC, useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
 import {getAllCities} from 'redux/features/appData/appDataAPI';
-import {appDataState} from 'redux/features/appData/appDataSlice';
+import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
+import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {ICities} from 'types/global.types';
 import {rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
@@ -19,6 +20,13 @@ interface IForm {
   tanggal_pengembalian: string;
   jam_sewa: string;
   jam_pengembalian: string;
+}
+interface IFormError {
+  error_location: string;
+  error_tanggal_sewa: string;
+  error_tanggal_pengembalian: string;
+  error_jam_sewa: string;
+  error_jam_pengembalian: string;
 }
 
 const DailyLayout: FC = () => {
@@ -33,9 +41,88 @@ const DailyLayout: FC = () => {
     jam_pengembalian: '',
   });
 
+  const [formError, setFormError] = useState<IFormError>({
+    error_location: '',
+    error_tanggal_sewa: '',
+    error_tanggal_pengembalian: '',
+    error_jam_sewa: '',
+    error_jam_pengembalian: '',
+  });
+
   useEffect(() => {
     dispatch(getAllCities());
   }, []);
+
+  const methods = {
+    handleSearch: () => {
+      let _errorMessage: any = {};
+        let status = true;
+        console.log(form.tanggal_sewa);
+        if(!form.location.name) {
+          console.log('masuk sini');
+          
+          _errorMessage['error_location'] = 'Masukan lokasi anda';
+          status = false;
+        }
+        if(!form.tanggal_sewa) {
+          _errorMessage['error_tanggal_sewa'] = 'Masukan Tanggal terlebih dahulu';
+          status = false;
+        }
+        if(!form.tanggal_pengembalian) {
+          _errorMessage['error_tanggal_pengembalian'] = 'Masukan Tanggal terlebih dahulu';
+          status = false;
+        }
+        if(!form.jam_sewa) {
+          _errorMessage['error_jam_sewa'] = 'Pilih Jam Anda';
+          status = false;
+        }
+        setFormError({..._errorMessage})
+
+        if(!status) return;
+        
+
+      dispatch(
+        saveFormDaily({
+          limit: 10,
+          location: form?.location?.name,
+          start_booking_date: `${moment(form?.tanggal_sewa)
+            .format('YYYY-MM-DD')
+            .toString()}`,
+          end_booking_date: `${moment(form?.tanggal_pengembalian)
+            .format('YYYY-MM-DD')
+            .toString()}`,
+          start_trip: `${moment(form?.tanggal_sewa)
+            .format('YYYY-MM-DD')
+            .toString()} ${
+            form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
+            ':' +
+            form.jam_sewa.slice(-form.jam_sewa.length / 2)
+          }`,
+          end_trip: `${moment(form?.tanggal_pengembalian)
+            .format('YYYY-MM-DD')
+            .toString()} ${
+            form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
+            ':' +
+            form.jam_sewa.slice(-form.jam_sewa.length / 2)
+          }`,
+          passanger: 4,
+          price_sort: 'asc',
+          page: 1,
+          start_booking_time: `${
+            form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
+            ':' +
+            form.jam_sewa.slice(-form.jam_sewa.length / 2)
+          }`,
+          end_booking_time: `${
+            form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
+            ':' +
+            form.jam_sewa.slice(-form.jam_sewa.length / 2)
+          }`,
+        }),
+      );
+      navigation.navigate('ListCar');
+    },
+  };
 
   return (
     <View style={{flex: 1, margin: 16}}>
@@ -43,12 +130,14 @@ const DailyLayout: FC = () => {
         data={cities}
         onSelect={(v: ICities) => {
           setForm({...form, location: v});
+          setFormError({...formError, error_location: ''});
         }}
         label={''}
         selected={form.location}
+        errorMessage={formError.error_location}
       />
       <View
-        style={[rowCenter, {justifyContent: 'space-between', marginTop: 30}]}>
+        style={[{justifyContent: 'space-between', marginTop: 30, flexDirection: 'row'}]}>
         <DatePickerComponent
           mode="date"
           placeholder="Pilih Tanggal"
@@ -69,11 +158,23 @@ const DailyLayout: FC = () => {
                   width: WINDOW_WIDTH,
                   height: WINDOW_HEIGHT,
                 }}
-                onDateChange={v => setForm({...form, tanggal_sewa: v})}
+                onDateChange={v => {
+                  setTimeout(() => {
+                    dispatch(
+                      toggleBSheet({
+                        content: <View />,
+                        show: false,
+                      }),
+                    );
+                  }, 200);
+                  setForm({...form, tanggal_sewa: v});
+                  setFormError({...formError, error_tanggal_sewa: ''});
+                }}
                 mode={'calendar'}
               />
             </View>
           }
+          errorMessage={formError.error_tanggal_sewa}
         />
         <DatePickerComponent
           mode="clock"
@@ -83,12 +184,16 @@ const DailyLayout: FC = () => {
             width: '45%',
           }}
           value={form?.jam_sewa}
-          onChangeTime={(v: string) => setForm({...form, jam_sewa: v})}
+          onChangeTime={(v: string) => {
+            setForm({...form, jam_sewa: v})
+            setFormError({...formError, error_jam_sewa: ''});
+          }}
+          errorMessage={formError.error_jam_sewa}
         />
       </View>
 
       <View
-        style={[rowCenter, {justifyContent: 'space-between', marginTop: 30}]}>
+        style={[{justifyContent: 'space-between', marginTop: 30, flexDirection: 'row'}]}>
         <DatePickerComponent
           mode="date"
           placeholder="Pilih Tanggal"
@@ -109,11 +214,23 @@ const DailyLayout: FC = () => {
                   width: WINDOW_WIDTH,
                   height: WINDOW_HEIGHT,
                 }}
-                onDateChange={v => setForm({...form, tanggal_pengembalian: v})}
+                onDateChange={v => {
+                  setTimeout(() => {
+                    dispatch(
+                      toggleBSheet({
+                        // content: <View />,
+                        show: false,
+                      }),
+                    );
+                  }, 200);
+                  setForm({...form, tanggal_pengembalian: v});
+                  setFormError({...formError, error_tanggal_pengembalian: ''});
+                }}
                 mode={'calendar'}
               />
             </View>
           }
+          errorMessage={formError.error_tanggal_pengembalian}
         />
         <DatePickerComponent
           mode="clock"
@@ -122,17 +239,19 @@ const DailyLayout: FC = () => {
           containerStyle={{
             width: '45%',
           }}
-          value={form.jam_pengembalian}
-          onChangeTime={(v: string) => setForm({...form, jam_pengembalian: v})}
+          value={form.jam_sewa}
+          // onChangeTime={(v: string) => setForm({...form, jam_pengembalian: v})}
+          disableTime={true}
+          errorMessage={formError.error_jam_sewa}
         />
       </View>
 
       <Button
         _theme="navy"
         title="Cari Mobil"
-        onPress={() => navigation.navigate('ListCar')}
+        onPress={methods.handleSearch}
         styleWrapper={{
-          marginTop: 20,
+          marginTop: 40,
         }}
       />
     </View>

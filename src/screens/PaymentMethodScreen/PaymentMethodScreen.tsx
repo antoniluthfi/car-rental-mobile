@@ -6,6 +6,7 @@ import {
   ic_bca,
   ic_confirmation,
   ic_dana,
+  ic_facebook,
   ic_gopay,
   ic_jcb,
   ic_mandiri,
@@ -25,19 +26,48 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {useAppSelector} from 'redux/hooks';
+import {IPayments, METHOD_PAYMENT} from 'types/global.types';
 import {theme} from 'utils';
 import {showBSheet} from 'utils/BSheet';
 import {iconCustomSize, iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
 import {h1, h4} from 'utils/styles';
 
+const DATA_METHOD_PAYMENT: {
+  title: string;
+  method: METHOD_PAYMENT;
+  icon?: any;
+}[] = [
+  {
+    title: 'Card Payment',
+    method: 'Credit Card',
+    icon: [ic_visa, ic_master_card, ic_jcb, ic_american_express],
+  },
+  {
+    title: 'Virtual Account',
+    method: 'Virtual Account',
+  },
+  {
+    title: 'Transfer',
+    method: 'Manual Transfer',
+  },
+  {
+    title: 'Instant Payment',
+    method: 'E-money',
+  },
+];
+
 const OrderDetailScreen: FC = () => {
   const navigation = useNavigation();
+  const paymentMethods = useAppSelector(appDataState).payments;
   const [form, setForm] = useState({
     filter_car_type: '',
     filter_shit: '',
     filter_koper: '',
   });
   const [checkInfo, setCheckInfo] = useState(false);
+  console.log(paymentMethods);
 
   useEffect(() => {
     navigation.setOptions(
@@ -64,7 +94,7 @@ const OrderDetailScreen: FC = () => {
   }, [navigation]);
 
   const methods = {
-    handleConfirmation: () => {
+    handleConfirmation: (data: IPayments) => {
       showBSheet({
         content: (
           <View
@@ -84,14 +114,57 @@ const OrderDetailScreen: FC = () => {
               <Button
                 _theme="navy"
                 title="Iya, Lanjutkan"
-                onPress={() => {}}
+                onPress={() => {
+                  let screen = '';
+                  if (data.method === 'Credit Card') {
+                    navigation.navigate('CardPayment', {selectedPayment: data});
+                  } else if (data.method === 'Manual Transfer') {
+                    navigation.navigate('BankTransfer', {
+                      selectedPayment: data,
+                    });
+                  } else if (data.method === 'E-money') {
+                    navigation.navigate('InstantPayment', {
+                      selectedPayment: data,
+                    });
+                  } else if (data.method === 'Virtual Account') {
+                    navigation.navigate('VirtualAccount', {
+                      selectedPayment: data,
+                    });
+                  }
+
+                  methods.handleConfirmation(data);
+                }}
                 styleWrapper={{marginBottom: 20}}
               />
-              <Button _theme="white" title="Kembali" onPress={() => {}} />
+              <Button
+                _theme="white"
+                title="Kembali"
+                onPress={() => methods.handleConfirmation(data)}
+              />
             </View>
           </View>
         ),
       });
+    },
+    handleIcon: (ic: string) => {
+      switch (ic) {
+        case 'BCA':
+          return ic_bca;
+        case 'BNI':
+          return ic_bca;
+        case 'BRI':
+          return ic_bca;
+        case 'Mandiri':
+          return ic_mandiri;
+        case 'Permata':
+          return ic_bca;
+        case 'Gopay':
+          return ic_gopay;
+          break;
+
+        default:
+          break;
+      }
     },
   };
 
@@ -102,181 +175,63 @@ const OrderDetailScreen: FC = () => {
           flex: 1,
         }}>
         <ScrollView>
-          <View style={{margin: 16}}>
-            <Text style={h1}>Pilih Metode Pembayaran</Text>
-            <Text style={[h1, {fontSize: 14, marginTop: 25}]}>
-              Card Payment
-            </Text>
+          {DATA_METHOD_PAYMENT.map((_payment, i) => (
+            <View style={{margin: 16}}>
+              <Text style={[h1, {fontSize: 14, marginTop: 25}]}>
+                {_payment.title}
+              </Text>
 
-            <TouchableOpacity
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', marginTop: 14},
-              ]}
-              onPress={methods.handleConfirmation}>
-              <Text style={h4}>Kartu Kredit / Debit</Text>
+              {paymentMethods
+                .filter(obj => obj.method === _payment.method)
+                ?.map((x, i) => (
+                  <TouchableOpacity
+                    key={i}
+                    style={[
+                      rowCenter,
+                      {justifyContent: 'space-between', marginTop: 14},
+                    ]}
+                    onPress={() => methods.handleConfirmation(x)}>
+                    <Text style={h4}>{x.code || x.description}</Text>
 
-              <View
-                style={[
-                  rowCenter,
-                  {width: '40%', justifyContent: 'space-between'},
-                ]}>
-                <Image source={ic_visa} style={iconSize} />
-                <Image source={ic_master_card} style={iconSize} />
-                <Image source={ic_jcb} style={iconSize} />
-                <Image source={ic_american_express} style={iconSize} />
-                <Image
-                  source={ic_arrow_right}
-                  style={iconCustomSize(12)}
-                  resizeMode={'contain'}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.lineHorizontal} />
+                    <View
+                      style={[
+                        rowCenter,
+                        {
+                          width: '40%',
+                          justifyContent:
+                            (x.code || x.description) === 'Credit Card'
+                              ? 'space-between'
+                              : 'flex-end',
+                        },
+                      ]}>
+                      {(x.code || x.description) === 'Credit Card' ? (
+                        <>
+                          <Image source={ic_visa} style={iconSize} />
+                          <Image source={ic_master_card} style={iconSize} />
+                          <Image source={ic_jcb} style={iconSize} />
+                          <Image
+                            source={ic_american_express}
+                            style={iconSize}
+                          />
+                        </>
+                      ) : (
+                        <Image
+                          source={methods.handleIcon(x.code)}
+                          style={[iconSize, {marginRight: 10}]}
+                        />
+                      )}
 
-          <View style={{margin: 16}}>
-            <Text style={[h1, {fontSize: 14, marginTop: 25}]}>
-              Virtual Account
-            </Text>
-
-            <TouchableOpacity
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', marginTop: 14},
-              ]}>
-              <Text style={h4}>BCA</Text>
-
-              <View
-                style={[
-                  rowCenter,
-                  // {width: '40%', justifyContent: 'space-between'},
-                ]}>
-                <Image source={ic_bca} style={[iconSize, {marginRight: 10}]} />
-                <Image
-                  source={ic_arrow_right}
-                  style={iconCustomSize(12)}
-                  resizeMode={'contain'}
-                />
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', marginTop: 14},
-              ]}>
-              <Text style={h4}>Mandiri</Text>
-
-              <View
-                style={[
-                  rowCenter,
-                  // {width: '40%', justifyContent: 'space-between'},
-                ]}>
-                <Image
-                  source={ic_mandiri}
-                  style={[iconSize, {marginRight: 10}]}
-                />
-                <Image
-                  source={ic_arrow_right}
-                  style={iconCustomSize(12)}
-                  resizeMode={'contain'}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.lineHorizontal} />
-
-          <View style={{margin: 16}}>
-            <Text style={[h1, {fontSize: 14, marginTop: 25}]}>
-              Virtual Account
-            </Text>
-
-            <TouchableOpacity
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', marginTop: 14},
-              ]}>
-              <Text style={h4}>Transfer</Text>
-
-              <View
-                style={[
-                  rowCenter,
-                  {width: '20%', justifyContent: 'space-between'},
-                ]}>
-                <Image source={ic_bca} style={[iconSize, {marginRight: 10}]} />
-                <Image
-                  source={ic_mandiri}
-                  style={[iconSize, {marginRight: 10}]}
-                />
-                <Image
-                  source={ic_arrow_right}
-                  style={iconCustomSize(12)}
-                  resizeMode={'contain'}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.lineHorizontal} />
-
-          <View style={{margin: 16}}>
-            <Text style={[h1, {fontSize: 14, marginTop: 25}]}>
-              Instant Payment
-            </Text>
-
-            <TouchableOpacity
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', marginTop: 14},
-              ]}>
-              <Text style={h4}>OVO</Text>
-
-              <View style={[rowCenter]}>
-                <Image source={ic_ovo} style={[iconSize, {marginRight: 10}]} />
-                <Image
-                  source={ic_arrow_right}
-                  style={iconCustomSize(12)}
-                  resizeMode={'contain'}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', marginTop: 14},
-              ]}>
-              <Text style={h4}>Gopay</Text>
-
-              <View style={[rowCenter]}>
-                <Image
-                  source={ic_gopay}
-                  style={[iconSize, {marginRight: 10}]}
-                />
-                <Image
-                  source={ic_arrow_right}
-                  style={iconCustomSize(12)}
-                  resizeMode={'contain'}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', marginTop: 14},
-              ]}>
-              <Text style={h4}>DANA</Text>
-
-              <View style={[rowCenter]}>
-                <Image source={ic_dana} style={[iconSize, {marginRight: 10}]} />
-                <Image
-                  source={ic_arrow_right}
-                  style={iconCustomSize(12)}
-                  resizeMode={'contain'}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.lineHorizontal} />
+                      <Image
+                        source={ic_arrow_right}
+                        style={iconCustomSize(12)}
+                        resizeMode={'contain'}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                ))}
+              <View style={[styles.lineHorizontal, {marginVertical: 10}]} />
+            </View>
+          ))}
         </ScrollView>
       </View>
     </>

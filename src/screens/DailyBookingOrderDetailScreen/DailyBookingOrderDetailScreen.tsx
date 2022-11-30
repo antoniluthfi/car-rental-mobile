@@ -18,7 +18,7 @@ import {img_car_2} from 'assets/images';
 import {RootStackParamList} from 'types/navigator';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
-import {IMAGE} from '@env';
+import {URL_IMAGE} from '@env';
 import {idrFormatter} from 'utils/functions';
 
 type DailyBookingOrderDetailScreenRouteProp = RouteProp<
@@ -108,7 +108,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
   useEffect(() => {
     if (vehicle?.photo?.length) {
       const photos = vehicle?.photo?.map((vPhoto: any) => ({
-        url: IMAGE + vPhoto?.name,
+        url: URL_IMAGE + vPhoto?.name,
       }));
 
       setImages(photos);

@@ -126,6 +126,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     // alignSelf: 'auto',
     // marginLeft: 20,
+    alignItems: 'center',
+    marginTop: 10,
     shadowColor: '#000000',
     shadowRadius: 4,
     shadowOffset: {height: 4, width: 0},
@@ -138,7 +140,9 @@ const styles = StyleSheet.create({
   item: {
     paddingHorizontal: 10,
     paddingVertical: 10,
-    borderBottomWidth: 1,
+    marginTop: 5
+    // borderBottomWidth: 1,
+    // borderBottomColor: theme.colors.grey5
   },
   wrapper: {
     borderWidth: 1,

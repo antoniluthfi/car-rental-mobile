@@ -13,6 +13,10 @@ import {
   RegisterVerificationScreen,
   ResetPasswordScreen,
   PaymentMethodScreen,
+  CardPaymentScreen,
+  VirtualAccountScreen,
+  BankTransferScreen,
+  InstantPaymentScreen,
 } from '../screens';
 import MainTabNavigator from './MainTabNavigator';
 import {useAppSelector} from 'redux/hooks';
@@ -118,6 +122,42 @@ const MainStack: React.FC = () => {
           <RootStack.Screen
             name="DailyBookingOrderDetailScreen"
             component={DailyBookingOrderDetailScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+            }}
+          />
+          <RootStack.Screen
+            name="CardPayment"
+            component={CardPaymentScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+            }}
+          />
+          <RootStack.Screen
+            name="VirtualAccount"
+            component={VirtualAccountScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+            }}
+          />
+          <RootStack.Screen
+            name="BankTransfer"
+            component={BankTransferScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+            }}
+          />
+          <RootStack.Screen
+            name="InstantPayment"
+            component={InstantPaymentScreen}
             options={{
               headerStyle: {
                 backgroundColor: theme.colors.navy,

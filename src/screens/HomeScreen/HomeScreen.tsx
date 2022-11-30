@@ -25,17 +25,15 @@ import {Image} from 'react-native';
 import {img_car} from 'assets/images';
 import {theme} from 'utils';
 import HomeTopNavigation from 'components/HomeComponent/HomeTopNavigation';
+import { useAppDispatch } from 'redux/hooks';
+import { getUser } from 'redux/features/appData/appDataAPI';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
-
-  // useEffect(() => {
-  //   navigation.setOptions(
-  //     appBar({
-  //       title: 'Home'
-  //     })
-  //   );
-  // }, [navigation]);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getUser());
+  }, [navigation]);
 
   return (
     <View style={[styles.wrapper]}>

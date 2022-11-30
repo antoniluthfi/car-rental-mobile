@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { toggleToast } from "redux/features/utils/utilsSlice";
-import { store } from "redux/store";
+import store from "redux/store";
 
 interface IToast {
     title: string;
