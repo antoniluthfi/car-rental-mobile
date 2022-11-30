@@ -1,4 +1,4 @@
-import {ic_pinpoin} from 'assets/icons';
+import {ic_info_error, ic_pinpoin} from 'assets/icons';
 import React, {FC, ReactElement, useRef, useState} from 'react';
 import {
   FlatList,
@@ -9,10 +9,10 @@ import {
   View,
   Image,
 } from 'react-native';
-import { ICities } from 'types/global.types';
+import {ICities} from 'types/global.types';
 import {theme} from 'utils';
-import {iconSize, rowCenter} from 'utils/mixins';
-import { h1, h5 } from 'utils/styles';
+import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import {h1, h5} from 'utils/styles';
 // import { Icon } from 'react-native-elements';
 
 interface Props {
@@ -22,9 +22,16 @@ interface Props {
     | any;
   onSelect: (item: ICities) => void | any;
   selected: any;
+  errorMessage: string;
 }
 
-const Dropdown: FC<Props> = ({label, data, onSelect, selected}) => {
+const Dropdown: FC<Props> = ({
+  label,
+  data,
+  onSelect,
+  selected,
+  errorMessage,
+}) => {
   const DropdownButton: any = useRef();
   const [visible, setVisible] = useState(false);
   const [_selected, setSelected] = useState<any>(undefined);
@@ -58,9 +65,7 @@ const Dropdown: FC<Props> = ({label, data, onSelect, selected}) => {
 
   const renderItem = ({item}: any): ReactElement<any, any> => (
     <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
-      <Text>
-        {item.name}
-      </Text>
+      <Text>{item.name}</Text>
     </TouchableOpacity>
   );
 
@@ -89,13 +94,30 @@ const Dropdown: FC<Props> = ({label, data, onSelect, selected}) => {
         ref={DropdownButton}
         style={[
           rowCenter,
-          styles.wrapper
+          styles.wrapper,
+          {
+            borderBottomColor: errorMessage
+              ? theme.colors.red
+              : theme.colors.grey5,
+          },
         ]}
         onPress={toggleDropdown}>
         {renderDropdown()}
         <Image source={ic_pinpoin} style={iconSize} />
-        <Text style={[h5, {marginLeft: 10}]}>{selected?.name || 'Pilih Lokasi Anda'}</Text>
+        <Text style={[h5, {marginLeft: 10}]}>
+          {selected?.name || 'Pilih Lokasi Anda'}
+        </Text>
       </TouchableOpacity>
+
+      {errorMessage && (
+        <View style={[rowCenter, {alignSelf: 'flex-end', marginTop: 5}]}>
+          <Image source={ic_info_error} style={iconCustomSize(15)} />
+          <Text style={[h1, {fontSize: 12, color: theme.colors.red}]}>
+            {' '}
+            {errorMessage}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -137,10 +159,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     borderBottomWidth: 1,
+    borderBottomColor: theme.colors.grey6,
   },
   wrapper: {
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.grey3,
+    // borderBottomColor: theme.colors.grey5,
     paddingVertical: 10,
     marginTop: 10,
   },

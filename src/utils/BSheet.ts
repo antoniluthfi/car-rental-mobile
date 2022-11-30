@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux"
 import { toggleBSheet, toggleToast } from "redux/features/utils/utilsSlice";
-import { store } from "redux/store";
+import store from "redux/store";
 
 interface IToast {
     content:ReactNode;

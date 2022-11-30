@@ -26,13 +26,25 @@ import DropdownFilter from 'components/DropdownFilter/DropdownFilter';
 import {img_car_2} from 'assets/images';
 import {theme} from 'utils';
 import {FONT_SIZE_10, FONT_SIZE_12} from 'utils/typography';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {getBrands, getVehicles} from 'redux/features/vehicles/vehiclesAPI';
+import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
+import {IFormDaily} from 'types/global.types';
+import {IVehicles} from 'types/vehicles';
+import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
+import {URL_IMAGE} from '@env';
 
 const ListCarScreen: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const formDaily = useAppSelector(appDataState).formDaily;
+  const vehicles = useAppSelector(vehiclesState).vehicles;
+  const brands = useAppSelector(vehiclesState).brands;
   const [form, setForm] = useState({
     filter_car_type: '',
-    filter_shit: '',
+    filter_seat: 4,
     filter_koper: '',
+    brands: '',
   });
 
   useEffect(() => {
@@ -56,7 +68,7 @@ const ListCarScreen: FC = () => {
           </TouchableOpacity>
         ),
         trailing: (
-          <Text style={[h5, {color: 'white', marginRight: 16}]}>
+          <Text style={[h5, {color: 'white', marginRight: 16}]} onPress={()=> navigation.goBack()}>
             Ubah Pencarian
           </Text>
         ),
@@ -64,10 +76,31 @@ const ListCarScreen: FC = () => {
     );
   }, [navigation]);
 
-  const renderItem = ({item, index}: any) => (
-    <TouchableOpacity style={[rowCenter, styles.cardWrapper]} onPress={()=> navigation.navigate('DetailCar', {carId: 1})}>
+  useEffect(() => {
+    let params: string = '?';
+    console.log(form?.brands);
+    let _formdaily: IFormDaily = {...formDaily, passanger: form.filter_seat};
+
+    if (form.brands) {
+      _formdaily.brand = brands.find(x => x.name === form.brands)?.id!;
+    }
+    Object.keys(_formdaily).map(x => {
+      params += `${x}=${_formdaily[x as keyof IFormDaily]}&`;
+    });
+    console.log(params);
+    dispatch(getVehicles(params));
+    dispatch(getBrands());
+  }, [navigation, form.brands, form.filter_seat]);
+
+  const renderItem = ({item, index}: {item: IVehicles; index: number}) => (
+    <TouchableOpacity
+      style={[rowCenter, styles.cardWrapper]}
+      onPress={() => {
+        navigation.navigate('DetailCar', {vehicle_id: item.id})
+        dispatch(saveFormDaily({...formDaily, vehicle_id: item.id}));
+      }}>
       <Image
-        source={img_car_2}
+        source={{uri: URL_IMAGE + item?.photo?.[0]?.name}}
         style={{
           height: 86,
           width: 120,
@@ -75,7 +108,7 @@ const ListCarScreen: FC = () => {
       />
       <View style={{width: '60%'}}>
         <View style={[rowCenter, {justifyContent: 'space-between'}]}>
-          <Text style={[h1]}>Suzuki Ertiga</Text>
+          <Text style={[h1]}>{item.name}</Text>
           <View style={styles.machineWrapper}>
             <Text
               style={[h3, {color: theme.colors.navy, fontSize: FONT_SIZE_12}]}>
@@ -84,30 +117,39 @@ const ListCarScreen: FC = () => {
           </View>
         </View>
 
-        <View style={[rowCenter, {justifyContent: 'space-between', marginTop: 10}]}>
+        <View
+          style={[rowCenter, {justifyContent: 'space-between', marginTop: 10}]}>
           <View style={[rowCenter, {}]}>
             <View style={[rowCenter]}>
               <View style={[rowCenter]}>
                 <Image source={ic_seat} style={iconSize} />
-                <Text style={[h2, {marginLeft: 5}]}>4</Text>
+                <Text style={[h2, {marginLeft: 5}]}>{item.max_passanger}</Text>
               </View>
             </View>
             <View style={[rowCenter, styles.wrapperLineVertical]}>
               <Image source={ic_koper} style={iconSize} />
-              <Text style={[h2, {marginLeft: 5}]}>4</Text>
+              <Text style={[h2, {marginLeft: 5}]}>{item.max_suitcase}</Text>
             </View>
           </View>
 
-          <View style={[rowCenter, {width: '40%', justifyContent: 'space-between'}]}>
-            <Image source={ic_nosmoke} style={iconSize} />
-            <Image source={ic_dog} style={iconSize} />
-            <Image source={ic_disable} style={iconSize} />
+          <View style={[rowCenter, {width: '40%'}]}>
+            {item.smoke_allowed && (
+              <Image source={ic_nosmoke} style={iconSize} />
+            )}
+            {item.pet_allowed && (
+              <Image source={ic_dog} style={[iconSize, {marginRight: 10}]} />
+            )}
+            {item.disablility_allowed && (
+              <Image source={ic_disable} style={iconSize} />
+            )}
           </View>
         </View>
 
         <View style={{marginTop: 10}}>
           <Text style={[h4, {fontSize: 12}]}>Harga Tarif Mobil</Text>
-          <Text style={[h1, {color: theme.colors.blue, marginTop: 5}]}>IDR 600.000 <Text style={[h4]}>/ 1 Hari</Text></Text>
+          <Text style={[h1, {color: theme.colors.blue, marginTop: 5}]}>
+            IDR {item.price} <Text style={[h4]}>/ 1 Hari</Text>
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -120,26 +162,16 @@ const ListCarScreen: FC = () => {
       }}>
       <ScrollView horizontal style={{maxHeight: 50}}>
         <DropdownFilter
-          data={[
-            {name: 'Daihatsu'},
-            {name: 'Honda'},
-            {name: 'Suzuki'},
-            {name: 'Daihatsu'},
-            {name: 'Honda'},
-            {name: 'Suzuki'},
-            {name: 'Daihatsu'},
-            {name: 'Honda'},
-            {name: 'Suzuki'},
-          ]}
+          data={brands}
           label={'Merek Mobil'}
-          onSelect={v => setForm({...form, filter_car_type: v.name})}
-          selected={form.filter_car_type}
+          onSelect={v => setForm({...form, brands: v.name})}
+          selected={form.brands}
         />
         <DropdownFilter
           data={[{name: '4'}, {name: '5'}, {name: '6'}]}
           label={'Kursi'}
-          onSelect={v => setForm({...form, filter_shit: v.name})}
-          selected={form.filter_shit}
+          onSelect={v => setForm({...form, filter_seat: parseInt(v.name)})}
+          selected={form.filter_seat}
         />
         <DropdownFilter
           data={[{name: '1'}, {name: '2'}, {name: '3'}]}
@@ -148,7 +180,8 @@ const ListCarScreen: FC = () => {
           selected={form.filter_koper}
         />
       </ScrollView>
-      <FlatList data={[1, 2]} renderItem={renderItem} />
+      <View style={{marginTop: 20}} />
+      <FlatList data={vehicles} renderItem={renderItem} />
     </View>
   );
 };

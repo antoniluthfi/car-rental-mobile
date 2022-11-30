@@ -1,5 +1,8 @@
-import {create} from 'apisauce';
+import { create } from 'apisauce';
 import { URL_API } from "@env";
+import store from 'redux/store';
+import { refreshToken } from 'redux/features/auth/authAPI';
+import Axios from 'axios'
 // const URL_API = 
 
 export const apiWithInterceptor = create({
@@ -21,15 +24,26 @@ export const apiWithInterceptor = create({
 
 apiWithInterceptor.addAsyncRequestTransform(request => async () => {
   request.baseURL = URL_API;
-  console.log(URL_API)
+  const TOKEN = store.getState().auth.auth.access_token;
+  console.log('TOKEN= . ', TOKEN);
+  request.headers['Authorization'] = 'Bearer ' + TOKEN;
+  console.log(URL_API + request.url)
 });
 
-apiWithInterceptor.addAsyncResponseTransform(response => async () => {
+apiWithInterceptor.addAsyncResponseTransform(response => async (res) => {
+  // console.log('res int = ', JSON.stringify(res))
   //   if(response.config.url.includes("/api/v1.0/resetCache")){
   //     const deviceId = await DeviceId()
   //     await storage.save("DEVICE_ID", deviceId)
   //     applySnapshot(InterceporData, {deviceId: deviceId, token: ""})
   //   }
+  if (res.status === 401 && res.problem === 'CLIENT_ERROR') {
+    const refresh_token = store?.getState()?.auth?.auth.refresh_token;
+    console.log('refresh_token ', refresh_token)
+    let refresh = await store.dispatch(refreshToken(refresh_token!));
+    // console.log('ss ', refresh);
+    // return Axios.request(response.config!);
+  }
 
   if (response.data != null) {
     return response.data;

@@ -13,3 +13,7 @@ export { default as RegisterPasswordScreen } from './RegisterPasswordScreen/Regi
 export { default as RegisterScreen } from './RegisterScreen/RegisterScreen';
 export { default as RegisterVerificationScreen } from './RegisterVerificationScreen/RegisterVerificationScreen';
 export { default as ResetPasswordScreen } from './ResetPasswordScreen/ResetPasswordScreen';
+export { default as CardPaymentScreen } from './CardPaymentScreen/CardPaymentScreen';
+export {default as VirtualAccountScreen} from './VirtualAccountScreen/VirtualAccountScreen';
+export {default as BankTransferScreen} from './BankTransferScreen/BankTransferScreen';
+export {default as InstantPaymentScreen} from './InstantPaymentScreen/InstantPaymentScreen';

@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {IRegisterVerificationStep} from './global.types';
+import {IPayments, IRegisterVerificationStep} from './global.types';
 
 type RootStackParamList = {
   ProductDetail: {productId: string};
@@ -16,10 +16,22 @@ type RootStackParamList = {
   ResetPassword: undefined;
   ListCar: undefined;
   DetailCar: {
-    carId: number;
+    vehicle_id: number;
   };
   OrderDetail: undefined;
   PaymentMethod: undefined;
+  CardPayment: {
+    selectedPayment: IPayments;
+  };
+  VirtualAccount: {
+    selectedPayment: IPayments
+  };
+  BankTransfer: {
+    selectedPayment: IPayments;
+  }
+  InstantPayment: {
+    selectedPayment: IPayments;
+  }
 };
 
 type RootTabParamList = {

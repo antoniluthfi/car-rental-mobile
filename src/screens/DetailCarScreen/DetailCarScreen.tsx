@@ -1,22 +1,9 @@
+import { URL_IMAGE } from '@env';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {
-  FlatList,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import React, {FC, useEffect, useState} from 'react';
-import hoc from 'components/hoc';
-import {useNavigation} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
-import {
-  ic_arrow_left,
   ic_arrow_left_white,
   ic_blue_check,
   ic_care,
-  ic_check,
   ic_disable,
   ic_dog,
   ic_driver,
@@ -33,14 +20,27 @@ import {
   ic_transisi,
   ic_uncheck,
 } from 'assets/icons';
-import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
-import DropdownFilter from 'components/DropdownFilter/DropdownFilter';
 import {img_car_2} from 'assets/images';
-import {theme} from 'utils';
-import {FONT_SIZE_10, FONT_SIZE_12} from 'utils/typography';
-import Carousel from 'react-native-reanimated-carousel';
+import appBar from 'components/AppBar/AppBar';
 import Button from 'components/Button';
+import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
+import hoc from 'components/hoc';
+import React, {FC, useEffect, useState} from 'react';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { getVehiclesById } from 'redux/features/vehicles/vehiclesAPI';
+import { vehiclesState } from 'redux/features/vehicles/vehiclesSlice';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { RootStackParamList } from 'types/navigator';
+import {theme} from 'utils';
+import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
+import {h1, h3, h4, h5} from 'utils/styles';
 
 const DATA_INCLUDE_PRICES = [
   {
@@ -83,14 +83,15 @@ const INFO_RENT = [
   'SIM A/SIM Internasional',
   'Lainnya (jika penyedia membutuhkan verifikasi tambahan)',
 ];
+type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'DetailCar'>;
 const DetailCarScreen: FC = () => {
   const navigation = useNavigation();
-  const [form, setForm] = useState({
-    filter_car_type: '',
-    filter_shit: '',
-    filter_koper: '',
-  });
+  const route = useRoute<ProfileScreenRouteProp>();
+  const dispatch = useAppDispatch();
+  const vehicle = useAppSelector(vehiclesState).vehicleById;
+  
   const [checkInfo, setCheckInfo] = useState(false);
+  
 
   useEffect(() => {
     navigation.setOptions(
@@ -116,28 +117,30 @@ const DetailCarScreen: FC = () => {
     );
   }, [navigation]);
 
+  useEffect(() => {
+    dispatch(getVehiclesById(route.params.vehicle_id));
+  }, []);
+  
+
   return (
     <View
       style={{
         flex: 1,
-        margin: 16,
       }}>
       <ScrollView>
-        <Carousel
-          // loop
-          width={WINDOW_WIDTH}
-          height={WINDOW_HEIGHT / 4}
-          // autoPlay={true}
-          data={[...new Array(6).keys()]}
-          scrollAnimationDuration={1000}
-          onSnapToItem={index => console.log('current index:', index)}
-          renderItem={({index}) => (
+        <CustomCarousel
+          data={vehicle.photo}
+          carouselTitle={vehicle.name}
+          renderItem={({item, index}) => (
             <View
               style={{
-                justifyContent: 'center',
+                alignItems: 'center',
                 alignSelf: 'center',
               }}>
-              <Image source={img_car_2} style={{height: 199, width: 278}} />
+              <Image
+                source={{uri: URL_IMAGE + item?.name}}
+                style={{height: 250, width: WINDOW_WIDTH}}
+              />
             </View>
           )}
         />
@@ -146,12 +149,12 @@ const DetailCarScreen: FC = () => {
           <View style={{alignItems: 'center'}}>
             <Image source={ic_seat} style={iconSize} />
             <Text style={[h1, {paddingVertical: 5}]}>Jumlah Kursi</Text>
-            <Text style={h3}>4 Kursi</Text>
+            <Text style={h3}>{vehicle.max_passanger} Kursi</Text>
           </View>
           <View style={{alignItems: 'center'}}>
             <Image source={ic_koper} style={iconSize} />
             <Text style={[h1, {paddingVertical: 5}]}>Detail Koper</Text>
-            <Text style={h3}>4 Koper</Text>
+            <Text style={h3}>{vehicle.max_suitcase} Koper</Text>
           </View>
           <View style={{alignItems: 'center'}}>
             <Image source={ic_transisi} style={iconSize} />
@@ -160,34 +163,34 @@ const DetailCarScreen: FC = () => {
           </View>
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1]}>Ketentuan Mobil</Text>
           <View
             style={[
               rowCenter,
               {flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 5},
             ]}>
-            <View style={[rowCenter, {marginBottom: 17}]}>
+            {vehicle.smoke_allowed && <View style={[rowCenter, {marginBottom: 17}]}>
               <Image source={ic_nosmoke} style={iconSize} />
               <Text style={[h4, {marginLeft: 10}]}>Dilarang Merokok</Text>
-            </View>
+            </View>}
 
-            <View style={[rowCenter, {marginBottom: 17}]}>
+            {vehicle.disablility_allowed && <View style={[rowCenter, {marginBottom: 17}]}>
               <Image source={ic_disable} style={iconSize} />
               <Text style={[h4, {marginLeft: 10}]}>Disabilitas Support</Text>
-            </View>
+            </View>}
 
-            <View style={[rowCenter, {marginBottom: 17}]}>
+            {vehicle.pet_allowed && <View style={[rowCenter, {marginBottom: 17}]}>
               <Image source={ic_dog} style={iconSize} />
               <Text style={[h4, {marginLeft: 10}]}>
                 Peliharaan Diperbolehkan
               </Text>
-            </View>
+            </View>}
           </View>
           <View style={styles.lineHorizontal} />
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1]}>Harga Termasuk</Text>
           <View
             style={[
@@ -206,7 +209,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, margin: 16}}>
           <View style={rowCenter}>
             <Image source={ic_info_blue} style={iconSize} />
             <Text style={[h1, {color: theme.colors.blue}]}>Penting</Text>
@@ -223,7 +226,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1, {marginTop: 10}]}>
             Syarat Kelengkapan Penyewaan
           </Text>
@@ -238,7 +241,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View>
 
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1]}>Info Lainnya</Text>
           <View
             style={[
@@ -267,7 +270,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View>
         <TouchableOpacity
-          style={[rowCenter, {marginTop: 20, marginBottom: 20}]}
+          style={[rowCenter, {marginTop: 20, marginBottom: 20, margin: 16}]}
           onPress={() => setCheckInfo(prev => !prev)}>
           <Image
             source={checkInfo ? ic_blue_check : ic_uncheck}
@@ -277,16 +280,19 @@ const DetailCarScreen: FC = () => {
         </TouchableOpacity>
       </ScrollView>
 
-      <View
-        style={styles.bottomWrapper}>
+      <View style={styles.bottomWrapper}>
         <View>
           <Text style={[h4]}>Harga Tarif Mobil</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
-            IDR 600.000 <Text style={[h3, {fontSize: 12}]}>/ 3 hari</Text>
+            IDR {(vehicle.price)} <Text style={[h3, {fontSize: 12}]}>/ 1 hari</Text>
           </Text>
         </View>
-        <View style={{width: '50%', alignSelf: 'flex-end'}}>
-          <Button title="Lanjutkan" onPress={() => navigation.navigate('OrderDetail')} _theme="navy" />
+        <View style={{flexBasis: '50%', alignSelf: 'flex-end'}}>
+          <Button
+            title="Lanjutkan"
+            onPress={() => navigation.navigate('OrderDetail')}
+            _theme="navy"
+          />
         </View>
       </View>
     </View>
@@ -322,6 +328,8 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.grey5,
     padding: 20,
     borderRadius: 10,
+    marginTop: 10,
+    margin: 16,
   },
   lineHorizontal: {
     borderBottomWidth: 1,
@@ -333,5 +341,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     width: '100%',
     justifyContent: 'space-between',
-  }
+    padding: 16,
+  },
 });

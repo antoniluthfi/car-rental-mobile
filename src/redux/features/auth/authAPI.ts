@@ -84,3 +84,29 @@ export const  authRegisterConfirmation = createAsyncThunk(
     }
   }
 );
+
+
+export const  refreshToken = createAsyncThunk(
+  'auth/refreshToken',
+  async function (params: string, thunkAPI)
+  : Promise<IResponApi<any> | any> {
+    try {
+      let response: ApiResponse<any> = await apiWithInterceptor.post(
+        `/api/authorization/refresh`,
+        { refresh_token: params },
+      );
+      if(!response.ok) {
+        showToast({
+          message: response.data?.slug || 'Terjadi kesalahan',
+          title: 'Warning',
+          type: 'error',
+        })
+        return thunkAPI.rejectWithValue(response.data);
+      }
+
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

@@ -31,3 +31,79 @@ export const getAllCities = createAsyncThunk(
     }
   }
 );
+
+export const getUser = createAsyncThunk(
+  'appData/getUser',
+  async function (params, thunkAPI)
+  : Promise<IResponApi<any> | any> {
+    try {
+      let response: ApiResponse<any> = await apiWithInterceptor.get(
+        `/api/profile?includes=PersonalInfos`,
+      );
+      console.log(response.data)
+      if(!response.ok) {
+        showToast({
+          message: response?.data?.slug || 'Terjadi kesalahan',
+          title: 'Warning',
+          type: 'error',
+        })
+        return thunkAPI.rejectWithValue(response.data);
+      }
+
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getGarages = createAsyncThunk(
+  'appData/getGarages',
+  async function (params, thunkAPI)
+  : Promise<IResponApi<any> | any> {
+    try {
+      let response: ApiResponse<any> = await apiWithInterceptor.get(
+        `/api/garages`,
+      );
+      console.log(response.data)
+      if(!response.ok) {
+        showToast({
+          message: response?.data?.slug || 'Terjadi kesalahan',
+          title: 'Warning',
+          type: 'error',
+        })
+        return thunkAPI.rejectWithValue(response.data);
+      }
+
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
+export const getPayments = createAsyncThunk(
+  'appData/getPayments',
+  async function (params, thunkAPI)
+  : Promise<IResponApi<any> | any> {
+    try {
+      let response: ApiResponse<any> = await apiWithInterceptor.get(
+        `/api/payments`,
+      );
+      console.log(response.data)
+      if(!response.ok) {
+        showToast({
+          message: response?.data?.slug || 'Terjadi kesalahan',
+          title: 'Warning',
+          type: 'error',
+        })
+        return thunkAPI.rejectWithValue(response.data);
+      }
+
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
