@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   ViewStyle,
+  TextStyle,
 } from 'react-native';
 import {h1} from 'utils/styles';
 import theme from 'utils/theme';
@@ -13,6 +14,7 @@ interface IButton {
   title: string;
   _theme: ITheme;
   styleWrapper?: ViewStyle;
+  styleText?: TextStyle;
   onPress: () => void;
   isLoading?: boolean;
 }
@@ -31,7 +33,14 @@ const TEXT_COLORS = {
   transparent: theme.colors.white,
 };
 
-const Button = ({title, _theme, styleWrapper, onPress, isLoading}: IButton) => {
+const Button = ({
+  title,
+  _theme,
+  styleWrapper,
+  styleText,
+  onPress,
+  isLoading,
+}: IButton) => {
   return (
     <TouchableOpacity
       onPressOut={onPress}
@@ -41,7 +50,9 @@ const Button = ({title, _theme, styleWrapper, onPress, isLoading}: IButton) => {
         ButtonTheme(_theme, isLoading),
         styleWrapper,
       ]}>
-      {!isLoading && <Text style={[h1, TextTheme(_theme)]}>{title}</Text>}
+      {!isLoading && (
+        <Text style={[h1, TextTheme(_theme), styleText]}>{title}</Text>
+      )}
       {isLoading && (
         <ActivityIndicator size={'small'} color={theme.colors.white} />
       )}

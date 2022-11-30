@@ -51,6 +51,21 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
 
   const [orderState, setOrderState] = useState<string>('');
 
+  const getButtonWidth = () => {
+    if (!showPaymentButtonCode.includes(slugify(orderState))) {
+      return {flexBasis: '49%'};
+    }
+
+    if (
+      slugify(orderState) === 'checkout' &&
+      disbursement?.payment?.method === 'Credit Card'
+    ) {
+      return {flexBasis: '49%'};
+    }
+
+    return {};
+  };
+
   useEffect(() => {
     setOrderState(order_status);
 
@@ -108,43 +123,63 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
         </View>
       </View>
 
-      {orderState !== 'expired' && (
-        <Button
-          _theme="navy"
-          title="Detail Pesanan"
-          onPress={() =>
-            navigation.navigate('DailyBookingOrderDetailScreen', {
-              transaction_key,
-            })
-          }
-          styleWrapper={{marginTop: 21}}
-        />
-      )}
-
-      {!showPaymentButtonCode.includes(slugify(orderState)) && (
-        <Button
-          _theme="navy"
-          title={
-            disbursement
-              ? orderState == 'RECONFIRMATION'
-                ? 'Reupload'
-                : 'Bayar Sekarang'
-              : 'Pilih Pembayaran'
-          }
-          onPress={() => {}}
-          styleWrapper={{marginTop: 21}}
-        />
-      )}
-
-      {slugify(orderState) === 'checkout' &&
-        disbursement?.payment?.method === 'Credit Card' && (
+      <View style={{flexDirection: 'row'}}>
+        {orderState !== 'expired' && (
           <Button
             _theme="navy"
-            title="Verifikasi"
-            onPress={() => {}}
-            styleWrapper={{marginTop: 21}}
+            title="Detail Pesanan"
+            onPress={() =>
+              navigation.navigate('DailyBookingOrderDetailScreen', {
+                transaction_key,
+              })
+            }
+            styleWrapper={{
+              marginTop: 21,
+              marginRight: 5,
+              ...getButtonWidth(),
+            }}
           />
         )}
+
+        {!showPaymentButtonCode.includes(slugify(orderState)) && (
+          <Button
+            _theme="navy"
+            title={
+              disbursement
+                ? orderState == 'RECONFIRMATION'
+                  ? 'Reupload'
+                  : 'Bayar Sekarang'
+                : 'Pilih Pembayaran'
+            }
+            onPress={() => {}}
+            styleWrapper={{
+              marginTop: 21,
+              ...getButtonWidth(),
+              backgroundColor: '#FFFFFF',
+              borderWidth: 1,
+              borderColor: 'navy',
+            }}
+            styleText={{color: 'navy'}}
+          />
+        )}
+
+        {slugify(orderState) === 'checkout' &&
+          disbursement?.payment?.method === 'Credit Card' && (
+            <Button
+              _theme="navy"
+              title="Verifikasi"
+              onPress={() => {}}
+              styleWrapper={{
+                marginTop: 21,
+                ...getButtonWidth(),
+                backgroundColor: '#FFFFFF',
+                borderWidth: 1,
+                borderColor: 'navy',
+              }}
+              styleText={{color: 'navy'}}
+            />
+          )}
+      </View>
     </View>
   );
 };
