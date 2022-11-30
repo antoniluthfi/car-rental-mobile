@@ -27,7 +27,9 @@ import {
   View,
 } from 'react-native';
 import {appDataState} from 'redux/features/appData/appDataSlice';
-import {useAppSelector} from 'redux/hooks';
+import {createDisbursements} from 'redux/features/order/orderAPI';
+import {orderState} from 'redux/features/order/orderSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {IPayments, METHOD_PAYMENT} from 'types/global.types';
 import {theme} from 'utils';
 import {showBSheet} from 'utils/BSheet';
@@ -60,14 +62,16 @@ const DATA_METHOD_PAYMENT: {
 
 const OrderDetailScreen: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   const paymentMethods = useAppSelector(appDataState).payments;
+  const order = useAppSelector(orderState).order;
   const [form, setForm] = useState({
     filter_car_type: '',
     filter_shit: '',
     filter_koper: '',
   });
   const [checkInfo, setCheckInfo] = useState(false);
-  console.log(paymentMethods);
+  // console.log(paymentMethods);
 
   useEffect(() => {
     navigation.setOptions(
@@ -127,9 +131,7 @@ const OrderDetailScreen: FC = () => {
                       selectedPayment: data,
                     });
                   } else if (data.method === 'Virtual Account') {
-                    navigation.navigate('VirtualAccount', {
-                      selectedPayment: data,
-                    });
+                    methods.handlePaymentVA(data);
                   }
 
                   methods.handleConfirmation(data);
@@ -145,6 +147,18 @@ const OrderDetailScreen: FC = () => {
           </View>
         ),
       });
+    },
+    handlePaymentVA: async (data: IPayments) => {
+      let res = await dispatch(
+        createDisbursements({
+          payment_type_id: data.id,
+          transaction_key: order.transaction_key,
+        }),
+      );
+      console.log(res)
+      if (res.type.includes('fulfilled')) {
+        navigation.navigate('VirtualAccount', {selectedPayment: data});
+      }
     },
     handleIcon: (ic: string) => {
       switch (ic) {

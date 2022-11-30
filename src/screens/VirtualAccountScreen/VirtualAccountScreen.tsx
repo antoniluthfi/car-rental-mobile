@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import hoc from 'components/hoc';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
@@ -33,7 +33,12 @@ import {showBSheet} from 'utils/BSheet';
 import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {RootStackParamList} from 'types/navigator';
 import {currencyFormat} from 'utils/currencyFormat';
-
+import {useAppSelector} from 'redux/hooks';
+import {orderState} from 'redux/features/order/orderSlice';
+import moment from 'moment';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
+const TIMER = 299;
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
   'Lalu verifikasi Debit Card anda dengan menekan button “Verifikasi”. Setelah Debit Card terverifikasi maka anda bisa melanjutkan pembayaran.',
@@ -41,8 +46,21 @@ const FAQ = [
 ];
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'VirtualAccount'>;
 const VirtualAccountScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
+  const [seconds, setSeconds] = useState(TIMER);
+  const order = useAppSelector(orderState).order;
+  const disbursements = useAppSelector(orderState).disbursements;
   const route = useRoute<ProfileScreenRouteProp>();
+  const formDaily = useAppSelector(appDataState).formDaily;
+  const vehicles = useAppSelector(vehiclesState);
+
+  useEffect(() => {
+    if (seconds > 0) {
+      setTimeout(() => setSeconds(seconds - 1), 1000);
+    } else {
+      setSeconds(0);
+    }
+  });
 
   useEffect(() => {
     navigation.setOptions(
@@ -91,6 +109,15 @@ const VirtualAccountScreen = () => {
         ),
       });
     },
+    secondsToHms: (d: any) => {
+      d = Number(d);
+      var m = Math.floor((d % 3600) / 60);
+      var s = Math.floor((d % 3600) % 60);
+
+      var mDisplay = m > 0 ? m : '0';
+      var sDisplay = s > 0 ? s : '0';
+      return '0' + mDisplay + ':' + (sDisplay > 9 ? sDisplay : '0' + sDisplay);
+    },
   };
 
   return (
@@ -108,10 +135,12 @@ const VirtualAccountScreen = () => {
         <View>
           <Text style={[h1]}>Selesaikan Sebelum</Text>
           <Text style={[h4, {marginTop: 10, fontSize: 12}]}>
-            Sab, 30 April 2022, 22:44 WIB
+            {moment(order.expired_time).format('ddd, DD MMMM YYYY')}
           </Text>
         </View>
-        <Text style={[h1, {color: theme.colors.blue}]}>00:49:15</Text>
+        <Text style={[h1, {color: theme.colors.blue}]}>
+          {methods.secondsToHms(seconds)}
+        </Text>
       </View>
 
       <View
@@ -131,9 +160,16 @@ const VirtualAccountScreen = () => {
             <Text style={[h1, {color: theme.colors.navy, fontSize: 12}]}>
               Daily
             </Text>
-            <Text style={[h5, {fontSize: 12}]}>Suzuki Ertiga</Text>
             <Text style={[h5, {fontSize: 12}]}>
-              1 Juli - 3 Juli 2022 10:00 PM
+              {
+                vehicles.vehicles?.find(x => x.id === formDaily.vehicle_id)
+                  ?.name
+              }
+            </Text>
+            <Text style={[h5, {fontSize: 12}]}>
+              {moment(order.order_detail.start_booking_date).format('DD MMMM')}{' '}
+              - {moment(order.order_detail.end_booking_date).format('DD MMMM')}{' '}
+              {order.order_detail.start_booking_time}
             </Text>
           </View>
           <Image
@@ -146,29 +182,34 @@ const VirtualAccountScreen = () => {
 
         <Text style={[h1, {marginTop: 20}]}>Lakukan Pembayaran</Text>
 
-        <View style={[rowCenter, {marginTop: 10}]}>
-          <Image source={ic_bca} style={iconCustomSize(30)} />
-          <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
-            BCA Virtual Account
-          </Text>
-        </View>
+        {disbursements.va_numbers?.map((x, i) => (
+          <View key={i}>
+            <View style={[rowCenter, {marginTop: 10}]}>
+              <Image source={ic_bca} style={iconCustomSize(30)} />
+              <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
+                {x.bank} Virtual Account
+              </Text>
+            </View>
 
-        <View
-          style={[
-            rowCenter,
-            {
-              justifyContent: 'space-between',
-              backgroundColor: theme.colors.cloud,
-              padding: 10,
-            },
-          ]}>
-          <Text style={[h1]}>2132113123213</Text>
-          <Image
-            source={ic_copy}
-            style={iconCustomSize(40)}
-            resizeMode={'contain'}
-          />
-        </View>
+            <View
+              style={[
+                rowCenter,
+                {
+                  justifyContent: 'space-between',
+                  backgroundColor: theme.colors.cloud,
+                  padding: 10,
+                },
+              ]}>
+              <Text style={[h1]}>{x.va_number}</Text>
+              <Image
+                source={ic_copy}
+                style={iconCustomSize(40)}
+                resizeMode={'contain'}
+              />
+            </View>
+          </View>
+        ))}
+
         <View style={styles.lineHorizontal} />
         <Text style={[h1, {marginTop: 20, marginBottom: 10}]}>
           Total Pembayaran
@@ -181,7 +222,7 @@ const VirtualAccountScreen = () => {
               padding: 10,
             },
           ]}>
-          <Text>{currencyFormat(120000)}</Text>
+          <Text>{currencyFormat(order.total_payment)}</Text>
         </View>
 
         <View style={styles.lineHorizontal} />
@@ -205,7 +246,7 @@ const VirtualAccountScreen = () => {
 
         <Button
           _theme="navy"
-          onPress={() => {}}
+          onPress={() => navigation.navigate('MainTab', {screen: 'Booking'})}
           title={'Ke Halaman My Bookings'}
           styleWrapper={{
             marginTop: 26,

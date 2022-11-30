@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { ICities, IFormDaily, IRegisterVerificationMethod } from 'types/global.types';
-import { IOrder, IOrderSummary } from 'types/order';
+import { IDisbursements, IOrder, IOrderSummary } from 'types/order';
 import { IBrands, IPaginationVehicle, IVehicles } from 'types/vehicles';
 import { RootState } from '../../store';
-import { createOrder, getSummaryOrder } from './orderAPI';
+import { createDisbursements, createOrder, getSummaryOrder } from './orderAPI';
 
 interface IInitState {
   status: string;
   isLoading: boolean;
   summaryOrder: IOrderSummary;
   order: IOrder;
+  disbursements: IDisbursements;
 }
 
 const initialState: IInitState = {
@@ -57,6 +58,11 @@ const initialState: IInitState = {
     updated_at: '',
     user_name: '',
     wa_number: ''
+  },
+  disbursements: {
+    transaction_id: '',
+    transaction_key: '',
+    va_numbers: []
   }
 };
 
@@ -91,11 +97,27 @@ export const orderSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
-        state.order = action.payload.data || [];
+        console.log('action order = ', action.payload)
+        state.order = action.payload.data.order || [];
         state.isLoading = false;
       })
       .addCase(createOrder.rejected, (state, action) => {
+        state.status = 'failed';
+        state.isLoading = false;
+      })
+
+       //CREATE disbursements
+       .addCase(createDisbursements.pending, state => {
+        state.status = 'loading';
+        state.isLoading = true;
+      })
+      .addCase(createDisbursements.fulfilled, (state, action) => {
+        state.status = 'idle';
+        console.log(action.payload)
+        state.disbursements = action.payload?.data?.disbursement || [];
+        state.isLoading = false;
+      })
+      .addCase(createDisbursements.rejected, (state, action) => {
         state.status = 'failed';
         state.isLoading = false;
       })
