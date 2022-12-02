@@ -11,7 +11,7 @@ import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
 import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {ICities} from 'types/global.types';
-import {rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
+import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 import {h1} from 'utils/styles';
 
 interface IForm {
@@ -56,30 +56,27 @@ const DailyLayout: FC = () => {
   const methods = {
     handleSearch: () => {
       let _errorMessage: any = {};
-        let status = true;
-        console.log(form.tanggal_sewa);
-        if(!form.location.name) {
-          console.log('masuk sini');
-          
-          _errorMessage['error_location'] = 'Masukan lokasi anda';
-          status = false;
-        }
-        if(!form.tanggal_sewa) {
-          _errorMessage['error_tanggal_sewa'] = 'Masukan Tanggal terlebih dahulu';
-          status = false;
-        }
-        if(!form.tanggal_pengembalian) {
-          _errorMessage['error_tanggal_pengembalian'] = 'Masukan Tanggal terlebih dahulu';
-          status = false;
-        }
-        if(!form.jam_sewa) {
-          _errorMessage['error_jam_sewa'] = 'Pilih Jam Anda';
-          status = false;
-        }
-        setFormError({..._errorMessage})
+      let status = true;
+      if (!form.location.name) {
+        _errorMessage['error_location'] = 'Masukan lokasi anda';
+        status = false;
+      }
+      if (!form.tanggal_sewa) {
+        _errorMessage['error_tanggal_sewa'] = 'Masukan Tanggal terlebih dahulu';
+        status = false;
+      }
+      if (!form.tanggal_pengembalian) {
+        _errorMessage['error_tanggal_pengembalian'] =
+          'Masukan Tanggal terlebih dahulu';
+        status = false;
+      }
+      if (!form.jam_sewa) {
+        _errorMessage['error_jam_sewa'] = 'Pilih Jam Anda';
+        status = false;
+      }
+      setFormError({..._errorMessage});
 
-        if(!status) return;
-        
+      if (!status) return;
 
       dispatch(
         saveFormDaily({
@@ -137,7 +134,13 @@ const DailyLayout: FC = () => {
         errorMessage={formError.error_location}
       />
       <View
-        style={[{justifyContent: 'space-between', marginTop: 30, flexDirection: 'row'}]}>
+        style={[
+          {
+            justifyContent: 'space-between',
+            marginTop: 30,
+            flexDirection: 'row',
+          },
+        ]}>
         <DatePickerComponent
           mode="date"
           placeholder="Pilih Tanggal"
@@ -145,11 +148,10 @@ const DailyLayout: FC = () => {
           containerStyle={{
             width: '45%',
           }}
-          value={
-            !form.tanggal_sewa
-              ? ''
-              : moment(form.tanggal_sewa).format('DD MMMM YYYY')
-          }
+          inputContainerStyle={{
+            marginTop: 6,
+          }}
+          value={form.tanggal_sewa ?? ''}
           content={
             <View>
               <Text style={[h1, {marginLeft: 16}]}>Tanggal Mulai Sewa</Text>
@@ -185,7 +187,7 @@ const DailyLayout: FC = () => {
           }}
           value={form?.jam_sewa}
           onChangeTime={(v: string) => {
-            setForm({...form, jam_sewa: v})
+            setForm({...form, jam_sewa: v});
             setFormError({...formError, error_jam_sewa: ''});
           }}
           errorMessage={formError.error_jam_sewa}
@@ -193,7 +195,13 @@ const DailyLayout: FC = () => {
       </View>
 
       <View
-        style={[{justifyContent: 'space-between', marginTop: 30, flexDirection: 'row'}]}>
+        style={[
+          {
+            justifyContent: 'space-between',
+            marginTop: 30,
+            flexDirection: 'row',
+          },
+        ]}>
         <DatePickerComponent
           mode="date"
           placeholder="Pilih Tanggal"
@@ -201,11 +209,7 @@ const DailyLayout: FC = () => {
           containerStyle={{
             width: '45%',
           }}
-          value={
-            !form.tanggal_pengembalian
-              ? ''
-              : moment(form.tanggal_pengembalian).format('DD MMMM YYYY')
-          }
+          value={form.tanggal_pengembalian ?? ''}
           content={
             <View>
               <Text style={[h1, {marginLeft: 16}]}>Tanggal Pengembalian</Text>
