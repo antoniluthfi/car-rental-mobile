@@ -88,16 +88,12 @@ const DailyLayout: FC = () => {
           end_booking_date: `${moment(form?.tanggal_pengembalian)
             .format('YYYY-MM-DD')
             .toString()}`,
-          start_trip: `${moment(form?.tanggal_sewa)
-            .format('YYYY-MM-DD')
-            .toString()} ${
+          start_trip: `${form?.tanggal_sewa?.replace(/\//g, '-')} ${
             form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
             ':' +
             form.jam_sewa.slice(-form.jam_sewa.length / 2)
           }`,
-          end_trip: `${moment(form?.tanggal_pengembalian)
-            .format('YYYY-MM-DD')
-            .toString()} ${
+          end_trip: `${form?.tanggal_pengembalian?.replace(/\//g, '-')} ${
             form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
             ':' +
             form.jam_sewa.slice(-form.jam_sewa.length / 2)
