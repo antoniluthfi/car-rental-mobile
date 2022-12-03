@@ -35,6 +35,10 @@ type RootStackParamList = {
     selectedPayment: IPayments;
     transaction_key?: string;
   }
+  UploadBankTransfer: {
+    selectedPayment: IPayments;
+    transaction_key?: string;
+  }
   InstantPayment: {
     selectedPayment: IPayments;
   }

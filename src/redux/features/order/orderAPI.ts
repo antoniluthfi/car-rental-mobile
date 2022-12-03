@@ -79,6 +79,7 @@ export const postDisbursements = createAsyncThunk(
         payload,
       );
 
+      console.log('payload', payload);
       if (!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',

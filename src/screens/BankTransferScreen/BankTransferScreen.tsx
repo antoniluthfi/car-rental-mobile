@@ -2,36 +2,28 @@ import {
   Image,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import hoc from 'components/hoc';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import {iconCustomSize, rowCenter} from 'utils/mixins';
 import {
-  ic_american_express,
   ic_arrow_left_white,
   ic_arrow_right,
   ic_bca,
   ic_copy,
-  ic_jcb,
   ic_mandiri,
-  ic_master_card,
-  ic_shield,
-  ic_visa,
 } from 'assets/icons';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
+import {h1, h4, h5} from 'utils/styles';
 import {theme} from 'utils';
-import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
-import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
-import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
+// import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
+// import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
+// import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
 import Button from 'components/Button';
-import {showToast} from 'utils/Toast';
 import {showBSheet} from 'utils/BSheet';
-import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {RootStackParamList} from 'types/navigator';
 import {currencyFormat} from 'utils/currencyFormat';
 
@@ -47,49 +39,6 @@ const BankTransferScreen = () => {
   const navigation = useNavigation();
   const route = useRoute<BankTransferScreenRouteProp>();
   console.log(route.params?.transaction_key)
-
-  const handleSubmit = () => {
-    console.log('test');
-    // if (imageSize >= 1000000) {
-    //   showToast({
-    //     message: 'Maaf, ukuran file tidak boleh lebih dari 1MB!',
-    //     type: 'error',
-    //   });
-    //   return;
-    // }
-
-    // if (selected.order_status == 'RECONFIRMATION') {
-    //   setIsPaymentConfirm({
-    //     open: true,
-    //     onSubmit: () =>
-    //       dispatch(
-    //         redisbursement({
-    //           transaction_key: router.query.key,
-    //           sender_name: form.sender_name,
-    //           sender_bank_name: form.sender_bank_name,
-    //           reconfirmation_image: form.disbursement_confirmation_image?.file,
-    //         })
-    //       ),
-    //   });
-    // } else {
-    //   setIsPaymentConfirm({
-    //     open: true,
-    //     onSubmit: () =>
-    //       dispatch(
-    //         postDisbursements({
-    //           transaction_key: insertOrder.transaction_key,
-    //           payment_type_id: paymentMethods.find(
-    //             (x) => x.code == selectedPayment.method
-    //           )?.id,
-    //           sender_name: form.sender_name,
-    //           sender_bank_name: form.sender_bank_name,
-    //           disbursement_confirmation_image:
-    //             form.disbursement_confirmation_image?.file,
-    //         })
-    //       ),
-    //   });
-    // }
-  };
 
   useEffect(() => {
     navigation.setOptions(
@@ -248,7 +197,9 @@ const BankTransferScreen = () => {
 
         <Button
           _theme="navy"
-          onPress={handleSubmit}
+          onPress={() => {
+            navigation.navigate('UploadBankTransfer', route.params)
+          }}
           title={'Upload Bukti Pembayaran'}
           styleWrapper={{
             marginTop: 26,

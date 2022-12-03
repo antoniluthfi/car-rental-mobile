@@ -8477,6 +8477,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-image-picker@npm:^4.10.2":
+  version: 4.10.2
+  resolution: "react-native-image-picker@npm:4.10.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: d6d1395a39756fad7b909c9ecd828b2d257698f5b0806be730fe56341f77de9db02b8930fb2bf5432fb726d14276cea5a7071c02753fa48dd38b0874a129abd9
+  languageName: node
+  linkType: hard
+
 "react-native-modern-datepicker@npm:^1.0.0-beta.91":
   version: 1.0.0-beta.91
   resolution: "react-native-modern-datepicker@npm:1.0.0-beta.91"
@@ -8933,6 +8943,7 @@ __metadata:
     react-native: 0.70.3
     react-native-dotenv: ^3.4.2
     react-native-gesture-handler: ^2.7.1
+    react-native-image-picker: ^4.10.2
     react-native-modern-datepicker: ^1.0.0-beta.91
     react-native-otp-inputs: ^7.4.0
     react-native-reanimated: ^2.11.0
@@ -10191,7 +10202,7 @@ __metadata:
 
 "typescript@patch:typescript@^4.8.3#~builtin<compat/typescript>":
   version: 4.9.3
-  resolution: "typescript@patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=bda367"
+  resolution: "typescript@patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
