@@ -1,23 +1,20 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 import {
   ic_american_express,
   ic_arrow_left_white,
   ic_arrow_right,
   ic_bca,
   ic_confirmation,
-  ic_dana,
-  ic_facebook,
   ic_gopay,
   ic_jcb,
   ic_mandiri,
   ic_master_card,
-  ic_ovo,
   ic_visa,
 } from 'assets/icons';
 import appBar from 'components/AppBar/AppBar';
 import Button from 'components/Button';
 import hoc from 'components/hoc';
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -26,9 +23,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { getPayments } from 'redux/features/appData/appDataAPI';
 import {appDataState} from 'redux/features/appData/appDataSlice';
-import {useAppSelector} from 'redux/hooks';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {IPayments, METHOD_PAYMENT} from 'types/global.types';
+import { RootStackParamList } from 'types/navigator';
 import {theme} from 'utils';
 import {showBSheet} from 'utils/BSheet';
 import {iconCustomSize, iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
@@ -58,16 +57,21 @@ const DATA_METHOD_PAYMENT: {
   },
 ];
 
-const OrderDetailScreen: FC = () => {
+type PaymentMethodScreenRouteProp = RouteProp<RootStackParamList, 'PaymentMethod'>;
+
+const PaymentMethodScreen: FC = () => {
   const navigation = useNavigation();
+  const route = useRoute<PaymentMethodScreenRouteProp>();
+
+  const dispatch = useAppDispatch();
   const paymentMethods = useAppSelector(appDataState).payments;
-  const [form, setForm] = useState({
-    filter_car_type: '',
-    filter_shit: '',
-    filter_koper: '',
-  });
-  const [checkInfo, setCheckInfo] = useState(false);
-  console.log(paymentMethods);
+  // const [form, setForm] = useState({
+  //   filter_car_type: '',
+  //   filter_shit: '',
+  //   filter_koper: '',
+  // });
+  // const [checkInfo, setCheckInfo] = useState(false);
+  // console.log(paymentMethods);
 
   useEffect(() => {
     navigation.setOptions(
@@ -91,6 +95,8 @@ const OrderDetailScreen: FC = () => {
         ),
       }),
     );
+
+    dispatch(getPayments());
   }, [navigation]);
 
   const methods = {
@@ -115,12 +121,12 @@ const OrderDetailScreen: FC = () => {
                 _theme="navy"
                 title="Iya, Lanjutkan"
                 onPress={() => {
-                  let screen = '';
                   if (data.method === 'Credit Card') {
                     navigation.navigate('CardPayment', {selectedPayment: data});
                   } else if (data.method === 'Manual Transfer') {
                     navigation.navigate('BankTransfer', {
                       selectedPayment: data,
+                      transaction_key: route.params?.transaction_key
                     });
                   } else if (data.method === 'E-money') {
                     navigation.navigate('InstantPayment', {
@@ -176,7 +182,7 @@ const OrderDetailScreen: FC = () => {
         }}>
         <ScrollView>
           {DATA_METHOD_PAYMENT.map((_payment, i) => (
-            <View style={{margin: 16}}>
+            <View style={{margin: 16}} key={i}>
               <Text style={[h1, {fontSize: 14, marginTop: 25}]}>
                 {_payment.title}
               </Text>
@@ -238,7 +244,7 @@ const OrderDetailScreen: FC = () => {
   );
 };
 
-export default hoc(OrderDetailScreen);
+export default hoc(PaymentMethodScreen);
 
 const styles = StyleSheet.create({
   lineHorizontal: {

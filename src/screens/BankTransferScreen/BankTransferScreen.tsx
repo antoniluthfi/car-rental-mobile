@@ -40,11 +40,56 @@ const FAQ = [
   'Lalu verifikasi Debit Card anda dengan menekan button “Verifikasi”. Setelah Debit Card terverifikasi maka anda bisa melanjutkan pembayaran.',
   'Setelah pembayaran berhasil dan terverifikasi maka status pesanan anda akan success serta transaksi anda akan nyaman dan aman.',
 ];
-type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'VirtualAccount'>;
+
+type BankTransferScreenRouteProp = RouteProp<RootStackParamList, 'BankTransfer'>;
 
 const BankTransferScreen = () => {
   const navigation = useNavigation();
-  const route = useRoute<ProfileScreenRouteProp>();
+  const route = useRoute<BankTransferScreenRouteProp>();
+  console.log(route.params?.transaction_key)
+
+  const handleSubmit = () => {
+    console.log('test');
+    // if (imageSize >= 1000000) {
+    //   showToast({
+    //     message: 'Maaf, ukuran file tidak boleh lebih dari 1MB!',
+    //     type: 'error',
+    //   });
+    //   return;
+    // }
+
+    // if (selected.order_status == 'RECONFIRMATION') {
+    //   setIsPaymentConfirm({
+    //     open: true,
+    //     onSubmit: () =>
+    //       dispatch(
+    //         redisbursement({
+    //           transaction_key: router.query.key,
+    //           sender_name: form.sender_name,
+    //           sender_bank_name: form.sender_bank_name,
+    //           reconfirmation_image: form.disbursement_confirmation_image?.file,
+    //         })
+    //       ),
+    //   });
+    // } else {
+    //   setIsPaymentConfirm({
+    //     open: true,
+    //     onSubmit: () =>
+    //       dispatch(
+    //         postDisbursements({
+    //           transaction_key: insertOrder.transaction_key,
+    //           payment_type_id: paymentMethods.find(
+    //             (x) => x.code == selectedPayment.method
+    //           )?.id,
+    //           sender_name: form.sender_name,
+    //           sender_bank_name: form.sender_bank_name,
+    //           disbursement_confirmation_image:
+    //             form.disbursement_confirmation_image?.file,
+    //         })
+    //       ),
+    //   });
+    // }
+  };
 
   useEffect(() => {
     navigation.setOptions(
@@ -203,7 +248,7 @@ const BankTransferScreen = () => {
 
         <Button
           _theme="navy"
-          onPress={() => {}}
+          onPress={handleSubmit}
           title={'Upload Bukti Pembayaran'}
           styleWrapper={{
             marginTop: 26,

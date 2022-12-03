@@ -1,5 +1,4 @@
 import {
-  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -27,29 +26,22 @@ import {
   iconCustomSize,
   iconSize,
   rowCenter,
-  WINDOW_HEIGHT,
-  WINDOW_WIDTH,
 } from 'utils/mixins';
 import {h1, h2, h3, h4, h5} from 'utils/styles';
-import DropdownFilter from 'components/DropdownFilter/DropdownFilter';
-import {img_car_2} from 'assets/images';
 import {theme} from 'utils';
-import {FONT_SIZE_10, FONT_SIZE_12} from 'utils/typography';
-import Carousel from 'react-native-reanimated-carousel';
 import Button from 'components/Button';
 import {showBSheet} from 'utils/BSheet';
 import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {createOrder, getSummaryOrder} from 'redux/features/order/orderAPI';
 import {appDataState} from 'redux/features/appData/appDataSlice';
-import {IFormDaily, IGarages} from 'types/global.types';
+import {IGarages} from 'types/global.types';
 import moment from 'moment';
-import {IOrderSummary, IPayloadSummary} from 'types/order';
+import {IPayloadSummary} from 'types/order';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {currencyFormat} from 'utils/currencyFormat';
 import {orderState} from 'redux/features/order/orderSlice';
-import DropdownLocation from 'components/DropdownLocation/DropdwonLocation';
-import {getGarages, getPayments} from 'redux/features/appData/appDataAPI';
+import {getGarages, getPayments, getUser} from 'redux/features/appData/appDataAPI';
 
 const OrderDetailScreen: FC = () => {
   const navigation = useNavigation();
@@ -96,6 +88,7 @@ const OrderDetailScreen: FC = () => {
       }),
     );
 
+    dispatch(getUser());
     dispatch(getGarages());
     dispatch(getPayments());
   }, [navigation]);

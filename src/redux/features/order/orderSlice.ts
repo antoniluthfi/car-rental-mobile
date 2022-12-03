@@ -1,15 +1,15 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICities, IFormDaily, IRegisterVerificationMethod } from 'types/global.types';
+import { createSlice } from '@reduxjs/toolkit';
 import { IOrder, IOrderSummary } from 'types/order';
-import { IBrands, IPaginationVehicle, IVehicles } from 'types/vehicles';
 import { RootState } from '../../store';
-import { createOrder, getSummaryOrder } from './orderAPI';
+import { createOrder, getSummaryOrder, postDisbursements } from './orderAPI';
 
 interface IInitState {
   status: string;
   isLoading: boolean;
   summaryOrder: IOrderSummary;
   order: IOrder;
+  disbursements: any;
+  isDisbursementSuccess: boolean;
 }
 
 const initialState: IInitState = {
@@ -57,7 +57,9 @@ const initialState: IInitState = {
     updated_at: '',
     user_name: '',
     wa_number: ''
-  }
+  },
+  disbursements: {},
+  isDisbursementSuccess: false,
 };
 
 export const orderSlice = createSlice({
@@ -99,7 +101,22 @@ export const orderSlice = createSlice({
         state.status = 'failed';
         state.isLoading = false;
       })
-      ;
+      
+      // post disbursements
+      .addCase(postDisbursements.pending, (state) => {
+        state.isLoading = true;
+        state.isDisbursementSuccess = false;
+      })
+      .addCase(postDisbursements.rejected, (state, action) => {
+        state.isLoading = false;
+        state.disbursements = {};
+      })
+      .addCase(postDisbursements.fulfilled, (state, action) => {
+        state.isDisbursementSuccess = true;
+        state.isLoading = false;
+        state.disbursements = action.payload;
+      })
+
   },
 });
 

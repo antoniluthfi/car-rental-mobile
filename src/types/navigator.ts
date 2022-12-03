@@ -19,7 +19,9 @@ type RootStackParamList = {
     vehicle_id: number;
   };
   OrderDetail: undefined;
-  PaymentMethod: undefined;
+  PaymentMethod?: {
+    transaction_key: string;
+  };
   DailyBookingOrderDetailScreen: {
     transaction_key: string;
   };
@@ -31,6 +33,7 @@ type RootStackParamList = {
   };
   BankTransfer: {
     selectedPayment: IPayments;
+    transaction_key?: string;
   }
   InstantPayment: {
     selectedPayment: IPayments;
