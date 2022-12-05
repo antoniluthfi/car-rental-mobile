@@ -65,3 +65,7 @@ export const ic_rounded_arrow_right = require('./ic_rounded_arrow_right.png')
 export const ic_image_file = require('./ic_image_file.png')
 export const ic_rounded_image_file = require('./ic_rounded_image_file.png')
 export const ic_rounded_close = require('./ic_rounded_close.png')
+export const ic_profile_active = require('./ic_profile_active.png');
+export const ic_document_active = require('./ic_document_active.png');
+export const ic_home_inactive = require('./ic_home_inactive.png');
+export const ic_message_active = require('./ic_message_active.png');

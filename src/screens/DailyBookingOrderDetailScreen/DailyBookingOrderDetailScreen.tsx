@@ -20,6 +20,7 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
 import {URL_IMAGE} from '@env';
 import {idrFormatter} from 'utils/functions';
+import moment from 'moment';
 
 type DailyBookingOrderDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -34,6 +35,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
   const garages = useAppSelector(state => state.garages.data);
 
   const [images, setImages] = useState<any[]>([]);
+  const [orderState, setOrderState] = useState<string>('');
 
   const {selected, vehicleData} = bookingDetail;
   const vehicle = vehicleData?.find(
@@ -115,6 +117,20 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
     }
   }, [vehicle]);
 
+  useEffect(() => {
+    setOrderState(selected?.order_status);
+
+    const now = moment().format('YYYY-MM-DD HH:mm:ss');
+    const future = moment(selected?.expired_time).format('YYYY-MM-DD HH:mm:ss');
+
+    if (
+      selected?.order_status.toLowerCase() == 'pending' &&
+      moment(now).isAfter(future)
+    ) {
+      setOrderState('FAILED');
+    }
+  }, [selected?.order_status, selected?.expired_time]);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <CustomCarousel
@@ -192,7 +208,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
 
         <View style={{flexBasis: '50%'}}>
           <Text style={styles.text}>Status Pembayaran</Text>
-          <Text style={styles.boldText}>{selected?.order_status}</Text>
+          <Text style={styles.boldText}>{orderState}</Text>
         </View>
       </View>
       <View style={styles.solidLine} />

@@ -80,13 +80,26 @@ const MainTab: React.FC = () => {
         name="Booking"
         component={FadeBookingScreen}
         options={{
+          tabBarLabel: 'My Booking',
           headerStyle: {
             backgroundColor: theme.colors.navy,
           },
         }}
       />
-      <RootTab.Screen name="Inbox" component={FadeInboxScreen} />
-      <RootTab.Screen name="Account" component={FadeAccountScreen} />
+      <RootTab.Screen
+        name="Inbox"
+        component={FadeInboxScreen}
+        options={{
+          tabBarLabel: 'My Inbox',
+        }}
+      />
+      <RootTab.Screen
+        name="Account"
+        component={FadeAccountScreen}
+        options={{
+          tabBarLabel: 'My Profile',
+        }}
+      />
     </RootTab.Navigator>
   );
 };

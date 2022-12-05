@@ -1,7 +1,11 @@
 import {
+  ic_document_active,
   ic_document_inactive,
   ic_home_active,
+  ic_home_inactive,
+  ic_message_active,
   ic_message_inactive,
+  ic_profile_active,
   ic_profile_inactive,
 } from 'assets/icons';
 import React, {useEffect, useRef} from 'react';
@@ -15,32 +19,43 @@ import {
 import theme from 'utils/theme';
 
 const TabItem = ({title, active, onPress, onLongPress}) => {
-
   const Icon = () => {
     if (title === 'Home') {
       return active ? (
         <Image source={ic_home_active} style={styles.icon} />
       ) : (
-        <Image source={ic_home_active} style={styles.icon} />
+        <Image source={ic_home_inactive} style={styles.icon} />
       );
     }
-    if (title === 'Booking') {
+    if (title === 'My Booking') {
       return active ? (
-        <Image source={ic_home_active} style={styles.icon} />
+        <Image
+          source={ic_document_active}
+          style={styles.icon}
+          resizeMode="contain"
+        />
       ) : (
         <Image source={ic_document_inactive} style={styles.icon} />
       );
     }
-    if (title === 'Inbox') {
+    if (title === 'My Inbox') {
       return active ? (
-        <Image source={ic_home_active} style={styles.icon} />
+        <Image
+          source={ic_message_active}
+          style={styles.icon}
+          resizeMode="contain"
+        />
       ) : (
         <Image source={ic_message_inactive} style={styles.icon} />
       );
     }
-    if (title === 'Account') {
+    if (title === 'My Profile') {
       return active ? (
-        <Image source={ic_home_active} style={styles.icon} />
+        <Image
+          source={ic_profile_active}
+          style={styles.icon}
+          resizeMode="contain"
+        />
       ) : (
         <Image source={ic_profile_inactive} style={styles.icon} />
       );
@@ -53,7 +68,7 @@ const TabItem = ({title, active, onPress, onLongPress}) => {
       style={styles.container}
       onPress={onPress}
       onLongPress={onLongPress}>
-        <Icon />
+      <Icon />
       <Text style={styles.text(active)}>{title}</Text>
     </TouchableOpacity>
   );
