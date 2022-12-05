@@ -24,6 +24,7 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {postDisbursements} from 'redux/features/order/orderAPI';
 import {appDataState} from 'redux/features/appData/appDataSlice';
 import {orderState} from 'redux/features/order/orderSlice';
+import { showToast } from 'utils/Toast';
 
 const UploadBankTransferScreen = () => {
   const navigation = useNavigation();
@@ -110,6 +111,12 @@ const UploadBankTransferScreen = () => {
 
   useEffect(() => {
     if (isDisbursementSuccess) {
+      showToast({
+        message: 'Berhasil mengunggah bukti pembayaran',
+        title: 'Success',
+        type: 'success',
+      })
+
       navigation.navigate('MainTab', {
         screen: 'Booking',
       } as any);

@@ -9,6 +9,7 @@ import { ic_arrow_left_white } from 'assets/icons';
 import { h1 } from 'utils/styles';
 import { useAppDispatch } from 'redux/hooks';
 import { getAllGarages } from 'redux/features/garages/garagesAPI';
+import { resetDisbursementStatus } from 'redux/features/order/orderSlice';
 
 const MyBooking: React.FC = () => {
   const navigation = useNavigation();
@@ -36,6 +37,8 @@ const MyBooking: React.FC = () => {
         ),
       }),
     );
+
+    dispatch(resetDisbursementStatus());
   }, [navigation]);
 
   useEffect(() => {

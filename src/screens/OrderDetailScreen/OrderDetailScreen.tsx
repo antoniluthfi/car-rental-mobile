@@ -21,12 +21,7 @@ import {
   ic_pinpoin2,
   ic_uncheck,
 } from 'assets/icons';
-import {
-  boxShadow,
-  iconCustomSize,
-  iconSize,
-  rowCenter,
-} from 'utils/mixins';
+import {boxShadow, iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
 import {h1, h2, h3, h4, h5} from 'utils/styles';
 import {theme} from 'utils';
 import Button from 'components/Button';
@@ -41,7 +36,11 @@ import {IPayloadSummary} from 'types/order';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {currencyFormat} from 'utils/currencyFormat';
 import {orderState} from 'redux/features/order/orderSlice';
-import {getGarages, getPayments, getUser} from 'redux/features/appData/appDataAPI';
+import {
+  getGarages,
+  getPayments,
+  getUser,
+} from 'redux/features/appData/appDataAPI';
 
 const OrderDetailScreen: FC = () => {
   const navigation = useNavigation();
@@ -142,7 +141,10 @@ const OrderDetailScreen: FC = () => {
       if (res.type.includes('rejected')) {
         return;
       }
-      navigation.navigate('PaymentMethod');
+
+      navigation.navigate('PaymentMethod', {
+        transaction_key: res.payload.data.order.transaction_key,
+      });
     },
     handlePengantaran: () => {
       showBSheet({
@@ -339,7 +341,8 @@ const OrderDetailScreen: FC = () => {
 
   return (
     <View style={{flex: 1, justifyContent: 'space-between'}}>
-      <ScrollView contentContainerStyle={{flexGrow: 1, paddingHorizontal: '5%'}}>
+      <ScrollView
+        contentContainerStyle={{flexGrow: 1, paddingHorizontal: '5%'}}>
         <View style={{marginTop: 20}}>
           <Text style={[h1]}>Ketentuan Mobil</Text>
           <View style={styles.infoUserWrapper}>

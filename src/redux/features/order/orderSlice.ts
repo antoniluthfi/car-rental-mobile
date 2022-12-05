@@ -74,7 +74,14 @@ const initialState: IInitState = {
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    resetDisbursementStatus: state => {
+      return {
+        ...state,
+        isDisbursementSuccess: false,
+      };
+    },
+  },
   extraReducers: builder => {
     builder
 
@@ -141,7 +148,7 @@ export const orderSlice = createSlice({
   },
 });
 
-export const {} = orderSlice.actions;
+export const { resetDisbursementStatus } = orderSlice.actions;
 
 export const orderState = (state: RootState) => state.order;
 export default orderSlice.reducer;
