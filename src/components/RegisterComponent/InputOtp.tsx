@@ -9,12 +9,13 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {utilsState} from 'redux/features/utils/utilsSlice';
 import {authRegister, authRegisterConfirmation} from 'redux/features/auth/authAPI';
 import { authState } from 'redux/features/auth/authSlice';
+import { appDataState } from 'redux/features/appData/appDataSlice';
 const TIMER = 299;
 // const TIMER = 5;
 
 const inputOtp: FC = () => {
   const [seconds, setSeconds] = useState(TIMER);
-  const userData = useAppSelector(utilsState).userData;
+  const userData = useAppSelector(appDataState).userData;
   const dispatch = useAppDispatch();
   const token = useAppSelector(authState).token;
 

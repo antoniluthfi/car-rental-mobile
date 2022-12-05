@@ -25,6 +25,8 @@ import {
 } from 'react-native';
 import { getPayments } from 'redux/features/appData/appDataAPI';
 import {appDataState} from 'redux/features/appData/appDataSlice';
+import {createDisbursements} from 'redux/features/order/orderAPI';
+import {orderState} from 'redux/features/order/orderSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {IPayments, METHOD_PAYMENT} from 'types/global.types';
 import { RootStackParamList } from 'types/navigator';
@@ -62,9 +64,9 @@ type PaymentMethodScreenRouteProp = RouteProp<RootStackParamList, 'PaymentMethod
 const PaymentMethodScreen: FC = () => {
   const navigation = useNavigation();
   const route = useRoute<PaymentMethodScreenRouteProp>();
-
   const dispatch = useAppDispatch();
   const paymentMethods = useAppSelector(appDataState).payments;
+  const order = useAppSelector(orderState).order;
   // const [form, setForm] = useState({
   //   filter_car_type: '',
   //   filter_shit: '',
@@ -133,9 +135,7 @@ const PaymentMethodScreen: FC = () => {
                       selectedPayment: data,
                     });
                   } else if (data.method === 'Virtual Account') {
-                    navigation.navigate('VirtualAccount', {
-                      selectedPayment: data,
-                    });
+                    methods.handlePaymentVA(data);
                   }
 
                   methods.handleConfirmation(data);
@@ -152,6 +152,18 @@ const PaymentMethodScreen: FC = () => {
         ),
       });
     },
+    handlePaymentVA: async (data: IPayments) => {
+      let res = await dispatch(
+        createDisbursements({
+          payment_type_id: data.id,
+          transaction_key: order.transaction_key,
+        }),
+      );
+      console.log(res)
+      if (res.type.includes('fulfilled')) {
+        navigation.navigate('VirtualAccount', {selectedPayment: data});
+      }
+    },
     handleIcon: (ic: string) => {
       switch (ic) {
         case 'BCA':
@@ -166,8 +178,6 @@ const PaymentMethodScreen: FC = () => {
           return ic_bca;
         case 'Gopay':
           return ic_gopay;
-          break;
-
         default:
           break;
       }

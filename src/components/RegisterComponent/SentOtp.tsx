@@ -8,9 +8,10 @@ import {utilsState} from 'redux/features/utils/utilsSlice';
 import { authRegister } from 'redux/features/auth/authAPI';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { appDataState } from 'redux/features/appData/appDataSlice';
 
 const sentOtp: FC = () => {
-  const userData = useAppSelector(utilsState).userData;
+  const userData = useAppSelector(appDataState).userData;
   const dispatch = useAppDispatch();
   const navigation = useNavigation<StackNavigationProp<any>>();
 

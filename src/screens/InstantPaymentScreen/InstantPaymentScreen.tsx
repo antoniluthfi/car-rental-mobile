@@ -41,7 +41,7 @@ const FAQ = [
   'Lalu verifikasi Debit Card anda dengan menekan button “Verifikasi”. Setelah Debit Card terverifikasi maka anda bisa melanjutkan pembayaran.',
   'Setelah pembayaran berhasil dan terverifikasi maka status pesanan anda akan success serta transaksi anda akan nyaman dan aman.',
 ];
-type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'VirtualAccount'>;
+type ProfileScreenRouteProp = RouteProp<RootStackParamList, any>;
 const InstantPaymentScreen = () => {
   const navigation = useNavigation();
   const route = useRoute<ProfileScreenRouteProp>();

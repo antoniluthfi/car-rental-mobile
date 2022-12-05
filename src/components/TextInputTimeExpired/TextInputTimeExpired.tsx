@@ -4,7 +4,11 @@ import {rowCenter} from 'utils/mixins';
 import {h5} from 'utils/styles';
 import {theme} from 'utils';
 
-const TextInputTimeExpired = () => {
+const TextInputTimeExpired = ({
+  onChangeText,
+}: {
+  onChangeText: (v: string) => void;
+}) => {
   const textRef1 = useRef<TextInput>(null);
   const textRef2 = useRef<TextInput>(null);
 
@@ -14,6 +18,7 @@ const TextInputTimeExpired = () => {
   });
 
   useEffect(() => {
+    onChangeText(inputs.input1+ inputs.input2)
     if (inputs.input1.length === 2) {
       textRef2.current?.focus();
     }

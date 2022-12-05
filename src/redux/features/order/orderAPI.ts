@@ -88,3 +88,35 @@ export const postDisbursements = createAsyncThunk(
     }
   },
 );
+
+export const createDisbursements = createAsyncThunk(
+  'appData/createDisbursements',
+  async function (params: {
+    payment_type_id: number;
+    transaction_key: string;
+    card_token_id?: string;
+    card_owner_name?: string;
+  }, thunkAPI)
+  : Promise<IResponApi<any> | any> {
+    try {
+      console.log('params = ', params)
+      let response: ApiResponse<any> = await apiWithInterceptor.post(
+        `/api/disbursements`,
+        {...params},
+      );
+      if(!response.ok) {
+        showToast({
+          message: response?.data?.slug || 'Terjadi kesalahan',
+          title: 'Warning',
+          type: 'error',
+        })
+        return thunkAPI.rejectWithValue(response.data);
+      }
+
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+

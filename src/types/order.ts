@@ -77,3 +77,12 @@ export type IOrder = {
         start_booking_time: string;
     }
 }
+
+export type IDisbursements = {
+    transaction_id: string;
+    transaction_key: string;
+    va_numbers: {
+        bank: string;
+        va_number: string
+    }[]
+}
