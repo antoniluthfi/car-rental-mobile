@@ -68,6 +68,8 @@ export const createDisbursements = createAsyncThunk(
   async function (params: {
     payment_type_id: number;
     transaction_key: string;
+    card_token_id?: string;
+    card_owner_name?: string;
   }, thunkAPI)
   : Promise<IResponApi<any> | any> {
     try {

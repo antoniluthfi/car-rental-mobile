@@ -4,14 +4,14 @@ import {rowCenter} from 'utils/mixins';
 import {h5} from 'utils/styles';
 import {theme} from 'utils';
 
-const TextInputCVV = ({onChangeText}: {onChangeText: (v: string) => void}) => {
+const TextInputName = ({onChangeText}: {onChangeText: (v: string) => void}) => {
   const [input, setInput] = useState('');
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{marginBottom: 15}}>
       <View
         style={[rowCenter, {marginTop: 12, justifyContent: 'space-between'}]}>
-        <Text style={[h5, {fontSize: 12}]}>CVV</Text>
+        <Text style={[h5, {fontSize: 12}]}>Nama Pemegang Kartu</Text>
       </View>
 
       <View style={[rowCenter, styles.creditCard]}>
@@ -20,8 +20,8 @@ const TextInputCVV = ({onChangeText}: {onChangeText: (v: string) => void}) => {
             setInput(v);
             onChangeText(v);
           }}
-          placeholder="000"
-          maxLength={3}
+          placeholder="nama pemegang kartu"
+          maxLength={15}
           value={input}
         />
       </View>
@@ -29,7 +29,7 @@ const TextInputCVV = ({onChangeText}: {onChangeText: (v: string) => void}) => {
   );
 };
 
-export default TextInputCVV;
+export default TextInputName;
 
 const styles = StyleSheet.create({
   creditCard: {

@@ -1,14 +1,15 @@
 import {
   Image,
+  Linking,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import hoc from 'components/hoc';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
 import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
 import {
@@ -29,14 +30,39 @@ import Button from 'components/Button';
 import {showToast} from 'utils/Toast';
 import {showBSheet} from 'utils/BSheet';
 import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
+import axios from 'axios';
+import {API_MIDTRANS, MIDTRANS_CLIENT} from '@env';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {createDisbursements} from 'redux/features/order/orderAPI';
+import {orderState} from 'redux/features/order/orderSlice';
+import { RootStackParamList } from 'types/navigator';
+import TextInputName from 'components/TextInputName/TextInputName';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
   'Lalu verifikasi Debit Card anda dengan menekan button “Verifikasi”. Setelah Debit Card terverifikasi maka anda bisa melanjutkan pembayaran.',
   'Setelah pembayaran berhasil dan terverifikasi maka status pesanan anda akan success serta transaksi anda akan nyaman dan aman.',
 ];
+
+interface IForm {
+  card_number: string;
+  card_cvv: string;
+  card_exp: string;
+  card_owner_name: string;
+}
+type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'CardPayment'>;
 const CardPaymentScreen = () => {
-  const navigation = useNavigation();
+  const route = useRoute<ProfileScreenRouteProp>();
+  const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
+  const order = useAppSelector(orderState).order;
+
+  const [form, setForm] = useState<IForm>({
+    card_cvv: '',
+    card_exp: '',
+    card_number: '',
+    card_owner_name: ''
+  });
 
   useEffect(() => {
     navigation.setOptions(
@@ -54,7 +80,7 @@ const CardPaymentScreen = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-                Card Payment
+              Card Payment
             </Text>
           </TouchableOpacity>
         ),
@@ -72,9 +98,11 @@ const CardPaymentScreen = () => {
               flex: 1,
               margin: 16,
             }}>
-            <Text style={[h1, {margin: 16, fontSize: 18}]}>Cara Pembayaran</Text>
+            <Text style={[h1, {margin: 16, fontSize: 18}]}>
+              Cara Pembayaran
+            </Text>
             {FAQ.map((x, i) => (
-              <View key={i} style={[ {margin: 16, flexDirection: 'row'}]}>
+              <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
                 <Text>{i + 1}. </Text>
                 <Text>{x}</Text>
               </View>
@@ -82,6 +110,71 @@ const CardPaymentScreen = () => {
           </View>
         ),
       });
+    },
+    handleMitransGetToken: async () => {
+      console.log({
+        client_key: MIDTRANS_CLIENT,
+        card_number: form.card_number,
+        card_cvv: form.card_cvv,
+        card_exp_month: form.card_exp.slice(0, 2),
+        card_exp_year: '20' + form.card_exp.slice(-2),
+      });
+      // return
+      var config: any = {
+        method: 'get',
+        url: `${API_MIDTRANS}/v2/token`,
+        params: {
+          client_key: MIDTRANS_CLIENT,
+          card_number: form.card_number,
+          card_cvv: form.card_cvv,
+          card_exp_month: form.card_exp.slice(0, 2),
+          card_exp_year: '20' + form.card_exp.slice(-2),
+        },
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      };
+
+      try {
+        let data = await axios(config);
+        console.log(data.data);
+        if (data.data.status_code !== '200') {
+          showToast({
+            message: data.data.status_message,
+            title: 'Error',
+            type: 'error',
+          });
+          return;
+        }
+        let res = await dispatch(
+          createDisbursements({
+            payment_type_id: route.params.selectedPayment.id,
+            transaction_key: order.transaction_key,
+            card_token_id: data?.data?.token_id,
+            card_owner_name: form.card_owner_name,
+          }),
+        );
+
+        console.log(res);
+        if(res.type.includes('fulfilled')) {
+          try {
+            Linking.openURL(res?.payload.data?.disbursement?.redirect_url);
+            setTimeout(() => {
+              navigation.navigate('MainTab', {screen: 'Booking'});
+            }, 1000);
+          } catch (error) {
+            showToast({
+              message: 'Pembayaran tidak dapat dilakukan',
+              title: 'Error',
+              type: 'error',
+            });
+          }
+        }
+        // return data.data;
+      } catch (error) {
+        console.log(error);
+      }
     },
   };
 
@@ -92,15 +185,25 @@ const CardPaymentScreen = () => {
         margin: 16,
       }}>
       <Text style={[h1]}>Masukkan Info Kartu</Text>
-      <TextInputCredit />
+
+      <TextInputName
+          onChangeText={(c: string) => setForm({...form, card_owner_name: c})}
+        />
+      <TextInputCredit
+        onChangeText={(c: string) => setForm({...form, card_number: c})}
+      />
       <View
         style={[
           rowCenter,
           {width: '100%', justifyContent: 'space-between', marginTop: 10},
         ]}>
-        <TextInputTimeExpired />
+        <TextInputTimeExpired
+          onChangeText={(c: string) => setForm({...form, card_exp: c})}
+        />
         <View style={{marginHorizontal: 5}} />
-        <TextInputCVV />
+        <TextInputCVV
+          onChangeText={(c: string) => setForm({...form, card_cvv: c})}
+        />
       </View>
 
       <View style={[rowCenter, styles.guardWrapper]}>
@@ -113,7 +216,9 @@ const CardPaymentScreen = () => {
       </View>
       <Button
         _theme="navy"
-        onPress={() => {}}
+        onPress={() => {
+          methods.handleMitransGetToken();
+        }}
         title={'Lanjutkan Pembayaran'}
         styleWrapper={{
           marginTop: 26,
@@ -129,8 +234,7 @@ const CardPaymentScreen = () => {
           rowCenter,
           {justifyContent: 'space-between'},
         ]}
-        onPress={methods.handleFAQ}
-        >
+        onPress={methods.handleFAQ}>
         <Text style={h4}>Cara Pembayaran</Text>
         <Image
           source={ic_arrow_right}

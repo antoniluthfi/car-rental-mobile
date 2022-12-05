@@ -10,7 +10,11 @@ import {rowCenter, iconSize} from 'utils/mixins';
 import {h5} from 'utils/styles';
 import {theme} from 'utils';
 
-const TextInputCredit = () => {
+const TextInputCredit = ({
+  onChangeText,
+}: {
+  onChangeText: (v: string) => void;
+}) => {
   const textRef1 = useRef<TextInput>(null);
   const textRef2 = useRef<TextInput>(null);
   const textRef3 = useRef<TextInput>(null);
@@ -24,7 +28,6 @@ const TextInputCredit = () => {
   });
 
   useEffect(() => {
-
     //  if (inputs.input4.length === 0) {
     //     textRef3.current?.focus();
     //     return;
@@ -35,6 +38,7 @@ const TextInputCredit = () => {
     //     textRef1.current?.focus();
     //     return;
     //   }
+    onChangeText(inputs.input1 + inputs.input2 + inputs.input3 + inputs.input4);
 
     if (inputs.input3.length === 4) {
       textRef4.current?.focus();
@@ -42,7 +46,7 @@ const TextInputCredit = () => {
       textRef3.current?.focus();
     } else if (inputs.input1.length === 4) {
       textRef2.current?.focus();
-    } 
+    }
     // else if (inputs.input4.length === 0) {
     //   textRef3.current?.focus();
     // } else if (inputs.input3.length === 0) {
