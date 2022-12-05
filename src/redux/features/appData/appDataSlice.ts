@@ -94,7 +94,6 @@ export const appDataSlice = createSlice({
       })
       .addCase(getAllCities.fulfilled, (state, action) => {
         state.status = 'idle';
-        // console.log(action.payload)
         state.cities = action.payload;
         state.isLoading = false;
       })
@@ -110,7 +109,6 @@ export const appDataSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.userProfile = action.payload;
         state.isLoading = false;
       })
@@ -126,7 +124,6 @@ export const appDataSlice = createSlice({
       })
       .addCase(getGarages.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.garages = action.payload;
         state.isLoading = false;
       })
@@ -141,7 +138,6 @@ export const appDataSlice = createSlice({
       })
       .addCase(getPayments.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.payments = action.payload;
         state.isLoading = false;
       })

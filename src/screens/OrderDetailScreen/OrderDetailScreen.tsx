@@ -1,5 +1,4 @@
 import {
-  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -22,34 +21,26 @@ import {
   ic_pinpoin2,
   ic_uncheck,
 } from 'assets/icons';
-import {
-  boxShadow,
-  iconCustomSize,
-  iconSize,
-  rowCenter,
-  WINDOW_HEIGHT,
-  WINDOW_WIDTH,
-} from 'utils/mixins';
+import {boxShadow, iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
 import {h1, h2, h3, h4, h5} from 'utils/styles';
-import DropdownFilter from 'components/DropdownFilter/DropdownFilter';
-import {img_car_2} from 'assets/images';
 import {theme} from 'utils';
-import {FONT_SIZE_10, FONT_SIZE_12} from 'utils/typography';
-import Carousel from 'react-native-reanimated-carousel';
 import Button from 'components/Button';
 import {showBSheet} from 'utils/BSheet';
 import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {createOrder, getSummaryOrder} from 'redux/features/order/orderAPI';
 import {appDataState} from 'redux/features/appData/appDataSlice';
-import {IFormDaily, IGarages} from 'types/global.types';
+import {IGarages} from 'types/global.types';
 import moment from 'moment';
-import {IOrderSummary, IPayloadSummary} from 'types/order';
+import {IPayloadSummary} from 'types/order';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {currencyFormat} from 'utils/currencyFormat';
 import {orderState} from 'redux/features/order/orderSlice';
-import DropdownLocation from 'components/DropdownLocation/DropdwonLocation';
-import {getGarages, getPayments} from 'redux/features/appData/appDataAPI';
+import {
+  getGarages,
+  getPayments,
+  getUser,
+} from 'redux/features/appData/appDataAPI';
 
 const OrderDetailScreen: FC = () => {
   const navigation = useNavigation();
@@ -96,6 +87,7 @@ const OrderDetailScreen: FC = () => {
       }),
     );
 
+    dispatch(getUser());
     dispatch(getGarages());
     dispatch(getPayments());
   }, [navigation]);
@@ -109,48 +101,50 @@ const OrderDetailScreen: FC = () => {
       start_booking_time: formDaily.start_booking_time,
       vehicle_id: formDaily.vehicle_id,
     };
-    console.log(payload);
     let params: string = '?';
 
     Object.keys(payload).map(x => {
       params += `${x}=${payload[x as keyof IPayloadSummary]}&`;
     });
-    console.log(params);
     dispatch(getSummaryOrder(params));
   }, []);
 
   const methods = {
     handleOrder: async () => {
-      let res = await dispatch(createOrder({
-        booking_price: summaryOrder.booking_price,
-        email: user.email,
-        insurance_fee: summaryOrder.insurance_fee,
-        order_detail: {
-          end_booking_date: summaryOrder.end_booking_date,
-          end_booking_time: summaryOrder.end_booking_time,
-          is_take_from_rental_office: checkInfo,
-          passenger_number: formDaily.passanger,
-          rental_delivery_location: form.taking_location?.name!,
-          rental_return_office_id: form.return_location?.id!,
-          start_booking_date: summaryOrder.start_booking_date,
-          start_booking_time: summaryOrder.start_booking_time,
-          vehicle_id: summaryOrder.vehicle_id,
-          special_request: form.special_request
-        },
-        order_type_id: 1,
-        phone_number: user.phone,
-        rental_delivery_fee: summaryOrder.rental_delivery_fee,
-        service_fee: summaryOrder.service_fee,
-        total_payment: summaryOrder.total_payment,
-        user_name: user.name,
-        wa_number: user.wa_number
-      }));
-      console.log('respon order = ', res);
-      if(res.type.includes('rejected')) {
-        return; 
+      let res = await dispatch(
+        createOrder({
+          booking_price: summaryOrder.booking_price,
+          email: user.email,
+          insurance_fee: summaryOrder.insurance_fee,
+          order_detail: {
+            end_booking_date: summaryOrder.end_booking_date,
+            end_booking_time: summaryOrder.end_booking_time,
+            is_take_from_rental_office: checkInfo,
+            passenger_number: formDaily.passanger,
+            rental_delivery_location: form.taking_location?.name!,
+            rental_return_office_id: form.return_location?.id!,
+            start_booking_date: summaryOrder.start_booking_date,
+            start_booking_time: summaryOrder.start_booking_time,
+            vehicle_id: summaryOrder.vehicle_id,
+            special_request: form.special_request,
+          },
+          order_type_id: 1,
+          phone_number: user.phone,
+          rental_delivery_fee: summaryOrder.rental_delivery_fee,
+          service_fee: summaryOrder.service_fee,
+          total_payment: summaryOrder.total_payment,
+          user_name: user.name,
+          wa_number: user.wa_number,
+        }),
+      );
+
+      if (res.type.includes('rejected')) {
+        return;
       }
-      navigation.navigate('PaymentMethod');
-      
+
+      navigation.navigate('PaymentMethod', {
+        transaction_key: res.payload.data.order.transaction_key,
+      });
     },
     handlePengantaran: () => {
       showBSheet({
@@ -346,89 +340,85 @@ const OrderDetailScreen: FC = () => {
   };
 
   return (
-    <>
-      <View
-        style={{
-          flex: 1,
-          margin: 16,
-        }}>
-        <ScrollView>
-          <View style={{marginTop: 20}}>
-            <Text style={[h1]}>Ketentuan Mobil</Text>
-            <View style={styles.infoUserWrapper}>
-              <Text style={[h1, {fontSize: 12}]}>{user.name}</Text>
-              <Text style={[h3, {fontSize: 12, marginVertical: 5}]}>
-                {user.phone}
-              </Text>
-              <Text style={[h3, {fontSize: 12}]}>{user.email}</Text>
-            </View>
-            <View style={styles.lineHorizontal} />
-          </View>
-
-          <View>
-            <View style={[rowCenter, {justifyContent: 'space-between'}]}>
-              <Text style={h1}>Detail Perjalanan</Text>
-              <TouchableOpacity
-                style={[rowCenter, {marginTop: 20, marginBottom: 20}]}
-                onPress={() => setCheckInfo(prev => !prev)}>
-                <Image
-                  source={checkInfo ? ic_blue_check : ic_uncheck}
-                  style={iconSize}
-                />
-                <Text style={[h5, {fontSize: 12}]}>
-                  {' '}
-                  Mengambil Ke Tempat Sewa
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            <Text style={[h4, {marginTop: 10}]}>Lokasi Pengantaran</Text>
-            <TouchableOpacity
-              style={[rowCenter, styles.borderBottom]}
-              onPress={methods.handlePengantaran}>
-              <Image source={ic_pinpoin} style={iconSize} />
-              <Text style={[h5, {marginLeft: 5}]}>
-                {form.taking_location?.name || 'Pilih Lokasi Anda'}
-              </Text>
-            </TouchableOpacity>
-
-            <Text style={[h4, {marginTop: 20}]}>Lokasi Pengembalian</Text>
-            <TouchableOpacity
-              style={[rowCenter, styles.borderBottom]}
-              onPress={methods.handlePengembalian}>
-              <Image source={ic_pinpoin} style={iconSize} />
-              <Text style={[h5, {marginLeft: 5}]}>
-                {form.return_location?.name || 'Pilih Lokasi Anda'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={{marginVertical: 20}}>
-            <Text style={h1}>Form Permintaan Khusus</Text>
-            <View style={styles.formWrapper}>
-              <TextInput
-                multiline={true}
-                placeholder="Tulis yang kamu butuhkan untuk kebutuhan perjalanan mu, contoh (Kursi Bayi, Kursi Roda, etc.)"
-                style={{
-                  height: 100,
-                  paddingRight: 15,
-                }}
-                maxLength={150}
-                value={form.special_request}
-                onChangeText={v => setForm({...form, special_request: v})}
-              />
-              <Image
-                source={ic_pen}
-                style={[
-                  iconCustomSize(15),
-                  {position: 'absolute', top: 10, right: 10},
-                ]}
-              />
-            </View>
+    <View style={{flex: 1, justifyContent: 'space-between'}}>
+      <ScrollView
+        contentContainerStyle={{flexGrow: 1, paddingHorizontal: '5%'}}>
+        <View style={{marginTop: 20}}>
+          <Text style={[h1]}>Ketentuan Mobil</Text>
+          <View style={styles.infoUserWrapper}>
+            <Text style={[h1, {fontSize: 12}]}>{user.name}</Text>
+            <Text style={[h3, {fontSize: 12, marginVertical: 5}]}>
+              {user.phone}
+            </Text>
+            <Text style={[h3, {fontSize: 12}]}>{user.email}</Text>
           </View>
           <View style={styles.lineHorizontal} />
-        </ScrollView>
-      </View>
+        </View>
+
+        <View>
+          <View style={[rowCenter, {justifyContent: 'space-between'}]}>
+            <Text style={h1}>Detail Perjalanan</Text>
+            <TouchableOpacity
+              style={[rowCenter, {marginTop: 20, marginBottom: 20}]}
+              onPress={() => setCheckInfo(prev => !prev)}>
+              <Image
+                source={checkInfo ? ic_blue_check : ic_uncheck}
+                style={iconSize}
+              />
+              <Text style={[h5, {fontSize: 12}]}>
+                {' '}
+                Mengambil Ke Tempat Sewa
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <Text style={[h4, {marginTop: 10}]}>Lokasi Pengantaran</Text>
+          <TouchableOpacity
+            style={[rowCenter, styles.borderBottom]}
+            onPress={methods.handlePengantaran}>
+            <Image source={ic_pinpoin} style={iconSize} />
+            <Text style={[h5, {marginLeft: 5}]}>
+              {form.taking_location?.name || 'Pilih Lokasi Anda'}
+            </Text>
+          </TouchableOpacity>
+
+          <Text style={[h4, {marginTop: 20}]}>Lokasi Pengembalian</Text>
+          <TouchableOpacity
+            style={[rowCenter, styles.borderBottom]}
+            onPress={methods.handlePengembalian}>
+            <Image source={ic_pinpoin} style={iconSize} />
+            <Text style={[h5, {marginLeft: 5}]}>
+              {form.return_location?.name || 'Pilih Lokasi Anda'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{marginVertical: 20}}>
+          <Text style={h1}>Form Permintaan Khusus</Text>
+          <View style={styles.formWrapper}>
+            <TextInput
+              multiline={true}
+              placeholder="Tulis yang kamu butuhkan untuk kebutuhan perjalanan mu, contoh (Kursi Bayi, Kursi Roda, etc.)"
+              style={{
+                height: 100,
+                paddingRight: 15,
+              }}
+              maxLength={150}
+              value={form.special_request}
+              onChangeText={v => setForm({...form, special_request: v})}
+            />
+            <Image
+              source={ic_pen}
+              style={[
+                iconCustomSize(15),
+                {position: 'absolute', top: 10, right: 10},
+              ]}
+            />
+          </View>
+        </View>
+        <View style={styles.lineHorizontal} />
+      </ScrollView>
+
       <View
         style={[
           boxShadow('#000', {height: 1, width: 1}, 3.27, 0.24),
@@ -456,7 +446,7 @@ const OrderDetailScreen: FC = () => {
           onPress={methods.handleOrder}
         />
       </View>
-    </>
+    </View>
   );
 };
 
@@ -496,9 +486,10 @@ const styles = StyleSheet.create({
   bottomView: {
     backgroundColor: '#fff',
     position: 'absolute',
-    bottom: -40,
-    width: '100%',
+    bottom: 0,
+    width: '90%',
     padding: 16,
+    marginHorizontal: '5%',
     paddingBottom: 25,
   },
 });

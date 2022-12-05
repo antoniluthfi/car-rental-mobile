@@ -1,9 +1,12 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICities, IFormDaily, IRegisterVerificationMethod } from 'types/global.types';
-import { IDisbursements, IOrder, IOrderSummary } from 'types/order';
-import { IBrands, IPaginationVehicle, IVehicles } from 'types/vehicles';
-import { RootState } from '../../store';
-import { createDisbursements, createOrder, getSummaryOrder } from './orderAPI';
+import {createSlice} from '@reduxjs/toolkit';
+import {IOrder, IOrderSummary, IDisbursements} from 'types/order';
+import {RootState} from '../../store';
+import {
+  createOrder,
+  getSummaryOrder,
+  postDisbursements,
+  createDisbursements,
+} from './orderAPI';
 
 interface IInitState {
   status: string;
@@ -11,6 +14,7 @@ interface IInitState {
   summaryOrder: IOrderSummary;
   order: IOrder;
   disbursements: IDisbursements;
+  isDisbursementSuccess: boolean;
 }
 
 const initialState: IInitState = {
@@ -50,30 +54,37 @@ const initialState: IInitState = {
       start_booking_date: '',
       start_booking_time: '',
       vehicle_id: 0,
-      special_request: ''
+      special_request: '',
     },
     order_status: 'FAILED',
     phone_number: '',
     transaction_key: '',
     updated_at: '',
     user_name: '',
-    wa_number: ''
+    wa_number: '',
   },
   disbursements: {
     transaction_id: '',
     transaction_key: '',
-    va_numbers: []
-  }
+    va_numbers: [],
+  },
+  isDisbursementSuccess: false,
 };
 
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
+    resetDisbursementStatus: state => {
+      return {
+        ...state,
+        isDisbursementSuccess: false,
+      };
+    },
   },
   extraReducers: builder => {
     builder
-      
+
       // vehicles
       .addCase(getSummaryOrder.pending, state => {
         state.status = 'loading';
@@ -81,7 +92,6 @@ export const orderSlice = createSlice({
       })
       .addCase(getSummaryOrder.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.summaryOrder = action.payload || [];
         state.isLoading = false;
       })
@@ -97,7 +107,6 @@ export const orderSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log('action order = ', action.payload)
         state.order = action.payload.data.order || [];
         state.isLoading = false;
       })
@@ -106,26 +115,40 @@ export const orderSlice = createSlice({
         state.isLoading = false;
       })
 
-       //CREATE disbursements
-       .addCase(createDisbursements.pending, state => {
+      // post disbursements -> for manual transfer
+      .addCase(postDisbursements.pending, state => {
+        state.isLoading = true;
+        state.isDisbursementSuccess = false;
+      })
+      .addCase(postDisbursements.rejected, (state, action) => {
+        state.isLoading = false;
+        state.disbursements = {} as any;
+      })
+      .addCase(postDisbursements.fulfilled, (state, action) => {
+        state.isDisbursementSuccess = true;
+        state.isLoading = false;
+        state.disbursements = action.payload;
+      })
+
+      // CREATE disbursements -> for VA number
+      .addCase(createDisbursements.pending, state => {
         state.status = 'loading';
         state.isLoading = true;
       })
       .addCase(createDisbursements.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
+        console.log(action.payload);
         state.disbursements = action.payload?.data?.disbursement || [];
         state.isLoading = false;
       })
       .addCase(createDisbursements.rejected, (state, action) => {
         state.status = 'failed';
         state.isLoading = false;
-      })
-      ;
+      });
   },
 });
 
-export const { } = orderSlice.actions;
+export const { resetDisbursementStatus } = orderSlice.actions;
 
 export const orderState = (state: RootState) => state.order;
 export default orderSlice.reducer;

@@ -62,3 +62,6 @@ export const ic_copy = require('./ic_copy.png');
 export const ic_qr = require('./ic_qr.png');
 export const ic_rounded_arrow_left = require('./ic_rounded_arrow_left.png')
 export const ic_rounded_arrow_right = require('./ic_rounded_arrow_right.png')
+export const ic_image_file = require('./ic_image_file.png')
+export const ic_rounded_image_file = require('./ic_rounded_image_file.png')
+export const ic_rounded_close = require('./ic_rounded_close.png')

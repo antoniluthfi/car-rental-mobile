@@ -1,6 +1,6 @@
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import {RootStackParamList} from '../types/navigator';
+import { RootStackParamList } from '../types/navigator';
 import {
   AuthScreen,
   ForgotPasswordScreen,
@@ -19,15 +19,16 @@ import {
   InstantPaymentScreen,
 } from '../screens';
 import MainTabNavigator from './MainTabNavigator';
-import {useAppSelector} from 'redux/hooks';
-import {authState} from 'redux/features/auth/authSlice';
-import {theme} from 'utils';
+import { useAppSelector } from 'redux/hooks';
+import { authState } from 'redux/features/auth/authSlice';
+import { theme } from 'utils';
 import DailyBookingOrderDetailScreen from 'screens/DailyBookingOrderDetailScreen/DailyBookingOrderDetailScreen';
+import UploadBankTransferScreen from 'screens/UploadBankTransferScreen/UploadBankTransferScreen';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
 const leftToRightAnimation = {
-  cardStyleInterpolator: ({current, layouts}: any) => {
+  cardStyleInterpolator: ({ current, layouts }: any) => {
     return {
       cardStyle: {
         transform: [
@@ -149,6 +150,15 @@ const MainStack: React.FC = () => {
           <RootStack.Screen
             name="BankTransfer"
             component={BankTransferScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+            }}
+          />
+          <RootStack.Screen
+            name="UploadBankTransfer"
+            component={UploadBankTransferScreen}
             options={{
               headerStyle: {
                 backgroundColor: theme.colors.navy,

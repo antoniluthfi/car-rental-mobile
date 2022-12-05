@@ -3,26 +3,23 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TextInputProps,
   TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import {ic_calendar, ic_clock, ic_info_error, ic_pinpoin} from 'assets/icons';
-import {rowCenter, iconSize, WINDOW_HEIGHT, WINDOW_WIDTH, iconCustomSize} from 'utils/mixins';
+import {ic_calendar, ic_clock, ic_info_error} from 'assets/icons';
+import {rowCenter, iconSize, iconCustomSize} from 'utils/mixins';
 import {h1, h5} from 'utils/styles';
 import {theme} from 'utils';
-import DatePicker from 'react-native-modern-datepicker';
-import BsheetDatePicker from 'components/BSheet/BsheetDatePicker';
 import {showBSheet} from 'utils/BSheet';
-import {FONT_SIZE_10} from 'utils/typography';
 
 interface IProps {
   title: string;
   placeholder: string;
   mode: 'clock' | 'date';
   containerStyle: ViewStyle;
+  inputContainerStyle?: ViewStyle;
   content?: ReactNode;
   value: string;
   onChangeTime?: any;
@@ -35,6 +32,7 @@ const CustomDatePicker = ({
   mode,
   placeholder,
   containerStyle,
+  inputContainerStyle,
   value,
   content,
   onChangeTime,
@@ -50,14 +48,13 @@ const CustomDatePicker = ({
   const methods = {
     handleBSheet: () => {
       showBSheet({
-        content: content,
+        content,
       });
     },
   };
 
   useEffect(() => {
     if (!onChangeTime) return;
-    console.log(hour.length);
     if (hour.length === 2) ref2.current?.focus();
 
     if (hour.length < 2) {
@@ -70,7 +67,7 @@ const CustomDatePicker = ({
   return (
     <View style={containerStyle}>
       <Text style={[h1, {fontSize: 14}]}>{title}</Text>
-      <View style={[rowCenter, styles.wrapper]}>
+      <View style={[rowCenter, styles.wrapper, inputContainerStyle]}>
         <Image
           source={mode === 'clock' ? ic_clock : ic_calendar}
           style={iconSize}
@@ -88,6 +85,8 @@ const CustomDatePicker = ({
               maxLength={2}
               onChangeText={v => setHour(v)}
               editable={!disableTime}
+              keyboardType="numeric"
+              style={{padding: 0, margin: 0}}
             />
             <Text style={{marginHorizontal: 5}}>:</Text>
             <TextInput
@@ -96,17 +95,21 @@ const CustomDatePicker = ({
               maxLength={2}
               editable={!disableTime}
               onChangeText={v => setMinutes(v)}
+              keyboardType="numeric"
+              style={{padding: 0, margin: 0}}
             />
           </View>
         )}
         {disableTime && (
           <Text style={{marginLeft: 10}}>
-            {value.slice(0, 2)} : {value?.length > 2 && value.slice(-2)}
+            {value?.slice(0, 2) || '00'} :{' '}
+            {value?.length > 2 ? value.slice(-2) : '00'}
           </Text>
         )}
       </View>
       {errorMessage && (
-        <View style={[{alignSelf: 'flex-end', marginTop: 5, flexDirection: 'row'}]}>
+        <View
+          style={[{alignSelf: 'flex-end', marginTop: 5, flexDirection: 'row'}]}>
           <Image source={ic_info_error} style={iconCustomSize(15)} />
           <Text style={[h1, {fontSize: 10, color: theme.colors.red}]}>
             {' '}
@@ -125,6 +128,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.grey5,
     paddingVertical: 10,
-    marginTop: 10,
   },
 });

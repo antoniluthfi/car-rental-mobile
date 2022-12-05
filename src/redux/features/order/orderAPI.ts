@@ -1,30 +1,29 @@
-import { getGeneralApiProblem } from '../../../models/api-problem';
-import { apiWithInterceptor } from '../../../utils/interceptor';
+import {apiWithInterceptor} from '../../../utils/interceptor';
 // import * as Types from 'types/auth.types';
-import { ApiResponse } from 'apisauce';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ApiKind, ICities, IResponApi } from 'types/global.types';
-import { IParamConfirmation, IParamLogin, IParamRegister, IResultLogin } from 'types/auth.types';
-import { showToast } from 'utils/Toast';
-import { IPaginationVehicle, IResponVehicles, IVehicles } from 'types/vehicles';
-import { IParamOrder } from 'types/order';
+import {ApiResponse} from 'apisauce';
+import {createAsyncThunk} from '@reduxjs/toolkit';
+import {IResponApi} from 'types/global.types';
+import {showToast} from 'utils/Toast';
+import {IResponVehicles} from 'types/vehicles';
+import {IParamOrder} from 'types/order';
 
 export const getSummaryOrder = createAsyncThunk(
   'appData/getSummaryOrder',
-  async function (params: string, thunkAPI)
-  : Promise<IResponApi<IResponVehicles> | any> {
+  async function (
+    params: string,
+    thunkAPI,
+  ): Promise<IResponApi<IResponVehicles> | any> {
     try {
-      console.log('params = ', params)
       let response: ApiResponse<any> = await apiWithInterceptor.get(
-        `/api/orders/summary`+params,
+        `/api/orders/summary` + params,
       );
-      console.log(response.data)
-      if(!response.ok) {
+
+      if (!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',
           title: 'Warning',
           type: 'error',
-        })
+        });
         return thunkAPI.rejectWithValue(response.data);
       }
 
@@ -32,26 +31,54 @@ export const getSummaryOrder = createAsyncThunk(
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 export const createOrder = createAsyncThunk(
   'appData/createOrder',
-  async function (params: IParamOrder, thunkAPI)
-  : Promise<IResponApi<any> | any> {
+  async function (
+    params: IParamOrder,
+    thunkAPI,
+  ): Promise<IResponApi<any> | any> {
     try {
-      console.log('params = ', params)
       let response: ApiResponse<any> = await apiWithInterceptor.post(
         `/api/orders`,
         {...params},
       );
-      console.log(response.data)
-      if(!response.ok) {
+
+      if (!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',
           title: 'Warning',
           type: 'error',
-        })
+        });
+        return thunkAPI.rejectWithValue(response.data);
+      }
+
+      console.log('create order', response.data)
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const postDisbursements = createAsyncThunk(
+  'order/postDisbursements',
+  async (payload: any = {}, thunkAPI: any): Promise<IResponApi<any> | any> => {
+    try {
+      const response: ApiResponse<any> = await apiWithInterceptor.post(
+        `/api/disbursements`,
+        payload,
+      );
+
+      console.log('payload', payload);
+      if (!response.ok) {
+        showToast({
+          message: response?.data?.slug || 'Terjadi kesalahan',
+          title: 'Warning',
+          type: 'error',
+        });
         return thunkAPI.rejectWithValue(response.data);
       }
 
@@ -59,9 +86,8 @@ export const createOrder = createAsyncThunk(
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
-
 
 export const createDisbursements = createAsyncThunk(
   'appData/createDisbursements',
@@ -78,7 +104,6 @@ export const createDisbursements = createAsyncThunk(
         `/api/disbursements`,
         {...params},
       );
-      console.log(response.data)
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',

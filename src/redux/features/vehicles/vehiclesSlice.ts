@@ -53,7 +53,6 @@ export const vehiclesSlice = createSlice({
       })
       .addCase(getVehicles.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.vehicles = action.payload.vehicles || [];
         state.paginationVehicles = action.payload.paginationVehicles || {};
         state.isLoading = false;
@@ -71,7 +70,6 @@ export const vehiclesSlice = createSlice({
       })
       .addCase(getVehiclesById.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.vehicleById = action.payload || [];
         state.isLoading = false;
       })
@@ -88,7 +86,6 @@ export const vehiclesSlice = createSlice({
       })
       .addCase(getBrands.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.brands = action.payload || [];
         state.isLoading = false;
       })

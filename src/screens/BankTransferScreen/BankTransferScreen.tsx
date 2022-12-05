@@ -2,36 +2,28 @@ import {
   Image,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import hoc from 'components/hoc';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import {iconCustomSize, rowCenter} from 'utils/mixins';
 import {
-  ic_american_express,
   ic_arrow_left_white,
   ic_arrow_right,
   ic_bca,
   ic_copy,
-  ic_jcb,
   ic_mandiri,
-  ic_master_card,
-  ic_shield,
-  ic_visa,
 } from 'assets/icons';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
+import {h1, h4, h5} from 'utils/styles';
 import {theme} from 'utils';
-import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
-import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
-import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
+// import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
+// import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
+// import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
 import Button from 'components/Button';
-import {showToast} from 'utils/Toast';
 import {showBSheet} from 'utils/BSheet';
-import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {RootStackParamList} from 'types/navigator';
 import {currencyFormat} from 'utils/currencyFormat';
 
@@ -40,11 +32,12 @@ const FAQ = [
   'Lalu verifikasi Debit Card anda dengan menekan button “Verifikasi”. Setelah Debit Card terverifikasi maka anda bisa melanjutkan pembayaran.',
   'Setelah pembayaran berhasil dan terverifikasi maka status pesanan anda akan success serta transaksi anda akan nyaman dan aman.',
 ];
-type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'VirtualAccount'>;
+
+type BankTransferScreenRouteProp = RouteProp<RootStackParamList, 'BankTransfer'>;
 
 const BankTransferScreen = () => {
   const navigation = useNavigation();
-  const route = useRoute<ProfileScreenRouteProp>();
+  const route = useRoute<BankTransferScreenRouteProp>();
 
   useEffect(() => {
     navigation.setOptions(
@@ -203,7 +196,9 @@ const BankTransferScreen = () => {
 
         <Button
           _theme="navy"
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate('UploadBankTransfer', route.params)
+          }}
           title={'Upload Bukti Pembayaran'}
           styleWrapper={{
             marginTop: 26,

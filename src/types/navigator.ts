@@ -4,7 +4,7 @@ import {IPayments, IRegisterVerificationStep} from './global.types';
 
 type RootStackParamList = {
   ProductDetail: {productId: string};
-  MainTab: RootTabParamList;
+  MainTab?: RootTabParamList;
   Login: undefined;
   Auth: undefined;
   Register: undefined;
@@ -19,7 +19,9 @@ type RootStackParamList = {
     vehicle_id: number;
   };
   OrderDetail: undefined;
-  PaymentMethod: undefined;
+  PaymentMethod?: {
+    transaction_key: string;
+  };
   DailyBookingOrderDetailScreen: {
     transaction_key: string;
   };
@@ -31,6 +33,11 @@ type RootStackParamList = {
   };
   BankTransfer: {
     selectedPayment: IPayments;
+    transaction_key?: string;
+  }
+  UploadBankTransfer: {
+    selectedPayment: IPayments;
+    transaction_key?: string;
   }
   InstantPayment: {
     selectedPayment: IPayments;

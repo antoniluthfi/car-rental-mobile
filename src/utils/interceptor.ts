@@ -24,9 +24,7 @@ export const apiWithInterceptor = create({
 apiWithInterceptor.addAsyncRequestTransform(request => async () => {
   request.baseURL = URL_API;
   const TOKEN = store.getState().auth.auth.access_token;
-  console.log('TOKEN= . ', TOKEN);
   request.headers['Authorization'] = 'Bearer ' + TOKEN;
-  console.log(URL_API + request.url)
 });
 
 apiWithInterceptor.addAsyncResponseTransform(response => async (res) => {
@@ -38,7 +36,6 @@ apiWithInterceptor.addAsyncResponseTransform(response => async (res) => {
   //   }
   if (res.status === 401 && res.problem === 'CLIENT_ERROR') {
     const refresh_token = store?.getState()?.auth?.auth.refresh_token;
-    console.log('refresh_token ', refresh_token)
     let refresh = await store.dispatch(refreshToken(refresh_token!));
     // console.log('ss ', refresh);
     // return Axios.request(response.config!);

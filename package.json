@@ -25,6 +25,7 @@
         "react-native": "0.70.3",
         "react-native-dotenv": "^3.4.2",
         "react-native-gesture-handler": "^2.7.1",
+        "react-native-image-picker": "^4.10.2",
         "react-native-modern-datepicker": "^1.0.0-beta.91",
         "react-native-otp-inputs": "^7.4.0",
         "react-native-reanimated": "^2.11.0",

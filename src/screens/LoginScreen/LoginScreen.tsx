@@ -85,7 +85,6 @@ const LoginScreen: FC = () => {
           title: 'Warning',
           type: 'error',
         });
-        console.log(error);
       }
     },
   };

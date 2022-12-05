@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ReactNode } from "react";
-import { View } from "react-native";
 import { RootState } from "redux/store";
-import { IRegisterVerificationMethod } from "types/global.types";
+
 interface IInit {
     isShowLoader: boolean;
     isShowToast: boolean;
