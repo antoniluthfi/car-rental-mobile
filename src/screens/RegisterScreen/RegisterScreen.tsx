@@ -89,7 +89,6 @@ const RegisterScreen: FC = () => {
   const methods = {
     handleRegister: async () => {
       try {
-        console.log(form);
         let _errorMessage: any = {};
         let status = true;
         Object.keys(form).map((x, i) => {

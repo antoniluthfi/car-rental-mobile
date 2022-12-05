@@ -92,7 +92,6 @@ export const authSlice = createSlice({
       })
       .addCase(refreshToken.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.auth = action.payload;
         state.isLoading = false;
         state.isSignIn = true;

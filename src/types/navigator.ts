@@ -4,7 +4,7 @@ import {IPayments, IRegisterVerificationStep} from './global.types';
 
 type RootStackParamList = {
   ProductDetail: {productId: string};
-  MainTab: RootTabParamList;
+  MainTab?: RootTabParamList;
   Login: undefined;
   Auth: undefined;
   Register: undefined;

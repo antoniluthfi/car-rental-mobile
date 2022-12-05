@@ -23,12 +23,16 @@ import SenderTextInput from 'components/UploadBankTransferComponent/SenderTextIn
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {postDisbursements} from 'redux/features/order/orderAPI';
 import {appDataState} from 'redux/features/appData/appDataSlice';
+import {orderState} from 'redux/features/order/orderSlice';
 
 const UploadBankTransferScreen = () => {
   const navigation = useNavigation();
   const route = useRoute<UploadBankTransferScreenRouteProp>();
   const dispatch = useAppDispatch();
   const paymentMethods = useAppSelector(appDataState).payments;
+  const transactionKey = useAppSelector(orderState).order.transaction_key;
+  const isDisbursementSuccess =
+    useAppSelector(orderState).isDisbursementSuccess;
 
   const [form, setForm] = useState<UploadBankTransferFormData>({
     sender_name: '',
@@ -47,14 +51,12 @@ const UploadBankTransferScreen = () => {
       const result: ImagePickerResponse = await launchImageLibrary({
         mediaType: 'photo',
         quality: 0.5,
+        includeBase64: true,
       });
 
       setForm({
         ...form,
-        disbursement_confirmation_image:
-          Platform.OS === 'ios'
-            ? result.assets?.[0].uri?.replace('file://', '')
-            : result.assets?.[0].uri,
+        disbursement_confirmation_image: `data:image/png;base64,${result.assets?.[0]?.base64}`,
         disbursement_confirmation_image_size: result.assets?.[0]
           .fileSize as number,
       });
@@ -95,7 +97,7 @@ const UploadBankTransferScreen = () => {
 
     dispatch(
       postDisbursements({
-        transaction_key: route.params?.transaction_key,
+        transaction_key: transactionKey || route.params?.transaction_key,
         payment_type_id: paymentMethods.find(
           x => x.code == route.params?.selectedPayment.code,
         )?.id,
@@ -105,6 +107,14 @@ const UploadBankTransferScreen = () => {
       }),
     );
   };
+
+  useEffect(() => {
+    if (isDisbursementSuccess) {
+      navigation.navigate('MainTab', {
+        screen: 'Booking',
+      } as any);
+    }
+  }, [isDisbursementSuccess]);
 
   useEffect(() => {
     navigation.setOptions(

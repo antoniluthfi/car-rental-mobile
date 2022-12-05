@@ -1,17 +1,10 @@
-import {getGeneralApiProblem} from '../../../models/api-problem';
 import {apiWithInterceptor} from '../../../utils/interceptor';
 // import * as Types from 'types/auth.types';
 import {ApiResponse} from 'apisauce';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ApiKind, ICities, IResponApi} from 'types/global.types';
-import {
-  IParamConfirmation,
-  IParamLogin,
-  IParamRegister,
-  IResultLogin,
-} from 'types/auth.types';
+import {IResponApi} from 'types/global.types';
 import {showToast} from 'utils/Toast';
-import {IPaginationVehicle, IResponVehicles, IVehicles} from 'types/vehicles';
+import {IResponVehicles} from 'types/vehicles';
 import {IParamOrder} from 'types/order';
 
 export const getSummaryOrder = createAsyncThunk(
@@ -21,11 +14,10 @@ export const getSummaryOrder = createAsyncThunk(
     thunkAPI,
   ): Promise<IResponApi<IResponVehicles> | any> {
     try {
-      console.log('params = ', params);
       let response: ApiResponse<any> = await apiWithInterceptor.get(
         `/api/orders/summary` + params,
       );
-      console.log(response.data);
+
       if (!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',
@@ -63,6 +55,7 @@ export const createOrder = createAsyncThunk(
         return thunkAPI.rejectWithValue(response.data);
       }
 
+      console.log('create order', response.data)
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);

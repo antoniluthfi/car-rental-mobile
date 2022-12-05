@@ -77,7 +77,6 @@ export const orderSlice = createSlice({
       })
       .addCase(getSummaryOrder.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.summaryOrder = action.payload || [];
         state.isLoading = false;
       })
@@ -93,7 +92,6 @@ export const orderSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.order = action.payload.data || [];
         state.isLoading = false;
       })

@@ -78,7 +78,6 @@ const ListCarScreen: FC = () => {
 
   useEffect(() => {
     let params: string = '?';
-    console.log(form?.brands);
     let _formdaily: IFormDaily = {...formDaily, passanger: form.filter_seat};
 
     if (form.brands) {
@@ -87,7 +86,6 @@ const ListCarScreen: FC = () => {
     Object.keys(_formdaily).map(x => {
       params += `${x}=${_formdaily[x as keyof IFormDaily]}&`;
     });
-    console.log(params);
     dispatch(getVehicles(params));
     dispatch(getBrands());
   }, [navigation, form.brands, form.filter_seat]);

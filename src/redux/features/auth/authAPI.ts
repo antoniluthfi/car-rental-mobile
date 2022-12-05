@@ -1,9 +1,8 @@
-import { getGeneralApiProblem } from '../../../models/api-problem';
 import { apiWithInterceptor } from '../../../utils/interceptor';
 // import * as Types from 'types/auth.types';
 import { ApiResponse } from 'apisauce';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ApiKind, IResponApi } from 'types/global.types';
+import { IResponApi } from 'types/global.types';
 import { IParamConfirmation, IParamLogin, IParamRegister, IResultLogin } from 'types/auth.types';
 import { showToast } from 'utils/Toast';
 
@@ -16,7 +15,7 @@ export const authLogin = createAsyncThunk(
         `/api/authorization`,
         { ...params, scope: 'app' }
       );
-      // console.log(response.data)
+
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',

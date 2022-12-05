@@ -55,7 +55,6 @@ const CustomDatePicker = ({
 
   useEffect(() => {
     if (!onChangeTime) return;
-    console.log(hour.length);
     if (hour.length === 2) ref2.current?.focus();
 
     if (hour.length < 2) {

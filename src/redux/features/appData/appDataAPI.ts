@@ -1,10 +1,8 @@
-import { getGeneralApiProblem } from '../../../models/api-problem';
 import { apiWithInterceptor } from '../../../utils/interceptor';
 // import * as Types from 'types/auth.types';
 import { ApiResponse } from 'apisauce';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ApiKind, ICities, IResponApi } from 'types/global.types';
-import { IParamConfirmation, IParamLogin, IParamRegister, IResultLogin } from 'types/auth.types';
+import { ICities, IResponApi } from 'types/global.types';
 import { showToast } from 'utils/Toast';
 
 export const getAllCities = createAsyncThunk(
@@ -15,7 +13,7 @@ export const getAllCities = createAsyncThunk(
       let response: ApiResponse<any> = await apiWithInterceptor.get(
         `/api/cities`,
       );
-      // console.log(response.data)
+
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',
@@ -40,7 +38,7 @@ export const getUser = createAsyncThunk(
       let response: ApiResponse<any> = await apiWithInterceptor.get(
         `/api/profile?includes=PersonalInfos`,
       );
-      console.log(response.data)
+
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',
@@ -65,7 +63,7 @@ export const getGarages = createAsyncThunk(
       let response: ApiResponse<any> = await apiWithInterceptor.get(
         `/api/garages`,
       );
-      console.log(response.data)
+
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',
@@ -91,7 +89,7 @@ export const getPayments = createAsyncThunk(
       let response: ApiResponse<any> = await apiWithInterceptor.get(
         `/api/payments`,
       );
-      console.log(response.data)
+
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',

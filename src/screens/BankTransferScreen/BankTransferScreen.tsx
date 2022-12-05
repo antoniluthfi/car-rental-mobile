@@ -38,7 +38,6 @@ type BankTransferScreenRouteProp = RouteProp<RootStackParamList, 'BankTransfer'>
 const BankTransferScreen = () => {
   const navigation = useNavigation();
   const route = useRoute<BankTransferScreenRouteProp>();
-  console.log(route.params?.transaction_key)
 
   useEffect(() => {
     navigation.setOptions(

@@ -102,13 +102,11 @@ const OrderDetailScreen: FC = () => {
       start_booking_time: formDaily.start_booking_time,
       vehicle_id: formDaily.vehicle_id,
     };
-    console.log(payload);
     let params: string = '?';
 
     Object.keys(payload).map(x => {
       params += `${x}=${payload[x as keyof IPayloadSummary]}&`;
     });
-    console.log(params);
     dispatch(getSummaryOrder(params));
   }, []);
 
@@ -140,7 +138,7 @@ const OrderDetailScreen: FC = () => {
           wa_number: user.wa_number,
         }),
       );
-      console.log('respon order = ', res);
+
       if (res.type.includes('rejected')) {
         return;
       }

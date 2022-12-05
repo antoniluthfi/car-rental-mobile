@@ -13,11 +13,10 @@ export const getVehicles = createAsyncThunk(
   async function (params: string, thunkAPI)
   : Promise<IResponApi<IResponVehicles> | any> {
     try {
-      console.log('params = ', params)
       let response: ApiResponse<any> = await apiWithInterceptor.get(
         `/api/vehicles`+params,
       );
-      console.log(response.data)
+
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',
@@ -40,11 +39,10 @@ export const getBrands = createAsyncThunk(
   async function (params, thunkAPI)
   : Promise<IResponApi<any> | any> {
     try {
-      console.log('params = ', params)
       let response: ApiResponse<any> = await apiWithInterceptor.get(
         `/api/brands`,
       );
-      console.log(response.data)
+
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',
@@ -66,11 +64,10 @@ export const getVehiclesById = createAsyncThunk(
   async function (params: number, thunkAPI)
   : Promise<IResponApi<any> | any> {
     try {
-      console.log('params = ', params)
       let response: ApiResponse<any> = await apiWithInterceptor.get(
         `/api/vehicles/${params}`,
       );
-      console.log(response.data)
+
       if(!response.ok) {
         showToast({
           message: response?.data?.slug || 'Terjadi kesalahan',

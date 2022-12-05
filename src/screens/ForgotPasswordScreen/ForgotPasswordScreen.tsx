@@ -69,7 +69,6 @@ const ForgotPasswordScreen: FC = () => {
           title: 'Warning',
           type: 'error',
         });
-        console.log(error);
       }
     },
   };
