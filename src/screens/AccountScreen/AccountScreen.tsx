@@ -108,7 +108,11 @@ const AccountScreen: React.FC = () => {
           </TouchableOpacity>
           <View style={styles.line} />
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('ChangePassword');
+            }}>
             <Image source={ic_password_lock} style={styles.icon} />
             <Text style={[h5]}>Ubah Password</Text>
           </TouchableOpacity>
