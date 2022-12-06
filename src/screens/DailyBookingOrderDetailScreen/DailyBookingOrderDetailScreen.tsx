@@ -124,7 +124,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
     const future = moment(selected?.expired_time).format('YYYY-MM-DD HH:mm:ss');
 
     if (
-      selected?.order_status.toLowerCase() == 'pending' &&
+      selected?.order_status?.toLowerCase() == 'pending' &&
       moment(now).isAfter(future)
     ) {
       setOrderState('FAILED');

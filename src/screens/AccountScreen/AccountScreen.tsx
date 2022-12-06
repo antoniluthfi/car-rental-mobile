@@ -2,7 +2,7 @@ import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import hoc from 'components/hoc';
 import Button from 'components/Button';
-import {useAppDispatch} from 'redux/hooks';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {logout} from 'redux/features/auth/authSlice';
 import {toggleLoader} from 'redux/features/utils/utilsSlice';
 import {useNavigation} from '@react-navigation/native';
@@ -23,11 +23,13 @@ import {
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker';
+import { resetUser, userState } from 'redux/features/user/userSlice';
 
 const AccountScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const userUpdateStatus = useAppSelector(userState).isChangePasswordSuccess;
 
   const methods = {
     handleLogout: () => {
@@ -66,6 +68,12 @@ const AccountScreen: React.FC = () => {
   };
 
   useEffect(() => {
+    if (userUpdateStatus) {
+      dispatch(resetUser());
+    }
+  }, [userUpdateStatus]);
+
+  useEffect(() => {
     navigation.setOptions(
       appBar({
         leading: (
@@ -87,6 +95,7 @@ const AccountScreen: React.FC = () => {
         ),
       }),
     );
+
   }, [navigation]);
 
   return (

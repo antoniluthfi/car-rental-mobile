@@ -98,6 +98,11 @@ const ChangePasswordScreen: React.FC = () => {
 
   useEffect(() => {
     if (userUpdateStatus) {
+      showToast({
+        title: 'Berhasil',
+        type: 'success',
+        message: 'Berhasil merubah password',
+      });
       navigation.goBack();
     }
   }, [userUpdateStatus]);

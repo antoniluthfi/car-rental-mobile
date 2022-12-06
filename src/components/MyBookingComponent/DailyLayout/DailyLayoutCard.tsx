@@ -100,7 +100,7 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
     const future = moment(expired_time).format('YYYY-MM-DD HH:mm:ss');
 
     if (
-      order_status.toLowerCase() == 'pending' &&
+      order_status?.toLowerCase() == 'pending' &&
       moment(now).isAfter(future)
     ) {
       setOrderState('FAILED');
