@@ -156,6 +156,7 @@ const DailyLayout: FC = () => {
                   width: WINDOW_WIDTH,
                   height: WINDOW_HEIGHT,
                 }}
+                minimumDate={moment(new Date()).format('YYYY-MM-DD')}
                 onDateChange={v => {
                   setTimeout(() => {
                     dispatch(
@@ -214,6 +215,8 @@ const DailyLayout: FC = () => {
                   width: WINDOW_WIDTH,
                   height: WINDOW_HEIGHT,
                 }}
+                minimumDate={moment(form.tanggal_sewa).format('YYYY-MM-DD')}
+                // maximumDate={moment(new Date()).format('YYYY-MM-DD')}
                 onDateChange={v => {
                   setTimeout(() => {
                     dispatch(

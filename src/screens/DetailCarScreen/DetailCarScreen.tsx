@@ -291,6 +291,7 @@ const DetailCarScreen: FC = () => {
             title="Lanjutkan"
             onPress={() => navigation.navigate('OrderDetail')}
             _theme="navy"
+            disabled={!checkInfo}
           />
         </View>
       </View>
