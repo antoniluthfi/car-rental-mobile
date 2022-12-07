@@ -69,3 +69,7 @@ export const ic_profile_active = require('./ic_profile_active.png');
 export const ic_document_active = require('./ic_document_active.png');
 export const ic_home_inactive = require('./ic_home_inactive.png');
 export const ic_message_active = require('./ic_message_active.png');
+export const ic_empty_profile = require('./ic_empty_profile.png');
+export const ic_password_lock = require('./ic_password_lock.png');
+export const ic_notification_bell = require('./ic_notification_bell.png');
+export const ic_camera = require('./ic_camera.png');

@@ -12,6 +12,7 @@ import myBookingReducer from './features/myBooking/myBookingSlice';
 import garagesReducer from './features/garages/garagesSlice';
 import vehiclesReducer from './features/vehicles/vehiclesSlice';
 import orderReducer from './features/order/orderSlice';
+import userReducer from './features/user/userSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   persistStore,
@@ -23,6 +24,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+
 const reducers = combineReducers({
   auth: authReducer,
   utils: utilsReducer,
@@ -32,6 +34,7 @@ const reducers = combineReducers({
   garages: garagesReducer,
   vehicles: vehiclesReducer,
   order: orderReducer,
+  user: userReducer
 });
 
 const persistConfig = {

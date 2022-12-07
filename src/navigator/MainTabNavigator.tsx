@@ -98,6 +98,9 @@ const MainTab: React.FC = () => {
         component={FadeAccountScreen}
         options={{
           tabBarLabel: 'My Profile',
+          headerStyle: {
+            backgroundColor: theme.colors.navy,
+          },
         }}
       />
     </RootTab.Navigator>

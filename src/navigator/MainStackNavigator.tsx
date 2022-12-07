@@ -24,8 +24,26 @@ import { authState } from 'redux/features/auth/authSlice';
 import { theme } from 'utils';
 import DailyBookingOrderDetailScreen from 'screens/DailyBookingOrderDetailScreen/DailyBookingOrderDetailScreen';
 import UploadBankTransferScreen from 'screens/UploadBankTransferScreen/UploadBankTransferScreen';
+import ChangePasswordScreen from 'screens/ChangePasswordScreen/ChangePasswordScreen';
 
 const RootStack = createStackNavigator<RootStackParamList>();
+
+const topToDownAnimation = {
+  cardStyleInterpolator: ({ current, layouts }: any) => {
+    return {
+      cardStyle: {
+        transform: [
+          {
+            translateY: current.progress.interpolate({
+              inputRange: [0, 1],
+              outputRange: [-layouts.screen.width, 0],
+            }),
+          },
+        ],
+      },
+    };
+  },
+};
 
 const leftToRightAnimation = {
   cardStyleInterpolator: ({ current, layouts }: any) => {
@@ -33,7 +51,7 @@ const leftToRightAnimation = {
       cardStyle: {
         transform: [
           {
-            translateY: current.progress.interpolate({
+            translateX: current.progress.interpolate({
               inputRange: [0, 1],
               outputRange: [-layouts.screen.width, 0],
             }),
@@ -82,7 +100,7 @@ const MainStack: React.FC = () => {
           <RootStack.Screen
             name="MainTab"
             component={MainTabNavigator}
-            options={leftToRightAnimation}
+            options={topToDownAnimation}
           />
           <RootStack.Screen
             name="ListCar"
@@ -172,6 +190,16 @@ const MainStack: React.FC = () => {
               headerStyle: {
                 backgroundColor: theme.colors.navy,
               },
+            }}
+          />
+          <RootStack.Screen
+            name="ChangePassword"
+            component={ChangePasswordScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+              ...leftToRightAnimation
             }}
           />
         </>

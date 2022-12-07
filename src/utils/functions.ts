@@ -25,3 +25,6 @@ export const idrFormatter = (price?: number) => {
 
   return 'IDR 0';
 };
+
+export const passwordValidation = (p1: string, p2: string) =>
+  p1 === p2 && /^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,}$/.test(p1);
