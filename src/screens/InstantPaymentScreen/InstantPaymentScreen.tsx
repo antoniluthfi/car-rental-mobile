@@ -1,12 +1,13 @@
 import {
   Image,
+  Linking,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import hoc from 'components/hoc';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
@@ -35,16 +36,29 @@ import {showBSheet} from 'utils/BSheet';
 import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {RootStackParamList} from 'types/navigator';
 import {currencyFormat} from 'utils/currencyFormat';
+import {useAppSelector} from 'redux/hooks';
+import {orderState} from 'redux/features/order/orderSlice';
+import moment from 'moment';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
+import QRCode from 'react-native-qrcode-svg';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
   'Lalu verifikasi Debit Card anda dengan menekan button “Verifikasi”. Setelah Debit Card terverifikasi maka anda bisa melanjutkan pembayaran.',
   'Setelah pembayaran berhasil dan terverifikasi maka status pesanan anda akan success serta transaksi anda akan nyaman dan aman.',
 ];
+const TIMER = 299;
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, any>;
 const InstantPaymentScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const route = useRoute<ProfileScreenRouteProp>();
+  const order = useAppSelector(orderState).order;
+  const formDaily = useAppSelector(appDataState).formDaily;
+  const vehicles = useAppSelector(vehiclesState);
+  const disbursements = useAppSelector(orderState).disbursements;
+
+  const [seconds, setSeconds] = useState(TIMER);
 
   useEffect(() => {
     navigation.setOptions(
@@ -70,6 +84,14 @@ const InstantPaymentScreen = () => {
     );
   }, [navigation]);
 
+  useEffect(() => {
+    if (seconds > 0) {
+      setTimeout(() => setSeconds(seconds - 1), 1000);
+    } else {
+      setSeconds(0);
+    }
+  });
+
   const methods = {
     handleFAQ: () => {
       showBSheet({
@@ -93,6 +115,15 @@ const InstantPaymentScreen = () => {
         ),
       });
     },
+    secondsToHms: (d: any) => {
+      d = Number(d);
+      var m = Math.floor((d % 3600) / 60);
+      var s = Math.floor((d % 3600) % 60);
+
+      var mDisplay = m > 0 ? m : '0';
+      var sDisplay = s > 0 ? s : '0';
+      return '0' + mDisplay + ':' + (sDisplay > 9 ? sDisplay : '0' + sDisplay);
+    },
   };
 
   return (
@@ -110,10 +141,12 @@ const InstantPaymentScreen = () => {
         <View>
           <Text style={[h1]}>Selesaikan Sebelum</Text>
           <Text style={[h4, {marginTop: 10, fontSize: 12}]}>
-            Sab, 30 April 2022, 22:44 WIB
+            {moment(order.expired_time).format('ddd, DD MMMM YYYY')}
           </Text>
         </View>
-        <Text style={[h1, {color: theme.colors.blue}]}>00:49:15</Text>
+        <Text style={[h1, {color: theme.colors.blue}]}>
+          {methods.secondsToHms(seconds)}
+        </Text>
       </View>
 
       <View
@@ -133,9 +166,16 @@ const InstantPaymentScreen = () => {
             <Text style={[h1, {color: theme.colors.navy, fontSize: 12}]}>
               Daily
             </Text>
-            <Text style={[h5, {fontSize: 12}]}>Suzuki Ertiga</Text>
             <Text style={[h5, {fontSize: 12}]}>
-              1 Juli - 3 Juli 2022 10:00 PM
+              {
+                vehicles.vehicles?.find(x => x.id === formDaily.vehicle_id)
+                  ?.name
+              }
+            </Text>
+            <Text style={[h5, {fontSize: 12}]}>
+              {moment(order.order_detail.start_booking_date).format('DD MMMM')}{' '}
+              - {moment(order.order_detail.end_booking_date).format('DD MMMM')}{' '}
+              {order.order_detail.start_booking_time}
             </Text>
           </View>
           <Image
@@ -157,7 +197,7 @@ const InstantPaymentScreen = () => {
               padding: 10,
             },
           ]}>
-          <Text>{currencyFormat(120000)}</Text>
+          <Text>{currencyFormat(order.total_payment)}</Text>
         </View>
 
         <View style={styles.lineHorizontal} />
@@ -179,16 +219,22 @@ const InstantPaymentScreen = () => {
               padding: 10,
             },
           ]}>
-          <Image
+          {/* <Image
             source={ic_qr}
             style={iconCustomSize(140)}
             resizeMode={'contain'}
+          /> */}
+          <QRCode
+            value="Just some string value"
+            logo={{uri: disbursements?.qr_code}}
+            logoSize={30}
+            logoBackgroundColor="transparent"
           />
         </View>
 
         <Button
           _theme="navy"
-          onPress={() => {}}
+          onPress={() => Linking.openURL(disbursements?.deep_link!)}
           title={'Lanjutkan ke Aplikasi'}
           styleWrapper={{
             marginTop: 26,
@@ -197,7 +243,7 @@ const InstantPaymentScreen = () => {
 
         <Button
           _theme="white"
-          onPress={() => {}}
+          onPress={() => navigation.navigate('MainTab', {screen: 'Booking'})}
           title={'Ke Halaman My Bookings'}
           styleWrapper={{
             marginTop: 26,

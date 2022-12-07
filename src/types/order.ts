@@ -84,5 +84,7 @@ export type IDisbursements = {
     va_numbers: {
         bank: string;
         va_number: string
-    }[]
+    }[],
+    deep_link?: string;
+    qr_code?: string;
 }

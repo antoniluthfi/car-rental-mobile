@@ -1,5 +1,5 @@
 import React, {FC, useCallback, useState, useEffect} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {
   getOrders,
@@ -11,6 +11,7 @@ import DailyLayoutCard from './DailyLayoutCard';
 
 const DailyLayout: FC = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation();
   const myBooking = useAppSelector(state => state.myBooking);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [vehicleIds, setVehicleIds] = useState<any[]>([]);
@@ -32,7 +33,7 @@ const DailyLayout: FC = () => {
   useFocusEffect(
     useCallback(() => {
       dispatch(getOrders());
-    }, [myBooking.page]),
+    }, [myBooking.page, navigation]),
   );
 
   const renderItem = ({item}: any) => {
