@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import { RootState } from 'redux/store';
-import {changePassword} from './userAPI';
+import {changePassword, editUser} from './userAPI';
 
 type InitState = {
   isLoading: boolean;
@@ -28,21 +28,22 @@ export const user = createSlice({
   },
   extraReducers: builder => {
     builder
-      // .addCase(editUser.pending, state => {
-      //   state.isLoading = true;
-      //   state.isError = false;
-      //   state.errorResponse = {};
-      //   state.isUpdateSuccess = false;
-      // })
-      // .addCase(editUser.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.isError = true;
-      //   state.errorResponse = action.payload;
-      // })
-      // .addCase(editUser.fulfilled, state => {
-      //   state.isLoading = false;
-      //   state.isUpdateSuccess = true;
-      // })
+      .addCase(editUser.pending, state => {
+        state.isLoading = true;
+        state.isError = false;
+        state.errorResponse = {};
+        state.isUpdateSuccess = false;
+      })
+      .addCase(editUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorResponse = action.payload;
+        state.isUpdateSuccess = false;
+      })
+      .addCase(editUser.fulfilled, state => {
+        state.isLoading = false;
+        state.isUpdateSuccess = true;
+      })
       // .addCase(uploadFile.pending, state => {
       //   state.isLoading = true;
       //   state.isError = false;

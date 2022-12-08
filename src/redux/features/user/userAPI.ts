@@ -1,37 +1,28 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ApiResponse} from 'apisauce';
-import axios from 'axios';
 import {IResponApi} from 'types/global.types';
-import {ParamChangePassword} from 'types/user';
+import {ParamChangePassword, ParamEditUser} from 'types/user';
 import {apiWithInterceptor} from 'utils/interceptor';
 import {showToast} from 'utils/Toast';
 
-const url = process.env.URL_API;
+export const editUser = createAsyncThunk(
+  'user/editUser',
+  async (payload: ParamEditUser, thunkAPI: any) => {
 
-// export const editUser = createAsyncThunk(
-//   'user/editUser',
-//   async (payload, thunkAPI) => {
-//     const accessToken = thunkAPI.getState().auth.data.access_token;
-//     const { name, photo_ktp, photo_license, password } = payload;
+    try {
+      const response = await apiWithInterceptor
+        .put(
+          `/api/profile`,
+          payload,
+        )
+        .then((res) => res);
 
-//     try {
-//       const response = await axios
-//         .put(
-//           `${url}/api/profile`,
-//           { name, photo_ktp, photo_license, password },
-//           {
-//             headers: { Authorization: `Bearer ${accessToken}` },
-//           }
-//         )
-//         .then((res) => res);
-
-//       thunkAPI.dispatch(getUser());
-//       return response.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 // export const uploadFile = createAsyncThunk(
 //   'user/uploadFile',

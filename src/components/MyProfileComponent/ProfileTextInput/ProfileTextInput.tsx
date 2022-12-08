@@ -17,6 +17,7 @@ const ProfileTextInput: React.FC<ProfileTextInputProps> = ({
   editable = true,
   keyboardType,
   includeCheckbox,
+  defaultCode
 }) => {
   return (
     <View style={{marginBottom: 20}}>
@@ -58,6 +59,8 @@ const ProfileTextInput: React.FC<ProfileTextInputProps> = ({
           onChangeText={onChangeText}
           placeholder={placeholder}
           value={value}
+          editable={editable}
+          defaultCode={defaultCode}
         />
       )}
 

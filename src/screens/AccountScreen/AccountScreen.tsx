@@ -29,7 +29,7 @@ const AccountScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const userUpdateStatus = useAppSelector(userState).isChangePasswordSuccess;
+  const userUpdateStatus = useAppSelector(userState);
 
   const methods = {
     handleLogout: () => {
@@ -68,7 +68,10 @@ const AccountScreen: React.FC = () => {
   };
 
   useEffect(() => {
-    if (userUpdateStatus) {
+    if (
+      userUpdateStatus.isChangePasswordSuccess ||
+      userUpdateStatus.isUpdateSuccess
+    ) {
       dispatch(resetUser());
     }
   }, [userUpdateStatus]);

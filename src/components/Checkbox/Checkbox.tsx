@@ -18,6 +18,7 @@ type Props = {
   customContainerStyle?: ViewStyle;
   customLabelStyle?: TextStyle;
   customCheckboxStyle?: ImageStyle;
+  disabled?: boolean;
 };
 
 const Checkbox: React.FC<Props> = ({
@@ -27,9 +28,11 @@ const Checkbox: React.FC<Props> = ({
   customContainerStyle,
   customLabelStyle,
   customCheckboxStyle,
+  disabled,
 }) => {
   return (
     <TouchableOpacity
+      disabled={disabled}
       style={[rowCenter, styles.container, customContainerStyle]}
       onPress={() => onChange(!checked)}>
       <Image

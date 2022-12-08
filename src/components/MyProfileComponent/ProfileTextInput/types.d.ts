@@ -7,6 +7,7 @@ type CommonProps = {
   label: string;
   placeholder: string;
   includeCheckbox?: ReactNode
+  editable?: boolean;
 };
 
 type ConditionalInputType =
@@ -14,15 +15,15 @@ type ConditionalInputType =
       type?: 'default';
       keyboardType?: KeyboardType;
       rightImageSource?: ImageSourcePropType;
-      editable?: boolean;
       onChangeText: (text: string) => void;
+      defaultCode?: never;
     }
   | {
       type?: 'phone_number';
       keyboardType?: never;
       rightImageSource?: never;
-      editable?: never;
       onChangeText: (countryCode: string, text: string) => void;
+      defaultCode?: string;
     };
 
 export type ProfileTextInputProps = CommonProps & ConditionalInputType;

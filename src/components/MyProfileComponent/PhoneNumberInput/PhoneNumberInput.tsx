@@ -9,7 +9,7 @@ import {
 import CountryFlag from 'react-native-country-flag';
 import {rowCenter} from 'utils/mixins';
 import {h5} from 'utils/styles';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CustomModal from 'components/CustomModal/CustomModal';
 import dialCodePhone from 'assets/data/dialCodePhone.json';
 import {WINDOW_HEIGHT} from '@gorhom/bottom-sheet';
@@ -19,6 +19,8 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
   onChangeText,
   value,
   placeholder,
+  editable,
+  defaultCode,
 }) => {
   const [trigger, setTrigger] = useState<boolean>(false);
   const [code, setCode] = useState<string>('62');
@@ -44,17 +46,44 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
     );
   };
 
+  useEffect(() => {
+    if (defaultCode) {
+      const selectedCode = dialCodePhone.find(
+        code => code.dial_code === `+${defaultCode}`,
+      );
+
+      if (selectedCode) {
+        setCode(selectedCode.dial_code.slice(1));
+        setFlag(selectedCode.code);
+      }
+    }
+  }, [defaultCode]);
+
   return (
     <React.Fragment>
       <View style={rowCenter}>
         <TouchableOpacity
-          style={[styles.countryCodeContainer, {flexBasis: '20%'}]}
+          disabled={!editable}
+          style={[
+            styles.countryCodeContainer,
+            {
+              flexBasis: '20%',
+              backgroundColor: editable ? 'none' : theme.colors.grey6,
+            },
+          ]}
           onPress={() => setTrigger(true)}>
           <Text style={h5}>+{code}</Text>
           <CountryFlag isoCode={flag} size={15} />
         </TouchableOpacity>
 
-        <View style={[styles.inputContainer, {flexBasis: '78%'}]}>
+        <View
+          style={[
+            styles.inputContainer,
+            {
+              flexBasis: '78%',
+              backgroundColor: editable ? 'none' : theme.colors.grey6,
+            },
+          ]}>
           <TextInput
             onChangeText={text => {
               onChangeText(code, text);
@@ -63,6 +92,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
             style={{padding: 0, margin: 0}}
             value={value}
             keyboardType="numeric"
+            editable={editable}
           />
         </View>
       </View>
