@@ -1,4 +1,4 @@
-import { URL_IMAGE } from '@env';
+import {URL_IMAGE} from '@env';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {
   ic_arrow_left_white,
@@ -22,6 +22,7 @@ import {
 } from 'assets/icons';
 import appBar from 'components/AppBar/AppBar';
 import Button from 'components/Button';
+import Checkbox from 'components/Checkbox/Checkbox';
 import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 import hoc from 'components/hoc';
 import React, {FC, useEffect, useState} from 'react';
@@ -33,10 +34,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { getVehiclesById } from 'redux/features/vehicles/vehiclesAPI';
-import { vehiclesState } from 'redux/features/vehicles/vehiclesSlice';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { RootStackParamList } from 'types/navigator';
+import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
+import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {RootStackParamList} from 'types/navigator';
 import {theme} from 'utils';
 import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
 import {h1, h3, h4, h5} from 'utils/styles';
@@ -88,9 +89,8 @@ const DetailCarScreen: FC = () => {
   const route = useRoute<ProfileScreenRouteProp>();
   const dispatch = useAppDispatch();
   const vehicle = useAppSelector(vehiclesState).vehicleById;
-  
+
   const [checkInfo, setCheckInfo] = useState(false);
-  
 
   useEffect(() => {
     navigation.setOptions(
@@ -119,7 +119,6 @@ const DetailCarScreen: FC = () => {
   useEffect(() => {
     dispatch(getVehiclesById(route.params.vehicle_id));
   }, []);
-  
 
   return (
     <View
@@ -169,22 +168,28 @@ const DetailCarScreen: FC = () => {
               rowCenter,
               {flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 5},
             ]}>
-            {vehicle.smoke_allowed && <View style={[rowCenter, {marginBottom: 17}]}>
-              <Image source={ic_nosmoke} style={iconSize} />
-              <Text style={[h4, {marginLeft: 10}]}>Dilarang Merokok</Text>
-            </View>}
+            {vehicle.smoke_allowed && (
+              <View style={[rowCenter, {marginBottom: 17}]}>
+                <Image source={ic_nosmoke} style={iconSize} />
+                <Text style={[h4, {marginLeft: 10}]}>Dilarang Merokok</Text>
+              </View>
+            )}
 
-            {vehicle.disablility_allowed && <View style={[rowCenter, {marginBottom: 17}]}>
-              <Image source={ic_disable} style={iconSize} />
-              <Text style={[h4, {marginLeft: 10}]}>Disabilitas Support</Text>
-            </View>}
+            {vehicle.disablility_allowed && (
+              <View style={[rowCenter, {marginBottom: 17}]}>
+                <Image source={ic_disable} style={iconSize} />
+                <Text style={[h4, {marginLeft: 10}]}>Disabilitas Support</Text>
+              </View>
+            )}
 
-            {vehicle.pet_allowed && <View style={[rowCenter, {marginBottom: 17}]}>
-              <Image source={ic_dog} style={iconSize} />
-              <Text style={[h4, {marginLeft: 10}]}>
-                Peliharaan Diperbolehkan
-              </Text>
-            </View>}
+            {vehicle.pet_allowed && (
+              <View style={[rowCenter, {marginBottom: 17}]}>
+                <Image source={ic_dog} style={iconSize} />
+                <Text style={[h4, {marginLeft: 10}]}>
+                  Peliharaan Diperbolehkan
+                </Text>
+              </View>
+            )}
           </View>
           <View style={styles.lineHorizontal} />
         </View>
@@ -268,22 +273,19 @@ const DetailCarScreen: FC = () => {
           </View>
           <View style={styles.lineHorizontal} />
         </View>
-        <TouchableOpacity
-          style={[rowCenter, {marginTop: 20, marginBottom: 20, margin: 16}]}
-          onPress={() => setCheckInfo(prev => !prev)}>
-          <Image
-            source={checkInfo ? ic_blue_check : ic_uncheck}
-            style={iconSize}
-          />
-          <Text style={h5}> Saya menyetujui ketentuan yang berlaku</Text>
-        </TouchableOpacity>
+        <Checkbox
+          label="Saya menyetujui ketentuan yang berlaku"
+          onChange={val => setCheckInfo(val)}
+          checked={checkInfo}
+        />
       </ScrollView>
 
       <View style={styles.bottomWrapper}>
         <View>
           <Text style={[h4]}>Harga Tarif Mobil</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
-            IDR {(vehicle.price)} <Text style={[h3, {fontSize: 12}]}>/ 1 hari</Text>
+            IDR {vehicle.price}{' '}
+            <Text style={[h3, {fontSize: 12}]}>/ 1 hari</Text>
           </Text>
         </View>
         <View style={{flexBasis: '50%', alignSelf: 'flex-end'}}>

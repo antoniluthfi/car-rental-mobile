@@ -42,6 +42,7 @@ type RootStackParamList = {
   InstantPayment: {
     selectedPayment: IPayments;
   },
+  Profile: undefined,
   ChangePassword: undefined
 };
 

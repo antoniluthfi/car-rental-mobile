@@ -8578,6 +8578,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-country-flag@npm:^1.1.9":
+  version: 1.1.9
+  resolution: "react-native-country-flag@npm:1.1.9"
+  checksum: 8557028f4918c1767a9fc75b955896966af91e62ad54fda1e09ce485a985db587fc6b1b89f7a87badc86606bfd6e5afb6b0d47d1c12754144c449149c0f5301c
+  languageName: node
+  linkType: hard
+
 "react-native-dotenv@npm:^3.4.2":
   version: 3.4.2
   resolution: "react-native-dotenv@npm:3.4.2"
@@ -9101,6 +9108,7 @@ __metadata:
     moment: ^2.29.4
     react: 18.1.0
     react-native: 0.70.3
+    react-native-country-flag: ^1.1.9
     react-native-dotenv: ^3.4.2
     react-native-gesture-handler: ^2.7.1
     react-native-image-picker: ^4.10.2
@@ -10364,7 +10372,7 @@ __metadata:
 
 "typescript@patch:typescript@^4.8.3#~builtin<compat/typescript>":
   version: 4.9.3
-  resolution: "typescript@patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=bda367"
+  resolution: "typescript@patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
