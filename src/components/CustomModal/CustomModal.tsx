@@ -1,28 +1,25 @@
-import {ic_password_lock, ic_profile_active} from 'assets/icons';
-import React from 'react';
+import {ReactNode} from 'react';
 import {
   Modal,
-  View,
-  TouchableWithoutFeedback,
-  Text,
   StyleSheet,
-  TouchableOpacity,
-  Image,
+  Text,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
-import {h2, h5} from 'utils/styles';
+import {h2} from 'utils/styles';
 
-interface IProps {
+type Props = {
   trigger: boolean;
   onClose: () => void;
-  onCameraPress: () => void;
-  onImageLibraryPress: () => void;
-}
+  children: ReactNode;
+  headerTitle?: string;
+};
 
-const ImagePickerModal: React.FC<IProps> = ({
+const CustomModal: React.FC<Props> = ({
   trigger,
   onClose,
-  onCameraPress,
-  onImageLibraryPress,
+  children,
+  headerTitle = 'Pilih Opsi',
 }) => {
   return (
     <Modal
@@ -49,34 +46,21 @@ const ImagePickerModal: React.FC<IProps> = ({
               <Text
                 textBreakStrategy="simple"
                 style={[h2, styles.modalHeaderTitle]}>
-                Pilih Opsi
+                {headerTitle}
               </Text>
             </View>
           </View>
 
           <View style={styles.lineBreak} />
 
-          <View style={styles.container}>
-            <TouchableOpacity style={styles.button} onPress={onCameraPress}>
-              <Image source={ic_profile_active} style={styles.icon} />
-              <Text style={[h5]}>Kamera</Text>
-            </TouchableOpacity>
-            <View style={styles.line} />
-
-            <TouchableOpacity
-              style={styles.button}
-              onPress={onImageLibraryPress}>
-              <Image source={ic_password_lock} style={styles.icon} />
-              <Text style={[h5]}>Galeri</Text>
-            </TouchableOpacity>
-          </View>
+          {children}
         </View>
       </View>
     </Modal>
   );
 };
 
-export default ImagePickerModal;
+export default CustomModal;
 
 const styles = StyleSheet.create({
   modalContainer: {
@@ -114,25 +98,5 @@ const styles = StyleSheet.create({
   lineBreak: {
     borderBottomColor: 'rgba(173, 162, 162, 0.5)',
     borderBottomWidth: 1,
-  },
-  container: {
-    marginVertical: 10,
-    width: '100%',
-    padding: '5%',
-  },
-  list: {paddingBottom: 30, paddingHorizontal: '5%'},
-  button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  icon: {
-    width: 20,
-    height: 23,
-    marginRight: 15,
-  },
-  line: {
-    marginVertical: 20,
-    borderWidth: 0.5,
-    borderColor: '#D9D9D9',
   },
 });

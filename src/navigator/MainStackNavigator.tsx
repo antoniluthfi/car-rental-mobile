@@ -1,6 +1,6 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import { RootStackParamList } from '../types/navigator';
+import {RootStackParamList} from '../types/navigator';
 import {
   AuthScreen,
   ForgotPasswordScreen,
@@ -19,17 +19,18 @@ import {
   InstantPaymentScreen,
 } from '../screens';
 import MainTabNavigator from './MainTabNavigator';
-import { useAppSelector } from 'redux/hooks';
-import { authState } from 'redux/features/auth/authSlice';
-import { theme } from 'utils';
+import {useAppSelector} from 'redux/hooks';
+import {authState} from 'redux/features/auth/authSlice';
+import {theme} from 'utils';
 import DailyBookingOrderDetailScreen from 'screens/DailyBookingOrderDetailScreen/DailyBookingOrderDetailScreen';
 import UploadBankTransferScreen from 'screens/UploadBankTransferScreen/UploadBankTransferScreen';
 import ChangePasswordScreen from 'screens/ChangePasswordScreen/ChangePasswordScreen';
+import ProfileScreen from 'screens/ProfileScreen/ProfileScreen';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
 const topToDownAnimation = {
-  cardStyleInterpolator: ({ current, layouts }: any) => {
+  cardStyleInterpolator: ({current, layouts}: any) => {
     return {
       cardStyle: {
         transform: [
@@ -46,7 +47,7 @@ const topToDownAnimation = {
 };
 
 const leftToRightAnimation = {
-  cardStyleInterpolator: ({ current, layouts }: any) => {
+  cardStyleInterpolator: ({current, layouts}: any) => {
     return {
       cardStyle: {
         transform: [
@@ -193,13 +194,23 @@ const MainStack: React.FC = () => {
             }}
           />
           <RootStack.Screen
+            name="Profile"
+            component={ProfileScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+              ...leftToRightAnimation,
+            }}
+          />
+          <RootStack.Screen
             name="ChangePassword"
             component={ChangePasswordScreen}
             options={{
               headerStyle: {
                 backgroundColor: theme.colors.navy,
               },
-              ...leftToRightAnimation
+              ...leftToRightAnimation,
             }}
           />
         </>

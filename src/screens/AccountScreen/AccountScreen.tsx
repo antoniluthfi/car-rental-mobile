@@ -17,19 +17,19 @@ import {
   ic_profile_active,
 } from 'assets/icons';
 import {h1, h5} from 'utils/styles';
-import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal';
+import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
 import {
   ImagePickerResponse,
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker';
-import { resetUser, userState } from 'redux/features/user/userSlice';
+import {resetUser, userState} from 'redux/features/user/userSlice';
 
 const AccountScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const userUpdateStatus = useAppSelector(userState).isChangePasswordSuccess;
+  const userUpdateStatus = useAppSelector(userState);
 
   const methods = {
     handleLogout: () => {
@@ -68,7 +68,10 @@ const AccountScreen: React.FC = () => {
   };
 
   useEffect(() => {
-    if (userUpdateStatus) {
+    if (
+      userUpdateStatus.isChangePasswordSuccess ||
+      userUpdateStatus.isUpdateSuccess
+    ) {
       dispatch(resetUser());
     }
   }, [userUpdateStatus]);
@@ -95,7 +98,6 @@ const AccountScreen: React.FC = () => {
         ),
       }),
     );
-
   }, [navigation]);
 
   return (
@@ -111,7 +113,9 @@ const AccountScreen: React.FC = () => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Profile')}>
             <Image source={ic_profile_active} style={styles.icon} />
             <Text style={[h5]}>Profile</Text>
           </TouchableOpacity>
