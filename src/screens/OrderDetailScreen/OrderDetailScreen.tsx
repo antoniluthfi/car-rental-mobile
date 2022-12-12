@@ -61,6 +61,7 @@ const OrderDetailScreen: FC = () => {
     return_location: null,
     special_request: '',
   });
+  const [inputPickup, setInputPickup] = useState('');
 
   const [checkInfo, setCheckInfo] = useState(false);
 
@@ -121,7 +122,7 @@ const OrderDetailScreen: FC = () => {
             end_booking_time: summaryOrder.end_booking_time,
             is_take_from_rental_office: checkInfo,
             passenger_number: formDaily.passanger,
-            rental_delivery_location: form.taking_location?.name!,
+            rental_delivery_location: checkInfo ? form.taking_location?.name! : inputPickup,
             rental_return_office_id: form.return_location?.id!,
             start_booking_date: summaryOrder.start_booking_date,
             start_booking_time: summaryOrder.start_booking_time,
@@ -373,14 +374,22 @@ const OrderDetailScreen: FC = () => {
           </View>
 
           <Text style={[h4, {marginTop: 10}]}>Lokasi Pengantaran</Text>
-          <TouchableOpacity
-            style={[rowCenter, styles.borderBottom]}
-            onPress={methods.handlePengantaran}>
+          <View style={[rowCenter, styles.borderBottom]}>
             <Image source={ic_pinpoin} style={iconSize} />
-            <Text style={[h5, {marginLeft: 5}]}>
-              {form.taking_location?.name || 'Pilih Lokasi Anda'}
-            </Text>
-          </TouchableOpacity>
+            {checkInfo ? (
+              <TouchableOpacity onPress={methods.handlePengantaran}>
+                <Text style={[h5, {marginLeft: 5}]}>
+                  {form.taking_location?.name || 'Pilih Lokasi Pengantaran'}
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TextInput
+                onChangeText={x => setInputPickup(x)}
+                placeholder="input lokasi pengantaran"
+                value={inputPickup}
+              />
+            )}
+          </View>
 
           <Text style={[h4, {marginTop: 20}]}>Lokasi Pengembalian</Text>
           <TouchableOpacity
@@ -388,7 +397,7 @@ const OrderDetailScreen: FC = () => {
             onPress={methods.handlePengembalian}>
             <Image source={ic_pinpoin} style={iconSize} />
             <Text style={[h5, {marginLeft: 5}]}>
-              {form.return_location?.name || 'Pilih Lokasi Anda'}
+              {form.return_location?.name || 'Pilih Lokasi Pengembalian'}
             </Text>
           </TouchableOpacity>
         </View>

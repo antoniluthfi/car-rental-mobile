@@ -141,7 +141,7 @@ const CardPaymentScreen = () => {
         console.log(data.data);
         if (data.data.status_code !== '200') {
           showToast({
-            message: data.data.status_message,
+            message: data.data.validation_messages?.toString() || data.data.status_message,
             title: 'Error',
             type: 'error',
           });

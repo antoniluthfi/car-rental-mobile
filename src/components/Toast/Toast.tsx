@@ -6,7 +6,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {boxShadow, iconSize, rowCenter} from 'utils/mixins';
+import {boxShadow, iconSize, rowCenter, WINDOW_HEIGHT} from 'utils/mixins';
 import {ic_check, ic_close, ic_error, ic_warning} from 'assets/icons';
 
 type IType = 'success' | 'warning' | 'error';
@@ -49,7 +49,7 @@ const Toast = ({
   message: string;
   show: boolean;
 }) => {
-  const topValue = useSharedValue(-100);
+  const topValue = useSharedValue(-WINDOW_HEIGHT);
 
   const rView = useAnimatedStyle(() => {
     return {
@@ -65,7 +65,7 @@ const Toast = ({
     topValue.value = withSpring(50);
 
     setTimeout(() => {
-        topValue.value = withTiming(-100, option);
+        topValue.value = withTiming(-WINDOW_HEIGHT, option);
     }, 5000);
   }, [show]);
 
@@ -83,7 +83,7 @@ const Toast = ({
         }
       ]}>
       <TouchableOpacity
-        onPress={() => (topValue.value = withTiming(-100, {duration: 500}))}
+        onPress={() => (topValue.value = withTiming(-WINDOW_HEIGHT, {duration: 500}))}
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -91,7 +91,7 @@ const Toast = ({
         }}>
         <View style={rowCenter}>
           <Image source={selectedType?.icon} style={iconSize} />
-          <View style={{marginLeft: 10}}>
+          <View style={{marginLeft: 10,width: '85%'}}>
             <Text style={styles.textTitle}>{title}</Text>
             <Text style={styles.textMessage}>{message}</Text>
           </View>
@@ -113,7 +113,7 @@ export default Toast;
 const styles = StyleSheet.create({
   wrapper: {
     position: 'absolute',
-    top: -100,
+    top: -WINDOW_HEIGHT,
     // alignItems: 'center',
     width: '90%',
     backgroundColor: 'white',
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   textMessage : {
     fontSize: 12,
     fontWeight: '500',
-    marginTop: 2
+    marginTop: 2,
+    
   }
 });
