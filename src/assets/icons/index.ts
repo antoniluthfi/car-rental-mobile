@@ -14,6 +14,7 @@ export const ic_arrow_right = require('./ic_arrow_right.png');
 export const ic_arrow_right_2 = require('./ic_arrow_right_2.png');
 export const ic_get_ride = require('./ic_get_ride.png');
 export const ic_check = require('./ic_check.png');
+export const ic_check2 = require('./ic_check_2.png');
 export const ic_warning = require('./ic_warning.png');
 export const ic_error = require('./ic_error.png');
 export const ic_close = require('./ic_close.png');
