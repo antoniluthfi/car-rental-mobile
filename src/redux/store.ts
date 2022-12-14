@@ -13,6 +13,7 @@ import garagesReducer from './features/garages/garagesSlice';
 import vehiclesReducer from './features/vehicles/vehiclesSlice';
 import orderReducer from './features/order/orderSlice';
 import userReducer from './features/user/userSlice';
+import notificationReducer from './features/notifications/notificationSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   persistStore,
@@ -34,7 +35,8 @@ const reducers = combineReducers({
   garages: garagesReducer,
   vehicles: vehiclesReducer,
   order: orderReducer,
-  user: userReducer
+  user: userReducer,
+  notification: notificationReducer
 });
 
 const persistConfig = {

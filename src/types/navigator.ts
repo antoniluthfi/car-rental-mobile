@@ -42,8 +42,9 @@ type RootStackParamList = {
   InstantPayment: {
     selectedPayment: IPayments;
   },
-  Profile: undefined,
-  ChangePassword: undefined
+  Profile: undefined;
+  ChangePassword: undefined;
+  Notification: undefined;
 };
 
 type RootTabParamList = {
