@@ -26,9 +26,16 @@ export const uploadFile = createAsyncThunk(
     const {file, name} = payload;
 
     try {
+      const form = new FormData();
+      form.append('file', {
+        name,
+        uri: file.uri,
+        type: file.type,
+      });
+  
       const response: ApiResponse<any> = await apiWithInterceptor.post(
         `/api/profile/document`,
-        {file},
+        form,
       );
 
       return {
