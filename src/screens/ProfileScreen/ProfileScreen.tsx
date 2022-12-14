@@ -135,13 +135,6 @@ const ProfileScreen: React.FC = () => {
             [type]: 'Maaf, ukuran file tidak boleh lebih dari 2MB!',
           });
         } else {
-          const imageBase64 = `data:image/png;base64,${result.assets?.[0]?.base64}`
-
-          setTemporaryFileUpload({
-            ...temporaryFileUpload,
-            [type]: imageBase64,
-          });
-
           setFormError({
             ...formError,
             [type]: '',
@@ -215,18 +208,30 @@ const ProfileScreen: React.FC = () => {
     }
   }, [userProfile]);
 
-  // useEffect(() => {
-  //   if (
-  //     form.name === userProfile.name &&
-  //     (!form.photo_ktp || form.photo_ktp === userProfile.personal_info.ktp) &&
-  //     (!form.photo_license ||
-  //       form.photo_license === userProfile.personal_info.sim)
-  //   ) {
-  //     setIsDisabled(true);
-  //   } else {
-  //     setIsDisabled(false);
-  //   }
-  // }, [form, userProfile.id]);
+  useEffect(() => {
+    if (Object.keys(user.data).length) {
+      setTemporaryFileUpload(prev => ({
+        ...prev,
+        ...user.data,
+      }));
+    }
+  }, [user.data]);
+
+  useEffect(() => {
+    if (
+      form.name === userProfile.name &&
+      (!temporaryFileUpload.photo_ktp ||
+        (temporaryFileUpload.photo_license &&
+          form.photo_ktp === userProfile.personal_info.ktp)) &&
+      (!temporaryFileUpload.photo_license ||
+        (temporaryFileUpload.photo_ktp &&
+          form.photo_license === userProfile.personal_info.sim))
+    ) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [form, userProfile.id]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
