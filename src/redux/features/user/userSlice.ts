@@ -1,8 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
 import { RootState } from 'redux/store';
-import {changePassword, editUser} from './userAPI';
+import {changePassword, editUser, uploadFile} from './userAPI';
 
 type InitState = {
+  data: any;
   isLoading: boolean;
   isUpdateSuccess: boolean;
   isChangePasswordSuccess: boolean;
@@ -11,6 +12,7 @@ type InitState = {
 }
 
 const initialState: InitState = {
+  data: {},
   isLoading: false,
   isUpdateSuccess: false,
   isChangePasswordSuccess: false,
@@ -44,24 +46,24 @@ export const user = createSlice({
         state.isLoading = false;
         state.isUpdateSuccess = true;
       })
-      // .addCase(uploadFile.pending, state => {
-      //   state.isLoading = true;
-      //   state.isError = false;
-      //   state.errorResponse = {};
-      //   state.isUpdateSuccess = false;
-      // })
-      // .addCase(uploadFile.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.isError = true;
-      //   state.errorResponse = action.payload;
-      // })
-      // .addCase(uploadFile.fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      //   state.data = {
-      //     ...state.data,
-      //     ...action.payload,
-      //   };
-      // })
+      .addCase(uploadFile.pending, state => {
+        state.isLoading = true;
+        state.isError = false;
+        state.errorResponse = {};
+        state.isUpdateSuccess = false;
+      })
+      .addCase(uploadFile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorResponse = action.payload;
+      })
+      .addCase(uploadFile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = {
+          ...state.data,
+          ...action.payload,
+        } as any;
+      })
       .addCase(changePassword.pending, state => {
         state.isLoading = true;
         state.isError = false;

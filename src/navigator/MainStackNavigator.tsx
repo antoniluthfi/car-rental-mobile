@@ -26,6 +26,7 @@ import DailyBookingOrderDetailScreen from 'screens/DailyBookingOrderDetailScreen
 import UploadBankTransferScreen from 'screens/UploadBankTransferScreen/UploadBankTransferScreen';
 import ChangePasswordScreen from 'screens/ChangePasswordScreen/ChangePasswordScreen';
 import ProfileScreen from 'screens/ProfileScreen/ProfileScreen';
+import NotificationScreen from 'screens/NotificationScreen/NotificationScreen';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -206,6 +207,16 @@ const MainStack: React.FC = () => {
           <RootStack.Screen
             name="ChangePassword"
             component={ChangePasswordScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+              ...leftToRightAnimation,
+            }}
+          />
+          <RootStack.Screen
+            name="Notification"
+            component={NotificationScreen}
             options={{
               headerStyle: {
                 backgroundColor: theme.colors.navy,

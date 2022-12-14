@@ -10,3 +10,8 @@ export type ParamChangePassword = {
   new_password: string;
   pass_confirmation: string;
 };
+
+export type ParamUploadFile = {
+  file: any;
+  name: 'photo_ktp' | 'photo_license';
+}

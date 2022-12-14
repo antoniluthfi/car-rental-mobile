@@ -1,4 +1,11 @@
-import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import hoc from 'components/hoc';
 import Button from 'components/Button';
@@ -6,11 +13,10 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
 import {iconCustomSize, rowCenter} from 'utils/mixins';
-import {ic_arrow_left_white, ic_wa} from 'assets/icons';
+import {ic_arrow_left_white, ic_check2, ic_wa} from 'assets/icons';
 import {h1} from 'utils/styles';
-import {passwordValidation} from 'utils/functions';
 import {showToast} from 'utils/Toast';
-import {changePassword, editUser} from 'redux/features/user/userAPI';
+import {editUser, uploadFile} from 'redux/features/user/userAPI';
 import {userState} from 'redux/features/user/userSlice';
 import ProfileTextInput from 'components/MyProfileComponent/ProfileTextInput/ProfileTextInput';
 import Checkbox from 'components/Checkbox/Checkbox';
@@ -18,23 +24,18 @@ import CustomModal from 'components/CustomModal/CustomModal';
 import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
 import {getUser} from 'redux/features/appData/appDataAPI';
 import {appDataState} from 'redux/features/appData/appDataSlice';
-
-type ProfileForm = {
-  name: string;
-  phone_code: string;
-  phone: string;
-  email: string;
-  wa_number: string;
-  photo_ktp: any;
-  photo_license: any;
-  password: string;
-};
+import UploadImageInput from 'components/UploadImageInput/UploadImageInput';
+import {
+  ImagePickerResponse,
+  launchImageLibrary,
+} from 'react-native-image-picker';
+import FileExistCard from 'components/MyProfileComponent/FileExistCard/FileExistCard';
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const userProfile = useAppSelector(appDataState).userProfile;
-  const userUpdateStatus = useAppSelector(userState).isUpdateSuccess;
+  const user = useAppSelector(userState);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [whatsappChecked, setWhatsappChecked] = useState<boolean>(false);
@@ -47,8 +48,8 @@ const ProfileScreen: React.FC = () => {
     phone: '',
     email: '',
     wa_number: '',
-    photo_ktp: {},
-    photo_license: {},
+    photo_ktp: '',
+    photo_license: '',
     password: '12345678abc',
   });
   const [formError, setFormError] = useState<ProfileForm>({
@@ -57,10 +58,15 @@ const ProfileScreen: React.FC = () => {
     phone: '',
     email: '',
     wa_number: '',
-    photo_ktp: {},
-    photo_license: {},
+    photo_ktp: '',
+    photo_license: '',
     password: '',
   });
+  const [temporaryFileUpload, setTemporaryFileUpload] =
+    useState<TemporaryFileUpload>({
+      photo_ktp: '',
+      photo_license: '',
+    });
 
   const methods = {
     handleValidate: () => {
@@ -107,19 +113,56 @@ const ProfileScreen: React.FC = () => {
         return;
       }
 
-      dispatch(editUser(form));
+      const formData = {
+        ...form,
+        photo_ktp: temporaryFileUpload.photo_ktp || form.photo_ktp,
+        photo_license: temporaryFileUpload.photo_license || form.photo_license,
+      };
+      dispatch(editUser(formData));
       setLoading(false);
+    },
+    openImagePicker: async (type: 'photo_ktp' | 'photo_license') => {
+      try {
+        const result: ImagePickerResponse = await launchImageLibrary({
+          mediaType: 'photo',
+          quality: 0.5,
+          includeBase64: true,
+        });
+
+        if (Number(result.assets?.[0]?.fileSize) > 2097152) {
+          setFormError({
+            ...formError,
+            [type]: 'Maaf, ukuran file tidak boleh lebih dari 2MB!',
+          });
+        } else {
+          const imageBase64 = `data:image/png;base64,${result.assets?.[0]?.base64}`
+
+          setTemporaryFileUpload({
+            ...temporaryFileUpload,
+            [type]: imageBase64,
+          });
+
+          setFormError({
+            ...formError,
+            [type]: '',
+          });
+
+          dispatch(uploadFile({file: result.assets?.[0], name: type}));
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   };
 
   useFocusEffect(
     useCallback(() => {
       dispatch(getUser());
-    }, [])
-  )
+    }, []),
+  );
 
   useEffect(() => {
-    if (userUpdateStatus) {
+    if (user.isUpdateSuccess) {
       showToast({
         title: 'Berhasil',
         type: 'success',
@@ -131,7 +174,7 @@ const ProfileScreen: React.FC = () => {
         navigation.goBack();
       }, 500);
     }
-  }, [userUpdateStatus]);
+  }, [user.isUpdateSuccess]);
 
   useEffect(() => {
     navigation.setOptions(
@@ -168,26 +211,26 @@ const ProfileScreen: React.FC = () => {
         photo_license: userProfile.personal_info.sim,
       }));
 
-      setWhatsappChecked(userProfile.phone === userProfile.wa_number)
+      setWhatsappChecked(userProfile.phone === userProfile.wa_number);
     }
   }, [userProfile]);
 
-  useEffect(() => {
-    if (
-      form.name === userProfile.name &&
-      (!form.photo_ktp || form.photo_ktp === userProfile.personal_info.ktp) &&
-      (!form.photo_license ||
-        form.photo_license === userProfile.personal_info.sim)
-    ) {
-      setIsDisabled(true);
-    } else {
-      setIsDisabled(false);
-    }
-  }, [form, userProfile.id]);
+  // useEffect(() => {
+  //   if (
+  //     form.name === userProfile.name &&
+  //     (!form.photo_ktp || form.photo_ktp === userProfile.personal_info.ktp) &&
+  //     (!form.photo_license ||
+  //       form.photo_license === userProfile.personal_info.sim)
+  //   ) {
+  //     setIsDisabled(true);
+  //   } else {
+  //     setIsDisabled(false);
+  //   }
+  // }, [form, userProfile.id]);
 
   return (
-    <View style={styles.container}>
-      <View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={{marginBottom: 20}}>
         <ProfileTextInput
           label="Nama Lengkap"
           placeholder="Masukan Nama Anda"
@@ -255,6 +298,53 @@ const ProfileScreen: React.FC = () => {
             />
           }
         />
+
+        <View style={[rowCenter]}>
+          <Text style={[h1, {fontSize: 12, marginTop: 15}]}>Foto KTP</Text>
+        </View>
+        {form.photo_ktp ? (
+          <FileExistCard
+            label="foto-ktp.jpg"
+            onRemoveImage={() => {
+              setForm({...form, photo_ktp: ''});
+            }}
+          />
+        ) : (
+          <UploadImageInput
+            selectedImageLabel="foto-ktp.jpg"
+            selected={temporaryFileUpload.photo_ktp}
+            onPress={() => methods.openImagePicker('photo_ktp')}
+            onDelete={() => {
+              setTemporaryFileUpload({...temporaryFileUpload, photo_ktp: ''});
+            }}
+            errorMessage={formError.photo_ktp}
+          />
+        )}
+
+        <View style={[rowCenter]}>
+          <Text style={[h1, {fontSize: 12, marginTop: 15}]}>Foto SIM</Text>
+        </View>
+        {form.photo_license ? (
+          <FileExistCard
+            label="foto-sim.jpg"
+            onRemoveImage={() => {
+              setForm({...form, photo_license: ''});
+            }}
+          />
+        ) : (
+          <UploadImageInput
+            selectedImageLabel="foto-sim.jpg"
+            selected={temporaryFileUpload.photo_license}
+            onPress={() => methods.openImagePicker('photo_license')}
+            onDelete={() => {
+              setTemporaryFileUpload({
+                ...temporaryFileUpload,
+                photo_license: '',
+              });
+            }}
+            errorMessage={formError.photo_license}
+          />
+        )}
       </View>
 
       <Button
@@ -289,7 +379,7 @@ const ProfileScreen: React.FC = () => {
           />
         </View>
       </CustomModal>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -297,7 +387,7 @@ export default hoc(ProfileScreen);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#F5F5F5',
     padding: '5%',
     justifyContent: 'space-between',
