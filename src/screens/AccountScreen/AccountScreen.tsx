@@ -24,12 +24,18 @@ import {
   launchImageLibrary,
 } from 'react-native-image-picker';
 import {resetUser, userState} from 'redux/features/user/userSlice';
+import {
+  notificationState,
+  resetNotification,
+} from 'redux/features/notifications/notificationSlice';
 
 const AccountScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const userUpdateStatus = useAppSelector(userState);
+  const notificationUpdateStatus =
+    useAppSelector(notificationState).isUpdateSuccess;
 
   const methods = {
     handleLogout: () => {
@@ -74,7 +80,11 @@ const AccountScreen: React.FC = () => {
     ) {
       dispatch(resetUser());
     }
-  }, [userUpdateStatus]);
+
+    if (notificationUpdateStatus) {
+      dispatch(resetNotification());
+    }
+  }, [userUpdateStatus, notificationUpdateStatus]);
 
   useEffect(() => {
     navigation.setOptions(
@@ -131,7 +141,9 @@ const AccountScreen: React.FC = () => {
           </TouchableOpacity>
           <View style={styles.line} />
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Notification')}>
             <Image source={ic_notification_bell} style={styles.icon} />
             <Text style={[h5]}>Notifikasi</Text>
           </TouchableOpacity>

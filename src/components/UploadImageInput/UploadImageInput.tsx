@@ -4,7 +4,14 @@ import {
   ic_rounded_close,
   ic_rounded_image_file,
 } from 'assets/icons';
-import {View, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  Text,
+  StyleSheet,
+  ViewStyle,
+} from 'react-native';
 import {theme} from 'utils';
 import {iconCustomSize, rowCenter} from 'utils/mixins';
 import {h1} from 'utils/styles';
@@ -14,6 +21,9 @@ interface IProps {
   onDelete: () => void;
   selected?: string;
   errorMessage?: string;
+  label?: string;
+  selectedImageLabel: string;
+  containerStyle?: ViewStyle;
 }
 
 const UploadImageInput: React.FC<IProps> = ({
@@ -21,14 +31,19 @@ const UploadImageInput: React.FC<IProps> = ({
   selected,
   errorMessage,
   onDelete,
+  label,
+  selectedImageLabel,
+  containerStyle = {marginTop: 10},
 }) => {
   return (
-    <View>
-      <View style={[rowCenter, {marginTop: 10}]}>
-        <Text style={[h1, {fontSize: 12, marginBottom: 10, marginTop: 15}]}>
-          Upload Foto :
-        </Text>
-      </View>
+    <View style={containerStyle}>
+      {label && (
+        <View style={[rowCenter]}>
+          <Text style={[h1, {fontSize: 12, marginBottom: 10, marginTop: 15}]}>
+            {label}
+          </Text>
+        </View>
+      )}
 
       <TouchableOpacity style={styles.uploadInputContainer} onPress={onPress}>
         <Image source={ic_image_file} style={{width: 29, height: 37}} />
@@ -46,8 +61,9 @@ const UploadImageInput: React.FC<IProps> = ({
             <Image
               source={ic_rounded_image_file}
               style={{width: 28, height: 28, marginRight: 10}}
+              resizeMode="contain"
             />
-            <Text style={[h1, {fontSize: 14}]}>Bukti Pembayaran.jpg</Text>
+            <Text style={[h1, {fontSize: 14}]}>{selectedImageLabel}</Text>
           </View>
 
           <TouchableOpacity onPress={onDelete}>

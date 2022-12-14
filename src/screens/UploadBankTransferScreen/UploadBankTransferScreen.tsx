@@ -1,4 +1,4 @@
-import {Image, Text, TouchableOpacity, View, Platform} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import hoc from 'components/hoc';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -12,7 +12,7 @@ import {ic_arrow_left_white, ic_bca, ic_mandiri} from 'assets/icons';
 import {h1, h5} from 'utils/styles';
 import Button from 'components/Button';
 import DropdownBank from 'components/UploadBankTransferComponent/DropdownBank/DropdwonBank';
-import UploadImageInput from 'components/UploadBankTransferComponent/UploadImageInput/UploadImageInput';
+import UploadImageInput from 'components/UploadImageInput/UploadImageInput';
 import {
   UploadBankTransferFormData,
   UploadBankTransferFormError,
@@ -187,6 +187,8 @@ const UploadBankTransferScreen = () => {
         />
 
         <UploadImageInput
+          label="Upload Foto :"
+          selectedImageLabel="Bukti Pembayaran.jpg"
           selected={form.disbursement_confirmation_image}
           onPress={openImagePicker}
           onDelete={() => {
