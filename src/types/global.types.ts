@@ -74,6 +74,7 @@ export type IUserProfile = {
   phone: string;
   phone_code: string;
   wa_number: string;
+  photo_profile: string;
 }
 
 export type IUserData = {

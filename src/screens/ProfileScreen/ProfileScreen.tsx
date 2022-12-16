@@ -115,6 +115,7 @@ const ProfileScreen: React.FC = () => {
 
       const formData = {
         ...form,
+        photo_profile: userProfile.photo_profile,
         photo_ktp: temporaryFileUpload.photo_ktp || form.photo_ktp,
         photo_license: temporaryFileUpload.photo_license || form.photo_license,
       };
