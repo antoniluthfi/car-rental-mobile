@@ -54,7 +54,8 @@ const initialState: IInitState = {
     },
     phone: '',
     phone_code: '',
-    wa_number: ''
+    wa_number: '',
+    photo_profile: ''
   },
   garages: [],
   payments: [],

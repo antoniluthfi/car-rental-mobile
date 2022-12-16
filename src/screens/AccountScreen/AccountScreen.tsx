@@ -1,11 +1,18 @@
-import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  PermissionsAndroid,
+} from 'react-native';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import hoc from 'components/hoc';
 import Button from 'components/Button';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {logout} from 'redux/features/auth/authSlice';
 import {toggleLoader} from 'redux/features/utils/utilsSlice';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
 import {rowCenter} from 'utils/mixins';
 import {
@@ -23,19 +30,33 @@ import {
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker';
-import {resetUser, userState} from 'redux/features/user/userSlice';
+import {resetUser, user, userState} from 'redux/features/user/userSlice';
 import {
   notificationState,
   resetNotification,
 } from 'redux/features/notifications/notificationSlice';
+import {showToast} from 'utils/Toast';
+import {editUser, uploadFile} from 'redux/features/user/userAPI';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import CustomModal from 'components/CustomModal/CustomModal';
+import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
+import {URL_IMAGE} from '@env';
+import {getUser} from 'redux/features/appData/appDataAPI';
 
 const AccountScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const userUpdateStatus = useAppSelector(userState);
+  const user = useAppSelector(userState);
+  const userProfile = useAppSelector(appDataState).userProfile;
   const notificationUpdateStatus =
     useAppSelector(notificationState).isUpdateSuccess;
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [passwordConfirmationModal, setPasswordConfirmationModal] =
+    useState<boolean>(false);
+  const [password, setPassword] = useState<string>('12345678abc');
+  const [errorPassword, setErrorPassword] = useState<string>('');
 
   const methods = {
     handleLogout: () => {
@@ -47,13 +68,43 @@ const AccountScreen: React.FC = () => {
     },
     openCamera: async () => {
       try {
-        const result: ImagePickerResponse = await launchCamera({
-          mediaType: 'photo',
-          quality: 0.5,
-          includeBase64: true,
-        });
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          {
+            title: 'App Camera Permission',
+            message: 'App needs access to your camera ',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
 
-        console.log('image library', result);
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          const result: ImagePickerResponse = await launchCamera({
+            mediaType: 'photo',
+            quality: 0.5,
+            includeBase64: true,
+          });
+
+          setModalVisible(false);
+          if (Number(result.assets?.[0]?.fileSize) > 2097152) {
+            showToast({
+              title: 'Gagal',
+              type: 'error',
+              message: 'Maaf, ukuran file tidak boleh lebih dari 2MB!',
+            });
+          } else {
+            dispatch(
+              uploadFile({file: result.assets?.[0], name: 'photo_profile'}),
+            );
+          }
+        } else {
+          showToast({
+            title: 'Gagal',
+            type: 'error',
+            message: 'Camera permission denied',
+          });
+        }
       } catch (error) {
         console.log('image library', error);
       }
@@ -66,25 +117,94 @@ const AccountScreen: React.FC = () => {
           includeBase64: true,
         });
 
-        console.log('image library', result);
+        setModalVisible(false);
+        if (Number(result.assets?.[0]?.fileSize) > 2097152) {
+          showToast({
+            title: 'Gagal',
+            type: 'error',
+            message: 'Maaf, ukuran file tidak boleh lebih dari 2MB!',
+          });
+        } else {
+          dispatch(
+            uploadFile({file: result.assets?.[0], name: 'photo_profile'}),
+          );
+        }
       } catch (error) {
         console.log('image library', error);
       }
     },
+    handleSubmit: () => {
+      setLoading(true);
+
+      if (!password) {
+        setErrorPassword('Masukkan Kata Sandi');
+        setLoading(false);
+        return;
+      }
+
+      const formData = {
+        name: userProfile.name,
+        phone_code: userProfile.phone_code.slice(1),
+        phone: userProfile.phone.slice(1),
+        email: userProfile.email,
+        wa_number: userProfile.wa_number,
+        photo_ktp: userProfile.personal_info.ktp,
+        photo_license: userProfile.personal_info.sim,
+        photo_profile: user.data.photo_profile,
+        password,
+      };
+
+      dispatch(editUser(formData)).then(() => {
+        setPasswordConfirmationModal(false);
+        showToast({
+          title: 'Berhasil',
+          type: 'success',
+          message: 'Berhasil mengubah foto profil',
+        });
+        dispatch(getUser());
+      });
+      setLoading(false);
+    },
   };
 
+  const ProfileImage = useMemo(
+    () => (
+      <Image
+        source={
+          userProfile.photo_profile
+            ? {
+                uri: URL_IMAGE + userProfile.photo_profile,
+              }
+            : ic_empty_profile
+        }
+        style={styles.image}
+        resizeMode="cover"
+      />
+    ),
+    [userProfile.photo_profile],
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(getUser());
+    }, []),
+  );
+
   useEffect(() => {
-    if (
-      userUpdateStatus.isChangePasswordSuccess ||
-      userUpdateStatus.isUpdateSuccess
-    ) {
+    if (Object.keys(user.data).length) {
+      setPasswordConfirmationModal(true);
+    }
+  }, [user.data]);
+
+  useEffect(() => {
+    if (user.isChangePasswordSuccess || user.isUpdateSuccess) {
       dispatch(resetUser());
     }
 
     if (notificationUpdateStatus) {
       dispatch(resetNotification());
     }
-  }, [userUpdateStatus, notificationUpdateStatus]);
+  }, [user, notificationUpdateStatus]);
 
   useEffect(() => {
     navigation.setOptions(
@@ -113,8 +233,8 @@ const AccountScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View>
-        <View style={styles.imageContainer}>
-          <Image source={ic_empty_profile} style={styles.image} />
+        <View style={styles.profileContainer}>
+          <View style={styles.imageContainer}>{ProfileImage}</View>
           <TouchableOpacity
             style={styles.pickerContainer}
             onPress={() => setModalVisible(true)}>
@@ -160,6 +280,31 @@ const AccountScreen: React.FC = () => {
           setModalVisible(false);
         }}
       />
+
+      <CustomModal
+        trigger={passwordConfirmationModal}
+        onClose={() => setPasswordConfirmationModal(false)}
+        headerTitle="Kata Sandi">
+        <View style={styles.passwordModalContainer}>
+          <ChangePasswordTextInput
+            label="Masukan Kata Sandi untuk melakukan perubahan"
+            placeholder="Kata sandi anda"
+            onChangeText={v => {
+              setPassword(v);
+              setErrorPassword('');
+            }}
+            value={password}
+            errorMessage={errorPassword}
+          />
+
+          <Button
+            _theme="navy"
+            onPress={methods.handleSubmit}
+            title={'Konfirmasi'}
+            isLoading={loading}
+          />
+        </View>
+      </CustomModal>
     </View>
   );
 };
@@ -173,6 +318,10 @@ const styles = StyleSheet.create({
     padding: '5%',
     justifyContent: 'space-between',
   },
+  profileContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   imageContainer: {
     width: 121,
     height: 121,
@@ -182,10 +331,11 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignSelf: 'center',
     marginTop: 30,
+    overflow: 'hidden',
   },
   image: {
-    width: 35,
-    height: 44,
+    width: '100%',
+    height: '100%',
   },
   pickerContainer: {
     width: 37,
@@ -217,5 +367,9 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     borderWidth: 0.5,
     borderColor: '#D9D9D9',
+  },
+  passwordModalContainer: {
+    width: '100%',
+    padding: '5%',
   },
 });
