@@ -91,6 +91,9 @@ const MainTab: React.FC = () => {
         component={FadeInboxScreen}
         options={{
           tabBarLabel: 'My Inbox',
+          headerStyle: {
+            backgroundColor: theme.colors.navy,
+          },
         }}
       />
       <RootTab.Screen
