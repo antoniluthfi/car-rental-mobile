@@ -25,6 +25,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import myInboxReducer from './features/inbox/myInboxSlice';
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -36,7 +37,8 @@ const reducers = combineReducers({
   vehicles: vehiclesReducer,
   order: orderReducer,
   user: userReducer,
-  notification: notificationReducer
+  notification: notificationReducer,
+  inbox: myInboxReducer
 });
 
 const persistConfig = {

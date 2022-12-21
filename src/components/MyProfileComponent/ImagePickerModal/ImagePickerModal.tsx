@@ -1,4 +1,4 @@
-import {ic_password_lock, ic_profile_active} from 'assets/icons';
+// import {ic_password_lock, ic_profile_active} from 'assets/icons';
 import CustomModal from 'components/CustomModal/CustomModal';
 import React from 'react';
 import {
@@ -6,7 +6,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Image,
+  // Image,
 } from 'react-native';
 import {h5} from 'utils/styles';
 
@@ -27,13 +27,13 @@ const ImagePickerModal: React.FC<IProps> = ({
     <CustomModal trigger={trigger} onClose={onClose}>
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={onCameraPress}>
-          <Image source={ic_profile_active} style={styles.icon} />
+          {/* <Image source={ic_profile_active} style={styles.icon} /> */}
           <Text style={[h5]}>Kamera</Text>
         </TouchableOpacity>
         <View style={styles.line} />
 
         <TouchableOpacity style={styles.button} onPress={onImageLibraryPress}>
-          <Image source={ic_password_lock} style={styles.icon} />
+          {/* <Image source={ic_password_lock} style={styles.icon} /> */}
           <Text style={[h5]}>Galeri</Text>
         </TouchableOpacity>
       </View>

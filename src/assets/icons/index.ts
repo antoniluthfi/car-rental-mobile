@@ -74,3 +74,6 @@ export const ic_empty_profile = require('./ic_empty_profile.png');
 export const ic_password_lock = require('./ic_password_lock.png');
 export const ic_notification_bell = require('./ic_notification_bell.png');
 export const ic_camera = require('./ic_camera.png');
+export const ic_promo = require('./ic_promo.png');
+export const ic_error2 = require('./ic_error2.png');
+export const ic_not_found = require('./ic_not_found.png');
