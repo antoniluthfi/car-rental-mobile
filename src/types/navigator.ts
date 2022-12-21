@@ -45,6 +45,9 @@ type RootStackParamList = {
   Profile: undefined;
   ChangePassword: undefined;
   Notification: undefined;
+  InboxDetail: {
+    id: number;
+  }
 };
 
 type RootTabParamList = {
