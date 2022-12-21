@@ -39,6 +39,7 @@ import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {RootStackParamList} from 'types/navigator';
 import {theme} from 'utils';
+import { currencyFormat } from 'utils/currencyFormat';
 import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
 import {h1, h3, h4, h5} from 'utils/styles';
 
@@ -284,8 +285,8 @@ const DetailCarScreen: FC = () => {
         <View>
           <Text style={[h4]}>Harga Tarif Mobil</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
-            IDR {vehicle.price}{' '}
-            <Text style={[h3, {fontSize: 12}]}>/ 1 hari</Text>
+           {currencyFormat(vehicle.price)}{' '}
+            <Text style={[h3, {fontSize: 12}]}>/ hari</Text>
           </Text>
         </View>
         <View style={{flexBasis: '50%', alignSelf: 'flex-end'}}>

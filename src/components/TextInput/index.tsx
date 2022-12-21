@@ -1,8 +1,10 @@
 import {
   Image,
+  StyleProp,
   StyleSheet,
   Text,
   TextInput,
+  TextStyle,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -30,6 +32,7 @@ interface ITextInput {
   errorMessage: string;
   leftIcon?: any;
   disabled?: boolean;
+  styleTitle?: TextStyle
 }
 
 const CustomTextInput = ({
@@ -41,6 +44,7 @@ const CustomTextInput = ({
   errorMessage,
   leftIcon,
   disabled,
+  styleTitle
 }: ITextInput) => {
   const [showText, setShowText] = useState<boolean>(deepClone(secureTextEntry));
   const shake = useSharedValue(0);
@@ -66,7 +70,7 @@ const CustomTextInput = ({
 
   return (
     <View>
-      {title && <Text style={[styles.title, h1]}>{title}</Text>}
+      {title && <Text style={[styles.title, h1, styleTitle]}>{title}</Text>}
       <View
         style={[
           styles.inputWrapper,

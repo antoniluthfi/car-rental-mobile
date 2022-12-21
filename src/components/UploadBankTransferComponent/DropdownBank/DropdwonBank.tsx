@@ -8,6 +8,7 @@ import {
   Modal,
   View,
   Image,
+  ViewStyle,
 } from 'react-native';
 import {appDataState} from 'redux/features/appData/appDataSlice';
 import {useAppSelector} from 'redux/hooks';
@@ -21,9 +22,11 @@ interface IProps {
   onSelect: (item: IPayments) => void;
   selected: string;
   errorMessage: string;
+  styleDropdown?: ViewStyle;
 }
 
-const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage}) => {
+
+const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage, styleDropdown}) => {
   const DropdownButton: any = useRef();
   const [visible, setVisible] = useState(false);
   const [_selected, setSelected] = useState<any>(undefined);
@@ -65,7 +68,7 @@ const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage}) => {
   return (
     <Fragment>
       <Text style={[h1, {fontSize: 12}]}>Nama Bank</Text>
-      <View style={styles.wrapper}>
+      <View style={[styles.wrapper, styleDropdown]}>
         <TouchableOpacity
           ref={DropdownButton}
           style={[
@@ -77,6 +80,7 @@ const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage}) => {
               paddingVertical: 5,
               justifyContent: 'space-between',
             },
+            
           ]}
           onPress={toggleDropdown}>
           <Text

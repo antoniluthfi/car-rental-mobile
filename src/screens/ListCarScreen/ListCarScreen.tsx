@@ -33,6 +33,7 @@ import {IFormDaily} from 'types/global.types';
 import {IVehicles} from 'types/vehicles';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {URL_IMAGE} from '@env';
+import { currencyFormat } from 'utils/currencyFormat';
 
 const ListCarScreen: FC = () => {
   const navigation = useNavigation();
@@ -146,7 +147,7 @@ const ListCarScreen: FC = () => {
         <View style={{marginTop: 10}}>
           <Text style={[h4, {fontSize: 12}]}>Harga Tarif Mobil</Text>
           <Text style={[h1, {color: theme.colors.blue, marginTop: 5}]}>
-            IDR {item.price} <Text style={[h4]}>/ 1 Hari</Text>
+            {currencyFormat(item.price)} <Text style={[h4]}>/ Hari</Text>
           </Text>
         </View>
       </View>

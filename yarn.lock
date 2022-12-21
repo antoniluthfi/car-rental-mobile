@@ -3791,6 +3791,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^2.29.3":
+  version: 2.29.3
+  resolution: "date-fns@npm:2.29.3"
+  checksum: e01cf5b62af04e05dfff921bb9c9933310ed0e1ae9a81eb8653452e64dc841acf7f6e01e1a5ae5644d0337e9a7f936175fd2cb6819dc122fdd9c5e86c56be484
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:^1.8.15":
   version: 1.11.6
   resolution: "dayjs@npm:1.11.6"
@@ -9101,6 +9108,7 @@ __metadata:
     apisauce: ^2.1.6
     babel-jest: ^26.6.3
     babel-plugin-module-resolver: ^4.1.0
+    date-fns: ^2.29.3
     eslint: ^7.32.0
     jest: ^26.6.3
     lottie-react-native: ^5.1.4

@@ -6,13 +6,19 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import appBar from 'components/AppBar/AppBar';
-import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
-import {ic_arrow_left_white, ic_download, ic_pinpoin} from 'assets/icons';
-import {h1, h5} from 'utils/styles';
+import {iconCustomSize, iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
+import {
+  ic_arrow_left_white,
+  ic_confirmation,
+  ic_download,
+  ic_pinpoin,
+} from 'assets/icons';
+import {h1, h4, h5} from 'utils/styles';
 import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 import {img_car_2} from 'assets/images';
 import {RootStackParamList} from 'types/navigator';
@@ -21,6 +27,12 @@ import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
 import {URL_IMAGE} from '@env';
 import {idrFormatter} from 'utils/functions';
 import moment from 'moment';
+import Button from 'components/Button';
+import {theme} from 'utils';
+import {showBSheet} from 'utils/BSheet';
+import CustomTextInput from 'components/TextInput';
+import DropdownBank from 'components/UploadBankTransferComponent/DropdownBank/DropdwonBank';
+import {IPayments} from 'types/global.types';
 
 type DailyBookingOrderDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -36,6 +48,9 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
 
   const [images, setImages] = useState<any[]>([]);
   const [orderState, setOrderState] = useState<string>('');
+  const [formCancel, setFormCancel] = useState({
+
+  });
 
   const {selected, vehicleData} = bookingDetail;
   const vehicle = vehicleData?.find(
@@ -131,6 +146,138 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
     }
   }, [selected?.order_status, selected?.expired_time]);
 
+  const methods = {
+    handleConfirmation: (
+      status: 'enxtend_order' | 'cancel_order' | 'close',
+    ) => {
+      showBSheet({
+        content: (
+          <View style={styles.bsheetWrapper}>
+            <Image
+              source={ic_confirmation}
+              style={iconCustomSize(200)}
+              resizeMode={'contain'}
+            />
+            <Text>
+              Apakah anda yakin melanjutkan{' '}
+              {status === 'enxtend_order'
+                ? 'Pembayaran ini?'
+                : 'membatalkan pesanan ini?'}
+            </Text>
+            <View style={{width: '95%', margin: 16}}>
+              <Button
+                _theme="navy"
+                title="Iya, Lanjutkan"
+                onPress={() => {
+                  methods.handleConfirmation('close');
+                  if (status === 'enxtend_order') {
+                    methods.handleExtendOrder();
+                    return;
+                  }
+                  methods.handleCancelOrder();
+                }}
+                styleWrapper={{marginBottom: 20}}
+              />
+              <Button
+                _theme="white"
+                title="Kembali"
+                onPress={() => methods.handleConfirmation('close')}
+              />
+            </View>
+          </View>
+        ),
+      });
+    },
+    handleExtendOrder: () => {
+      showBSheet({
+        content: <View style={styles.bsheetWrapper}></View>,
+      });
+    },
+    handleCancelOrder: () => {
+      showBSheet({
+        content: (
+          <View
+            style={[
+              styles.bsheetWrapper,
+              {alignItems: 'flex-start', paddingLeft: 16, width: '100%'},
+            ]}>
+            <Text style={h1}>Pembatalan Pesanan</Text>
+            <View style={{marginTop: 20}} />
+            <CustomTextInput
+              title="Nama"
+              placeholder="Masukkan Nama Anda"
+              errorMessage=""
+              onChangeText={() => {}}
+              value={''}
+              styleTitle={{
+                fontSize: 12,
+              }}
+            />
+            <View style={{marginTop: 15}} />
+            <DropdownBank
+              styleDropdown={{
+                width: '95%',
+                marginTop: 10,
+              }}
+              onSelect={(v: IPayments) => {
+                // setForm({...form, sender_bank_name: v.code});
+                // setFormError({...formError, sender_bank_name: ''});
+              }}
+              // selected={form.sender_bank_name}
+              // errorMessage={formError.sender_bank_name}
+            />
+            <View style={{marginTop: 15}} />
+            <CustomTextInput
+              title="Nomor Rekening"
+              placeholder="Masukan Nomor Rekening"
+              errorMessage=""
+              onChangeText={() => {}}
+              value={''}
+              styleTitle={{
+                fontSize: 12,
+              }}
+            />
+            {/* <View style={{marginTop: 20}} /> */}
+            <View style={{marginVertical: 20, width: '95%'}}>
+              <Text style={h4}>Tulis alasan pembatalan</Text>
+              <View style={styles.formWrapper}>
+                <TextInput
+                  multiline={true}
+                  placeholder="Tulis Keterangan"
+                  style={{
+                    height: 100,
+                    paddingRight: 15,
+                  }}
+                  maxLength={150}
+                  // value={form.special_request}
+                  // onChangeText={v => setForm({...form, special_request: v})}
+                />
+              </View>
+            </View>
+
+            <View
+              style={[
+                {
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 16,
+                  right: 0,
+                  width: '100%',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                },
+                // rowCenter,
+              ]}
+              >
+              <Button _theme="white" title="Kembali" onPress={() => {}} styleWrapper={{width: '48%'}} />
+
+              <Button _theme="navy" title="Iya, Lanjutkan" onPress={() => {}} styleWrapper={{width: '48%'}} />
+            </View>
+          </View>
+        ),
+      });
+    },
+  };
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <CustomCarousel
@@ -245,6 +392,24 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
         </View>
       </View>
       <View style={styles.solidLine} />
+      <View style={{marginHorizontal: 16}}>
+        <Button
+          _theme="white"
+          title="Batalkan Pesanan"
+          onPress={() => {
+            methods.handleConfirmation('cancel_order');
+          }}
+          styleWrapper={{
+            marginBottom: 10,
+          }}
+          lineColor={theme.colors.navy}
+        />
+        <Button
+          _theme="navy"
+          title="Perpanjang Pesanan"
+          onPress={() => methods.handleConfirmation('enxtend_order')}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -290,5 +455,18 @@ const styles = StyleSheet.create({
   imgCar: {
     width: 48,
     height: 48,
+  },
+  bsheetWrapper: {
+    width: WINDOW_WIDTH,
+    flex: 1,
+    alignItems: 'center',
+    margin: 16,
+  },
+  formWrapper: {
+    borderWidth: 1,
+    borderColor: theme.colors.grey6,
+    padding: 10,
+    borderRadius: 8,
+    marginTop: 10,
   },
 });

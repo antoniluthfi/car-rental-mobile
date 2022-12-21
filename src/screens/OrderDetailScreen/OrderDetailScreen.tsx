@@ -41,6 +41,7 @@ import {
   getPayments,
   getUser,
 } from 'redux/features/appData/appDataAPI';
+import {differenceInCalendarDays, differenceInDays, parse} from 'date-fns';
 
 const OrderDetailScreen: FC = () => {
   const navigation = useNavigation();
@@ -122,7 +123,9 @@ const OrderDetailScreen: FC = () => {
             end_booking_time: summaryOrder.end_booking_time,
             is_take_from_rental_office: checkInfo,
             passenger_number: formDaily.passanger,
-            rental_delivery_location: checkInfo ? form.taking_location?.name! : inputPickup,
+            rental_delivery_location: checkInfo
+              ? form.taking_location?.name!
+              : inputPickup,
             rental_return_office_id: form.return_location?.id!,
             start_booking_date: summaryOrder.start_booking_date,
             start_booking_time: summaryOrder.start_booking_time,
@@ -296,7 +299,9 @@ const OrderDetailScreen: FC = () => {
               ]}>
               <Text style={h4}>Harga</Text>
               <Text style={h4}>
-                IDR {currencyFormat(summaryOrder.rental_delivery_fee)} / 3 Hari
+                {currencyFormat(summaryOrder.booking_price)} /{' '}
+                {dayDifference}{' '}
+                Hari
               </Text>
             </View>
             <View style={[styles.lineHorizontal, {width: '100%'}]} />
@@ -339,6 +344,22 @@ const OrderDetailScreen: FC = () => {
       });
     },
   };
+
+  const parsedStartDate = parse(
+    formDaily?.start_booking_date,
+    'yyyy-MM-dd',
+    new Date()
+  );
+  const parsedEndDate = parse(
+    formDaily?.end_booking_date,
+    'yyyy-MM-dd',
+    new Date()
+  );
+
+  const dayDifference = differenceInCalendarDays(
+    parsedEndDate,
+    parsedStartDate
+  );
 
   return (
     <View style={{flex: 1, justifyContent: 'space-between'}}>
@@ -495,10 +516,11 @@ const styles = StyleSheet.create({
   bottomView: {
     backgroundColor: '#fff',
     position: 'absolute',
-    bottom: 0,
-    width: '90%',
+    bottom: -10,
+    width: '100%',
+    left: -16,
     padding: 16,
     marginHorizontal: '5%',
-    paddingBottom: 25,
+    // paddingBottom: 25,
   },
 });

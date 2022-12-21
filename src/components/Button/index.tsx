@@ -18,6 +18,7 @@ interface IButton {
   onPress: () => void;
   isLoading?: boolean;
   disabled?: boolean;
+  lineColor?: string;
 }
 
 type ITheme = 'white' | 'navy' | 'transparent';
@@ -32,6 +33,7 @@ const TEXT_COLORS = {
   white: theme.colors.navy,
   navy: theme.colors.white,
   transparent: theme.colors.white,
+  
 };
 
 const Button = ({
@@ -42,6 +44,7 @@ const Button = ({
   onPress,
   isLoading,
   disabled = false,
+  lineColor,
 }: IButton) => {
   return (
     <TouchableOpacity
@@ -51,7 +54,8 @@ const Button = ({
         styles.buttonWrapper,
         ButtonTheme(_theme, isLoading),
         styleWrapper,
-        disabled && {backgroundColor: theme.colors.grey6}
+        disabled && {backgroundColor: theme.colors.grey6},
+        lineColor && {borderColor: lineColor, borderWidth: 1}
       ]}>
       {!isLoading && (
         <Text style={[h1, TextTheme(_theme), styleText]}>{title}</Text>
