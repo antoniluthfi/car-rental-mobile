@@ -17,6 +17,7 @@ import {
   VirtualAccountScreen,
   BankTransferScreen,
   InstantPaymentScreen,
+  InboxDetailScreen,
 } from '../screens';
 import MainTabNavigator from './MainTabNavigator';
 import {useAppSelector} from 'redux/hooks';
@@ -217,6 +218,16 @@ const MainStack: React.FC = () => {
           <RootStack.Screen
             name="Notification"
             component={NotificationScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.navy,
+              },
+              ...leftToRightAnimation,
+            }}
+          />
+          <RootStack.Screen
+            name="InboxDetail"
+            component={InboxDetailScreen}
             options={{
               headerStyle: {
                 backgroundColor: theme.colors.navy,

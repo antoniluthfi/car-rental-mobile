@@ -1,5 +1,6 @@
+import {useNavigation} from '@react-navigation/native';
 import {ic_check2, ic_error2, ic_promo} from 'assets/icons';
-import {View, Image, Text, StyleSheet} from 'react-native';
+import {View, Image, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {iconCustomSize} from 'utils/mixins';
 import {colors, h1, h5} from 'utils/styles';
 
@@ -7,43 +8,55 @@ type Props = {
   item: any;
 };
 
+export const notifIcon = (
+  type: 'payment-success' | 'promo-special' | 'payment-expired',
+) => {
+  switch (type) {
+    case 'payment-success':
+      return (
+        <Image
+          source={ic_check2}
+          style={[iconCustomSize(17), {marginRight: 5}]}
+        />
+      );
+    case 'promo-special':
+      return (
+        <Image
+          source={ic_promo}
+          style={[iconCustomSize(17), {marginRight: 5}]}
+        />
+      );
+    case 'payment-expired':
+      return (
+        <Image
+          source={ic_error2}
+          style={[iconCustomSize(17), {marginRight: 5}]}
+        />
+      );
+    default:
+      return;
+  }
+};
+
 const MyInboxCard: React.FC<Props> = ({item}) => {
-  const notifIcon = (
-    type: 'payment-success' | 'promo-special' | 'payment-expired',
-  ) => {
-    switch (type) {
-      case 'payment-success':
-        return (
-          <Image
-            source={ic_check2}
-            style={[iconCustomSize(17), {marginRight: 5}]}
-          />
-        );
-      case 'promo-special':
-        return (
-          <Image
-            source={ic_promo}
-            style={[iconCustomSize(17), {marginRight: 5}]}
-          />
-        );
-      case 'payment-expired':
-        return (
-          <Image
-            source={ic_error2}
-            style={[iconCustomSize(17), {marginRight: 5}]}
-          />
-        );
-      default:
-        return;
-    }
-  };
+  const navigation = useNavigation();
 
   return (
-    <View>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('InboxDetail', {id: 1})}>
       <View style={styles.titleContainer}>
         <View style={{flexDirection: 'row'}}>
           {notifIcon(item?.type)}
-          <Text style={[h1, {fontSize: 14, lineHeight: 17}]}>
+          <Text
+            style={[
+              h1,
+              {
+                fontSize: 14,
+                lineHeight: 17,
+                color:
+                  item?.type === 'promo-special' ? '#0085FF' : colors.black,
+              },
+            ]}>
             {item?.title}
           </Text>
         </View>
@@ -54,7 +67,7 @@ const MyInboxCard: React.FC<Props> = ({item}) => {
       <Text style={[h5, styles.subtitle]}>{item?.subtitle}</Text>
       <Text style={[h5, styles.message]}>{item?.message}</Text>
       <View style={styles.lineBreak} />
-    </View>
+    </TouchableOpacity>
   );
 };
 

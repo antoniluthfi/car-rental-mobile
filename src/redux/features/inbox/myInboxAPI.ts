@@ -30,7 +30,7 @@ export const getInboxes = createAsyncThunk(
 
 export const getInboxDetail = createAsyncThunk(
   'inbox/inbocDetail',
-  async (id, thunkAPI: any): Promise<IResponApi<any>> => {
+  async (id: number | string, thunkAPI: any): Promise<IResponApi<any>> => {
     try {
       const response: ApiResponse<any> = await apiWithInterceptor.get(
         `/api/inboxes/${id}`,

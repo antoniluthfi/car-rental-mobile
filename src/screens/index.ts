@@ -5,6 +5,7 @@ export { default as DetailCarScreen } from './DetailCarScreen/DetailCarScreen';
 export { default as ForgotPasswordScreen } from './ForgotPasswordScreen/ForgotPasswordScreen';
 export { default as HomeScreen } from './HomeScreen/HomeScreen';
 export { default as InboxScreen } from './InboxScreen/InboxScreen';
+export { default as InboxDetailScreen } from './InboxDetailScreen/InboxDetailScreen';
 export { default as ListCarScreen } from './ListCarScreen/ListCarScreen';
 export { default as LoginScreen } from './LoginScreen/LoginScreen';
 export { default as OrderDetailScreen } from './OrderDetailScreen/OrderDetailScreen';

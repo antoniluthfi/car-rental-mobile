@@ -17,6 +17,7 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {inboxState, setPage} from 'redux/features/inbox/myInboxSlice';
 import {getInboxes} from 'redux/features/inbox/myInboxAPI';
 import MyInboxCard from 'components/MyInboxComponent/MyInboxCard/MyInboxCard';
+import DataNotFound from 'components/DataNotFound/DataNotFound';
 
 const NOTIFICATION_LIST = [
   {
@@ -121,7 +122,7 @@ const MyBooking: React.FC = () => {
         windowSize={5}
         maxToRenderPerBatch={5}
         updateCellsBatchingPeriod={30}
-        // ListEmptyComponent={DataNotFound}
+        ListEmptyComponent={DataNotFound}
       />
     </View>
   );
