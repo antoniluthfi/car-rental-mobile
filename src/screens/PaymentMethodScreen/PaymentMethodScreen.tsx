@@ -23,13 +23,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { getPayments } from 'redux/features/appData/appDataAPI';
+import {getPayments} from 'redux/features/appData/appDataAPI';
 import {appDataState} from 'redux/features/appData/appDataSlice';
 import {createDisbursements} from 'redux/features/order/orderAPI';
 import {orderState} from 'redux/features/order/orderSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {IPayments, METHOD_PAYMENT} from 'types/global.types';
-import { RootStackParamList } from 'types/navigator';
+import {RootStackParamList} from 'types/navigator';
 import {theme} from 'utils';
 import {showBSheet} from 'utils/BSheet';
 import {iconCustomSize, iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
@@ -59,7 +59,10 @@ const DATA_METHOD_PAYMENT: {
   },
 ];
 
-type PaymentMethodScreenRouteProp = RouteProp<RootStackParamList, 'PaymentMethod'>;
+type PaymentMethodScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'PaymentMethod'
+>;
 
 const PaymentMethodScreen: FC = () => {
   const navigation = useNavigation();
@@ -124,11 +127,14 @@ const PaymentMethodScreen: FC = () => {
                 title="Iya, Lanjutkan"
                 onPress={() => {
                   if (data.method === 'Credit Card') {
-                    navigation.navigate('CardPayment', {selectedPayment: data});
+                    navigation.navigate('CardPayment', {
+                      selectedPayment: data,
+                      transaction_key: route.params?.transaction_key,
+                    });
                   } else if (data.method === 'Manual Transfer') {
                     navigation.navigate('BankTransfer', {
                       selectedPayment: data,
-                      transaction_key: route.params?.transaction_key
+                      transaction_key: route.params?.transaction_key,
                     });
                   } else if (data.method === 'E-money') {
                     // navigation.navigate('InstantPayment', {
@@ -160,7 +166,7 @@ const PaymentMethodScreen: FC = () => {
           transaction_key: order.transaction_key,
         }),
       );
-      console.log(res)
+      console.log(res);
       if (res.type.includes('fulfilled')) {
         navigation.navigate('VirtualAccount', {selectedPayment: data});
       }
@@ -172,7 +178,7 @@ const PaymentMethodScreen: FC = () => {
           transaction_key: order.transaction_key,
         }),
       );
-      console.log(JSON.stringify(res))
+      console.log(JSON.stringify(res));
       if (res.type.includes('fulfilled')) {
         navigation.navigate('InstantPayment', {selectedPayment: data});
       }

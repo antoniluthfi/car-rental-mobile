@@ -27,6 +27,7 @@ type RootStackParamList = {
   };
   CardPayment: {
     selectedPayment: IPayments;
+    transaction_key?: string;
   };
   VirtualAccount: {
     selectedPayment: IPayments
