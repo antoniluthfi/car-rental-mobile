@@ -104,8 +104,8 @@ const MyBooking: React.FC = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        // data={NOTIFICATION_LIST}
-        data={inbox.data?.inboxes || []}
+        data={NOTIFICATION_LIST}
+        // data={inbox.data?.inboxes || []}
         contentContainerStyle={styles.list}
         renderItem={renderItem}
         keyExtractor={(item, i) => {

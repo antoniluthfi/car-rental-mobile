@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import hoc from 'components/hoc';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {
@@ -33,6 +33,8 @@ import {showBSheet} from 'utils/BSheet';
 import CustomTextInput from 'components/TextInput';
 import DropdownBank from 'components/UploadBankTransferComponent/DropdownBank/DropdwonBank';
 import {IPayments} from 'types/global.types';
+import {cancelOrder} from 'redux/features/order/orderAPI';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 type DailyBookingOrderDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -49,13 +51,25 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
   const [images, setImages] = useState<any[]>([]);
   const [orderState, setOrderState] = useState<string>('');
   const [formCancel, setFormCancel] = useState({
-
+    name: '',
+    bank: '',
+    bank_account_number: '',
+    cancelation_reason: '',
   });
 
   const {selected, vehicleData} = bookingDetail;
   const vehicle = vehicleData?.find(
     v => v?.id === selected?.order_detail?.vehicle_id,
   );
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  // variables
+  const snapPoints = useMemo(() => ['100%', '100%'], []);
+
+  // callbacks
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
 
   const getPaymentLabel = () => {
     if (selected?.disbursement) {
@@ -78,6 +92,8 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
   };
 
   useEffect(() => {
+    bottomSheetRef.current?.close();
+    bottomSheetRef.current?.snapToIndex(-1);
     navigation.setOptions(
       appBar({
         leading: (
@@ -174,7 +190,9 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                     methods.handleExtendOrder();
                     return;
                   }
-                  methods.handleCancelOrder();
+                  bottomSheetRef.current?.snapToIndex(0);
+                  // methods.handleCancelOrder(setFormCancel, formCancel);
+
                 }}
                 styleWrapper={{marginBottom: 20}}
               />
@@ -192,11 +210,152 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
       showBSheet({
         content: <View style={styles.bsheetWrapper}></View>,
       });
-    },
-    handleCancelOrder: () => {
-      showBSheet({
-        content: (
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <CustomCarousel
+          data={images}
+          carouselTitle={
+            vehicle?.brand_name
+              ? `${vehicle?.brand_name}${
+                  vehicle?.name ? ` ${vehicle?.name}` : ''
+                }`
+              : undefined
+          }
+          renderItem={({item, index}) => (
+            <View
+              style={{
+                alignItems: 'center',
+                alignSelf: 'center',
+              }}>
+              <Image
+                source={{uri: item?.url}}
+                style={{height: 250, width: WINDOW_WIDTH}}
+              />
+            </View>
+          )}
+        />
+
+        <View style={styles.descriptionContainer}>
+          <View style={{flexBasis: '50%'}}>
+            <Text style={styles.text}>No. Order</Text>
+            <Text style={styles.boldText}>{selected?.id}</Text>
+          </View>
+
+          <View style={{flexBasis: '50%'}}>
+            <Text style={styles.text}>Metode Pembayaran</Text>
+            <Text style={styles.boldText}>{getPaymentLabel()}</Text>
+          </View>
+        </View>
+        <View style={styles.dashedLine} />
+
+        <View style={styles.descriptionContainer}>
+          <View style={{flexBasis: '60%', flexDirection: 'row'}}>
+            <View style={styles.roundedImage}>
+              <Image
+                source={img_car_2}
+                style={styles.imgCar}
+                resizeMode="cover"
+              />
+            </View>
+
+            <View>
+              <Text style={styles.text}>Mobil</Text>
+              <Text style={styles.boldText}>
+                {vehicle?.brand_name
+                  ? `${vehicle?.brand_name}${
+                      vehicle?.name ? ` ${vehicle?.name}` : ''
+                    }`
+                  : '-'}
+              </Text>
+            </View>
+          </View>
+
+          <View style={{flexBasis: '50%'}}>
+            <Text style={styles.text}>Jumlah Penumpang</Text>
+            <Text style={styles.boldText}>{vehicle?.max_passanger || '-'}</Text>
+          </View>
+        </View>
+        <View style={styles.dashedLine} />
+
+        <View style={styles.descriptionContainer}>
+          <View style={{flexBasis: '50%'}}>
+            <Text style={styles.text}>Total Pembayaran</Text>
+            <Text style={styles.boldText}>
+              {idrFormatter(selected?.total_payment)}
+            </Text>
+          </View>
+
+          <View style={{flexBasis: '50%'}}>
+            <Text style={styles.text}>Status Pembayaran</Text>
+            <Text style={styles.boldText}>{orderState}</Text>
+          </View>
+        </View>
+        <View style={styles.solidLine} />
+
+        <View style={{padding: '5%'}}>
+          <Text style={styles.text}>
+            {selected?.order_detail?.is_take_from_rental_office
+              ? 'Lokasi Pickup'
+              : 'Lokasi Pengantaran'}
+          </Text>
           <View
+            style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
+            <Image source={ic_pinpoin} style={[iconSize, {marginRight: 10}]} />
+            <Text style={styles.text}>
+              {selected?.order_detail?.rental_delivery_location}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.solidLine} />
+
+        <View style={{padding: '5%'}}>
+          <Text style={styles.text}>Lokasi Pengembalian</Text>
+          <View
+            style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
+            <Image source={ic_pinpoin} style={[iconSize, {marginRight: 10}]} />
+            <Text style={styles.text}>
+              {
+                garages?.find(
+                  data =>
+                    data?.id ===
+                    selected?.order_detail?.rental_return_office_id,
+                )?.name
+              }
+            </Text>
+          </View>
+        </View>
+        <View style={styles.solidLine} />
+        <View style={{marginHorizontal: 16}}>
+          <Button
+            _theme="white"
+            title="Batalkan Pesanan"
+            onPress={() => {
+              methods.handleConfirmation('cancel_order');
+            }}
+            styleWrapper={{
+              marginBottom: 10,
+            }}
+            lineColor={theme.colors.navy}
+          />
+          <Button
+            _theme="navy"
+            title="Perpanjang Pesanan"
+            onPress={() => methods.handleConfirmation('enxtend_order')}
+          />
+        </View>
+      </ScrollView>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={-1}
+        enablePanDownToClose
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}>
+        <View style={styles.contentContainer}>
+        <View
             style={[
               styles.bsheetWrapper,
               {alignItems: 'flex-start', paddingLeft: 16, width: '100%'},
@@ -207,8 +366,8 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
               title="Nama"
               placeholder="Masukkan Nama Anda"
               errorMessage=""
-              onChangeText={() => {}}
-              value={''}
+              onChangeText={v => setFormCancel({...formCancel, name: v})}
+              value={formCancel.name}
               styleTitle={{
                 fontSize: 12,
               }}
@@ -220,19 +379,22 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                 marginTop: 10,
               }}
               onSelect={(v: IPayments) => {
-                // setForm({...form, sender_bank_name: v.code});
+                console.log(v);
+                setFormCancel({...formCancel, bank: v.code});
                 // setFormError({...formError, sender_bank_name: ''});
               }}
-              // selected={form.sender_bank_name}
-              // errorMessage={formError.sender_bank_name}
+              selected={formCancel.bank}
+              // errorMessage={''}
             />
             <View style={{marginTop: 15}} />
             <CustomTextInput
               title="Nomor Rekening"
               placeholder="Masukan Nomor Rekening"
               errorMessage=""
-              onChangeText={() => {}}
-              value={''}
+              onChangeText={v =>
+                setFormCancel({...formCancel, bank_account_number: v})
+              }
+              value={formCancel.bank_account_number}
               styleTitle={{
                 fontSize: 12,
               }}
@@ -249,7 +411,10 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                     paddingRight: 15,
                   }}
                   maxLength={150}
-                  // value={form.special_request}
+                  onChangeText={v =>
+                    setFormCancel({...formCancel, cancelation_reason: v})
+                  }
+                  value={formCancel.cancelation_reason}
                   // onChangeText={v => setForm({...form, special_request: v})}
                 />
               </View>
@@ -257,160 +422,35 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
 
             <View
               style={[
-                {
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 16,
-                  right: 0,
-                  width: '100%',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                },
+                styles.btnWrapper,
                 // rowCenter,
-              ]}
-              >
-              <Button _theme="white" title="Kembali" onPress={() => {}} styleWrapper={{width: '48%'}} />
+              ]}>
+              <Button
+                _theme="white"
+                title="Kembali"
+                onPress={() => {}}
+                styleWrapper={{width: '48%'}}
+              />
 
-              <Button _theme="navy" title="Iya, Lanjutkan" onPress={() => {}} styleWrapper={{width: '48%'}} />
+              <Button
+                _theme="navy"
+                title="Iya, Lanjutkan"
+                onPress={async () => {
+                  let res = await dispatch(
+                    cancelOrder({
+                      ...formCancel,
+                      transaction_key: route.params.transaction_key,
+                    }),
+                  );
+                  console.log('res = ', res);
+                }}
+                styleWrapper={{width: '48%'}}
+              />
             </View>
           </View>
-        ),
-      });
-    },
-  };
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <CustomCarousel
-        data={images}
-        carouselTitle={
-          vehicle?.brand_name
-            ? `${vehicle?.brand_name}${
-                vehicle?.name ? ` ${vehicle?.name}` : ''
-              }`
-            : undefined
-        }
-        renderItem={({item, index}) => (
-          <View
-            style={{
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}>
-            <Image
-              source={{uri: item?.url}}
-              style={{height: 250, width: WINDOW_WIDTH}}
-            />
-          </View>
-        )}
-      />
-
-      <View style={styles.descriptionContainer}>
-        <View style={{flexBasis: '50%'}}>
-          <Text style={styles.text}>No. Order</Text>
-          <Text style={styles.boldText}>{selected?.id}</Text>
         </View>
-
-        <View style={{flexBasis: '50%'}}>
-          <Text style={styles.text}>Metode Pembayaran</Text>
-          <Text style={styles.boldText}>{getPaymentLabel()}</Text>
-        </View>
-      </View>
-      <View style={styles.dashedLine} />
-
-      <View style={styles.descriptionContainer}>
-        <View style={{flexBasis: '60%', flexDirection: 'row'}}>
-          <View style={styles.roundedImage}>
-            <Image
-              source={img_car_2}
-              style={styles.imgCar}
-              resizeMode="cover"
-            />
-          </View>
-
-          <View>
-            <Text style={styles.text}>Mobil</Text>
-            <Text style={styles.boldText}>
-              {vehicle?.brand_name
-                ? `${vehicle?.brand_name}${
-                    vehicle?.name ? ` ${vehicle?.name}` : ''
-                  }`
-                : '-'}
-            </Text>
-          </View>
-        </View>
-
-        <View style={{flexBasis: '50%'}}>
-          <Text style={styles.text}>Jumlah Penumpang</Text>
-          <Text style={styles.boldText}>{vehicle?.max_passanger || '-'}</Text>
-        </View>
-      </View>
-      <View style={styles.dashedLine} />
-
-      <View style={styles.descriptionContainer}>
-        <View style={{flexBasis: '50%'}}>
-          <Text style={styles.text}>Total Pembayaran</Text>
-          <Text style={styles.boldText}>
-            {idrFormatter(selected?.total_payment)}
-          </Text>
-        </View>
-
-        <View style={{flexBasis: '50%'}}>
-          <Text style={styles.text}>Status Pembayaran</Text>
-          <Text style={styles.boldText}>{orderState}</Text>
-        </View>
-      </View>
-      <View style={styles.solidLine} />
-
-      <View style={{padding: '5%'}}>
-        <Text style={styles.text}>
-          {selected?.order_detail?.is_take_from_rental_office
-            ? 'Lokasi Pickup'
-            : 'Lokasi Pengantaran'}
-        </Text>
-        <View
-          style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-          <Image source={ic_pinpoin} style={[iconSize, {marginRight: 10}]} />
-          <Text style={styles.text}>
-            {selected?.order_detail?.rental_delivery_location}
-          </Text>
-        </View>
-      </View>
-      <View style={styles.solidLine} />
-
-      <View style={{padding: '5%'}}>
-        <Text style={styles.text}>Lokasi Pengembalian</Text>
-        <View
-          style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-          <Image source={ic_pinpoin} style={[iconSize, {marginRight: 10}]} />
-          <Text style={styles.text}>
-            {
-              garages?.find(
-                data =>
-                  data?.id === selected?.order_detail?.rental_return_office_id,
-              )?.name
-            }
-          </Text>
-        </View>
-      </View>
-      <View style={styles.solidLine} />
-      <View style={{marginHorizontal: 16}}>
-        <Button
-          _theme="white"
-          title="Batalkan Pesanan"
-          onPress={() => {
-            methods.handleConfirmation('cancel_order');
-          }}
-          styleWrapper={{
-            marginBottom: 10,
-          }}
-          lineColor={theme.colors.navy}
-        />
-        <Button
-          _theme="navy"
-          title="Perpanjang Pesanan"
-          onPress={() => methods.handleConfirmation('enxtend_order')}
-        />
-      </View>
-    </ScrollView>
+      </BottomSheet>
+    </View>
   );
 };
 
@@ -420,6 +460,10 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#F5F5F5',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
   },
   descriptionContainer: {
     padding: '5%',
@@ -468,5 +512,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     marginTop: 10,
+  },
+  btnWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    left: 16,
+    right: 0,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
