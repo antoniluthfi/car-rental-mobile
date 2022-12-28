@@ -30,6 +30,7 @@ import {
   launchImageLibrary,
 } from 'react-native-image-picker';
 import FileExistCard from 'components/MyProfileComponent/FileExistCard/FileExistCard';
+import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -40,6 +41,11 @@ const ProfileScreen: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [whatsappChecked, setWhatsappChecked] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  // FIXME: create optional generic for setTypeUpload state
+  const [typeUpload, setTypeUpload] = useState<
+    'photo_ktp' | 'photo_license' | 'photo_profile'
+  >('photo_profile');
   const [passwordConfirmationModal, setPasswordConfirmationModal] =
     useState<boolean>(false);
   const [form, setForm] = useState<ProfileForm>({
@@ -123,29 +129,18 @@ const ProfileScreen: React.FC = () => {
       dispatch(editUser(formData));
       setLoading(false);
     },
-    openImagePicker: async (type: 'photo_ktp' | 'photo_license') => {
-      try {
-        const result: ImagePickerResponse = await launchImageLibrary({
-          mediaType: 'photo',
-          quality: 0.5,
-          includeBase64: true,
-        });
-
-        if (Number(result.assets?.[0]?.fileSize) > 2097152) {
-          setFormError({
-            ...formError,
-            [type]: 'Maaf, ukuran file tidak boleh lebih dari 2MB!',
-          });
-        } else {
-          setFormError({
-            ...formError,
-            [type]: '',
-          });
-
-          dispatch(uploadFile({file: result.assets?.[0], name: type}));
-        }
-      } catch (error) {
-        console.log(error);
+    onCameraChange: (val: ImagePickerResponse['assets']) => {
+      // FIXME: filtering typeUpload !== 'photo_profile' because no need to upload photo profile on this screen
+      // please create better code than this
+      if (typeUpload !== 'photo_profile') {
+        dispatch(uploadFile({file: val?.[0], name: typeUpload}));
+      }
+    },
+    onImageLibraryChange: (val: ImagePickerResponse['assets']) => {
+      // FIXME: filtering typeUpload !== 'photo_profile' because no need to upload photo profile on this screen
+      // please create better code than this
+      if (typeUpload !== 'photo_profile') {
+        dispatch(uploadFile({file: val?.[0], name: typeUpload}));
       }
     },
   };
@@ -320,7 +315,10 @@ const ProfileScreen: React.FC = () => {
           <UploadImageInput
             selectedImageLabel="foto-ktp.jpg"
             selected={temporaryFileUpload.photo_ktp}
-            onPress={() => methods.openImagePicker('photo_ktp')}
+            onPress={() => {
+              setModalVisible(true);
+              setTypeUpload('photo_ktp');
+            }}
             onDelete={() => {
               setTemporaryFileUpload({...temporaryFileUpload, photo_ktp: ''});
             }}
@@ -342,7 +340,10 @@ const ProfileScreen: React.FC = () => {
           <UploadImageInput
             selectedImageLabel="foto-sim.jpg"
             selected={temporaryFileUpload.photo_license}
-            onPress={() => methods.openImagePicker('photo_license')}
+            onPress={() => {
+              setModalVisible(true);
+              setTypeUpload('photo_license');
+            }}
             onDelete={() => {
               setTemporaryFileUpload({
                 ...temporaryFileUpload,
@@ -360,6 +361,13 @@ const ProfileScreen: React.FC = () => {
         title={'Simpan'}
         isLoading={loading}
         disabled={isDisabled}
+      />
+
+      <ImagePickerModal
+        trigger={modalVisible}
+        setTrigger={setModalVisible}
+        onCameraChange={methods.onCameraChange}
+        onImageLibraryChange={methods.onImageLibraryChange}
       />
 
       <CustomModal

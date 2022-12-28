@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {img_car_2} from 'assets/images';
 import Button from 'components/Button';
+import { isFuture } from 'date-fns';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {Image, Linking, StyleSheet, Text, View} from 'react-native';
@@ -93,12 +94,11 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
   useEffect(() => {
     setOrderState(order_status);
 
-    const now = moment().format('YYYY-MM-DD HH:mm:ss');
-    const future = moment(expired_time).format('YYYY-MM-DD HH:mm:ss');
-
     if (
-      order_status?.toLowerCase() == 'pending' &&
-      moment(now).isAfter(future)
+      (order_status.toLowerCase() == 'pending' &&
+        !isFuture(new Date(expired_time))) ||
+      (order_status.toLowerCase() == 'reconfirmation' &&
+        !isFuture(new Date(expired_time)))
     ) {
       setOrderState('FAILED');
     }
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '69%',
+    width: '68%',
   },
   status: {
     fontSize: 14,

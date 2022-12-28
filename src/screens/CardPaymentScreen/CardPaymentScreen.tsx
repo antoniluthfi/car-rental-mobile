@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import hoc from 'components/hoc';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import { iconCustomSize, iconSize, rowCenter } from 'utils/mixins';
 import {
   ic_american_express,
   ic_arrow_left_white,
@@ -21,20 +21,20 @@ import {
   ic_shield,
   ic_visa,
 } from 'assets/icons';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
-import {theme} from 'utils';
+import { h1, h2, h3, h4, h5 } from 'utils/styles';
+import { theme } from 'utils';
 import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
 import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
 import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
 import Button from 'components/Button';
-import {showToast} from 'utils/Toast';
-import {showBSheet} from 'utils/BSheet';
-import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
+import { showToast } from 'utils/Toast';
+import { showBSheet } from 'utils/BSheet';
+import { WINDOW_WIDTH } from '@gorhom/bottom-sheet';
 import axios from 'axios';
-import {API_MIDTRANS, MIDTRANS_CLIENT} from '@env';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {createDisbursements} from 'redux/features/order/orderAPI';
-import {orderState} from 'redux/features/order/orderSlice';
+import { API_MIDTRANS, MIDTRANS_CLIENT } from '@env';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { createDisbursements } from 'redux/features/order/orderAPI';
+import { orderState } from 'redux/features/order/orderSlice';
 import { RootStackParamList } from 'types/navigator';
 import TextInputName from 'components/TextInputName/TextInputName';
 
@@ -79,7 +79,7 @@ const CardPaymentScreen = () => {
                 marginLeft: 16,
               }}
             />
-            <Text style={[h1, {color: 'white', marginLeft: 10}]}>
+            <Text style={[h1, { color: 'white', marginLeft: 10 }]}>
               Card Payment
             </Text>
           </TouchableOpacity>
@@ -98,11 +98,11 @@ const CardPaymentScreen = () => {
               flex: 1,
               margin: 16,
             }}>
-            <Text style={[h1, {margin: 16, fontSize: 18}]}>
+            <Text style={[h1, { margin: 16, fontSize: 18 }]}>
               Cara Pembayaran
             </Text>
             {FAQ.map((x, i) => (
-              <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
+              <View key={i} style={[{ margin: 16, flexDirection: 'row' }]}>
                 <Text>{i + 1}. </Text>
                 <Text>{x}</Text>
               </View>
@@ -157,11 +157,11 @@ const CardPaymentScreen = () => {
         );
 
         console.log(res);
-        if(res.type.includes('fulfilled')) {
+        if (res.type.includes('fulfilled')) {
           try {
             Linking.openURL(res?.payload.data?.disbursement?.redirect_url);
             setTimeout(() => {
-              navigation.navigate('MainTab', {screen: 'Booking'});
+              navigation.navigate('MainTab', { screen: 'Booking' });
             }, 1000);
           } catch (error) {
             showToast({
@@ -187,22 +187,22 @@ const CardPaymentScreen = () => {
       <Text style={[h1]}>Masukkan Info Kartu</Text>
 
       <TextInputName
-          onChangeText={(c: string) => setForm({...form, card_owner_name: c})}
-        />
+        onChangeText={(c: string) => setForm({ ...form, card_owner_name: c })}
+      />
       <TextInputCredit
-        onChangeText={(c: string) => setForm({...form, card_number: c})}
+        onChangeText={(c: string) => setForm({ ...form, card_number: c })}
       />
       <View
         style={[
           rowCenter,
-          {width: '100%', justifyContent: 'space-between', marginTop: 10},
+          { width: '100%', justifyContent: 'space-between', marginTop: 10 },
         ]}>
         <TextInputTimeExpired
-          onChangeText={(c: string) => setForm({...form, card_exp: c})}
+          onChangeText={(c: string) => setForm({ ...form, card_exp: c })}
         />
-        <View style={{marginHorizontal: 5}} />
+        <View style={{ marginHorizontal: 5 }} />
         <TextInputCVV
-          onChangeText={(c: string) => setForm({...form, card_cvv: c})}
+          onChangeText={(c: string) => setForm({ ...form, card_cvv: c })}
         />
       </View>
 
@@ -226,13 +226,13 @@ const CardPaymentScreen = () => {
       />
       <View style={styles.lineHorizontal} />
 
-      <Text style={[h1, {marginTop: 20}]}>FAQ</Text>
+      <Text style={[h1, { marginTop: 20 }]}>FAQ</Text>
 
       <TouchableOpacity
         style={[
           styles.HowToWrapper,
           rowCenter,
-          {justifyContent: 'space-between'},
+          { justifyContent: 'space-between' },
         ]}
         onPress={methods.handleFAQ}>
         <Text style={h4}>Cara Pembayaran</Text>

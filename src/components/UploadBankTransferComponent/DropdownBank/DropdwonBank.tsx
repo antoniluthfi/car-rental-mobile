@@ -1,5 +1,5 @@
 import {ic_arrow_down, ic_info_error} from 'assets/icons';
-import React, {FC, ReactElement, useRef, useState, Fragment} from 'react';
+import React, {FC, ReactElement, useRef, useState, Fragment, useEffect} from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -10,32 +10,29 @@ import {
   Image,
   ViewStyle,
 } from 'react-native';
+import { getPayments } from 'redux/features/appData/appDataAPI';
 import {appDataState} from 'redux/features/appData/appDataSlice';
-import {useAppSelector} from 'redux/hooks';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import { IPayments } from 'types/global.types';
 import {theme} from 'utils';
-import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import {iconCustomSize, rowCenter} from 'utils/mixins';
 import {h1, h5} from 'utils/styles';
-// import { Icon } from 'react-native-elements';
 
 interface IProps {
   onSelect: (item: IPayments) => void;
   selected: string;
-  errorMessage: string;
+  errorMessage?: string;
   styleDropdown?: ViewStyle;
 }
 
-
 const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage, styleDropdown}) => {
+  const dispatch = useAppDispatch();
+  const paymentMethods = useAppSelector(appDataState).payments;
   const DropdownButton: any = useRef();
+
   const [visible, setVisible] = useState(false);
   const [_selected, setSelected] = useState<any>(undefined);
   const [dropdownTop, setDropdownTop] = useState(0);
-  const paymentMethods = useAppSelector(appDataState).payments;
-
-  const toggleDropdown = (): void => {
-    visible ? setVisible(false) : openDropdown();
-  };
 
   const openDropdown = (): void => {
     DropdownButton.current.measure(
@@ -53,6 +50,10 @@ const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage, styleDropdo
     setVisible(true);
   };
 
+  const toggleDropdown = (): void => {
+    visible ? setVisible(false) : openDropdown();
+  };
+
   const onItemPress = (item: any): void => {
     setSelected(item);
     onSelect(item);
@@ -64,6 +65,10 @@ const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage, styleDropdo
       <Text>{item.code}</Text>
     </TouchableOpacity>
   );
+
+  useEffect(() => {
+    dispatch(getPayments())
+  }, []);
 
   return (
     <Fragment>
@@ -114,7 +119,7 @@ const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage, styleDropdo
                 payment => payment.method === 'Manual Transfer',
               )}
               renderItem={renderItem}
-              keyExtractor={(item, index) => index.toString()}
+              keyExtractor={(_, index) => index.toString()}
             />
           </View>
         </TouchableOpacity>

@@ -4,7 +4,7 @@ import DatePickerComponent from 'components/DatePicker/DatePicker';
 import DropdownLocation from 'components/DropdownLocation/DropdwonLocation';
 import moment from 'moment';
 import React, {FC, useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Platform} from 'react-native';
 import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
 import {getAllCities} from 'redux/features/appData/appDataAPI';
 import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
@@ -215,7 +215,11 @@ const DailyLayout: FC = () => {
                   width: WINDOW_WIDTH,
                   height: WINDOW_HEIGHT,
                 }}
-                minimumDate={moment(form.tanggal_sewa).format('YYYY-MM-DD')}
+                minimumDate={
+                  Platform.OS === 'android'
+                    ? form.tanggal_sewa
+                    : moment(form.tanggal_sewa).format('YYYY-MM-DD')
+                }
                 // maximumDate={moment(new Date()).format('YYYY-MM-DD')}
                 onDateChange={v => {
                   setTimeout(() => {

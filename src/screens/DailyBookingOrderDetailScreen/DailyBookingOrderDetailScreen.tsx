@@ -18,15 +18,14 @@ import {
   ic_download,
   ic_pinpoin,
 } from 'assets/icons';
-import {h1, h4, h5} from 'utils/styles';
+import {h1, h5} from 'utils/styles';
 import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 import {img_car_2} from 'assets/images';
 import {RootStackParamList} from 'types/navigator';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
 import {URL_IMAGE} from '@env';
-import {idrFormatter} from 'utils/functions';
-import moment from 'moment';
+import {idrFormatter, slugify} from 'utils/functions';
 import Button from 'components/Button';
 import {theme} from 'utils';
 import {showBSheet} from 'utils/BSheet';
@@ -35,6 +34,7 @@ import DropdownBank from 'components/UploadBankTransferComponent/DropdownBank/Dr
 import {IPayments} from 'types/global.types';
 import {cancelOrder} from 'redux/features/order/orderAPI';
 import BottomSheet from '@gorhom/bottom-sheet';
+import {isFuture} from 'date-fns';
 
 type DailyBookingOrderDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -85,7 +85,10 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
         return selected?.disbursement?.va_number;
       }
 
-      return selected?.disbursement?.payment?.code;
+      return (
+        selected?.disbursement?.payment?.code ||
+        selected?.disbursement?.payment?.method
+      );
     }
 
     return 'Belum memilih metode pembayaran';
@@ -151,21 +154,18 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
   useEffect(() => {
     setOrderState(selected?.order_status);
 
-    const now = moment().format('YYYY-MM-DD HH:mm:ss');
-    const future = moment(selected?.expired_time).format('YYYY-MM-DD HH:mm:ss');
-
     if (
-      selected?.order_status?.toLowerCase() == 'pending' &&
-      moment(now).isAfter(future)
+      (selected?.order_status?.toLowerCase() == 'pending' &&
+        !isFuture(new Date(selected?.expired_time))) ||
+      (selected?.order_status?.toLowerCase() == 'reconfirmation' &&
+        !isFuture(new Date(selected?.expired_time)))
     ) {
       setOrderState('FAILED');
     }
   }, [selected?.order_status, selected?.expired_time]);
 
   const methods = {
-    handleConfirmation: (
-      status: 'enxtend_order' | 'cancel_order' | 'close',
-    ) => {
+    handleConfirmation: (status: 'extend_order' | 'cancel_order' | 'close') => {
       showBSheet({
         content: (
           <View style={styles.bsheetWrapper}>
@@ -176,7 +176,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
             />
             <Text>
               Apakah anda yakin melanjutkan{' '}
-              {status === 'enxtend_order'
+              {status === 'extend_order'
                 ? 'Pembayaran ini?'
                 : 'membatalkan pesanan ini?'}
             </Text>
@@ -186,13 +186,12 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                 title="Iya, Lanjutkan"
                 onPress={() => {
                   methods.handleConfirmation('close');
-                  if (status === 'enxtend_order') {
+                  if (status === 'extend_order') {
                     methods.handleExtendOrder();
                     return;
                   }
                   bottomSheetRef.current?.snapToIndex(0);
                   // methods.handleCancelOrder(setFormCancel, formCancel);
-
                 }}
                 styleWrapper={{marginBottom: 20}}
               />
@@ -210,7 +209,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
       showBSheet({
         content: <View style={styles.bsheetWrapper}></View>,
       });
-    }
+    },
   };
 
   return (
@@ -330,22 +329,28 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
         </View>
         <View style={styles.solidLine} />
         <View style={{marginHorizontal: 16}}>
-          <Button
-            _theme="white"
-            title="Batalkan Pesanan"
-            onPress={() => {
-              methods.handleConfirmation('cancel_order');
-            }}
-            styleWrapper={{
-              marginBottom: 10,
-            }}
-            lineColor={theme.colors.navy}
-          />
-          <Button
-            _theme="navy"
-            title="Perpanjang Pesanan"
-            onPress={() => methods.handleConfirmation('enxtend_order')}
-          />
+          {isFuture(new Date(selected?.order_detail?.start_booking_date)) &&
+            slugify(orderState) !== 'failed' && (
+              <Button
+                _theme="white"
+                title="Batalkan Pesanan"
+                onPress={() => {
+                  methods.handleConfirmation('cancel_order');
+                }}
+                styleWrapper={{
+                  marginBottom: 10,
+                }}
+                lineColor={theme.colors.navy}
+              />
+            )}
+
+          {slugify(orderState) == 'completed' && (
+            <Button
+              _theme="navy"
+              title="Perpanjang Pesanan"
+              onPress={() => methods.handleConfirmation('extend_order')}
+            />
+          )}
         </View>
       </ScrollView>
       <BottomSheet
@@ -355,7 +360,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}>
         <View style={styles.contentContainer}>
-        <View
+          <View
             style={[
               styles.bsheetWrapper,
               {alignItems: 'flex-start', paddingLeft: 16, width: '100%'},
@@ -384,7 +389,6 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                 // setFormError({...formError, sender_bank_name: ''});
               }}
               selected={formCancel.bank}
-              // errorMessage={''}
             />
             <View style={{marginTop: 15}} />
             <CustomTextInput
@@ -401,7 +405,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
             />
             {/* <View style={{marginTop: 20}} /> */}
             <View style={{marginVertical: 20, width: '95%'}}>
-              <Text style={h4}>Tulis alasan pembatalan</Text>
+              <Text style={[h1, {fontSize: 12}]}>Tulis alasan pembatalan</Text>
               <View style={styles.formWrapper}>
                 <TextInput
                   multiline={true}
@@ -436,7 +440,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                 _theme="navy"
                 title="Iya, Lanjutkan"
                 onPress={async () => {
-                  let res = await dispatch(
+                  const res = await dispatch(
                     cancelOrder({
                       ...formCancel,
                       transaction_key: route.params.transaction_key,
