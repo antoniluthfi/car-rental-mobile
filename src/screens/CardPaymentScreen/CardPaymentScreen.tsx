@@ -35,7 +35,7 @@ import {API_MIDTRANS, MIDTRANS_CLIENT} from '@env';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {createDisbursements} from 'redux/features/order/orderAPI';
 import {orderState} from 'redux/features/order/orderSlice';
-import { RootStackParamList } from 'types/navigator';
+import {RootStackParamList} from 'types/navigator';
 import TextInputName from 'components/TextInputName/TextInputName';
 
 const FAQ = [
@@ -61,7 +61,7 @@ const CardPaymentScreen = () => {
     card_cvv: '',
     card_exp: '',
     card_number: '',
-    card_owner_name: ''
+    card_owner_name: '',
   });
 
   useEffect(() => {
@@ -141,7 +141,9 @@ const CardPaymentScreen = () => {
         console.log(data.data);
         if (data.data.status_code !== '200') {
           showToast({
-            message: data.data.validation_messages?.toString() || data.data.status_message,
+            message:
+              data.data.validation_messages?.toString() ||
+              data.data.status_message,
             title: 'Error',
             type: 'error',
           });
@@ -150,14 +152,15 @@ const CardPaymentScreen = () => {
         let res = await dispatch(
           createDisbursements({
             payment_type_id: route.params.selectedPayment.id,
-            transaction_key: order.transaction_key,
+            transaction_key:
+              order.transaction_key || (route.params?.transaction_key as any),
             card_token_id: data?.data?.token_id,
             card_owner_name: form.card_owner_name,
           }),
         );
 
         console.log(res);
-        if(res.type.includes('fulfilled')) {
+        if (res.type.includes('fulfilled')) {
           try {
             Linking.openURL(res?.payload.data?.disbursement?.redirect_url);
             setTimeout(() => {
@@ -187,8 +190,8 @@ const CardPaymentScreen = () => {
       <Text style={[h1]}>Masukkan Info Kartu</Text>
 
       <TextInputName
-          onChangeText={(c: string) => setForm({...form, card_owner_name: c})}
-        />
+        onChangeText={(c: string) => setForm({...form, card_owner_name: c})}
+      />
       <TextInputCredit
         onChangeText={(c: string) => setForm({...form, card_number: c})}
       />

@@ -1,5 +1,5 @@
-import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
+import React, {useState} from 'react';
 import {rowCenter} from 'utils/mixins';
 import {h5} from 'utils/styles';
 import {theme} from 'utils';
@@ -20,9 +20,10 @@ const TextInputName = ({onChangeText}: {onChangeText: (v: string) => void}) => {
             setInput(v);
             onChangeText(v);
           }}
-          placeholder="nama pemegang kartu"
+          placeholder="Nama pemegang kartu"
           maxLength={15}
           value={input}
+          style={{padding: 0, margin: 0}}
         />
       </View>
     </View>

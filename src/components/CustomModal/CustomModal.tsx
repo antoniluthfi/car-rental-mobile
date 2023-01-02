@@ -28,16 +28,17 @@ const CustomModal: React.FC<Props> = ({
       transparent
       statusBarTranslucent
       onRequestClose={onClose}>
-      <Modal
+      {/* <Modal
         visible={trigger}
         animationType="fade"
         transparent
+        style={{zIndex: -99}}
         statusBarTranslucent
         onRequestClose={onClose}>
         <TouchableWithoutFeedback onPress={onClose}>
           <View style={[styles.modalContainer, styles.modalBackground]} />
         </TouchableWithoutFeedback>
-      </Modal>
+      </Modal> */}
 
       <View style={styles.modalContainer}>
         <View style={styles.modalView}>
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalHeaderTitle: {
-    fontFamily: 'Neo Sans Regular',
+    // fontFamily: 'Neo Sans Regular',
     marginBottom: 10,
   },
   modalView: {

@@ -1,9 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import {img_car_2} from 'assets/images';
 import Button from 'components/Button';
+import { isFuture } from 'date-fns';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Linking, StyleSheet, Text, View} from 'react-native';
 import {useAppSelector} from 'redux/hooks';
 import {slugify} from 'utils/functions';
 import {rowCenter} from 'utils/mixins';
@@ -67,24 +68,21 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
   };
 
   const handlePay = () => {
+    console.log('disbursement = ', disbursement)
     if (!disbursement) {
+      
       navigation.navigate('PaymentMethod', {transaction_key});
     } else {
-      // if (disbursement?.payment?.method === 'Virtual Account') {
-      //   router.push(
-      //     `/payment?method=Virtual+Account&type=${slugify(
-      //       disbursement?.payment?.code
-      //     )}&key=${transaction_key}`
-      //   );
-      // }
-      // if (disbursement?.payment?.method === 'E-money') {
-      //   router.push(
-      //     `/payment?method=E-money&type=Gopay&key=${transaction_key}`
-      //   );
-      // }
-      // if (disbursement?.payment?.method === 'Credit Card') {
-      //   window.open(disbursement?.redirect_url, '_blank');
-      // }
+
+      if (disbursement?.payment?.method === 'Virtual Account') {
+        navigation.navigate('VirtualAccount', {selectedPayment: disbursement?.payment});
+      }
+      if (disbursement?.payment?.method === 'E-money') {
+        navigation.navigate('InstantPayment', {selectedPayment: disbursement?.payment});
+      }
+      if (disbursement?.payment?.method === 'Credit Card') {
+        Linking.openURL(disbursement?.redirect_url);
+      }
       // if (disbursement?.payment?.method === 'Manual Transfer') {
       //   router.push(
       //     `/payment?method=manual-transfer&type=${disbursement.payment.code}&key=${transaction_key}`
@@ -96,12 +94,11 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
   useEffect(() => {
     setOrderState(order_status);
 
-    const now = moment().format('YYYY-MM-DD HH:mm:ss');
-    const future = moment(expired_time).format('YYYY-MM-DD HH:mm:ss');
-
     if (
-      order_status?.toLowerCase() == 'pending' &&
-      moment(now).isAfter(future)
+      (order_status.toLowerCase() == 'pending' &&
+        !isFuture(new Date(expired_time))) ||
+      (order_status.toLowerCase() == 'reconfirmation' &&
+        !isFuture(new Date(expired_time)))
     ) {
       setOrderState('FAILED');
     }
@@ -124,7 +121,7 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
 
           <Text>
             {myBooking.vehicleData?.find(
-              v => v?.id === order_detail?.vehicle_id,
+              (v: any) => v?.id === order_detail?.vehicle_id,
             )?.name || '-'}
           </Text>
           <Text>
@@ -195,7 +192,7 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
             <Button
               _theme="navy"
               title="Verifikasi"
-              onPress={() => {}}
+              onPress={() => handlePay()}
               styleWrapper={{
                 marginTop: 21,
                 ...getButtonWidth(),
@@ -244,7 +241,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '69%',
+    width: '68%',
   },
   status: {
     fontSize: 14,

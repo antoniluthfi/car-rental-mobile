@@ -11,10 +11,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { getInboxDetail } from 'redux/features/inbox/myInboxAPI';
+import {getInboxDetail} from 'redux/features/inbox/myInboxAPI';
 import {inboxState} from 'redux/features/inbox/myInboxSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import { RootStackParamList } from 'types/navigator';
+import {RootStackParamList} from 'types/navigator';
 import {rowCenter} from 'utils/mixins';
 import {colors, h1, h5} from 'utils/styles';
 
@@ -26,7 +26,7 @@ const InboxDetailScreen: React.FC = () => {
   const inbox = useAppSelector(inboxState).detail;
 
   useEffect(() => {
-    dispatch(getInboxDetail(route.params.id))
+    dispatch(getInboxDetail(route.params.id));
   }, []);
 
   useEffect(() => {
@@ -54,10 +54,11 @@ const InboxDetailScreen: React.FC = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.detailContainer}>
-        {notifIcon(inbox?.type)}
+        {/* {notifIcon(inbox?.type)} */}
+        {notifIcon('promo-special')}
         <View style={{width: '90%'}}>
           <View style={styles.titleContainer}>
-            <Text
+            {/* <Text
               style={[
                 h1,
                 {
@@ -66,14 +67,37 @@ const InboxDetailScreen: React.FC = () => {
                 },
               ]}>
               {inbox?.title}
+            </Text> */}
+            <Text
+              style={[
+                h1,
+                {
+                  color:
+                    inbox?.type === 'promo-special' ? '#0085FF' : colors.black,
+                },
+              ]}>
+              Promo Akhir Tahun
             </Text>
-            <Text style={[h5, {fontSize: 12, lineHeight: 12}]}>
+            {/* <Text style={[h5, {fontSize: 12, lineHeight: 12}]}>
               {inbox?.timestamp}
+            </Text> */}
+            <Text style={[h5, {fontSize: 12, lineHeight: 12}]}>
+              01 July, 2022, 10:00
             </Text>
           </View>
 
-          <Text style={[h5, styles.subtitle]}>{inbox?.subtitle}</Text>
-          <Text style={[h5, styles.message]}>{inbox?.message}</Text>
+          {/* <Text style={[h5, styles.subtitle]}>{inbox?.subtitle}</Text> */}
+          <Text style={[h5, styles.subtitle]}>Promo Special</Text>
+          {/* <Text style={[h5, styles.message]}>{inbox?.message}</Text> */}
+          <Text style={[h5, styles.message]}>
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum."
+          </Text>
         </View>
       </View>
     </ScrollView>

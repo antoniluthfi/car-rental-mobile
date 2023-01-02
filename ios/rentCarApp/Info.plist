@@ -16,6 +16,8 @@
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Digunakan untuk mengambil foto ktp dan selfie untuk verifikasi diri</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleSignature</key>

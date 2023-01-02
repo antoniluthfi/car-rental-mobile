@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {rowCenter} from 'utils/mixins';
 import {h5} from 'utils/styles';
@@ -38,6 +38,8 @@ const TextInputTimeExpired = ({
           maxLength={2}
           ref={textRef1}
           value={inputs.input1}
+          style={{padding: 0, margin: 0}}
+          keyboardType='number-pad'
         />
         <Text> / </Text>
         <TextInput
@@ -46,6 +48,8 @@ const TextInputTimeExpired = ({
           maxLength={2}
           ref={textRef2}
           value={inputs.input2}
+          style={{padding: 0, margin: 0}}
+          keyboardType='number-pad'
         />
       </View>
     </View>

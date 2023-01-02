@@ -66,72 +66,11 @@ const AccountScreen: React.FC = () => {
         dispatch(toggleLoader(false));
       }, 1000);
     },
-    openCamera: async () => {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          {
-            title: 'App Camera Permission',
-            message: 'App needs access to your camera ',
-            buttonNeutral: 'Ask Me Later',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK',
-          },
-        );
-
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          const result: ImagePickerResponse = await launchCamera({
-            mediaType: 'photo',
-            quality: 0.5,
-            includeBase64: true,
-          });
-
-          setModalVisible(false);
-          if (Number(result.assets?.[0]?.fileSize) > 2097152) {
-            showToast({
-              title: 'Gagal',
-              type: 'error',
-              message: 'Maaf, ukuran file tidak boleh lebih dari 2MB!',
-            });
-          } else {
-            dispatch(
-              uploadFile({file: result.assets?.[0], name: 'photo_profile'}),
-            );
-          }
-        } else {
-          showToast({
-            title: 'Gagal',
-            type: 'error',
-            message: 'Camera permission denied',
-          });
-        }
-      } catch (error) {
-        console.log('image library', error);
-      }
+    openCamera: (val: ImagePickerResponse['assets']) => {
+      dispatch(uploadFile({file: val?.[0], name: 'photo_profile'}));
     },
-    openImageLibrary: async () => {
-      try {
-        const result: ImagePickerResponse = await launchImageLibrary({
-          mediaType: 'photo',
-          quality: 0.5,
-          includeBase64: true,
-        });
-
-        setModalVisible(false);
-        if (Number(result.assets?.[0]?.fileSize) > 2097152) {
-          showToast({
-            title: 'Gagal',
-            type: 'error',
-            message: 'Maaf, ukuran file tidak boleh lebih dari 2MB!',
-          });
-        } else {
-          dispatch(
-            uploadFile({file: result.assets?.[0], name: 'photo_profile'}),
-          );
-        }
-      } catch (error) {
-        console.log('image library', error);
-      }
+    openImageLibrary: async (val: ImagePickerResponse['assets']) => {
+      dispatch(uploadFile({file: val?.[0], name: 'photo_profile'}));
     },
     handleSubmit: () => {
       setLoading(true);
@@ -274,11 +213,9 @@ const AccountScreen: React.FC = () => {
 
       <ImagePickerModal
         trigger={modalVisible}
-        onCameraPress={methods.openCamera}
-        onImageLibraryPress={methods.openImageLibrary}
-        onClose={() => {
-          setModalVisible(false);
-        }}
+        setTrigger={setModalVisible}
+        onCameraChange={methods.openCamera}
+        onImageLibraryChange={methods.openImageLibrary}
       />
 
       <CustomModal

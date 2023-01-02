@@ -77,6 +77,8 @@ const TextInputCredit = ({
           maxLength={4}
           ref={textRef1}
           value={inputs.input1}
+          style={{padding: 0, margin: 0}}
+          keyboardType='number-pad'
         />
         <Text> - </Text>
         <TextInput
@@ -85,6 +87,8 @@ const TextInputCredit = ({
           maxLength={4}
           ref={textRef2}
           value={inputs.input2}
+          style={{padding: 0, margin: 0}}
+          keyboardType='number-pad'
         />
         <Text> - </Text>
         <TextInput
@@ -93,6 +97,8 @@ const TextInputCredit = ({
           maxLength={4}
           ref={textRef3}
           value={inputs.input3}
+          style={{padding: 0, margin: 0}}
+          keyboardType='number-pad'
         />
         <Text> - </Text>
         <TextInput
@@ -101,6 +107,8 @@ const TextInputCredit = ({
           maxLength={4}
           ref={textRef4}
           value={inputs.input4}
+          style={{padding: 0, margin: 0}}
+          keyboardType='number-pad'
         />
       </View>
     </View>

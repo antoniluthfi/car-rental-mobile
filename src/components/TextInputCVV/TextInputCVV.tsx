@@ -23,6 +23,8 @@ const TextInputCVV = ({onChangeText}: {onChangeText: (v: string) => void}) => {
           placeholder="000"
           maxLength={3}
           value={input}
+          style={{padding: 0, margin: 0}}
+          keyboardType='number-pad'
         />
       </View>
     </View>

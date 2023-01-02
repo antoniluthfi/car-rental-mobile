@@ -53,11 +53,13 @@ export const uploadFile = createAsyncThunk(
         `/api/profile/document`,
         form,
       );
+      console.log(response);
 
       return {
         [name]: response.data?.file,
       };
     } catch (error: any) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error.response.data);
     }
   },
