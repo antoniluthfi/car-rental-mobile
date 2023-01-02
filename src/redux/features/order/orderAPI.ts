@@ -133,7 +133,7 @@ export const cancelOrder = createAsyncThunk(
     : Promise<IResponApi<any> | any> {
     try {
       console.log('params = ', params)
-      let response: ApiResponse<any> = await apiWithInterceptor.post(
+      let response: ApiResponse<any> = await apiWithInterceptor.put(
         `/api/orders/${params?.transaction_key}/cancel`,
         {
           "name": params.name,
