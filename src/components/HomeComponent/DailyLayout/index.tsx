@@ -1,19 +1,21 @@
 import {useNavigation} from '@react-navigation/native';
+import {ic_info} from 'assets/icons';
 import Button from 'components/Button';
 import DatePickerComponent from 'components/DatePicker/DatePicker';
 import DropdownLocation from 'components/DropdownLocation/DropdwonLocation';
 import moment from 'moment';
 import React, {FC, useEffect, useState} from 'react';
-import {StyleSheet, Text, View, Platform} from 'react-native';
+import {StyleSheet, Text, View, Platform, Image} from 'react-native';
 import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
 import {getAllCities} from 'redux/features/appData/appDataAPI';
 import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
 import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {ICities} from 'types/global.types';
-import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import {h1} from 'utils/styles';
 import useLangSelector from 'utils/useLangSelector';
+import {theme} from 'utils';
+import {iconCustomSize, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
+import {h1, h2} from 'utils/styles';
 
 interface IForm {
   location: ICities;
@@ -121,6 +123,11 @@ const DailyLayout: FC = () => {
 
   return (
     <View style={{flex: 1, margin: 16}}>
+      <View style={styles.withoutDriver}>
+        <Image source={ic_info} style={iconCustomSize(13)} />
+        <Text style={[h2, styles.withoutDriverLabel]}>Tanpa Supir</Text>
+      </View>
+
       <DropdownLocation
         data={cities}
         onSelect={(v: ICities) => {
@@ -269,4 +276,16 @@ const DailyLayout: FC = () => {
 
 export default DailyLayout;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  withoutDriver: {
+    backgroundColor: theme.colors.navy,
+    borderRadius: 50,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 0,
+  },
+  withoutDriverLabel: {color: theme.colors.white, marginLeft: 5, fontSize: 10},
+});
