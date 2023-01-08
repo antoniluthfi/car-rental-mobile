@@ -13,6 +13,7 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {ICities} from 'types/global.types';
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 import {h1} from 'utils/styles';
+import useLangSelector from 'utils/useLangSelector';
 
 interface IForm {
   location: ICities;
@@ -33,6 +34,7 @@ const DailyLayout: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const cities = useAppSelector(appDataState)?.cities || [];
+  const lang = useLangSelector();
   const [form, setForm] = useState<IForm>({
     location: {id: 0, name: ''},
     tanggal_sewa: '',
@@ -58,20 +60,20 @@ const DailyLayout: FC = () => {
       let _errorMessage: any = {};
       let status = true;
       if (!form.location.name) {
-        _errorMessage['error_location'] = 'Masukan lokasi anda';
+        _errorMessage['error_location'] = lang.Home.daily.error_location;
         status = false;
       }
       if (!form.tanggal_sewa) {
-        _errorMessage['error_tanggal_sewa'] = 'Masukan Tanggal terlebih dahulu';
+        _errorMessage['error_tanggal_sewa'] = lang.Home.daily.error_rent_date;
         status = false;
       }
       if (!form.tanggal_pengembalian) {
         _errorMessage['error_tanggal_pengembalian'] =
-          'Masukan Tanggal terlebih dahulu';
+        lang.Home.daily.error_rent_date;
         status = false;
       }
       if (!form.jam_sewa) {
-        _errorMessage['error_jam_sewa'] = 'Pilih Jam Anda';
+        _errorMessage['error_jam_sewa'] = lang.Home.daily.error_rent_time;
         status = false;
       }
       setFormError({..._errorMessage});
@@ -139,8 +141,8 @@ const DailyLayout: FC = () => {
         ]}>
         <DatePickerComponent
           mode="date"
-          placeholder="Pilih Tanggal"
-          title="Tanggal Mulai Sewa"
+          placeholder={lang.Home.daily.rent_start_date}
+          title={lang.Home.daily.rent_start_date}
           containerStyle={{
             width: '45%',
           }}
@@ -150,7 +152,7 @@ const DailyLayout: FC = () => {
           value={form.tanggal_sewa ?? ''}
           content={
             <View>
-              <Text style={[h1, {marginLeft: 16}]}>Tanggal Mulai Sewa</Text>
+              <Text style={[h1, {marginLeft: 16}]}>{lang.Home.daily.rent_start_date}</Text>
               <ReactNativeModernDatepicker
                 style={{
                   width: WINDOW_WIDTH,
@@ -177,8 +179,8 @@ const DailyLayout: FC = () => {
         />
         <DatePickerComponent
           mode="clock"
-          placeholder="Pilih Jam"
-          title="Jam Sewa"
+          placeholder={lang.Home.daily.rent_start_time}
+          title={lang.Home.daily.rent_start_time}
           containerStyle={{
             width: '45%',
           }}
@@ -201,15 +203,15 @@ const DailyLayout: FC = () => {
         ]}>
         <DatePickerComponent
           mode="date"
-          placeholder="Pilih Tanggal"
-          title="Tanggal Pengembalian"
+          placeholder={lang.Home.daily.rent_end_date}
+          title={lang.Home.daily.rent_end_date}
           containerStyle={{
             width: '45%',
           }}
           value={form.tanggal_pengembalian ?? ''}
           content={
             <View>
-              <Text style={[h1, {marginLeft: 16}]}>Tanggal Pengembalian</Text>
+              <Text style={[h1, {marginLeft: 16}]}>{lang.Home.daily.rent_end_date}</Text>
               <ReactNativeModernDatepicker
                 style={{
                   width: WINDOW_WIDTH,
@@ -241,8 +243,8 @@ const DailyLayout: FC = () => {
         />
         <DatePickerComponent
           mode="clock"
-          placeholder="Pilih Jam"
-          title="Jam Sewa"
+          placeholder={lang.Home.daily.rent_end_time}
+          title={lang.Home.daily.rent_end_time}
           containerStyle={{
             width: '45%',
           }}
@@ -255,7 +257,7 @@ const DailyLayout: FC = () => {
 
       <Button
         _theme="navy"
-        title="Cari Mobil"
+        title={lang.Home.daily.btn_search}
         onPress={methods.handleSearch}
         styleWrapper={{
           marginTop: 40,

@@ -13,6 +13,7 @@ import {passwordValidation} from 'utils/functions';
 import {showToast} from 'utils/Toast';
 import {changePassword} from 'redux/features/user/userAPI';
 import {userState} from 'redux/features/user/userSlice';
+import useLangSelector from 'utils/useLangSelector';
 
 type ChangePasswordForm = {
   old_password: string;
@@ -24,7 +25,8 @@ const ChangePasswordScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const userUpdateStatus = useAppSelector(userState).isChangePasswordSuccess;
-
+  const t = useLangSelector().settings;
+  
   const [loading, setLoading] = useState<boolean>(false);
   const [form, setForm] = useState<ChangePasswordForm>({
     old_password: '12345678abc',

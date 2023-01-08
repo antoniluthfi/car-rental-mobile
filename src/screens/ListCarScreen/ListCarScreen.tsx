@@ -34,6 +34,7 @@ import {IVehicles} from 'types/vehicles';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {URL_IMAGE} from '@env';
 import { currencyFormat } from 'utils/currencyFormat';
+import useLangSelector from 'utils/useLangSelector';
 
 const ListCarScreen: FC = () => {
   const navigation = useNavigation();
@@ -47,6 +48,7 @@ const ListCarScreen: FC = () => {
     filter_koper: '',
     brands: '',
   });
+  const lang = useLangSelector().list_car;
 
   useEffect(() => {
     navigation.setOptions(
@@ -64,18 +66,18 @@ const ListCarScreen: FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Pilih Mobil Anda
+              {lang.header}
             </Text>
           </TouchableOpacity>
         ),
         trailing: (
           <Text style={[h5, {color: 'white', marginRight: 16}]} onPress={()=> navigation.goBack()}>
-            Ubah Pencarian
+            {lang.change_search}
           </Text>
         ),
       }),
     );
-  }, [navigation]);
+  }, [navigation, lang]);
 
   useEffect(() => {
     let params: string = '?';
@@ -145,9 +147,9 @@ const ListCarScreen: FC = () => {
         </View>
 
         <View style={{marginTop: 10}}>
-          <Text style={[h4, {fontSize: 12}]}>Harga Tarif Mobil</Text>
+          <Text style={[h4, {fontSize: 12}]}>{lang.rent_price}</Text>
           <Text style={[h1, {color: theme.colors.blue, marginTop: 5}]}>
-            {currencyFormat(item.price)} <Text style={[h4]}>/ Hari</Text>
+            {currencyFormat(item.price)} <Text style={[h4]}>/ {lang.day}</Text>
           </Text>
         </View>
       </View>
@@ -162,19 +164,19 @@ const ListCarScreen: FC = () => {
       <ScrollView horizontal style={{maxHeight: 50}}>
         <DropdownFilter
           data={brands}
-          label={'Merek Mobil'}
+          label={lang.car_type}
           onSelect={v => setForm({...form, brands: v.name})}
           selected={form.brands}
         />
         <DropdownFilter
           data={[{name: '4'}, {name: '5'}, {name: '6'}]}
-          label={'Kursi'}
+          label={lang.seat}
           onSelect={v => setForm({...form, filter_seat: parseInt(v.name)})}
           selected={form.filter_seat}
         />
         <DropdownFilter
           data={[{name: '1'}, {name: '2'}, {name: '3'}]}
-          label={'Koper'}
+          label={lang.bag}
           onSelect={v => setForm({...form, filter_koper: v.name})}
           selected={form.filter_koper}
         />

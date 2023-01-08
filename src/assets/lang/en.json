@@ -1,0 +1,238 @@
+{
+    "Account": {
+        "header": "My Profile",
+        "menu_1": "Profile",
+        "menu_2": "Change Password",
+        "menu_3": "Notification"
+    },
+    "Home": {
+        "daily": {
+            "location": "Choose your location",
+            "placeholder_location": "Choose your location",
+            "without_driver": "Without Driver",
+            "rent_start_date": "Rental Start Date",
+            "rent_end_date": "Rental End Date",
+            "rent_start_time": "Rental Start Time",
+            "rent_end_time": "Rental End Time",
+            "btn_search": "Find A Car",
+            "error_location": "Enter your location",
+            "error_rent_date": "Enter the Date first",
+            "error_rent_time": "Choose Your Clock"
+        }
+    },
+    "list_car": {
+        "header": "Choose Car Type",
+        "change_search": "Change Search",
+        "rent_price": "Rent Price",
+        "day": "Day",
+        "car_type": "Car Type",
+        "seat": "Seat",
+        "bag": "Case"
+    },
+    "carDetail": {
+        "carDetail": "Car Detail",
+        "carPrice": "Rent Price",
+        "perDay": "/ Day",
+        "seatCapacity": "Seat Capacity",
+        "seat": "Kursi",
+        "bagDetail": "Case Detail",
+        "bag": "Case",
+        "transmision": "Transmission",
+        "car_conditions": "Car Conditions",
+        "smoking": "No Smoking",
+        "pet": "Pet Allowed",
+        "disability": "Disability Support",
+        "priceTerm": "Price Term",
+        "include": "Include",
+        "important": "Important",
+        "rentalRules": "Rental Terms & Conditions",
+        "rentalTerm": "Rental Term",
+        "learnMore": "Read More",
+        "rentalRequirement": "Rental Policy & Conditions",
+        "policy": "Rental Policy",
+        "requirement": "Rental Condition",
+        "otherInfo": "Other Info",
+        "carInsurance": "Car Insurance",
+        "rentalGas": "Return the fuel as before",
+        "rentalTime": "Use up to 24 hours per rental day",
+        "agreeState": "I agree to the terms that apply",
+        "requirements": [
+            "SIM A/International SIM",
+            "KTP/Passport",
+            "Social Media Account Username",
+            "Deposit IDR 500.000"
+        ],
+        "policies": [
+            "The duration of car rental per day is 24 hours",
+            "Overtime fee per hour 10% of the rental price",
+            "Prices include VAT",
+            "Not including fuel, parking, toll and driver"
+        ]
+    },
+    "priceTerm": {
+        "handSanitizer": "Hand Sanitizer",
+        "mineralWater": "Mineral Water",
+        "mask": "Mask",
+        "tissue": "Tissue",
+        "driver": "Driver",
+        "parking": "Parking",
+        "snacks": "Snacks",
+        "additional_needs": "Additional Needs",
+        "fuel": "Fuel",
+        "toll": "Toll"
+    },
+    "dailyRules": {
+        "sebelum_pengambilan": {
+            "title": "Before Rental",
+            "list": [
+                "Renters must share with the provider a photo of their driver's license (SIM A or International SIM), as well as their ID Card (KTP or Passport).",
+                "Renters must pay a deposit of IDR 500,000 to the provider before the rental start, with the available payment methods.",
+                "The deposit will be returned at the latest 7 days after the rental ends."
+            ]
+        },
+        "saat_pengambilan": {
+            "title": "During Pick-Up",
+            "list": [
+                "Renters are required to show a valid driver's license and ID card (KTP or Passport and SIM A or International SIM)",
+                "Renters must be over 17 years old.",
+                "All documents provided must be original, not in the name of another person, and in accordance with the data registered when ordering at Get & Ride Apps.",
+                "Renters must ensure that the rented vehicle is properly used and returned in the same condition as it was originally."
+            ]
+        },
+        "penggunaan": {
+            "title": "Rental Policies Usage",
+            "list": [
+                "Vehicles are not allowed to be transferred to other parties who are not verified by Get & Ride data. Get & Ride parties can forcefully take the vehicle if the following indications occur.",
+                "Renters will be charged an additional fee, if the pick-up and return outside the available zone",
+                "Renters are allowed to bring pets in certain cars. Make sure pets don't damage or contaminate the vehicle facilities in the car.",
+                "Renters are not allowed to carry passengers or luggage that exceeds the capacity of the car being rented.",
+                "Renters are responsible for replacement or repair costs in the event of loss or damage to Vehicle Registration Cerfticicate (STNK), car keys, accessories, car tools, head units, tools sets, scratches, stains, and other costs arising from the renters.",
+                "Renters are responsible for all parking, traffic and other fines incurred as a result of violations of law during the rental."
+            ]
+        },
+        "pengembalian": {
+            "title": "After Rental Policy",
+            "list": [
+                "The provider has the right not to return the deposit, if the car is damaged or if the tenant violates the law during the rental period.",
+                "The provider is not responsible for items left in the car after the renter returns the car to the rental provider.",
+                "The renter must return the car with the same volume of fuel as the car was received (bar to bar)",
+                "If there is an electronic traffic ticket during the rental period, the rental provider will return the deposit by deducting the fine of the electronic ticket.",
+                "Get & Ride is not responsible for accidents, losses, and treatment caused by the accident."
+            ]
+        },
+        "overtime": {
+            "title": "Overtime",
+            "list": [
+                "An overtime fee will be charged if the rental exceeds 24 hours per day.",
+                "Renters are given an additional 1 (one) hour of compensation time, and if it is exceeded, the tenant will be charged 10% per hour of the rental price, with a maximum limit of 4 (four) hours.",
+                "Overtime of more than 4 hours, will be charged a one-day rental fee."
+            ]
+        },
+        "asuransi": {
+            "title": "Asuransi (belum ready)",
+            "list": [
+                "Jika terjadi kecelakaan, penyewa diwajibkan untuk menyerahkan kepada penyedia semua dokumen yang dibutuhkan oleh perusahan asuransi, termasuk namun tidak terbatas pada KTP/paspor dan SIM A mereka.",
+                "Penyewa wajib menanggung beban biaya Risiko Sendiri sebesar Rp350.000 untuk setiap kejadian kecelakan (per panel).",
+                "Penyewa wajib menanggung Biaya Risiko Kehilangan (Total Lost Risk) sebesar Rp500.000 jika mobil hilang.",
+                "Perselisihan antara pihak akan diselesaikan melalui musyawarah mufakat. Jika dalam waktu 30 hari para pihak belum mencapai mufakat, masalah akan diselesaikan di Pengadilan Negeri Jakarta Utara."
+            ]
+        },
+        "refund": {
+            "title": "Refund & Cancellation Policy",
+            "list": [
+                "Cancellations submitted more than 24 hours prior to pick-up will receive a 100% refund of the total rental fee.",
+                "If the cancellation is submitted within 24 to 6 hours before the pick up time, a 50% refund of the total rental fee will be received",
+                "Cancellation submitted less than 6 hours before the pick-up time will incur a cancellation fee of 100% of the total rental fee.",
+                "The refund process does not apply to promo rental prices and certain types of vehicles.",
+                "Refunds are processed up to 14 working days after the refund process has been approved"
+            ]
+        }
+    },
+    "global": {
+        "button": {
+            "back": "Back",
+            "login": "Login",
+            "signup": "Sign Up",
+            "findACar": "Find a Car",
+            "pick": "Select",
+            "next": "Next",
+            "nextPayment": "Continue Payment",
+            "orderNow": "Order Now",
+            "payNow": "Pay Now",
+            "choosePayment": "Choose Payment",
+            "verification": "Verification",
+            "save": "Save",
+            "cancelOrder": "Cancel Order",
+            "extendOrder": "Extend Order",
+            "yesNext": "Yes, Continue"
+        },
+        "alert": {
+            "payment_confirm": "Are you sure to proceed with this Payment?"
+        }
+    },
+    "detail_order": {
+        "title": "Order Detail",
+        "formDetail": {
+            "title": "Order Details Form",
+            "fullName": "Full Name",
+            "phone": "Phone Number",
+            "sameAsPhone": "Same as Phone Number"
+        },
+        "tripDetail": {
+            "title": "Trip Details",
+            "pickAtGarage": "Taking To The Rental Place",
+            "deliveryLocationTaking": "Choose a taking location",
+            "deliveryLocation": "Delivery location",
+            "deliveryLocationTakingPlaceholder": "Choose a taking location",
+            "deliveryLocationPlaceholder": "Delivery location",
+            "returnLocation": "Return location",
+            "returnLocationPlaceHolder": "Choose a return location"
+        },
+        "specialReq": {
+            "title": "Special Request Form (Optional)",
+            "placeholder": "Write down what you need for your travel needs, e.g. Baby Chair, Wheel Chair, etc."
+        },
+        "summary": {
+            "title": "Rental",
+            "passanger": "Passenger",
+            "deliveryLocation": "Delivery Location",
+            "deliveryLocationPlaceholder": "Delivery Location",
+            "pickLocation": "Taking Location",
+            "pickLocationPlaceholder": "Taking Location",
+            "returnLocation": "Return Location",
+            "returnLocationPlaceHolder": "Return Location",
+            "startDate": "Order Start's Date",
+            "startTime": "Order Start's Time",
+            "endDate": "Order End's Date",
+            "endTime": "Order Start's Time",
+            "rentalFee": "Rental Fee",
+            "price": "Price",
+            "day": "day",
+            "otherFee": "Other's Fee",
+            "serviceFee": "Service Fee",
+            "insuranceFee": "Insurance Fee",
+            "totalPayment": "Total Payment"
+        }
+    },
+    "payment_method": {
+        "header": "Select Payment Method"
+    },
+    "settings": {
+        "profile": "Profile",
+        "changePassword": "Change Password",
+        "notification": "Notification",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "Full Name",
+        "oldPassword": "Old Password",
+        "oldPasswordPlaceholder": "Old Password",
+        "newPassword": "New Password",
+        "newPasswordPlaceholder": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "confirmPasswordPlaceholder": "Confirm New Password",
+        "activity": "Activity",
+        "activityDesc": "Notifications for promotions from us, enjoy various discounts from us",
+        "reminder": "Reminder",
+        "reminderDesc": "Notifications for your order"
+    }
+
+}

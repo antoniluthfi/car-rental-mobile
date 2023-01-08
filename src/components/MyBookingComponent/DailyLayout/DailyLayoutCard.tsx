@@ -14,7 +14,7 @@ interface IProps {
 }
 
 export const paymentPendingStatus = ['PENDING', 'CHECKOUT', 'RECONFIRMATION'];
-export const paymentFailedStatus = ['EXPIRED', 'FAILED'];
+export const paymentFailedStatus = ['EXPIRED', 'FAILED', 'CANCELLED'];
 export const paymentSuccessStatus = [
   'SUCCESS',
   'PAID',
@@ -27,6 +27,7 @@ const showPaymentButtonCode = [
   'paid',
   'success',
   'failed',
+  'cancelled',
   'completed',
   'finished',
 ];

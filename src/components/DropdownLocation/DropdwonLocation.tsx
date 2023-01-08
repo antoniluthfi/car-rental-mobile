@@ -1,4 +1,4 @@
-import {ic_info_error, ic_pinpoin} from 'assets/icons';
+import {ic_apple, ic_info, ic_info_error, ic_pinpoin} from 'assets/icons';
 import React, {FC, ReactElement, useRef, useState} from 'react';
 import {
   FlatList,
@@ -11,8 +11,9 @@ import {
 } from 'react-native';
 import {ICities} from 'types/global.types';
 import {theme} from 'utils';
-import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
-import {h1, h5} from 'utils/styles';
+import {colorSelecting, iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import {h1, h2, h5} from 'utils/styles';
+import useLangSelector from 'utils/useLangSelector';
 // import { Icon } from 'react-native-elements';
 
 interface Props {
@@ -36,6 +37,7 @@ const Dropdown: FC<Props> = ({
   const [visible, setVisible] = useState(false);
   const [_selected, setSelected] = useState<any>(undefined);
   const [dropdownTop, setDropdownTop] = useState(0);
+  const lang = useLangSelector();
 
   const toggleDropdown = (): void => {
     visible ? setVisible(false) : openDropdown();
@@ -89,7 +91,14 @@ const Dropdown: FC<Props> = ({
 
   return (
     <View>
-      <Text style={[h1]}>Pilih Lokasi Anda</Text>
+      <View style={[rowCenter, {justifyContent: 'space-between'}]}>
+        <Text style={[h1]}>{lang.Home.daily.location}</Text>
+        <View style={[rowCenter, styles.wrapperInfo]}>
+          <Image source={ic_info} style={iconSize} />
+          <Text style={[h2, {color: '#fff', fontSize: 12, marginLeft: 5}]}>{lang.Home.daily.without_driver}</Text>
+        </View>
+      </View>
+
       <TouchableOpacity
         ref={DropdownButton}
         style={[
@@ -104,8 +113,8 @@ const Dropdown: FC<Props> = ({
         onPress={toggleDropdown}>
         {renderDropdown()}
         <Image source={ic_pinpoin} style={iconSize} />
-        <Text style={[h5, {marginLeft: 10}]}>
-          {selected?.name || 'Pilih Lokasi Anda'}
+        <Text style={[h5, colorSelecting(selected?.name), {marginLeft: 10}]}>
+          {selected?.name || lang.Home.daily.placeholder_location}
         </Text>
       </TouchableOpacity>
 
@@ -166,6 +175,13 @@ const styles = StyleSheet.create({
     // borderBottomColor: theme.colors.grey5,
     paddingVertical: 10,
     marginTop: 10,
+  },
+  wrapperInfo: {
+    backgroundColor: theme.colors.navy,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 20,
+    alignItems: 'center',
   },
 });
 

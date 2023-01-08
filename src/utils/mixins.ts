@@ -1,4 +1,5 @@
 import { Dimensions, PixelRatio, ViewStyle } from 'react-native';
+import theme from './theme';
 
 export const WINDOW_WIDTH = Dimensions.get('window').width;
 export const WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -78,5 +79,11 @@ export const iconCustomSize = (value: number) => {
   return {
     height: value,
     width: value,
+  };
+};
+
+export const colorSelecting = (value: any) => {
+  return {
+    color: value ? theme.colors.black : theme.colors.grey4
   };
 };

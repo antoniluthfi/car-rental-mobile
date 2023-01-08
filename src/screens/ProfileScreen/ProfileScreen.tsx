@@ -31,12 +31,14 @@ import {
 } from 'react-native-image-picker';
 import FileExistCard from 'components/MyProfileComponent/FileExistCard/FileExistCard';
 import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
+import useLangSelector from 'utils/useLangSelector';
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const userProfile = useAppSelector(appDataState).userProfile;
   const user = useAppSelector(userState);
+  const t = useLangSelector().settings;
 
   const [loading, setLoading] = useState<boolean>(false);
   const [whatsappChecked, setWhatsappChecked] = useState<boolean>(false);
@@ -181,12 +183,12 @@ const ProfileScreen: React.FC = () => {
                 marginLeft: 16,
               }}
             />
-            <Text style={[h1, {color: 'white', marginLeft: 10}]}>Profile</Text>
+            <Text style={[h1, {color: 'white', marginLeft: 10}]}>{t.profile}</Text>
           </TouchableOpacity>
         ),
       }),
     );
-  }, [navigation]);
+  }, [navigation, t]);
 
   useEffect(() => {
     if (userProfile.id) {
@@ -234,8 +236,8 @@ const ProfileScreen: React.FC = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={{marginBottom: 20}}>
         <ProfileTextInput
-          label="Nama Lengkap"
-          placeholder="Masukan Nama Anda"
+          label={t.fullName}
+          placeholder={t.fullNamePlaceholder}
           onChangeText={(v: string) => {
             setForm({...form, name: v});
             setFormError({...formError, name: ''});
@@ -252,6 +254,7 @@ const ProfileScreen: React.FC = () => {
             setForm({...form, email: v});
             setFormError({...formError, email: ''});
           }}
+          editable={false}
           value={form.email}
           errorMessage={formError.email}
         />
@@ -281,24 +284,24 @@ const ProfileScreen: React.FC = () => {
           value={form.wa_number}
           errorMessage={formError.wa_number}
           editable={false}
-          includeCheckbox={
-            <Checkbox
-              label="Sama dengan No. Handphone"
-              customContainerStyle={{margin: 0}}
-              customLabelStyle={{fontSize: 12}}
-              customCheckboxStyle={iconCustomSize(15)}
-              checked={whatsappChecked}
-              disabled
-              onChange={val => {
-                setForm(prev => ({
-                  ...form,
-                  wa_number:
-                    val && prev.phone ? prev.phone_code + prev.phone : '',
-                }));
-                setWhatsappChecked(val);
-              }}
-            />
-          }
+          // includeCheckbox={
+          //   <Checkbox
+          //     label="Sama dengan No. Handphone"
+          //     customContainerStyle={{margin: 0}}
+          //     customLabelStyle={{fontSize: 12}}
+          //     customCheckboxStyle={iconCustomSize(15)}
+          //     checked={whatsappChecked}
+          //     disabled
+          //     onChange={val => {
+          //       setForm(prev => ({
+          //         ...form,
+          //         wa_number:
+          //           val && prev.phone ? prev.phone_code + prev.phone : '',
+          //       }));
+          //       setWhatsappChecked(val);
+          //     }}
+          //   />
+          // }
         />
 
         <View style={[rowCenter]}>
@@ -358,7 +361,7 @@ const ProfileScreen: React.FC = () => {
       <Button
         _theme="navy"
         onPress={methods.handleValidate}
-        title={'Simpan'}
+        title={useLangSelector().global.button.save}
         isLoading={loading}
         disabled={isDisabled}
       />

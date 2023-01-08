@@ -3,7 +3,7 @@ import BsheetMain from 'components/BSheet/BsheetMain';
 import GlobalLoader from 'components/GlobalLoader/GlobalLoader';
 import Toast from 'components/Toast/Toast';
 import React from 'react';
-import {View} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import {utilsState} from 'redux/features/utils/utilsSlice';
 import {useAppSelector} from 'redux/hooks';
 import MainStackNavigator from './MainStackNavigator';

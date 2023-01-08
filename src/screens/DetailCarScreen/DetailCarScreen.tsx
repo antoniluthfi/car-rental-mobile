@@ -1,4 +1,5 @@
 import {URL_IMAGE} from '@env';
+import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {
   ic_arrow_left_white,
@@ -39,33 +40,38 @@ import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {RootStackParamList} from 'types/navigator';
 import {theme} from 'utils';
-import { currencyFormat } from 'utils/currencyFormat';
+import {showBSheet} from 'utils/BSheet';
+import {currencyFormat} from 'utils/currencyFormat';
 import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
 import {h1, h3, h4, h5} from 'utils/styles';
+import useLangSelector from 'utils/useLangSelector';
+const t_priceTerm = useLangSelector().priceTerm;
+
+type IDailyRules = {title: string; list: string[]};
 
 const DATA_INCLUDE_PRICES = [
   {
-    desc: 'Pengemudi',
+    desc: t_priceTerm.driver,
     icon: ic_driver,
   },
   {
-    desc: 'Kebutuhan Tambahan',
+    desc: t_priceTerm.additional_needs,
     icon: ic_care,
   },
   {
-    desc: 'Parkir',
+    desc: t_priceTerm.parking,
     icon: ic_park,
   },
   {
-    desc: 'BBM',
+    desc: t_priceTerm.fuel,
     icon: ic_gas,
   },
   {
-    desc: 'Snacks',
+    desc: t_priceTerm.snacks,
     icon: ic_snack,
   },
   {
-    desc: 'Toll',
+    desc: t_priceTerm.toll,
     icon: ic_toll,
   },
 ];
@@ -90,6 +96,9 @@ const DetailCarScreen: FC = () => {
   const route = useRoute<ProfileScreenRouteProp>();
   const dispatch = useAppDispatch();
   const vehicle = useAppSelector(vehiclesState).vehicleById;
+  const t = useLangSelector().carDetail;
+  const t_dailyRules = useLangSelector().dailyRules;
+  const t_global = useLangSelector().global;
 
   const [checkInfo, setCheckInfo] = useState(false);
 
@@ -109,17 +118,61 @@ const DetailCarScreen: FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Detail Mobil
+              {t.carDetail}
             </Text>
           </TouchableOpacity>
         ),
       }),
     );
-  }, [navigation]);
+  }, [navigation, t]);
 
   useEffect(() => {
     dispatch(getVehiclesById(route.params.vehicle_id));
   }, []);
+
+  const methods = {
+    showRules: () => {
+      showBSheet({
+        content: (
+          <View style={{flex: 1, alignItems: 'flex-start', width: '95%'}}>
+            <Text style={[h1]}>Rules Penyewaan</Text>
+            <View style={[rowCenter, {marginTop: 10}]}>
+              <Image source={ic_info_blue} style={iconSize} />
+              <Text style={[h1, {color: theme.colors.blue}]}>
+                {' '}
+                {t.important}
+              </Text>
+            </View>
+            <View style={{width: '100%', flex: 1}}>
+              <BottomSheetScrollView>
+                <View style={{marginTop: 20, margin: 16}}>
+                  {Object.keys(t_dailyRules).map((x, i) => (
+                    <View key={i}>
+                      <Text style={[h1, {marginTop: 10}]}>
+                        {t_dailyRules[x as keyof typeof t_dailyRules].title}
+                        <View style={{marginLeft: 20, marginTop: 10}}>
+                          {t_dailyRules[
+                            x as keyof typeof t_dailyRules
+                          ].list.map((x, i) => (
+                            <View
+                              key={i}
+                              style={{flexDirection: 'row', marginBottom: 5}}>
+                              <Text>• </Text>
+                              <Text style={[h4, {lineHeight: 24}]}>{x}</Text>
+                            </View>
+                          ))}
+                        </View>
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </BottomSheetScrollView>
+            </View>
+          </View>
+        ),
+      });
+    },
+  };
 
   return (
     <View
@@ -147,23 +200,27 @@ const DetailCarScreen: FC = () => {
         <View style={[rowCenter, styles.info1Wrapper]}>
           <View style={{alignItems: 'center'}}>
             <Image source={ic_seat} style={iconSize} />
-            <Text style={[h1, {paddingVertical: 5}]}>Jumlah Kursi</Text>
-            <Text style={h3}>{vehicle.max_passanger} Kursi</Text>
+            <Text style={[h1, {paddingVertical: 5}]}>{t.seatCapacity}</Text>
+            <Text style={h3}>
+              {vehicle.max_passanger} {t.seat}
+            </Text>
           </View>
           <View style={{alignItems: 'center'}}>
             <Image source={ic_koper} style={iconSize} />
-            <Text style={[h1, {paddingVertical: 5}]}>Detail Koper</Text>
-            <Text style={h3}>{vehicle.max_suitcase} Koper</Text>
+            <Text style={[h1, {paddingVertical: 5}]}>{t.bagDetail}</Text>
+            <Text style={h3}>
+              {vehicle.max_suitcase} {t.bag}
+            </Text>
           </View>
           <View style={{alignItems: 'center'}}>
             <Image source={ic_transisi} style={iconSize} />
-            <Text style={[h1, {paddingVertical: 5}]}>Transmisi</Text>
+            <Text style={[h1, {paddingVertical: 5}]}>{t.transmision}</Text>
             <Text style={h3}>Manual</Text>
           </View>
         </View>
 
         <View style={{marginTop: 20, margin: 16}}>
-          <Text style={[h1]}>Ketentuan Mobil</Text>
+          <Text style={[h1]}>{t.car_conditions}</Text>
           <View
             style={[
               rowCenter,
@@ -172,23 +229,21 @@ const DetailCarScreen: FC = () => {
             {vehicle.smoke_allowed && (
               <View style={[rowCenter, {marginBottom: 17}]}>
                 <Image source={ic_nosmoke} style={iconSize} />
-                <Text style={[h4, {marginLeft: 10}]}>Dilarang Merokok</Text>
+                <Text style={[h4, {marginLeft: 10}]}>{t.smoking}</Text>
               </View>
             )}
 
             {vehicle.disablility_allowed && (
               <View style={[rowCenter, {marginBottom: 17}]}>
                 <Image source={ic_disable} style={iconSize} />
-                <Text style={[h4, {marginLeft: 10}]}>Disabilitas Support</Text>
+                <Text style={[h4, {marginLeft: 10}]}>{t.disability}</Text>
               </View>
             )}
 
             {vehicle.pet_allowed && (
               <View style={[rowCenter, {marginBottom: 17}]}>
                 <Image source={ic_dog} style={iconSize} />
-                <Text style={[h4, {marginLeft: 10}]}>
-                  Peliharaan Diperbolehkan
-                </Text>
+                <Text style={[h4, {marginLeft: 10}]}>{t.pet}</Text>
               </View>
             )}
           </View>
@@ -196,7 +251,7 @@ const DetailCarScreen: FC = () => {
         </View>
 
         <View style={{marginTop: 20, margin: 16}}>
-          <Text style={[h1]}>Harga Termasuk</Text>
+          <Text style={[h1]}>{t.priceTerm}</Text>
           <View
             style={[
               rowCenter,
@@ -217,26 +272,33 @@ const DetailCarScreen: FC = () => {
         <View style={{marginTop: 20, margin: 16}}>
           <View style={rowCenter}>
             <Image source={ic_info_blue} style={iconSize} />
-            <Text style={[h1, {color: theme.colors.blue}]}>Penting</Text>
+            <Text style={[h1, {color: theme.colors.blue}]}> {t.important}</Text>
           </View>
-          <Text style={[h1, {marginTop: 10}]}>Sebelum Pengambilan</Text>
+          <Text style={[h1, {marginTop: 10}]}>
+            {t_dailyRules.sebelum_pengambilan.title}
+          </Text>
           <View style={{marginLeft: 20, marginTop: 10}}>
-            {INFO_BEFORE_PICKUP.map((x, i) => (
+            {t_dailyRules.sebelum_pengambilan.list.map((x, i) => (
               <View key={i} style={{flexDirection: 'row', marginBottom: 5}}>
                 <Text>• </Text>
                 <Text style={[h4, {lineHeight: 24}]}>{x}</Text>
               </View>
             ))}
           </View>
+          <Text
+            style={[h4, {color: theme.colors.blue, alignSelf: 'flex-end'}]}
+            onPress={methods.showRules}>
+            {t.learnMore}
+          </Text>
           <View style={styles.lineHorizontal} />
         </View>
 
         <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1, {marginTop: 10}]}>
-            Syarat Kelengkapan Penyewaan
+            {t.rentalRequirement}
           </Text>
           <View style={{marginLeft: 20, marginTop: 10}}>
-            {INFO_RENT.map((x, i) => (
+            {[...t.policies, ...t.requirements].map((x, i) => (
               <View key={i} style={{flexDirection: 'row', marginBottom: 5}}>
                 <Text>• </Text>
                 <Text style={[h4, {lineHeight: 24}]}>{x}</Text>
@@ -246,7 +308,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View>
 
-        <View style={{marginTop: 20, margin: 16}}>
+        {/* <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1]}>Info Lainnya</Text>
           <View
             style={[
@@ -273,9 +335,9 @@ const DetailCarScreen: FC = () => {
             </View>
           </View>
           <View style={styles.lineHorizontal} />
-        </View>
+        </View> */}
         <Checkbox
-          label="Saya menyetujui ketentuan yang berlaku"
+          label={t.agreeState}
           onChange={val => setCheckInfo(val)}
           checked={checkInfo}
         />
@@ -283,15 +345,15 @@ const DetailCarScreen: FC = () => {
 
       <View style={styles.bottomWrapper}>
         <View>
-          <Text style={[h4]}>Harga Tarif Mobil</Text>
+          <Text style={[h4]}>{t.carPrice}</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
-           {currencyFormat(vehicle.price)}{' '}
-            <Text style={[h3, {fontSize: 12}]}>/ hari</Text>
+            {currencyFormat(vehicle.price)}{' '}
+            <Text style={[h3, {fontSize: 12}]}>{t.perDay}</Text>
           </Text>
         </View>
         <View style={{flexBasis: '50%', alignSelf: 'flex-end'}}>
           <Button
-            title="Lanjutkan"
+            title={t_global.button.next}
             onPress={() => navigation.navigate('OrderDetail')}
             _theme="navy"
             disabled={!checkInfo}

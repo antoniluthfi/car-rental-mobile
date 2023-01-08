@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   PermissionsAndroid,
+  Switch,
 } from 'react-native';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import hoc from 'components/hoc';
@@ -37,11 +38,13 @@ import {
 } from 'redux/features/notifications/notificationSlice';
 import {showToast} from 'utils/Toast';
 import {editUser, uploadFile} from 'redux/features/user/userAPI';
-import {appDataState} from 'redux/features/appData/appDataSlice';
+import {appDataState, toggleLanguages} from 'redux/features/appData/appDataSlice';
 import CustomModal from 'components/CustomModal/CustomModal';
 import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
 import {URL_IMAGE} from '@env';
 import {getUser} from 'redux/features/appData/appDataAPI';
+import langSelector from 'utils/useLangSelector';
+import useLangSelector from 'utils/useLangSelector';
 
 const AccountScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -50,6 +53,16 @@ const AccountScreen: React.FC = () => {
   const userProfile = useAppSelector(appDataState).userProfile;
   const notificationUpdateStatus =
     useAppSelector(notificationState).isUpdateSuccess;
+
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  const lang = useLangSelector();
+
+  const toggleSwitch = (e?: any) => {
+    console.log(e);
+    setIsEnabled(previousState => !previousState);
+    dispatch(toggleLanguages(e ? 'en' : 'id'));
+  };
 
   const [loading, setLoading] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -161,13 +174,13 @@ const AccountScreen: React.FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              My Profile
+              {lang.Account.header}
             </Text>
           </TouchableOpacity>
         ),
       }),
     );
-  }, [navigation]);
+  }, [navigation, lang]);
 
   return (
     <View style={styles.container}>
@@ -196,7 +209,7 @@ const AccountScreen: React.FC = () => {
               navigation.navigate('ChangePassword');
             }}>
             <Image source={ic_password_lock} style={styles.icon} />
-            <Text style={[h5]}>Ubah Password</Text>
+            <Text style={[h5]}>{lang.Account.menu_2}</Text>
           </TouchableOpacity>
           <View style={styles.line} />
 
@@ -206,6 +219,14 @@ const AccountScreen: React.FC = () => {
             <Image source={ic_notification_bell} style={styles.icon} />
             <Text style={[h5]}>Notifikasi</Text>
           </TouchableOpacity>
+
+          <Switch
+            trackColor={{false: '#767577', true: '#81b0ff'}}
+            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
         </View>
       </View>
 

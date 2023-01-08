@@ -21,7 +21,13 @@ import {
   ic_pinpoin2,
   ic_uncheck,
 } from 'assets/icons';
-import {boxShadow, iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import {
+  boxShadow,
+  colorSelecting,
+  iconCustomSize,
+  iconSize,
+  rowCenter,
+} from 'utils/mixins';
 import {h1, h2, h3, h4, h5} from 'utils/styles';
 import {theme} from 'utils';
 import Button from 'components/Button';
@@ -42,6 +48,7 @@ import {
   getUser,
 } from 'redux/features/appData/appDataAPI';
 import {differenceInCalendarDays, differenceInDays, parse} from 'date-fns';
+import useLangSelector from 'utils/useLangSelector';
 
 const OrderDetailScreen: FC = () => {
   const navigation = useNavigation();
@@ -52,6 +59,8 @@ const OrderDetailScreen: FC = () => {
   const vehicles = useAppSelector(vehiclesState);
   const summaryOrder = useAppSelector(orderState).summaryOrder;
   const garages = useAppSelector(appDataState).garages;
+  const t = useLangSelector().detail_order;
+  const t_global = useLangSelector().global;
 
   const [form, setForm] = useState<{
     taking_location: IGarages | null;
@@ -82,7 +91,7 @@ const OrderDetailScreen: FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Detail Pesanan
+              {t.title}
             </Text>
           </TouchableOpacity>
         ),
@@ -92,7 +101,7 @@ const OrderDetailScreen: FC = () => {
     dispatch(getUser());
     dispatch(getGarages());
     dispatch(getPayments());
-  }, [navigation]);
+  }, [navigation, t]);
 
   useEffect(() => {
     const payload: IPayloadSummary = {
@@ -234,7 +243,7 @@ const OrderDetailScreen: FC = () => {
       showBSheet({
         content: (
           <View style={{flex: 1, alignItems: 'flex-start', width: '95%'}}>
-            <Text style={[h1, {fontSize: 20}]}>Detail Pembayaran</Text>
+            <Text style={[h1, {fontSize: 20}]}>{t.summary.title}</Text>
 
             <View
               style={[
@@ -247,7 +256,7 @@ const OrderDetailScreen: FC = () => {
                     ?.name
                 }
               </Text>
-              <Text style={h4}>{formDaily.passanger} Penumpang</Text>
+              <Text style={h4}>{formDaily.passanger} {t.summary.passanger}</Text>
             </View>
 
             <View
@@ -255,7 +264,7 @@ const OrderDetailScreen: FC = () => {
                 rowCenter,
                 {justifyContent: 'space-between', width: '100%', marginTop: 15},
               ]}>
-              <Text style={h4}>Tanggal Mulai Sewa</Text>
+              <Text style={h4}>{t.summary.startDate}</Text>
               <Text style={h4}>
                 {moment(formDaily.start_booking_date).format('DD MMMM YYYY')}
               </Text>
@@ -266,7 +275,7 @@ const OrderDetailScreen: FC = () => {
                 rowCenter,
                 {justifyContent: 'space-between', width: '100%', marginTop: 15},
               ]}>
-              <Text style={h4}>Jam Mulai</Text>
+              <Text style={h4}>{t.summary.startTime}</Text>
               <Text style={h4}>{formDaily.start_booking_time}</Text>
             </View>
 
@@ -275,7 +284,7 @@ const OrderDetailScreen: FC = () => {
                 rowCenter,
                 {justifyContent: 'space-between', width: '100%', marginTop: 20},
               ]}>
-              <Text style={h4}>Tanggal Selesai</Text>
+              <Text style={h4}>{t.summary.endDate}</Text>
               <Text style={h4}>
                 {moment(formDaily.end_booking_date).format('DD MMMM YYYY')}
               </Text>
@@ -286,33 +295,32 @@ const OrderDetailScreen: FC = () => {
                 rowCenter,
                 {justifyContent: 'space-between', width: '100%', marginTop: 15},
               ]}>
-              <Text style={h4}>Jam Selesai</Text>
+              <Text style={h4}>{t.summary.endTime}</Text>
               <Text style={h4}>{formDaily.end_booking_time}</Text>
             </View>
             <View style={[styles.lineHorizontal, {width: '100%'}]} />
 
-            <Text style={[h1, {marginTop: 20}]}>Biaya Sewa</Text>
+            <Text style={[h1, {marginTop: 20}]}>{t.summary.rentalFee}</Text>
             <View
               style={[
                 rowCenter,
                 {justifyContent: 'space-between', width: '100%', marginTop: 15},
               ]}>
-              <Text style={h4}>Harga</Text>
+              <Text style={h4}>{t.summary.price}</Text>
               <Text style={h4}>
-                {currencyFormat(summaryOrder.booking_price)} /{' '}
-                {dayDifference}{' '}
-                Hari
+                {currencyFormat(summaryOrder.booking_price)} / {dayDifference}{' '}
+                {t.summary.day}
               </Text>
             </View>
             <View style={[styles.lineHorizontal, {width: '100%'}]} />
 
-            <Text style={[h1, {marginTop: 20}]}>Biaya Lainnya</Text>
+            <Text style={[h1, {marginTop: 20}]}>{t.summary.otherFee}</Text>
             <View
               style={[
                 rowCenter,
                 {justifyContent: 'space-between', width: '100%', marginTop: 15},
               ]}>
-              <Text style={h4}>Biaya Layanan</Text>
+              <Text style={h4}>{t.summary.serviceFee}</Text>
               <Text style={h4}>{currencyFormat(summaryOrder.service_fee)}</Text>
             </View>
             <View
@@ -320,7 +328,7 @@ const OrderDetailScreen: FC = () => {
                 rowCenter,
                 {justifyContent: 'space-between', width: '100%', marginTop: 15},
               ]}>
-              <Text style={h4}>Biaya Asuransi</Text>
+              <Text style={h4}>{t.summary.insuranceFee}</Text>
               <Text style={h4}>
                 {currencyFormat(summaryOrder.insurance_fee)}
               </Text>
@@ -333,7 +341,7 @@ const OrderDetailScreen: FC = () => {
                 {justifyContent: 'space-between', width: '100%', marginTop: 15},
               ]}>
               <Text style={[h1, {color: theme.colors.navy}]}>
-                Total Pembayaran
+                {t.summary.totalPayment}
               </Text>
               <Text style={h1}>
                 {currencyFormat(summaryOrder.total_payment)}
@@ -348,17 +356,17 @@ const OrderDetailScreen: FC = () => {
   const parsedStartDate = parse(
     formDaily?.start_booking_date,
     'yyyy-MM-dd',
-    new Date()
+    new Date(),
   );
   const parsedEndDate = parse(
     formDaily?.end_booking_date,
     'yyyy-MM-dd',
-    new Date()
+    new Date(),
   );
 
   const dayDifference = differenceInCalendarDays(
     parsedEndDate,
-    parsedStartDate
+    parsedStartDate,
   );
 
   return (
@@ -366,7 +374,7 @@ const OrderDetailScreen: FC = () => {
       <ScrollView
         contentContainerStyle={{flexGrow: 1, paddingHorizontal: '5%'}}>
         <View style={{marginTop: 20}}>
-          <Text style={[h1]}>Ketentuan Mobil</Text>
+          <Text style={[h1]}>{t.formDetail.title}</Text>
           <View style={styles.infoUserWrapper}>
             <Text style={[h1, {fontSize: 12}]}>{user.name}</Text>
             <Text style={[h3, {fontSize: 12, marginVertical: 5}]}>
@@ -379,7 +387,7 @@ const OrderDetailScreen: FC = () => {
 
         <View>
           <View style={[rowCenter, {justifyContent: 'space-between'}]}>
-            <Text style={h1}>Detail Perjalanan</Text>
+            <Text style={h1}>{t.tripDetail.title}</Text>
             <TouchableOpacity
               style={[rowCenter, {marginTop: 20, marginBottom: 20}]}
               onPress={() => setCheckInfo(prev => !prev)}>
@@ -389,46 +397,60 @@ const OrderDetailScreen: FC = () => {
               />
               <Text style={[h5, {fontSize: 12}]}>
                 {' '}
-                Mengambil Ke Tempat Sewa
+                {t.tripDetail.pickAtGarage}
               </Text>
             </TouchableOpacity>
           </View>
 
-          <Text style={[h4, {marginTop: 10}]}>Lokasi Pengantaran</Text>
+          <Text style={[h4, {marginTop: 10}]}>
+            {checkInfo
+              ? t.tripDetail.deliveryLocationTaking
+              : t.tripDetail.deliveryLocation}
+          </Text>
           <View style={[rowCenter, styles.borderBottom]}>
             <Image source={ic_pinpoin} style={iconSize} />
             {checkInfo ? (
               <TouchableOpacity onPress={methods.handlePengantaran}>
-                <Text style={[h5, {marginLeft: 5}]}>
-                  {form.taking_location?.name || 'Pilih Lokasi Pengantaran'}
+                <Text
+                  style={[
+                    h5,
+                    colorSelecting(form.taking_location?.name),
+                    {marginLeft: 5},
+                  ]}>
+                  {form.taking_location?.name || t.tripDetail.deliveryLocationTakingPlaceholder}
                 </Text>
               </TouchableOpacity>
             ) : (
               <TextInput
                 onChangeText={x => setInputPickup(x)}
-                placeholder="input lokasi pengantaran"
+                placeholder={t.tripDetail.deliveryLocationPlaceholder}
                 value={inputPickup}
               />
             )}
           </View>
 
-          <Text style={[h4, {marginTop: 20}]}>Lokasi Pengembalian</Text>
+          <Text style={[h4, {marginTop: 20}]}>{t.tripDetail.returnLocation}</Text>
           <TouchableOpacity
             style={[rowCenter, styles.borderBottom]}
             onPress={methods.handlePengembalian}>
             <Image source={ic_pinpoin} style={iconSize} />
-            <Text style={[h5, {marginLeft: 5}]}>
-              {form.return_location?.name || 'Pilih Lokasi Pengembalian'}
+            <Text
+              style={[
+                h5,
+                colorSelecting(form.return_location?.name),
+                {marginLeft: 5},
+              ]}>
+              {form.return_location?.name || t.tripDetail.returnLocationPlaceHolder}
             </Text>
           </TouchableOpacity>
         </View>
 
         <View style={{marginVertical: 20}}>
-          <Text style={h1}>Form Permintaan Khusus</Text>
+          <Text style={h1}>{t.specialReq.title}</Text>
           <View style={styles.formWrapper}>
             <TextInput
               multiline={true}
-              placeholder="Tulis yang kamu butuhkan untuk kebutuhan perjalanan mu, contoh (Kursi Bayi, Kursi Roda, etc.)"
+              placeholder={t.specialReq.placeholder}
               style={{
                 height: 100,
                 paddingRight: 15,
@@ -455,7 +477,7 @@ const OrderDetailScreen: FC = () => {
           styles.bottomView,
         ]}>
         <TouchableOpacity onPress={methods.handleDetailPayment}>
-          <Text style={h1}>Total Pembayaran</Text>
+          <Text style={h1}>{t.summary.totalPayment}</Text>
           <View style={rowCenter}>
             <Text
               style={[
@@ -472,7 +494,7 @@ const OrderDetailScreen: FC = () => {
         </TouchableOpacity>
         <Button
           _theme="navy"
-          title="Lanjutkan Pembayaran"
+          title={t_global.button.nextPayment}
           onPress={methods.handleOrder}
         />
       </View>

@@ -9,10 +9,11 @@ import {
 } from 'react-native';
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
 import {ic_calendar, ic_clock, ic_info_error} from 'assets/icons';
-import {rowCenter, iconSize, iconCustomSize} from 'utils/mixins';
+import {rowCenter, iconSize, iconCustomSize, colorSelecting} from 'utils/mixins';
 import {h1, h5} from 'utils/styles';
 import {theme} from 'utils';
 import {showBSheet} from 'utils/BSheet';
+import useLangSelector from 'utils/useLangSelector';
 
 interface IProps {
   title: string;
@@ -44,6 +45,7 @@ const CustomDatePicker = ({
   const [minutes, setMinutes] = useState('');
   const ref1 = useRef<any>(null);
   const ref2 = useRef<any>(null);
+  const lang = useLangSelector();
 
   const methods = {
     handleBSheet: () => {
@@ -74,7 +76,7 @@ const CustomDatePicker = ({
         />
         {content && (
           <TouchableOpacity onPress={methods.handleBSheet}>
-            <Text style={[h5, {marginLeft: 10}]}>{value || placeholder}</Text>
+            <Text style={[h5, colorSelecting(value), {marginLeft: 10}]}>{value || placeholder}</Text>
           </TouchableOpacity>
         )}
         {!content && !disableTime && (

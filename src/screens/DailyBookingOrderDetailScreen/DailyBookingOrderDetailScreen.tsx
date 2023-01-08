@@ -23,7 +23,7 @@ import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 import {img_car_2} from 'assets/images';
 import {RootStackParamList} from 'types/navigator';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
+import {getOrderById, getOrders} from 'redux/features/myBooking/myBookingAPI';
 import {URL_IMAGE} from '@env';
 import {idrFormatter, slugify} from 'utils/functions';
 import Button from 'components/Button';
@@ -35,6 +35,7 @@ import {IPayments} from 'types/global.types';
 import {cancelOrder} from 'redux/features/order/orderAPI';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {isFuture} from 'date-fns';
+import { showToast } from 'utils/Toast';
 
 type DailyBookingOrderDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -211,6 +212,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
       });
     },
   };
+  {console.log(slugify(orderState))}
 
   return (
     <View style={styles.container}>
@@ -329,8 +331,9 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
         </View>
         <View style={styles.solidLine} />
         <View style={{marginHorizontal: 16}}>
+          
           {isFuture(new Date(selected?.order_detail?.start_booking_date)) &&
-            slugify(orderState) !== 'failed' && (
+            (slugify(orderState) !== 'failed' && slugify(orderState) !== 'cancelled') && (
               <Button
                 _theme="white"
                 title="Batalkan Pesanan"
@@ -432,7 +435,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
               <Button
                 _theme="white"
                 title="Kembali"
-                onPress={() => {}}
+                onPress={() => {bottomSheetRef.current?.close();}}
                 styleWrapper={{width: '48%'}}
               />
 
@@ -447,6 +450,17 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                     }),
                   );
                   console.log('res = ', res);
+                  if(res?.type.includes('fulfilled')) {
+                    navigation.goBack();
+                    bottomSheetRef.current?.close();
+                    dispatch(getOrders());
+                    return;
+                  }
+                  showToast({
+                    message: 'Pembatalan gagal',
+                    title: 'Terjadi Kesalahan',
+                    type: 'warning',
+                  });
                 }}
                 styleWrapper={{width: '48%'}}
               />

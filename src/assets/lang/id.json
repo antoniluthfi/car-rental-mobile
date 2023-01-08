@@ -1,0 +1,237 @@
+{
+    "Account": {
+        "header": "Profile Ku",
+        "menu_1": "Profile",
+        "menu_2": "Ubah Password",
+        "menu_3": "Notifikasi"
+    },
+    "Home": {
+        "daily": {
+            "location": "Pilih Lokasi Anda",
+            "placeholder_location": "Pilih Lokasi Anda",
+            "without_driver": "Tanpa Driver",
+            "rent_start_date": "Tanggal Mulai Sewa",
+            "rent_end_date": "Tanggal Selesai Sewa",
+            "rent_start_time": "Waktu Mulai Sewa",
+            "rent_end_time": "Waktu Selesai Sewa",
+            "btn_search": "Cari Mobil",
+            "error_location": "Masukan lokasi anda",
+            "error_rent_date": "Masukan Tanggal terlebih dahulu",
+            "error_rent_time": "Pilih Jam Anda"
+        }
+    },
+    "list_car": {
+        "header": "Pilih Tipe Mobil",
+        "change_search": "Ubah Pencarian",
+        "rent_price": "Harga Tarif Mobil",
+        "day": "Hari",
+        "car_type": "Merek Mobil",
+        "seat": "Kursi",
+        "bag": "Koper"
+    },
+    "carDetail": {
+        "carDetail": "Detail Mobil",
+        "carPrice": "Harga Sewa Mobil",
+        "seat": "Kursi",
+        "perDay": "/ Hari",
+        "seatCapacity": "Jumlah Kursi",
+        "bagDetail": "Detail Koper",
+        "bag": "Koper",
+        "transmision": "Transmisi",
+        "car_conditions": "Ketentuan Mobil",
+        "smoking": "No Smoking",
+        "pet": "Pet Allowed",
+        "disability": "Disability Support",
+        "priceTerm": "Ketentuan Harga",
+        "include": "Termasuk",
+        "important": "Penting",
+        "rentalRules": "Syarat & Ketentuan Rental",
+        "rentalTerm": "Syarat Rental",
+        "learnMore": "Baca selengkapnya",
+        "rentalRequirement": "Kebijakan & Syarat Rental",
+        "policy": "Kebijakan Rental",
+        "requirement": "Syarat Rental",
+        "otherInfo": "Info Lainnya",
+        "carInsurance": "Asuransi Mobil",
+        "rentalGas": "Kembalikan bahan bakar seperti semula",
+        "rentalTime": "Penggunaan hingga 24 jam per hari rental",
+        "agreeState": "Saya menyetujui ketentuan yang berlaku",
+        "requirements": [
+            "SIM A/SIM Internasional",
+            "KTP/paspor",
+            "Nama Akun Media Sosial",
+            "Deposit Rp500.000"
+        ],
+        "policies": [
+            "Durasi penyewaan mobil per hari adalah 24 jam",
+            "Biaya overtime per jam 15% dari harga sewa",
+            "Harga sudah termasuk PPN",
+            "Belum termasuk BBM, Parkir, Tol dan Sopir"
+        ]
+    },
+    "priceTerm": {
+        "handSanitizer": "Hand Sanitizer",
+        "mineralWater": "Air Mineral",
+        "mask": "Masker",
+        "tissue": "Tisu",
+        "driver": "Driver",
+        "parking": "Pengemudi",
+        "snacks": "Snacks",
+        "additional_needs": "Kebutuhan Tambahan",
+        "fuel": "BBM",
+        "toll": "Tol"
+    },
+    "dailyRules": {
+        "sebelum_pengambilan": {
+            "title": "Sebelum Pengambilan",
+            "list": [
+                "Penyewa harus membagikan kepada penyedia foto SIM A atau SIM Internasional, serta KTP/Paspor mereka.",
+                "Penyewa harus membayar deposit sebesar Rp500.000 kepada penyedia sebelum rental dimulai melalui metode pembayaran yang tersedia.",
+                "Deposit akan dikembalikan paling lambat 7 hari setelah rental berakhir."
+            ]
+        },
+        "saat_pengambilan": {
+            "title": "Saat Pengambilan",
+            "list": [
+                "Penyewa harus menunjukkan KTP/SIM A atau SIM Internasional/Paspor yang berlaku.",
+                "Penyewa wajib berusia diatas 17 tahun.",
+                "Seluruh dokumen yang diberikan harus asli, tidak mengatasnamakan orang lain, dan sesuai dengan data yang terdaftar saat pemesanan di Get & Ride.",
+                "Penyewa harus memastikan kendaraan yang disewa digunakan dengan baik dan dikembalikkan dalam kondisi yang sama seperti semula."
+            ]
+        },
+        "penggunaan": {
+            "title": "Kebijakan Rental Saat Sewa Mobil",
+            "list": [
+                "Kendaraan tidak diperbolehkan untuk dipindah tangankan ke pihak lain yang bukan terverifikasi oleh data Get & Ride. Pihak Get & Ride dapat mengambil paksa kendaraan apabila terjadi indikasi berikut.",
+                "Penyewa akan dikenakan biaya tambahan, apabila penjemputan dan pengembalian di luar zona yang tersedia",
+                "Penyewa diijinkan untuk membawa hewan peliharaan di dalam mobil tertentu. Pastikan hewan peliharaan tidak merusak atau mengotori fasilitas kendaraan di dalam mobil.",
+                "Penyewa tidak diperbolehkan membawa penumpang atau koper melebihi kapasitas ketentuan mobil yang disewa.",
+                "Penyewa bertanggung jawab untuk biaya penggantian atau perbaikkan jika terjadinya kehilangan atau kerusakkan terhadap STNK, kunci mobil, aksesoris, alat mobil, head unit, tools set, kursi mobil, aksesoris, alat mobil, goresan, noda, dan biaya lain yang timbul akibut kelalaian penyewa.",
+                "Penyewa bertanggung jawab atas semua denda parkir, lalu lintas, dan lainnya yang terjadi akibat pelanggaran hukum selama rental."
+            ]
+        },
+        "pengembalian": {
+            "title": "Kebijakkan Rental Setelah Selesai Sewa",
+            "list": [
+                "Penyedia berhak untuk tidak mengembalikkan deposit, jika mobil rusak atau jika penyewa melanggar hukum selama periode rental.",
+                "Penyedia tidak bertanggung jawab atas barang yang tertinggal di mobil setelah penyewa mengembaliikan mobil kepada penyedia rental.",
+                "Penyewa harus mengembalikan mobil dengan volume BBM yang sama saat mobil diterima (bar to bar).",
+                "Jika ada tilang elektronik pada saat masa sewa, penyedia rental akan mengembalikkan deposit dengan memotong senilai denda tilang elektronik tersebut.",
+                "Get & Ride tidak bertanggung jawab jika terjadinya kecelakaan, kerugian, dan pengobatan yang disebabkan dari kecelakaan tersebut."
+            ]
+        },
+        "overtime": {
+            "title": "Overtime",
+            "list": [
+                "Penggunaan lebih dari 24 jam per hari rental akan dikenakan biaya overtime.",
+                "Penyewa diberikan tambahan waktu kompensasi 1 (satu) jam, dan jika melebihi, penyewa akan dikenakan denda sebesar 10% per jam dari harga sewa, dengan batas maksimal 4 (empat) jam",
+                "Overtime yang melebihi 4 jam, akan dikenakan biaya satu hari rental"
+            ]
+        },
+        "asuransi": {
+            "title": "Asuransi (belum ready)",
+            "list": [
+                "Jika terjadi kecelakaan, penyewa diwajibkan untuk menyerahkan kepada penyedia semua dokumen yang dibutuhkan oleh perusahan asuransi, termasuk namun tidak terbatas pada KTP/paspor dan SIM A mereka.",
+                "Penyewa wajib menanggung beban biaya Risiko Sendiri sebesar Rp350.000 untuk setiap kejadian kecelakan (per panel).",
+                "Penyewa wajib menanggung Biaya Risiko Kehilangan (Total Lost Risk) sebesar Rp500.000 jika mobil hilang.",
+                "Perselisihan antara pihak akan diselesaikan melalui musyawarah mufakat. Jika dalam waktu 30 hari para pihak belum mencapai mufakat, masalah akan diselesaikan di Pengadilan Negeri Jakarta Utara."
+            ]
+        },
+        "refund": {
+            "title": "Kebijakan Pembatalan & Pengembalian",
+            "list": [
+                "Pembatalan yang diajukan dalam waktu lebih dari 24 jam sebelum penjemputan akan mendapatkan pengembalian dana 100% dari total biaya rental.",
+                "Jika pembatalan diajukan dalam waktu 24 hingga 6 jam sebelum waktu jemput akan mendapatkan pengembalian dana 50% dari total biaya rental.",
+                "Pembatalan yang diajukan kurang dari 6 jam sebelum waktu penjemputan akan dikenakan biaya pembatalan 100% dari total biaya rental.",
+                "Proses refund/pengembalian dana tidak berlaku untuk harga sewa promo dan tipe kendaraan tertentu.",
+                "Pengembalian dana diproses maksimal 14 hari kerja setelah proses refund disetujui."
+            ]
+        }
+    },
+    "global": {
+        "button": {
+            "back": "Kembali",
+            "login": "Masuk",
+            "signup": "Daftar",
+            "findACar": "Cari Mobil",
+            "pick": "Pilih",
+            "next": "Lanjutkan",
+            "nextPayment": "Lanjutkan Pembayaran",
+            "orderNow": "Pesan Sekarang",
+            "payNow": "Bayar Sekarang",
+            "choosePayment": "Pilih Pembayaran",
+            "verification": "Verifikasi",
+            "save": "Simpan",
+            "cancelOrder": "Batalkan Pesanan",
+            "extendOrder": "Perpanjang Sewa",
+            "yesNext": "Iya, Lanjutkan"
+        },
+        "alert": {
+            "payment_confirm": "Apakah anda yakin melanjutkan Pembayaran ini?"
+        }
+    },
+    "detail_order": {
+        "title": "Detail Pesanan",
+        "formDetail": {
+            "title": "Form Detail Pemesanan",
+            "fullName": "Nama Lengkap",
+            "phone": "No. Handphone",
+            "sameAsPhone": "Sama dengan No. Handphone"
+        },
+        "tripDetail": {
+            "title": "Detail Perjalanan",
+            "pickAtGarage": "Mengambil Ke Tempat Sewa",
+            "deliveryLocationTaking": "Pilih Lokasi ${type}",
+            "deliveryLocation": "Lokasi ${type}",
+            "deliveryLocationTakingPlaceholder": "Pilih Lokasi ${type}",
+            "deliveryLocationPlaceholder": "Tulis Lokasi ${type}",
+            "returnLocation": "Lokasi Pengembalian",
+            "returnLocationPlaceHolder": "Pilih Lokasi Pengembalian"
+        },
+        "specialReq": {
+            "title": "Form Permintaan Khusus (Optional)",
+            "placeholder": "Tulis yang kamu butuhkan untuk kebutuhan perjalanan mu, contoh Kursi Bayi, Kursi Roda, etc."
+        },
+        "summary": {
+            "title": "Rental",
+            "passanger": "Penumpang",
+            "deliveryLocation": "Lokasi Pengantaran",
+            "deliveryLocationPlaceholder": "Tulis Alamat Pengantaran",
+            "pickLocation": "Lokasi Pengambilan",
+            "pickLocationPlaceholder": "Pilih Lokasi Pengambilan",
+            "returnLocation": "Lokasi Pengembalian",
+            "returnLocationPlaceHolder": "Pilih Lokasi Pengembalian",
+            "startDate": "Tanggal Mulai Sewa",
+            "startTime": "Jam Mulai",
+            "endDate": "Tanggal Selesai",
+            "endTime": "Jam Selesai",
+            "rentalFee": "Biaya Sewa",
+            "price": "Harga",
+            "day": "hari",
+            "otherFee": "Biaya Lainnya",
+            "serviceFee": "Biaya Layanan",
+            "insuranceFee": "Biaya Asuransi",
+            "totalPayment": "Total Pembayaran"
+        }
+    },
+    "payment_method": {
+        "header": "Pilih Metode Pembayaran"
+    },
+    "settings": {
+        "profile": "Profil",
+        "changePassword": "Ubah Password",
+        "notification": "Notifikasi",
+        "fullName": "Nama Lengkap",
+        "fullNamePlaceholder": "Masukkan nama Anda",
+        "oldPassword": "Password Lama",
+        "oldPasswordPlaceholder": "Masukkan password lama",
+        "newPassword": "Password Baru",
+        "newPasswordPlaceholder": "Masukkan Password Baru",
+        "confirmPassword": "Konfirmasi Password Baru",
+        "confirmPasswordPlaceholder": "Konfirmasi Password Baru",
+        "activity": "Aktivitas",
+        "activityDesc": "Notifikasi untuk promo dari kami, nikmati berbagai macam diskon dari kami",
+        "reminder": "Pengingat",
+        "reminderDesc": "Notifikasi untuk penyewaan kamu"
+    }
+}

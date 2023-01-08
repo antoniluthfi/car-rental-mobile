@@ -12,7 +12,8 @@ interface IInitState {
   userProfile: IUserProfile,
   formDaily: IFormDaily,
   garages: IGarages[],
-  payments: IPayments[]
+  payments: IPayments[],
+  languages: 'id' | 'en'
 }
 
 const initialState: IInitState = {
@@ -59,6 +60,7 @@ const initialState: IInitState = {
   },
   garages: [],
   payments: [],
+  languages: 'id',
 };
 
 export const appDataSlice = createSlice({
@@ -76,15 +78,10 @@ export const appDataSlice = createSlice({
       state.userData.registration_type = action.payload?.registration_type;
     },
     saveFormDaily: (state, action) => {
-      console.log('action.payload = ', action.payload);
-      // state.formDaily.limit = action.payload?.limit;
-      // state.formDaily.passanger = action.payload?.passanger;
-      // state.formDaily.price_sort = action.payload?.price_sort;
-      // state.formDaily.start_trip = action.payload?.start_trip;
-      // state.formDaily.end_trip = action.payload?.end_trip;
-      // state.formDaily.location = action.payload?.location;
-      // state.formDaily.start_booking_date = action.payload?.start_booking_date;
       state.formDaily = action.payload;
+    },
+    toggleLanguages: (state, action) => {
+      state.languages = action.payload;
     }
   },
   extraReducers: builder => {
@@ -150,7 +147,7 @@ export const appDataSlice = createSlice({
   },
 });
 
-export const { saveFormRegister, saveFormDaily } = appDataSlice.actions;
+export const { saveFormRegister, saveFormDaily, toggleLanguages } = appDataSlice.actions;
 
 export const appDataState = (state: RootState) => state.appData;
 export default appDataSlice.reducer;

@@ -34,6 +34,7 @@ import {theme} from 'utils';
 import {showBSheet} from 'utils/BSheet';
 import {iconCustomSize, iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
 import {h1, h4} from 'utils/styles';
+import useLangSelector from 'utils/useLangSelector';
 
 const DATA_METHOD_PAYMENT: {
   title: string;
@@ -70,6 +71,8 @@ const PaymentMethodScreen: FC = () => {
   const dispatch = useAppDispatch();
   const paymentMethods = useAppSelector(appDataState).payments;
   const order = useAppSelector(orderState).order;
+  const t = useLangSelector().payment_method;
+  const t_global = useLangSelector().global;
   // const [form, setForm] = useState({
   //   filter_car_type: '',
   //   filter_shit: '',
@@ -94,7 +97,7 @@ const PaymentMethodScreen: FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Pilih Metode Pembayaran
+              {t.header}
             </Text>
           </TouchableOpacity>
         ),
@@ -102,7 +105,7 @@ const PaymentMethodScreen: FC = () => {
     );
 
     dispatch(getPayments());
-  }, [navigation]);
+  }, [navigation, t]);
 
   const methods = {
     handleConfirmation: (data: IPayments) => {
@@ -120,11 +123,11 @@ const PaymentMethodScreen: FC = () => {
               style={iconCustomSize(200)}
               resizeMode={'contain'}
             />
-            <Text>Apakah anda yakin melanjutkan Pembayaran ini?</Text>
+            <Text style={[h1, {marginVertical: 20}]}>{t_global.alert.payment_confirm}</Text>
             <View style={{width: '95%', margin: 16}}>
               <Button
                 _theme="navy"
-                title="Iya, Lanjutkan"
+                title={t_global.button.yesNext}
                 onPress={() => {
                   if (data.method === 'Credit Card') {
                     navigation.navigate('CardPayment', {
@@ -151,7 +154,7 @@ const PaymentMethodScreen: FC = () => {
               />
               <Button
                 _theme="white"
-                title="Kembali"
+                title={t_global.button.back}
                 onPress={() => methods.handleConfirmation(data)}
               />
             </View>
