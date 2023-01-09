@@ -239,10 +239,10 @@
         "tripDetail": {
             "title": "Detail Perjalanan",
             "pickAtGarage": "Mengambil Ke Tempat Sewa",
-            "deliveryLocationTaking": "Pilih Lokasi ${type}",
-            "deliveryLocation": "Lokasi ${type}",
-            "deliveryLocationTakingPlaceholder": "Pilih Lokasi ${type}",
-            "deliveryLocationPlaceholder": "Tulis Lokasi ${type}",
+            "deliveryLocationTaking": "Pilih Lokasi pengambilan",
+            "deliveryLocation": "Lokasi pengantaran",
+            "deliveryLocationTakingPlaceholder": "Pilih Lokasi pengambilan",
+            "deliveryLocationPlaceholder": "Tulis Lokasi pengantaran",
             "returnLocation": "Lokasi Pengembalian",
             "returnLocationPlaceHolder": "Pilih Lokasi Pengembalian"
         },
