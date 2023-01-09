@@ -18,7 +18,64 @@
             "error_location": "Enter your location",
             "error_rent_date": "Enter the Date first",
             "error_rent_time": "Choose Your Clock"
-        }
+        },
+        "destinationFavTitle": "Popular Destination in Bali",
+        "destinationFavList": [{
+                "name": "Tirta Gangga Water Palace in Bali",
+                "description": "The name Tirta Gangga itself comes from the word Tirta which means water, and Gangga which means the name of a river in India. The flowing water is also believed to be holy water and can wash away bad energy. You can also feed the Koi fishes around and swim here. Don't forget to pack a change of clothes!",
+                "image": "tirtaGangga"
+            },
+            {
+                "name": "Ulun Danu Batur Temple in Kintamani",
+                "description": "Ulun Danu Batur Temple is one of the most iconic spots that offers a beautiful panorama, since it is located above Lake Batur with Mount Batur as a background. The air temperature is also very cool and fresh, which is perfect for you who want to refresh or calm your mind.",
+                "image": "pagoda"
+            },
+            {
+                "name": "Melasti Beach Ungasan",
+                "description": "In a list of the best beaches on Bali, Melasti Beach cannot be missing! This beach is much admired by tourists for its beautiful sea views and cleanliness. The waves on this beach are not too big and safe for those of you who want to play in the water or swim.",
+                "image": "melastiBeach"
+            },
+            {
+                "name": "Kanto Lampo Waterfall, Ubud",
+                "description": "Waterfalls are usually found around forests or mountains, uniquely, Kanto Lampo is located near the residential area of Gianyar, Bali. The waterfall does not flow directly into the river, but passes through the rocks which creates a beautiful and cool atmosphere because of the splashing water around it.",
+                "image": "kantoLampo"
+            }
+        ],
+        "carFavTitle": "Favorite Car",
+        "carFavList": [{
+                "title": "Toyota Veloz",
+                "description": "This Toyota Veloz type has been in great demand before it was launched. The newest design looks cooler and more modern and the capacity can also reach up to 7 passengers! You and your family will definitely be comfortable during the holidays",
+                "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/v3.webp"
+            },
+            {
+                "title": "Suzuki Ertiga Gx",
+                "description": "The Suzuki Ertiga Gx car type can also be an option for traveling around the island of Bali. Apart from the large passenger capacity, the security features are also pretty good. Your vacation is guaranteed to be safer & calmer!",
+                "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/g2.jpeg"
+            },
+            {
+                "title": "Toyota Hiace Premio",
+                "description": "If you want a relaxing, comfortable, and large-capacity vacation, you can immediately choose the Toyota Hiace Premio. The cabin design is spacious, it will reduce the feeling of aches and fatigue during trips around the city. ",
+                "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/h4.jpg"
+            }
+        ],
+        "articleTitle": "Article",
+        "articleList": [{
+                "title": "Favorite Car Rental Destinations in Bali",
+                "description": "Several destination places most visited in Bali are, Kuta Beach, Tanah Lot Temple, Garuda Wisnu Kencana (GWK), and Uluwatu Island. Apart from being strategic and easy to reach, its natural and cultural beauty is also interesting. As in the GWK area, foreign tourists can enjoy several types of Balinese art dances every day. Next is Tanah Lot Temple, which is unique and beautiful since it is located on a large rock on the seafront. On the other hand, to enjoy the panorama, you can eat at several restaurants or cafes around Uluwatu Beach while waiting for the sunset. It is indeed proven that Bali keeps developing and has a very strong attraction for vacations, that's why tourists are never bored to visit the Island of the Gods"
+            },
+            {
+                "title": "Fuel Saving Driving Tips",
+                "description": "Saving fuel when renting a car for traveling is certainly one of our ways to save more, right? You can start changing it from the way you normally drive, such as not pressing the pedal too deep, because this is one of the triggers for your gasoline to be more wasteful or you can adjust the ECO indicator to save more."
+            },
+            {
+                "title": "Spending Holiday Time with Family in Bali Safari and Marine Park",
+                "description": "This might be the best place to visit with your children! There are around 120 species of animals here, and for those of you who come here, not only enjoy the atmosphere, but also have an adventure and learn. In addition, Bali Safari and Marine Park is also a wildlife conservation area in Indonesia. "
+            },
+            {
+                "title": "SAffordable and Reliable Rental Car in Bali",
+                "description": "Renting a car is the right choice for an easy and cheap travel solution in Bali. You can enjoy more benefits, especially if you rent it at Get&Ride! Lots of car choices, you are allowed to bring pets, and you can be delivered and picked up by our driver too. It's really practical! Come on, book directly via Get&Ride now!"
+            }
+        ]
     },
     "list_car": {
         "header": "Choose Car Type",
@@ -164,7 +221,8 @@
             "save": "Save",
             "cancelOrder": "Cancel Order",
             "extendOrder": "Extend Order",
-            "yesNext": "Yes, Continue"
+            "yesNext": "Yes, Continue",
+            "orderDetail": "Order Detail"
         },
         "alert": {
             "payment_confirm": "Are you sure to proceed with this Payment?"
@@ -233,6 +291,26 @@
         "activityDesc": "Notifications for promotions from us, enjoy various discounts from us",
         "reminder": "Reminder",
         "reminderDesc": "Notifications for your order"
+    },
+    "myBooking": {
+        "noOrder": "No orders yet",
+        "noRental": "No rental history yet",
+        "paymentMethod": "Payment Method",
+        "paymentMethodNotSelected": "Payment Method Not Selected",
+        "totalPrice": "Total Price",
+        "paymentStatus": "Payment Status",
+        "rentStatus": "Rent Status",
+        "downloadEticket": "Download E-Tickets",
+        "pickupLocation": "Pickup Location",
+        "deliveryLocation": "Delivery Location",
+        "returnLocation": "Return Location",
+        "car": "Car",
+        "startTime": "Rental Start Time",
+        "endTime": "Rental End Time",
+        "orderDetail": "Order Detail",
+        "startDate": "Rental Start Date",
+        "endDate": "Rental End Date",
+        "totalPassenger": "Total Passenger"
     }
 
 }

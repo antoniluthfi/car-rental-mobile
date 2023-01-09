@@ -8,6 +8,7 @@ import {Image, Linking, StyleSheet, Text, View} from 'react-native';
 import {useAppSelector} from 'redux/hooks';
 import {slugify} from 'utils/functions';
 import {rowCenter} from 'utils/mixins';
+import useLangSelector from 'utils/useLangSelector';
 
 interface IProps {
   item: any;
@@ -35,7 +36,7 @@ const showPaymentButtonCode = [
 export const paymentStatusStyle = (paymentStatus: string) => {
   if (paymentSuccessStatus.includes(paymentStatus)) return {color: '#089827'};
   if (paymentPendingStatus.includes(paymentStatus)) return {color: 'gray'};
-  if (paymentFailedStatus.includes(paymentStatus)) return {color: '#6F6F6F'};
+  if (paymentFailedStatus.includes(paymentStatus)) return {color: '#CF0303'};
   return null;
 };
 
@@ -50,6 +51,8 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
 
   const navigation = useNavigation();
   const myBooking = useAppSelector(state => state.myBooking);
+  const t = useLangSelector().myBooking;
+  const t_global = useLangSelector().global;
 
   const [orderState, setOrderState] = useState<string>('');
 
@@ -138,8 +141,8 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
           </Text>
           <Text>
             {order_detail?.is_take_from_rental_office
-              ? 'Lokasi Pickup'
-              : 'Lokasi Pengantaran'}{' '}
+              ? t.pickupLocation
+              : t.returnLocation}{' '}
             :{' '}
             <Text style={styles.pickupLocation}>
               {order_detail?.rental_delivery_location}
@@ -152,7 +155,7 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
         {orderState !== 'expired' && (
           <Button
             _theme="navy"
-            title="Detail Pesanan"
+            title={t_global.button.orderDetail}
             onPress={() =>
               navigation.navigate('DailyBookingOrderDetailScreen', {
                 transaction_key,

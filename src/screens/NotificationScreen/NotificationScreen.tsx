@@ -17,11 +17,14 @@ import {
   getNotificationSettings,
   updateNotificationSettings,
 } from 'redux/features/notifications/notificationAPI';
+import useLangSelector from 'utils/useLangSelector';
 
 const NotificationScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const notifications = useAppSelector(notificationState);
+  const t = useLangSelector().settings;
+  const t_global = useLangSelector().global;
 
   const [loading, setLoading] = useState<boolean>(false);
   const [activity, setActivity] = useState<NotificationDataResult[]>([]);
@@ -111,7 +114,7 @@ const NotificationScreen: React.FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Notifikasi
+              {t.notification}
             </Text>
           </TouchableOpacity>
         ),
@@ -122,10 +125,9 @@ const NotificationScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={h1}>Aktivitas</Text>
+        <Text style={h1}>{t.activity}</Text>
         <Text style={[h5, styles.title]}>
-          Notifikasi untuk promo dari kami, nikmati berbagai macam diskon dari
-          kami
+          {t.activityDesc}
         </Text>
 
         {activity.length > 0 &&
@@ -146,8 +148,8 @@ const NotificationScreen: React.FC = () => {
 
         <View style={styles.line} />
 
-        <Text style={[h1, {marginTop: 10}]}>Pengingat</Text>
-        <Text style={[h5, styles.title]}>Notifikasi untuk penyewaan kamu</Text>
+        <Text style={[h1, {marginTop: 10}]}>{t.reminder}</Text>
+        <Text style={[h5, styles.title]}>{t.reminderDesc}</Text>
 
         {reminder.length > 0 &&
           reminder.map((item, i) => (
@@ -169,7 +171,7 @@ const NotificationScreen: React.FC = () => {
       <Button
         _theme="navy"
         onPress={methods.handleSubmit}
-        title={'Simpan'}
+        title={t_global.button.save}
         isLoading={loading}
       />
     </View>

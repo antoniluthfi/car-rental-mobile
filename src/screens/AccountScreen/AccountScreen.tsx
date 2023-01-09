@@ -38,7 +38,10 @@ import {
 } from 'redux/features/notifications/notificationSlice';
 import {showToast} from 'utils/Toast';
 import {editUser, uploadFile} from 'redux/features/user/userAPI';
-import {appDataState, toggleLanguages} from 'redux/features/appData/appDataSlice';
+import {
+  appDataState,
+  toggleLanguages,
+} from 'redux/features/appData/appDataSlice';
 import CustomModal from 'components/CustomModal/CustomModal';
 import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
 import {URL_IMAGE} from '@env';
@@ -54,7 +57,7 @@ const AccountScreen: React.FC = () => {
   const notificationUpdateStatus =
     useAppSelector(notificationState).isUpdateSuccess;
 
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
 
   const lang = useLangSelector();
 
@@ -178,9 +181,21 @@ const AccountScreen: React.FC = () => {
             </Text>
           </TouchableOpacity>
         ),
+        trailing: (
+          <TouchableOpacity
+            style={[
+              rowCenter,
+              {
+                marginRight: 16,
+              },
+            ]} onPress={()=>toggleSwitch(isEnabled)}>
+            <Text style={[h1, {color: isEnabled ? '#fff' : '#828181', marginRight: 10}]}>id</Text>
+            <Text style={[h1, {color: !isEnabled ? '#fff' : '#828181'}]}>en</Text>
+          </TouchableOpacity>
+        ),
       }),
     );
-  }, [navigation, lang]);
+  }, [navigation, lang, isEnabled]);
 
   return (
     <View style={styles.container}>
@@ -219,14 +234,6 @@ const AccountScreen: React.FC = () => {
             <Image source={ic_notification_bell} style={styles.icon} />
             <Text style={[h5]}>Notifikasi</Text>
           </TouchableOpacity>
-
-          <Switch
-            trackColor={{false: '#767577', true: '#81b0ff'}}
-            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
         </View>
       </View>
 

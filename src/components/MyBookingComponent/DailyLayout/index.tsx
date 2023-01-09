@@ -8,6 +8,7 @@ import {
 import {setPage} from 'redux/features/myBooking/myBookingSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import DailyLayoutCard from './DailyLayoutCard';
+import useLangSelector from 'utils/useLangSelector';
 
 const DailyLayout: FC = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ const DailyLayout: FC = () => {
   const myBooking = useAppSelector(state => state.myBooking);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [vehicleIds, setVehicleIds] = useState<any[]>([]);
+  const t = useLangSelector().myBooking;
 
   const handleRefresh = () => {
     setRefresh(true);

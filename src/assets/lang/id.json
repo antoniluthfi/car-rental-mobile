@@ -18,7 +18,64 @@
             "error_location": "Masukan lokasi anda",
             "error_rent_date": "Masukan Tanggal terlebih dahulu",
             "error_rent_time": "Pilih Jam Anda"
-        }
+        },
+        "destinationFavTitle": "Destinasi Popular di Bali",
+        "destinationFavList": [{
+                "name": "Taman Air Tirta Gangga, Karang Asem Bali",
+                "description": "Nama Tirta Gangga sendiri berasal dari kata Tirta yang artinya air, dan Gangga yang artinya nama sungai di India. Air yang mengalir diyakini sebagai air suci dan dapat membersihkan energi buruk. Kalian juga bisa sambil kasih makan ikan koi dan berenang. Jangan lupa bawa pakaian ganti ya!",
+                "image": "tirtaGangga"
+            },
+            {
+                "name": "Pura Ulun Danu Batur, Kintamani",
+                "description": "Pura Ulun Danu Batur, merupakan salah satu spot paling ikonik yang menyuguhkan panorama cantik karena berada diatas Danau Batur dengan latar Gunung Batur. Suhu udaranya juga sejuk dan segar, cocok untuk kamu yang mau menenangkan pikiran.",
+                "image": "pagoda"
+            },
+            {
+                "name": "Pantai Melasti Ungasan",
+                "description": "Pantai Melasti banyak dikagumi oleh para wisatawan karena pemandangan lautnya yang indah dan terjaga kebersihannya. Ombak di pantai ini juga tidak terlalu besar dan aman untuk kalian yang ingin bermain air atau berenang",
+                "image": "melastiBeach"
+            },
+            {
+                "name": "Air Terjun Kanto Lampo, Ubud",
+                "description": "Biasanya air terjun ditemukan di sekitar hutan atau gunung, uniknya, Kanto Lampo terletak di dekat pemukiman area Gianyar, Bali. Air terjun yang mengalir tidak langsung ke sungai, tapi melewati bebatuan yang menciptakan suasana asri dan sejuk karena cipratan air di sekitarnya.",
+                "image": "kantoLampo"
+            }
+        ],
+        "carFavTitle": "Mobil Favorit",
+        "carFavList": [{
+                "title": "Toyota Veloz",
+                "description": "Tipe Toyota Veloz ini emang udah banyak yang incar nih! Terlihat lebih keren dan modern, kapasitasnya juga bisa muat sampai 7 penumpang! Pokoknya bikin perjalanan kamu dan keluarga semakin nyaman.",
+                "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/v3.webp"
+            },
+            {
+                "title": "Suzuki Ertiga Gx",
+                "description": "Suzuki Ertiga Gx juga bisa jadi pilihanmu untuk keliling Pulau Bali. Selain kapasitas penumpang yang banyak, fitur keamanannya juga cukup oke. Liburanmu udah dijamin lebih aman & tenang ya!",
+                "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/g2.jpeg"
+            },
+            {
+                "title": "Toyota Hiace Premio",
+                "description": "Kalau kamu mau liburan santai, nyaman, dan muat banyak, bisa langsung pilih Toyota Hiace Premio. Desain kabinnya luas, bakal kurangin rasa pegal dan capek selama perjalanan keliling kota.",
+                "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/h4.jpg"
+            }
+        ],
+        "articleTitle": "Artikel",
+        "articleList": [{
+                "title": "Destinasi Favorit Rental Mobil di Bali",
+                "description": "Beberapa tempat wisata Bali yang paling sering dikunjungi, yaitu Pantai Kuta, Pura Tanah Lot, Garuda Wisnu Kencana (GWK), dan Pulau Uluwatu. Selain strategis dan mudah dijangkau, keindahan alam dan budayanya juga menarik. Seperti di kawasan GWK, wisatawan asing dapat menikmati beberapa jenis tarian seni Bali setiap harinya. Yang menjadi favorit selanjutnya yaitu Pura Tanah Lot yang lokasinya unik dan cantik, karena berada di atas batu karang besar di pinggir laut. Selain menikmati panorama, kamu juga bisa sambil kulineran di beberapa resto atau cafe yang ada di sekitaran Pantai Uluwatu sambil nunggu sunset. Memang terbukti ya bahwa Bali mempunyai daya tarik yang sangat kuat untuk berlibur, dan gak akan pernah bosan."
+            },
+            {
+                "title": "Tips Bekendara Hemat BBM",
+                "description": "Nah buat kalian nantinya yang sewa mobil sendiri saat jalan-jalan, pastinya mau hemat di penggunaan bahan bakarnya juga kan? Coba ubah dulu kebiasaan kamu saat menyetir, seperti menginjak pedal terlalu dalam, karena hal ini salah satu pemicu bensin kamu jadi lebih boros lho! Kalian bisa sesuaikan dengan indikator ECO supaya lebih hemat ya."
+            },
+            {
+                "title": "Liburan Bersama Keluarga di Bali Safari and Marine Park",
+                "description": "Tempat wisata yang pas untuk kamu kunjungi bersama anak-anak! Disini terdapat sekitar 120 spesies hewan, dan kamu juga ditawarkan sejumlah wahana yang seru buat pengunjung yang datang, sambil petualang sekaligus belajar. Bali Safari and Marine Park juga merupakan salah satu tempat konservasi satwa liar di Indonesia lho."
+            },
+            {
+                "title": "Sewa Mobil Terpercaya & Instan di Bali",
+                "description": "Sewa mobil jadi pilihan tepat buat solusi perjalanan mudah, murah tanpa harus punya mobil. Banyak keuntungannya, apalagi kalau sewanya di Get&Ride! Banyak pilihan mobil, boleh bawa hewan peliharaan, bisa antar jemput juga! Praktis banget pokoknya! Yuk langsung booking via Get&Ride sekarang!"
+            }
+        ]
     },
     "list_car": {
         "header": "Pilih Tipe Mobil",
@@ -164,7 +221,8 @@
             "save": "Simpan",
             "cancelOrder": "Batalkan Pesanan",
             "extendOrder": "Perpanjang Sewa",
-            "yesNext": "Iya, Lanjutkan"
+            "yesNext": "Iya, Lanjutkan",
+            "orderDetail": "Detail Pesanan"
         },
         "alert": {
             "payment_confirm": "Apakah anda yakin melanjutkan Pembayaran ini?"
@@ -233,5 +291,25 @@
         "activityDesc": "Notifikasi untuk promo dari kami, nikmati berbagai macam diskon dari kami",
         "reminder": "Pengingat",
         "reminderDesc": "Notifikasi untuk penyewaan kamu"
+    },
+    "myBooking": {
+        "noOrder": "Belum ada pesanan",
+        "noRental": "Belum ada riwayat penyewaan",
+        "paymentMethod": "Metode Pembayaran",
+        "paymentMethodNotSelected": "Belum memilih metode pembayaran",
+        "totalPrice": "Total Harga",
+        "paymentStatus": "Status Pembayaran",
+        "rentStatus": "Status Sewa",
+        "downloadEticket": "Download E-Tickets",
+        "pickupLocation": "Lokasi Pengambilan",
+        "deliveryLocation": "Lokasi Pengantaran",
+        "returnLocation": "Lokasi Pengembalian",
+        "car": "Mobil",
+        "startTime": "Jam Mulai Sewa",
+        "endTime": "Jam Selesai Sewa",
+        "orderDetail": "Detail Pesanan",
+        "startDate": "Tanggal Mulai Sewa",
+        "endDate": "Tanggal Selesai Sewa",
+        "totalPassenger": "Jumlah Penumpang"
     }
 }

@@ -36,6 +36,7 @@ import {cancelOrder} from 'redux/features/order/orderAPI';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {isFuture} from 'date-fns';
 import { showToast } from 'utils/Toast';
+import useLangSelector from 'utils/useLangSelector';
 
 type DailyBookingOrderDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -48,6 +49,8 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const bookingDetail = useAppSelector(state => state.myBooking);
   const garages = useAppSelector(state => state.garages.data);
+  const t = useLangSelector().myBooking;
+  const t_global = useLangSelector().global;
 
   const [images, setImages] = useState<any[]>([]);
   const [orderState, setOrderState] = useState<string>('');
@@ -113,7 +116,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Detail Pesanan
+              {t_global.button.orderDetail}
             </Text>
           </TouchableOpacity>
         ),
@@ -134,7 +137,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
         ),
       }),
     );
-  }, [navigation]);
+  }, [navigation, t_global]);
 
   useEffect(() => {
     if (route.params.transaction_key) {
@@ -212,7 +215,6 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
       });
     },
   };
-  {console.log(slugify(orderState))}
 
   return (
     <View style={styles.container}>
@@ -247,7 +249,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
           </View>
 
           <View style={{flexBasis: '50%'}}>
-            <Text style={styles.text}>Metode Pembayaran</Text>
+            <Text style={styles.text}>{t.paymentMethod}</Text>
             <Text style={styles.boldText}>{getPaymentLabel()}</Text>
           </View>
         </View>
@@ -264,7 +266,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
             </View>
 
             <View>
-              <Text style={styles.text}>Mobil</Text>
+              <Text style={styles.text}>{t.car}</Text>
               <Text style={styles.boldText}>
                 {vehicle?.brand_name
                   ? `${vehicle?.brand_name}${
@@ -276,7 +278,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
           </View>
 
           <View style={{flexBasis: '50%'}}>
-            <Text style={styles.text}>Jumlah Penumpang</Text>
+            <Text style={styles.text}>{t.totalPassenger}</Text>
             <Text style={styles.boldText}>{vehicle?.max_passanger || '-'}</Text>
           </View>
         </View>
@@ -284,14 +286,14 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
 
         <View style={styles.descriptionContainer}>
           <View style={{flexBasis: '50%'}}>
-            <Text style={styles.text}>Total Pembayaran</Text>
+            <Text style={styles.text}>{t.totalPrice}</Text>
             <Text style={styles.boldText}>
               {idrFormatter(selected?.total_payment)}
             </Text>
           </View>
 
           <View style={{flexBasis: '50%'}}>
-            <Text style={styles.text}>Status Pembayaran</Text>
+            <Text style={styles.text}>{t.paymentStatus}</Text>
             <Text style={styles.boldText}>{orderState}</Text>
           </View>
         </View>
@@ -300,8 +302,8 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
         <View style={{padding: '5%'}}>
           <Text style={styles.text}>
             {selected?.order_detail?.is_take_from_rental_office
-              ? 'Lokasi Pickup'
-              : 'Lokasi Pengantaran'}
+              ? t.pickupLocation
+              : t.returnLocation}
           </Text>
           <View
             style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
@@ -314,7 +316,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
         <View style={styles.solidLine} />
 
         <View style={{padding: '5%'}}>
-          <Text style={styles.text}>Lokasi Pengembalian</Text>
+          <Text style={styles.text}>{t.returnLocation}</Text>
           <View
             style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
             <Image source={ic_pinpoin} style={[iconSize, {marginRight: 10}]} />

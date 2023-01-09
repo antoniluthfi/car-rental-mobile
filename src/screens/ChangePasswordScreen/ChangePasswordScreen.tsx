@@ -26,6 +26,7 @@ const ChangePasswordScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const userUpdateStatus = useAppSelector(userState).isChangePasswordSuccess;
   const t = useLangSelector().settings;
+  const t_global = useLangSelector().global;
   
   const [loading, setLoading] = useState<boolean>(false);
   const [form, setForm] = useState<ChangePasswordForm>({
@@ -125,7 +126,7 @@ const ChangePasswordScreen: React.FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Ubah Password
+              {t.changePassword}
             </Text>
           </TouchableOpacity>
         ),
@@ -137,8 +138,8 @@ const ChangePasswordScreen: React.FC = () => {
     <View style={styles.container}>
       <View>
         <ChangePasswordTextInput
-          label="Password Lama"
-          placeholder="Masukan Password lama"
+          label={t.oldPassword}
+          placeholder={t.oldPasswordPlaceholder}
           onChangeText={v => {
             setForm({...form, old_password: v});
             setFormError({...formError, old_password: ''});
@@ -148,8 +149,8 @@ const ChangePasswordScreen: React.FC = () => {
         />
 
         <ChangePasswordTextInput
-          label="Password Baru"
-          placeholder="Masukan password baru"
+          label={t.newPassword}
+          placeholder={t.newPasswordPlaceholder}
           onChangeText={v => {
             setForm({...form, new_password: v});
             setFormError({...formError, new_password: ''});
@@ -159,8 +160,8 @@ const ChangePasswordScreen: React.FC = () => {
         />
 
         <ChangePasswordTextInput
-          label="Konfirmasi Password Baru"
-          placeholder="Konfirmasi password baru"
+          label={t.confirmPassword}
+          placeholder={t.confirmPasswordPlaceholder}
           onChangeText={v => {
             setForm({...form, pass_confirmation: v});
             setFormError({...formError, pass_confirmation: ''});
@@ -173,7 +174,7 @@ const ChangePasswordScreen: React.FC = () => {
       <Button
         _theme="navy"
         onPress={methods.handleSubmit}
-        title={'Simpan'}
+        title={t_global.button.save}
         isLoading={loading}
       />
     </View>
