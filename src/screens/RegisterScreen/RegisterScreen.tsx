@@ -139,7 +139,7 @@ const RegisterScreen: FC = () => {
           errorMessage={formError.error_email}
         />
         <Text style={[styles.title, h1]}>No. Handphone*</Text>
-        <View style={[{justifyContent: 'space-between', flexDirection: 'row'}]}>
+        <View style={[{justifyContent: 'space-between', flexDirection: 'row', height: 60}]}>
           <View style={{width: '30%', marginTop: 10}}>
             <DropdownFlag
               data={countryCodes}

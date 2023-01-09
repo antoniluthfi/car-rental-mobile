@@ -140,7 +140,11 @@ const LoginScreen: FC = () => {
       </View>
       <Text style={[h2, styles.textRegister]}>
         Belum punya akun?{' '}
-        <Text style={styles.textRegister2}>Daftar Sekarang</Text>
+        <Text
+          style={styles.textRegister2}
+          onPress={() => navigation.navigate('Register')}>
+          Daftar Sekarang
+        </Text>
       </Text>
     </View>
   );
