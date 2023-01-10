@@ -48,6 +48,7 @@ const CustomDatePicker = ({
   // const [showBSheet, setShowSheet] = useState(false);
   const [hour, setHour] = useState('');
   const [minutes, setMinutes] = useState('');
+  const [alertHour, setAlertHour] = useState('');
   const ref1 = useRef<any>(null);
   const ref2 = useRef<any>(null);
   const lang = useLangSelector();
@@ -71,9 +72,18 @@ const CustomDatePicker = ({
     }
   }, [hour, minutes]);
 
+  useEffect(() => {
+    if(parseInt(hour) < 7) {
+      setAlertHour('Rent Time Starts At 7');
+    } else {
+      setAlertHour('');
+    }
+  }, [hour])
+  
   return (
     <View style={containerStyle}>
       <Text style={[h1, {fontSize: 14}]}>{title}</Text>
+      {mode === 'clock' && alertHour &&<Text style={styles.textAlertClock}>{alertHour}</Text>}
       <View style={[rowCenter, styles.wrapper, inputContainerStyle]}>
         <Image
           source={mode === 'clock' ? ic_clock : ic_calendar}
@@ -130,6 +140,9 @@ const CustomDatePicker = ({
           </Text>
         )}
       </View>
+      {mode === 'clock' && (
+        <Text style={styles.textFormatHour}>24 Hours Format Time - WITA</Text>
+      )}
       {errorMessage && (
         <View
           style={[{alignSelf: 'flex-end', marginTop: 5, flexDirection: 'row'}]}>
@@ -150,6 +163,19 @@ const styles = StyleSheet.create({
   wrapper: {
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.grey5,
+    width: '100%',
     paddingVertical: 10,
+    alignSelf: 'flex-start'
+  },
+  textFormatHour: {
+    fontSize: 10,
+    alignSelf: 'flex-end',
+    fontStyle: 'italic',
+    color: theme.colors.grey4,
+  },
+  textAlertClock: {
+    fontSize: 10,
+    color: '#f79616',
+    // alignSelf: 'flex-end',
   },
 });

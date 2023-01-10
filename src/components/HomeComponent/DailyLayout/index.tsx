@@ -80,6 +80,10 @@ const DailyLayout: FC = () => {
       }
       setFormError({..._errorMessage});
 
+      if(parseInt(form.jam_sewa.slice(0, form.jam_sewa.length / 2)) < 7) {
+        return;
+      }
+
       if (!status) return;
 
       dispatch(
