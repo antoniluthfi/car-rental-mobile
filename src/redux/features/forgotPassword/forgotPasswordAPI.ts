@@ -1,5 +1,4 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ApiResponse} from 'apisauce';
 import {
   IParamForgotPasswordRequest,
   IParamsResetPassword,
@@ -7,7 +6,7 @@ import {
   IResultResetPassword,
 } from 'types/forgot-password.types';
 import {IResponApi} from 'types/global.types';
-import {apiWithInterceptor} from 'utils/interceptor';
+import {apiWithInterceptor} from 'utils/interceptorV2';
 import {showToast} from 'utils/Toast';
 
 export const forgotPasswordRequest = createAsyncThunk(
@@ -17,24 +16,19 @@ export const forgotPasswordRequest = createAsyncThunk(
     thunkAPI,
   ): Promise<IResponApi<IResultForgotPasswordRequest>> {
     try {
-      const {email} = params;
-
-      const response: ApiResponse<any> = await apiWithInterceptor.post(
-        `/api/authorization/forgot-password/request`,
-        {email},
-      );
-
-      if (!response.ok) {
-        showToast({
-          message: 'Terjadi kesalahan',
-          title: 'Warning',
-          type: 'error',
-        });
-        return thunkAPI.rejectWithValue(response.data) as any;
-      }
+      const response: any = await apiWithInterceptor({
+        method: 'post',
+        url: '/api/authorization/forgot-password/request',
+        data: params,
+      });
 
       return response.data;
     } catch (error: any) {
+      showToast({
+        message: error?.response.data?.slug || 'Terjadi kesalahan',
+        title: 'Warning',
+        type: 'error',
+      });
       return thunkAPI.rejectWithValue(error.response.data.slug) as any;
     }
   },
@@ -51,22 +45,19 @@ export const forgotPasswordConfirmation = createAsyncThunk(
         session: fpData.session,
       };
 
-      const response: ApiResponse<any> = await apiWithInterceptor.post(
-        `/api/authorization/forgot-password/confirmation`,
-        data,
-      );
-
-      if (!response.ok) {
-        showToast({
-          message: 'Terjadi kesalahan',
-          title: 'Warning',
-          type: 'error',
-        });
-        return thunkAPI.rejectWithValue(response.data) as any;
-      }
+      const response: any = await apiWithInterceptor({
+        method: 'post',
+        url: '/api/authorization/forgot-password/confirmation',
+        data: data,
+      });
 
       return response.data;
     } catch (error: any) {
+      showToast({
+        message: error?.response.data?.slug || 'Terjadi kesalahan',
+        title: 'Warning',
+        type: 'error',
+      });
       return thunkAPI.rejectWithValue(error.response.data.slug);
     }
   },
@@ -87,22 +78,19 @@ export const forgotPasswordReset = createAsyncThunk(
         session,
       };
 
-      const response: ApiResponse<any> = await apiWithInterceptor.post(
-        `/api/authorization/forgot-password`,
-        data,
-      );
-
-      if (!response.ok) {
-        showToast({
-          message: 'Terjadi kesalahan',
-          title: 'Warning',
-          type: 'error',
-        });
-        return thunkAPI.rejectWithValue(response.data) as any;
-      }
+      const response: any = await apiWithInterceptor({
+        method: 'post',
+        url: '/api/authorization/forgot-password',
+        data: data,
+      });
 
       return response.data;
     } catch (error: any) {
+      showToast({
+        message: error?.response.data?.slug || 'Terjadi kesalahan',
+        title: 'Warning',
+        type: 'error',
+      });
       return thunkAPI.rejectWithValue(error.response.data.slug) as any;
     }
   },

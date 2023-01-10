@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     // backgroundColor: '#efefef',
-    height: 40,
+    height: '100%',
     borderRadius: 8,
     borderWidth: 1,
     borderColor: theme.colors.grey5,

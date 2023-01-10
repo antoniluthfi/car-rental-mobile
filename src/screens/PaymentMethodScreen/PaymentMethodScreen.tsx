@@ -123,7 +123,9 @@ const PaymentMethodScreen: FC = () => {
               style={iconCustomSize(200)}
               resizeMode={'contain'}
             />
-            <Text style={[h1, {marginVertical: 20}]}>{t_global.alert.payment_confirm}</Text>
+            <Text style={[h1, {marginVertical: 20}]}>
+              {t_global.alert.payment_confirm}
+            </Text>
             <View style={{width: '95%', margin: 16}}>
               <Button
                 _theme="navy"
@@ -140,9 +142,6 @@ const PaymentMethodScreen: FC = () => {
                       transaction_key: route.params?.transaction_key,
                     });
                   } else if (data.method === 'E-money') {
-                    // navigation.navigate('InstantPayment', {
-                    //   selectedPayment: data,
-                    // });
                     methods.handleInstantPayment(data);
                   } else if (data.method === 'Virtual Account') {
                     methods.handlePaymentVA(data);
@@ -163,27 +162,34 @@ const PaymentMethodScreen: FC = () => {
       });
     },
     handlePaymentVA: async (data: IPayments) => {
-      let res = await dispatch(
+      const res = await dispatch(
         createDisbursements({
           payment_type_id: data.id,
           transaction_key: order.transaction_key,
         }),
       );
-      console.log(res);
       if (res.type.includes('fulfilled')) {
-        navigation.navigate('VirtualAccount', {selectedPayment: data});
+        navigation.navigate('VirtualAccount', {
+          selectedPayment: data,
+          transaction_key:
+            route.params?.transaction_key || order.transaction_key,
+        });
       }
     },
     handleInstantPayment: async (data: IPayments) => {
-      let res = await dispatch(
+      const res = await dispatch(
         createDisbursements({
           payment_type_id: data.id,
-          transaction_key: order.transaction_key,
+          transaction_key:
+            route.params?.transaction_key || order.transaction_key,
         }),
       );
-      console.log(JSON.stringify(res));
       if (res.type.includes('fulfilled')) {
-        navigation.navigate('InstantPayment', {selectedPayment: data});
+        navigation.navigate('InstantPayment', {
+          selectedPayment: data,
+          transaction_key:
+            route.params?.transaction_key || order.transaction_key,
+        });
       }
     },
     handleIcon: (ic: string) => {

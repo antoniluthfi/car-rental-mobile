@@ -2,11 +2,9 @@ import {StyleSheet, Text, View} from 'react-native';
 import React, {FC, useEffect, useState} from 'react';
 import OtpInputs from 'react-native-otp-inputs';
 import {theme} from 'utils';
-import useEffectSkipInitialRender from 'utils/useEffectSkipInitialRender';
 import {h1, h5} from 'utils/styles';
 import Button from 'components/Button';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {utilsState} from 'redux/features/utils/utilsSlice';
 import {authRegister, authRegisterConfirmation} from 'redux/features/auth/authAPI';
 import { authState } from 'redux/features/auth/authSlice';
 import { appDataState } from 'redux/features/appData/appDataSlice';
@@ -34,16 +32,16 @@ const inputOtp: FC = () => {
     },
     secondsToHms:(d: any)=> {
       d = Number(d);
-      var m = Math.floor((d % 3600) / 60);
-      var s = Math.floor((d % 3600) % 60);
+      const m = Math.floor((d % 3600) / 60);
+      const s = Math.floor((d % 3600) % 60);
   
-      var mDisplay = m > 0 ? m : '0';
-      var sDisplay = s > 0 ? s : '0';
+      const mDisplay = m > 0 ? m : '0';
+      const sDisplay = s > 0 ? s : '0';
       return '0' + mDisplay + ':' + (sDisplay > 9 ? sDisplay : '0' + sDisplay);
     },
     handleConfirmationOTp:async()=> {
       // console.log(token)
-      let res = await dispatch(authRegisterConfirmation({
+      await dispatch(authRegisterConfirmation({
         session: token.session,
         token: token.token,
       }));

@@ -17,7 +17,7 @@ const sentOtp: FC = () => {
 
   const methods = {
     handleSentOtp:async()=> {
-      let res = await dispatch(authRegister(userData));
+      const res = await dispatch(authRegister(userData));
       if(res.type.includes('rejected')) {
         // console.log(JSON.stringify(res));
         if(res.payload?.detail?.find((x: any)=> x.field === 'password' || x.field === 'password_confirmation')) {

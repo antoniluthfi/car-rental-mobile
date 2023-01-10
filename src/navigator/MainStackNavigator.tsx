@@ -1,5 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {RootStackParamList} from '../types/navigator';
 import {
   AuthScreen,
@@ -20,8 +20,8 @@ import {
   InboxDetailScreen,
 } from '../screens';
 import MainTabNavigator from './MainTabNavigator';
-import {useAppSelector} from 'redux/hooks';
-import {authState} from 'redux/features/auth/authSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {authState, logout} from 'redux/features/auth/authSlice';
 import {theme} from 'utils';
 import DailyBookingOrderDetailScreen from 'screens/DailyBookingOrderDetailScreen/DailyBookingOrderDetailScreen';
 import UploadBankTransferScreen from 'screens/UploadBankTransferScreen/UploadBankTransferScreen';
@@ -67,6 +67,13 @@ const leftToRightAnimation = {
 
 const MainStack: React.FC = () => {
   const auth = useAppSelector(authState);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (auth.isSignIn && auth.status === 'failed' && !auth.token.token) {
+      dispatch(logout());
+    }
+  }, []);
 
   return (
     <RootStack.Navigator

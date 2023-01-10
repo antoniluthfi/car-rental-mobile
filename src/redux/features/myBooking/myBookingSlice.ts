@@ -1,4 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { RootState } from 'redux/store';
+import { IOrder } from 'types/my-booking.types';
 import {getOrderById, getOrders, getVehicleOrder} from './myBookingAPI';
 
 interface IInitState {
@@ -14,7 +16,7 @@ interface IInitState {
     };
   };
   vehicleData: any[];
-  selected: any;
+  selected: IOrder | null;
   isSelectedLoading: boolean;
   page: number;
   isLoading: boolean;
@@ -35,7 +37,7 @@ const initialState: IInitState = {
     },
   },
   vehicleData: [],
-  selected: {},
+  selected: null,
   isSelectedLoading: false,
   page: 1,
   isLoading: false,
@@ -52,7 +54,7 @@ export const booking = createSlice({
       return {
         ...state,
         isSelectedLoading: false,
-        selected: {},
+        selected: null,
       };
     },
     setPage: (state, action) => {
@@ -87,7 +89,7 @@ export const booking = createSlice({
       })
       .addCase(getOrderById.fulfilled, (state, action) => {
         state.isSelectedLoading = false;
-        state.selected = action.payload;
+        state.selected = action.payload as any;
       })
       .addCase(getVehicleOrder.pending, state => {
         state.isError = false;
@@ -111,5 +113,5 @@ export const booking = createSlice({
 });
 
 export const {resetSelected, setPage} = booking.actions;
-
+export const bookingState = (state: RootState) => state.myBooking;
 export default booking.reducer;

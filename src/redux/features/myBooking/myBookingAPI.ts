@@ -1,8 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ApiResponse} from 'apisauce';
 import {IResponApi} from 'types/global.types';
 import {IMyBookingResult, IParamVehicleOrder} from 'types/my-booking.types';
-import {apiWithInterceptor} from 'utils/interceptor';
+import {apiWithInterceptor} from 'utils/interceptorV2';
 import {showToast} from 'utils/Toast';
 
 export const getOrders = createAsyncThunk(
@@ -12,18 +11,10 @@ export const getOrders = createAsyncThunk(
       const currentPage = thunkAPI.getState().myBooking.page;
       const currentData = thunkAPI.getState().myBooking.data.data;
 
-      const response: ApiResponse<any> = await apiWithInterceptor.get(
-        `/api/orders/my-booking?page=${currentPage}&limit=10&order_by=created_at&order_seq=DESC`,
-      );
-
-      if (!response.ok) {
-        showToast({
-          message: 'Terjadi kesalahan',
-          title: 'Warning',
-          type: 'error',
-        });
-        return thunkAPI.rejectWithValue(response.data) as any;
-      }
+      const response: any = await apiWithInterceptor({
+        method: 'get',
+        url: `/api/orders/my-booking?page=${currentPage}&limit=10&order_by=created_at&order_seq=DESC`,
+      });
 
       if (currentPage > 1) {
         return {
@@ -34,6 +25,11 @@ export const getOrders = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
+      showToast({
+        message: error?.response.data?.slug || 'Terjadi kesalahan',
+        title: 'Warning',
+        type: 'error',
+      });
       return thunkAPI.rejectWithValue(error.response.data);
     }
   },
@@ -43,21 +39,18 @@ export const getOrderById = createAsyncThunk(
   'booking/getOrderById',
   async (id: string, thunkAPI: any): Promise<IResponApi<any>> => {
     try {
-      const response: ApiResponse<any> = await apiWithInterceptor.get(
-        `/api/orders/${id}`,
-      );
-
-      if (!response.ok) {
-        showToast({
-          message: 'Terjadi kesalahan',
-          title: 'Warning',
-          type: 'error',
-        });
-        return thunkAPI.rejectWithValue(response.data) as any;
-      }
+      const response: any = await apiWithInterceptor({
+        method: 'get',
+        url: `/api/orders/${id}`,
+      });
 
       return response.data;
     } catch (error: any) {
+      showToast({
+        message: error?.response.data?.slug || 'Terjadi kesalahan',
+        title: 'Warning',
+        type: 'error',
+      });
       return thunkAPI.rejectWithValue(error.response.data);
     }
   },
@@ -72,9 +65,10 @@ export const getVehicleOrder = createAsyncThunk(
     const {id} = payload;
 
     try {
-      const response: ApiResponse<any> = await apiWithInterceptor.get(
-        `/api/vehicles/${id}`,
-      );
+      const response: any = await apiWithInterceptor({
+        method: 'get',
+        url: `/api/vehicles/${id}`,
+      });
 
       return response.data;
     } catch (error: any) {

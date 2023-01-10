@@ -68,7 +68,7 @@ const UploadBankTransferScreen = () => {
   };
 
   const handleSubmit = () => {
-    let _errorMessage: any = {};
+    const _errorMessage: any = {};
     let status = true;
     if (!form.sender_name) {
       _errorMessage['sender_name'] = 'Masukan nama pengirim';

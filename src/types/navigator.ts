@@ -30,25 +30,27 @@ type RootStackParamList = {
     transaction_key?: string;
   };
   VirtualAccount: {
-    selectedPayment: IPayments
+    selectedPayment: IPayments;
+    transaction_key: string;
   };
   BankTransfer: {
     selectedPayment: IPayments;
     transaction_key?: string;
-  }
+  };
   UploadBankTransfer: {
     selectedPayment: IPayments;
     transaction_key?: string;
-  }
+  };
   InstantPayment: {
     selectedPayment: IPayments;
-  },
+    transaction_key: string;
+  };
   Profile: undefined;
   ChangePassword: undefined;
   Notification: undefined;
   InboxDetail: {
     id: number;
-  }
+  };
 };
 
 type RootTabParamList = {

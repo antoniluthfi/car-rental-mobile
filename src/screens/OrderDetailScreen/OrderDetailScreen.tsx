@@ -122,7 +122,7 @@ const OrderDetailScreen: FC = () => {
 
   const methods = {
     handleOrder: async () => {
-      let res = await dispatch(
+      const res = await dispatch(
         createOrder({
           booking_price: summaryOrder.booking_price,
           email: user.email,
@@ -425,6 +425,7 @@ const OrderDetailScreen: FC = () => {
                 onChangeText={x => setInputPickup(x)}
                 placeholder={t.tripDetail.deliveryLocationPlaceholder}
                 value={inputPickup}
+                style={{padding: 0, marginVertical: 0, marginLeft: 5}}
               />
             )}
           </View>

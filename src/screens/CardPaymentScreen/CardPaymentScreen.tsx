@@ -112,15 +112,15 @@ const CardPaymentScreen = () => {
       });
     },
     handleMitransGetToken: async () => {
-      console.log({
-        client_key: MIDTRANS_CLIENT,
-        card_number: form.card_number,
-        card_cvv: form.card_cvv,
-        card_exp_month: form.card_exp.slice(0, 2),
-        card_exp_year: '20' + form.card_exp.slice(-2),
-      });
+      // console.log({
+      //   client_key: MIDTRANS_CLIENT,
+      //   card_number: form.card_number,
+      //   card_cvv: form.card_cvv,
+      //   card_exp_month: form.card_exp.slice(0, 2),
+      //   card_exp_year: '20' + form.card_exp.slice(-2),
+      // });
       // return
-      var config: any = {
+      const config: any = {
         method: 'get',
         url: `${API_MIDTRANS}/v2/token`,
         params: {
@@ -137,8 +137,7 @@ const CardPaymentScreen = () => {
       };
 
       try {
-        let data = await axios(config);
-        console.log(data.data);
+        const data = await axios(config);
         if (data.data.status_code !== '200') {
           showToast({
             message:
@@ -149,7 +148,7 @@ const CardPaymentScreen = () => {
           });
           return;
         }
-        let res = await dispatch(
+        const res = await dispatch(
           createDisbursements({
             payment_type_id: route.params.selectedPayment.id,
             transaction_key:
@@ -159,7 +158,6 @@ const CardPaymentScreen = () => {
           }),
         );
 
-        console.log(res);
         if (res.type.includes('fulfilled')) {
           try {
             Linking.openURL(res?.payload.data?.disbursement?.redirect_url);

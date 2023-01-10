@@ -1,8 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ApiResponse} from 'apisauce';
 import {IResponApi} from 'types/global.types';
 import {ParamChangePassword, ParamEditUser, ParamUploadFile} from 'types/user';
-import {apiWithInterceptor} from 'utils/interceptor';
+import {apiWithInterceptor} from 'utils/interceptorV2';
 import {showToast} from 'utils/Toast';
 
 export const editUser = createAsyncThunk(
@@ -12,22 +11,19 @@ export const editUser = createAsyncThunk(
     thunkAPI: any,
   ): Promise<IResponApi<any> | any> => {
     try {
-      const response: ApiResponse<any> = await apiWithInterceptor.put(
-        `/api/profile`,
-        payload,
-      );
-
-      if (!response.ok) {
-        showToast({
-          message: response?.data?.slug || 'Terjadi kesalahan',
-          title: 'Warning',
-          type: 'error',
-        });
-        return thunkAPI.rejectWithValue(response.data);
-      }
+      const response: any = await apiWithInterceptor({
+        method: 'put',
+        url: '/api/profile',
+        data: payload
+      });
 
       return response.data;
     } catch (error: any) {
+      showToast({
+        message: error?.response.data?.slug || 'Terjadi kesalahan',
+        title: 'Warning',
+        type: 'error',
+      });
       return thunkAPI.rejectWithValue(error.response.data);
     }
   },
@@ -49,11 +45,11 @@ export const uploadFile = createAsyncThunk(
         type: file.type,
       });
 
-      const response: ApiResponse<any> = await apiWithInterceptor.post(
-        `/api/profile/document`,
-        form,
-      );
-      console.log(response);
+      const response: any = await apiWithInterceptor({
+        method: 'post',
+        url: '/api/profile/document',
+        data: form
+      });
 
       return {
         [name]: response.data?.file,
@@ -72,24 +68,19 @@ export const changePassword = createAsyncThunk(
     thunkAPI: any,
   ): Promise<IResponApi<any> | any> => {
     try {
-      const response: ApiResponse<any> = await apiWithInterceptor.put(
-        `/api/authorization/change-password`,
-        {
-          ...payload,
-        },
-      );
-
-      if (!response.ok) {
-        showToast({
-          message: response?.data?.slug || 'Terjadi kesalahan',
-          title: 'Warning',
-          type: 'error',
-        });
-        return thunkAPI.rejectWithValue(response.data);
-      }
+      const response: any = await apiWithInterceptor({
+        method: 'put',
+        url: '/api/authorization/change-password',
+        data: payload
+      });
 
       return response.data;
     } catch (error: any) {
+      showToast({
+        message: error?.response.data?.slug || 'Terjadi kesalahan',
+        title: 'Warning',
+        type: 'error',
+      });
       return thunkAPI.rejectWithValue(error.response.data);
     }
   },

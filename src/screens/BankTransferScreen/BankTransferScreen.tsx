@@ -1,10 +1,4 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect} from 'react';
 import hoc from 'components/hoc';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
@@ -26,6 +20,8 @@ import Button from 'components/Button';
 import {showBSheet} from 'utils/BSheet';
 import {RootStackParamList} from 'types/navigator';
 import {currencyFormat} from 'utils/currencyFormat';
+import { showToast } from 'utils/Toast';
+import { Clipboard } from '@react-native-clipboard/clipboard/dist/Clipboard';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
@@ -33,7 +29,10 @@ const FAQ = [
   'Setelah pembayaran berhasil dan terverifikasi maka status pesanan anda akan success serta transaksi anda akan nyaman dan aman.',
 ];
 
-type BankTransferScreenRouteProp = RouteProp<RootStackParamList, 'BankTransfer'>;
+type BankTransferScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'BankTransfer'
+>;
 
 const BankTransferScreen = () => {
   const navigation = useNavigation();
@@ -86,125 +85,133 @@ const BankTransferScreen = () => {
         ),
       });
     },
+    copyText: (text: string) => {
+      Clipboard.setString(text);
+      showToast({
+        title: 'Berhasil',
+        type: 'success',
+        message: 'berhasil menyalin teks',
+      });
+    },
   };
 
   return (
     <View
       style={{
         flex: 1,
-        margin: 16
+        margin: 16,
       }}>
+      <Text style={[h1, {marginTop: 20}]}>Lakukan Pembayaran</Text>
 
-
-        <Text style={[h1, {marginTop: 20}]}>Lakukan Pembayaran</Text>
-
-        <View style={[rowCenter, {marginTop: 10}]}>
-          <Image source={ic_mandiri} style={iconCustomSize(30)} />
-          <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
-            Mandiri Transfer
-          </Text>
-        </View>
-
-        <View
-          style={[
-            rowCenter,
-            {
-              justifyContent: 'space-between',
-              backgroundColor: theme.colors.cloud,
-              padding: 10,
-            },
-          ]}>
-          <Text style={[h1]}>2132113123213</Text>
-          <Image
-            source={ic_copy}
-            style={iconCustomSize(40)}
-            resizeMode={'contain'}
-          />
-        </View>
-
-        <View style={[rowCenter, {marginTop: 10}]}>
-          <Image source={ic_bca} style={iconCustomSize(30)} />
-          <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
-            BCA Transfer
-          </Text>
-        </View>
-
-        <View
-          style={[
-            rowCenter,
-            {
-              justifyContent: 'space-between',
-              backgroundColor: theme.colors.cloud,
-              padding: 10,
-            },
-          ]}>
-          <Text style={[h1]}>2132113123213</Text>
-          <Image
-            source={ic_copy}
-            style={iconCustomSize(40)}
-            resizeMode={'contain'}
-          />
-        </View>
-        <View style={styles.lineHorizontal} />
-        <Text style={[h1, {marginTop: 20, marginBottom: 10}]}>
-          Total Pembayaran
+      <View style={[rowCenter, {marginTop: 10}]}>
+        <Image source={ic_mandiri} style={iconCustomSize(30)} />
+        <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
+          Mandiri Transfer
         </Text>
-
-        <View
-          style={[
-            {
-              backgroundColor: theme.colors.cloud,
-              padding: 10,
-            },
-          ]}>
-          <Text>{currencyFormat(120000)}</Text>
-        </View>
-
-        <View style={styles.lineHorizontal} />
-
-        <Text style={[h1, {marginTop: 20}]}>Cara Pembayaran</Text>
-
-        <TouchableOpacity
-          style={[
-            styles.HowToWrapper,
-            rowCenter,
-            {justifyContent: 'space-between'},
-          ]}
-          onPress={methods.handleFAQ}>
-          <Text style={h4}>Transfer melalui Bank Mandiri</Text>
-          <Image
-            source={ic_arrow_right}
-            style={iconCustomSize(10)}
-            resizeMode={'contain'}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[
-            styles.HowToWrapper,
-            rowCenter,
-            {justifyContent: 'space-between'},
-          ]}
-          onPress={methods.handleFAQ}>
-          <Text style={h4}>Transfer melalui Bank BCA</Text>
-          <Image
-            source={ic_arrow_right}
-            style={iconCustomSize(10)}
-            resizeMode={'contain'}
-          />
-        </TouchableOpacity>
-
-        <Button
-          _theme="navy"
-          onPress={() => {
-            navigation.navigate('UploadBankTransfer', route.params)
-          }}
-          title={'Upload Bukti Pembayaran'}
-          styleWrapper={{
-            marginTop: 26,
-          }}
-        />
       </View>
+
+      <View
+        style={[
+          rowCenter,
+          {
+            justifyContent: 'space-between',
+            backgroundColor: theme.colors.cloud,
+            padding: 10,
+          },
+        ]}>
+        <Text style={[h1]}>2132113123213</Text>
+        <TouchableOpacity onPress={() => methods.copyText('2132113123213')}>
+          <Image
+            source={ic_copy}
+            style={iconCustomSize(40)}
+            resizeMode={'contain'}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View style={[rowCenter, {marginTop: 10}]}>
+        <Image source={ic_bca} style={iconCustomSize(30)} />
+        <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>BCA Transfer</Text>
+      </View>
+
+      <View
+        style={[
+          rowCenter,
+          {
+            justifyContent: 'space-between',
+            backgroundColor: theme.colors.cloud,
+            padding: 10,
+          },
+        ]}>
+        <Text style={[h1]}>2132113123213</Text>
+        <TouchableOpacity onPress={() => methods.copyText('2132113123213')}>
+          <Image
+            source={ic_copy}
+            style={iconCustomSize(40)}
+            resizeMode={'contain'}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.lineHorizontal} />
+      <Text style={[h1, {marginTop: 20, marginBottom: 10}]}>
+        Total Pembayaran
+      </Text>
+
+      <View
+        style={[
+          {
+            backgroundColor: theme.colors.cloud,
+            padding: 10,
+          },
+        ]}>
+        <Text>{currencyFormat(120000)}</Text>
+      </View>
+
+      <View style={styles.lineHorizontal} />
+
+      <Text style={[h1, {marginTop: 20}]}>Cara Pembayaran</Text>
+
+      <TouchableOpacity
+        style={[
+          styles.HowToWrapper,
+          rowCenter,
+          {justifyContent: 'space-between'},
+        ]}
+        onPress={methods.handleFAQ}>
+        <Text style={h4}>Transfer melalui Bank Mandiri</Text>
+        <Image
+          source={ic_arrow_right}
+          style={iconCustomSize(10)}
+          resizeMode={'contain'}
+        />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[
+          styles.HowToWrapper,
+          rowCenter,
+          {justifyContent: 'space-between'},
+        ]}
+        onPress={methods.handleFAQ}>
+        <Text style={h4}>Transfer melalui Bank BCA</Text>
+        <Image
+          source={ic_arrow_right}
+          style={iconCustomSize(10)}
+          resizeMode={'contain'}
+        />
+      </TouchableOpacity>
+
+      <Button
+        _theme="navy"
+        onPress={() => {
+          navigation.navigate('UploadBankTransfer', route.params);
+        }}
+        title={'Upload Bukti Pembayaran'}
+        styleWrapper={{
+          marginTop: 26,
+        }}
+      />
+    </View>
   );
 };
 

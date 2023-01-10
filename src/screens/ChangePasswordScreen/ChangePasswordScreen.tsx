@@ -44,7 +44,7 @@ const ChangePasswordScreen: React.FC = () => {
     handleSubmit: () => {
       setLoading(true);
 
-      let _errorMessage: any = {};
+      const _errorMessage: any = {};
       let status = true;
       if (!form.old_password) {
         _errorMessage['old_password'] = 'Masukan password lama';

@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {img_car_2} from 'assets/images';
 import Button from 'components/Button';
-import { isFuture } from 'date-fns';
+import {isFuture} from 'date-fns';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {Image, Linking, StyleSheet, Text, View} from 'react-native';
@@ -72,17 +72,20 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
   };
 
   const handlePay = () => {
-    console.log('disbursement = ', disbursement)
     if (!disbursement) {
-      
       navigation.navigate('PaymentMethod', {transaction_key});
     } else {
-
       if (disbursement?.payment?.method === 'Virtual Account') {
-        navigation.navigate('VirtualAccount', {selectedPayment: disbursement?.payment});
+        navigation.navigate('VirtualAccount', {
+          selectedPayment: disbursement?.payment,
+          transaction_key,
+        });
       }
       if (disbursement?.payment?.method === 'E-money') {
-        navigation.navigate('InstantPayment', {selectedPayment: disbursement?.payment});
+        navigation.navigate('InstantPayment', {
+          selectedPayment: disbursement?.payment,
+          transaction_key,
+        });
       }
       if (disbursement?.payment?.method === 'Credit Card') {
         Linking.openURL(disbursement?.redirect_url);

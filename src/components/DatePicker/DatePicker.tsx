@@ -102,7 +102,14 @@ const CustomDatePicker = ({
               placeholder="00"
               ref={ref1}
               maxLength={2}
-              onChangeText={v => setHour(v)}
+              value={hour}
+              onChangeText={v => {
+                if (Number(v) > 23) {
+                  setHour('23');
+                } else {
+                  setHour(v);
+                }
+              }}
               editable={!disableTime}
               keyboardType="numeric"
               style={{padding: 0, margin: 0}}
@@ -113,7 +120,14 @@ const CustomDatePicker = ({
               placeholder="00"
               maxLength={2}
               editable={!disableTime}
-              onChangeText={v => setMinutes(v)}
+              value={minutes}
+              onChangeText={v => {
+                if (Number(v) > 59) {
+                  setMinutes("59")
+                } else {
+                  setMinutes(v)
+                }
+              }}
               keyboardType="numeric"
               style={{padding: 0, margin: 0}}
             />
