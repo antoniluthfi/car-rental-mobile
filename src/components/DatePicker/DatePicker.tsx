@@ -9,7 +9,12 @@ import {
 } from 'react-native';
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
 import {ic_calendar, ic_clock, ic_info_error} from 'assets/icons';
-import {rowCenter, iconSize, iconCustomSize, colorSelecting} from 'utils/mixins';
+import {
+  rowCenter,
+  iconSize,
+  iconCustomSize,
+  colorSelecting,
+} from 'utils/mixins';
 import {h1, h5} from 'utils/styles';
 import {theme} from 'utils';
 import {showBSheet} from 'utils/BSheet';
@@ -76,7 +81,9 @@ const CustomDatePicker = ({
         />
         {content && (
           <TouchableOpacity onPress={methods.handleBSheet}>
-            <Text style={[h5, colorSelecting(value), {marginLeft: 10}]}>{value || placeholder}</Text>
+            <Text style={[h5, colorSelecting(value), {marginLeft: 10}]}>
+              {value || placeholder}
+            </Text>
           </TouchableOpacity>
         )}
         {!content && !disableTime && (
@@ -85,7 +92,14 @@ const CustomDatePicker = ({
               placeholder="00"
               ref={ref1}
               maxLength={2}
-              onChangeText={v => setHour(v)}
+              value={hour}
+              onChangeText={v => {
+                if (Number(v) > 23) {
+                  setHour('23');
+                } else {
+                  setHour(v);
+                }
+              }}
               editable={!disableTime}
               keyboardType="numeric"
               style={{padding: 0, margin: 0}}
@@ -96,7 +110,14 @@ const CustomDatePicker = ({
               placeholder="00"
               maxLength={2}
               editable={!disableTime}
-              onChangeText={v => setMinutes(v)}
+              value={minutes}
+              onChangeText={v => {
+                if (Number(v) > 59) {
+                  setMinutes("59")
+                } else {
+                  setMinutes(v)
+                }
+              }}
               keyboardType="numeric"
               style={{padding: 0, margin: 0}}
             />
