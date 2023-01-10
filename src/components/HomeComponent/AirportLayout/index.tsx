@@ -1,11 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { FC } from 'react';
+import { img_coming_soon } from 'assets/images';
 
 const AirportLayout: FC = () => {
   return (
     <View>
-      <Text>AirportLayout</Text>
+      <Image source={img_coming_soon} style={{
+        width: '90%',
+        alignSelf: 'center',
+        height: 300,
+        resizeMode: 'contain'
+      }} />
     </View>
   )
 }

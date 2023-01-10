@@ -17,12 +17,15 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import { loginNoAuth } from 'redux/features/auth/authSlice';
+import { useAppDispatch } from 'redux/hooks';
 import {theme} from 'utils';
 import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 import {FONT_SIZE_14} from 'utils/typography';
 
 const AuthScreen: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
 
   const heightValue = useSharedValue(123);
   const widthValue = useSharedValue(123);
@@ -90,7 +93,7 @@ const AuthScreen: FC = () => {
     <View style={styles.container}>
       <Animated.View style={[styles.cBg, rBg]}>
         <Animated.View style={rBtn}>
-          <TouchableOpacity style={styles.testWrapper}>
+          <TouchableOpacity style={styles.testWrapper} onPress={()=> dispatch(loginNoAuth())}>
             <Text style={styles.textTest}>Coba Sekarang</Text>
             <Image source={ic_arrow_right_2} style={iconSize} />
           </TouchableOpacity>

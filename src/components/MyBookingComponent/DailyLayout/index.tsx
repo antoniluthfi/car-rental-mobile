@@ -1,6 +1,6 @@
 import React, {FC, useCallback, useState, useEffect} from 'react';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import {
   getOrders,
   getVehicleOrder,
@@ -9,10 +9,13 @@ import {setPage} from 'redux/features/myBooking/myBookingSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import DailyLayoutCard from './DailyLayoutCard';
 import useLangSelector from 'utils/useLangSelector';
+import {img_register_bg} from 'assets/images';
+import { h1, h4 } from 'utils/styles';
 
 const DailyLayout: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
+  
   const myBooking = useAppSelector(state => state.myBooking);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [vehicleIds, setVehicleIds] = useState<any[]>([]);
@@ -69,6 +72,7 @@ const DailyLayout: FC = () => {
     <View style={styles.container}>
       <FlatList
         data={myBooking.data.data}
+        // data={[]}
         contentContainerStyle={styles.list}
         renderItem={renderItem}
         keyExtractor={(item, i) => {
@@ -85,7 +89,25 @@ const DailyLayout: FC = () => {
         windowSize={5}
         maxToRenderPerBatch={5}
         updateCellsBatchingPeriod={30}
-        // ListEmptyComponent={DataNotFound}
+        ListEmptyComponent={() => (
+          <View style={{
+            alignItems: 'center',
+            marginTop: 20
+          }}>
+            <Text style={[h1]}>{t.noOrder}</Text>
+            <Text style={[h4]}>{t.noRental}</Text>
+            <Image
+              source={img_register_bg}
+              style={{
+                width: '90%',
+                height: 200,
+                resizeMode: 'contain',
+                alignSelf: 'center',
+                marginTop: 20,
+              }}
+            />
+          </View>
+        )}
       />
     </View>
   );

@@ -36,6 +36,10 @@ export const authSlice = createSlice({
   reducers: {
     logout:(state)=> {
       state.isSignIn = false;
+      state.auth= {};
+    },
+    loginNoAuth:(state)=> {
+      state.isSignIn = true;
     }
   },
   extraReducers: builder => {
@@ -104,7 +108,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const {logout} = authSlice.actions;
+export const {logout, loginNoAuth} = authSlice.actions;
 
 export const authState = (state: RootState) => state.auth;
 export default authSlice.reducer;

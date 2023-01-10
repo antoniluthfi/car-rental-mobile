@@ -174,12 +174,12 @@ const ListCarScreen: FC = () => {
           onSelect={v => setForm({...form, filter_seat: parseInt(v.name)})}
           selected={form.filter_seat}
         />
-        <DropdownFilter
+        {/* <DropdownFilter
           data={[{name: '1'}, {name: '2'}, {name: '3'}]}
           label={lang.bag}
           onSelect={v => setForm({...form, filter_koper: v.name})}
           selected={form.filter_koper}
-        />
+        /> */}
       </ScrollView>
       <View style={{marginTop: 20}} />
       <FlatList data={vehicles} renderItem={renderItem} />
