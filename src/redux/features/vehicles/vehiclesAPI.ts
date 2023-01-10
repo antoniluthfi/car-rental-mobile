@@ -59,6 +59,7 @@ export const getVehiclesById = createAsyncThunk(
         url: `/api/vehicles/${params}`,
       });
 
+      console.log(response.data)
       return response.data;
     } catch (error: any) {
       showToast({

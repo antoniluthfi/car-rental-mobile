@@ -1,5 +1,5 @@
 const deepClone = (obj: any) => {
-  let temp = JSON.parse(JSON.stringify(obj));
+  const temp = JSON.parse(JSON.stringify(obj));
   return temp;
 };
 

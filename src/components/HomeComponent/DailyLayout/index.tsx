@@ -59,7 +59,7 @@ const DailyLayout: FC = () => {
 
   const methods = {
     handleSearch: () => {
-      let _errorMessage: any = {};
+      const _errorMessage: any = {};
       let status = true;
       if (!form.location.name) {
         _errorMessage['error_location'] = lang.Home.daily.error_location;

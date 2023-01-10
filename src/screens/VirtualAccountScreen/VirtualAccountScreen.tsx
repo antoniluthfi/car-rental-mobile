@@ -1,58 +1,84 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import hoc from 'components/hoc';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import {iconCustomSize, rowCenter} from 'utils/mixins';
 import {
-  ic_american_express,
   ic_arrow_left_white,
   ic_arrow_right,
   ic_bca,
   ic_copy,
-  ic_jcb,
-  ic_master_card,
-  ic_shield,
-  ic_visa,
 } from 'assets/icons';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
+import {h1, h4, h5} from 'utils/styles';
 import {theme} from 'utils';
-import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
-import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
-import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
 import Button from 'components/Button';
-import {showToast} from 'utils/Toast';
 import {showBSheet} from 'utils/BSheet';
-import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {RootStackParamList} from 'types/navigator';
 import {currencyFormat} from 'utils/currencyFormat';
-import {useAppSelector} from 'redux/hooks';
-import {orderState} from 'redux/features/order/orderSlice';
-import moment from 'moment';
-import {appDataState} from 'redux/features/appData/appDataSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
+import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
+import {bookingState} from 'redux/features/myBooking/myBookingSlice';
+import OrderDetailModalContent from 'components/OrderDetailModalContent/OrderDetailModalContent';
+import moment from 'moment';
+import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
+
 const TIMER = 299;
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
   'Lalu verifikasi Debit Card anda dengan menekan button “Verifikasi”. Setelah Debit Card terverifikasi maka anda bisa melanjutkan pembayaran.',
   'Setelah pembayaran berhasil dan terverifikasi maka status pesanan anda akan success serta transaksi anda akan nyaman dan aman.',
 ];
+
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'VirtualAccount'>;
+
 const VirtualAccountScreen = () => {
   const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
   const [seconds, setSeconds] = useState(TIMER);
-  const order = useAppSelector(orderState).order;
-  const disbursements = useAppSelector(orderState).disbursements;
+  const bookingDetail = useAppSelector(bookingState).selected;
   const route = useRoute<ProfileScreenRouteProp>();
-  const formDaily = useAppSelector(appDataState).formDaily;
-  const vehicles = useAppSelector(vehiclesState);
+  const vehicle = useAppSelector(vehiclesState).vehicleById;
+
+  const methods = {
+    handleFAQ: () => {
+      showBSheet({
+        content: (
+          <View
+            style={{
+              width: '100%',
+              flex: 1,
+              margin: 16,
+            }}>
+            <Text style={[h1, {margin: 16, fontSize: 18}]}>
+              Cara Pembayaran
+            </Text>
+            {FAQ.map((x, i) => (
+              <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
+                <Text>{i + 1}. </Text>
+                <Text>{x}</Text>
+              </View>
+            ))}
+          </View>
+        ),
+      });
+    },
+    secondsToHms: (d: any) => {
+      d = Number(d);
+      const m = Math.floor((d % 3600) / 60);
+      const s = Math.floor((d % 3600) % 60);
+
+      const mDisplay = m > 0 ? m : '0';
+      const sDisplay = s > 0 ? s : '0';
+      return '0' + mDisplay + ':' + (sDisplay > 9 ? sDisplay : '0' + sDisplay);
+    },
+    handleOrderDetail: () => {
+      showBSheet({
+        content: <OrderDetailModalContent />,
+      });
+    },
+  };
 
   useEffect(() => {
     if (seconds > 0) {
@@ -86,39 +112,17 @@ const VirtualAccountScreen = () => {
     );
   }, [navigation]);
 
-  const methods = {
-    handleFAQ: () => {
-      showBSheet({
-        content: (
-          <View
-            style={{
-              width: '100%',
-              flex: 1,
-              margin: 16,
-            }}>
-            <Text style={[h1, {margin: 16, fontSize: 18}]}>
-              Cara Pembayaran
-            </Text>
-            {FAQ.map((x, i) => (
-              <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
-                <Text>{i + 1}. </Text>
-                <Text>{x}</Text>
-              </View>
-            ))}
-          </View>
-        ),
-      });
-    },
-    secondsToHms: (d: any) => {
-      d = Number(d);
-      var m = Math.floor((d % 3600) / 60);
-      var s = Math.floor((d % 3600) % 60);
+  useEffect(() => {
+    if (route.params.transaction_key) {
+      dispatch(getOrderById(route.params.transaction_key));
+    }
+  }, [route.params.transaction_key]);
 
-      var mDisplay = m > 0 ? m : '0';
-      var sDisplay = s > 0 ? s : '0';
-      return '0' + mDisplay + ':' + (sDisplay > 9 ? sDisplay : '0' + sDisplay);
-    },
-  };
+  useEffect(() => {
+    if (bookingDetail?.order_detail?.vehicle_id) {
+      dispatch(getVehiclesById(bookingDetail?.order_detail?.vehicle_id as any));
+    }
+  }, [bookingDetail?.order_detail?.vehicle_id]);
 
   return (
     <View
@@ -135,7 +139,7 @@ const VirtualAccountScreen = () => {
         <View>
           <Text style={[h1]}>Selesaikan Sebelum</Text>
           <Text style={[h4, {marginTop: 10, fontSize: 12}]}>
-            {moment(order.expired_time).format('ddd, DD MMMM YYYY')}
+            {moment(bookingDetail?.expired_time).format('ddd, DD MMMM YYYY')}
           </Text>
         </View>
         <Text style={[h1, {color: theme.colors.blue}]}>
@@ -147,7 +151,8 @@ const VirtualAccountScreen = () => {
         style={{
           margin: 16,
         }}>
-        <View
+        <TouchableOpacity
+          onPress={methods.handleOrderDetail}
           style={[
             rowCenter,
             {
@@ -161,15 +166,17 @@ const VirtualAccountScreen = () => {
               Daily
             </Text>
             <Text style={[h5, {fontSize: 12}]}>
-              {
-                vehicles.vehicles?.find(x => x.id === formDaily.vehicle_id)
-                  ?.name
-              }
+              {`${vehicle.brand_name} ${vehicle.name}`}
             </Text>
             <Text style={[h5, {fontSize: 12}]}>
-              {moment(order.order_detail.start_booking_date).format('DD MMMM')}{' '}
-              - {moment(order.order_detail.end_booking_date).format('DD MMMM')}{' '}
-              {order.order_detail.start_booking_time}
+              {moment(bookingDetail?.order_detail?.start_booking_date).format(
+                'DD MMMM',
+              )}{' '}
+              -{' '}
+              {moment(bookingDetail?.order_detail?.end_booking_date).format(
+                'DD MMMM',
+              )}{' '}
+              {bookingDetail?.order_detail?.start_booking_time}
             </Text>
           </View>
           <Image
@@ -177,17 +184,16 @@ const VirtualAccountScreen = () => {
             style={iconCustomSize(10)}
             resizeMode={'contain'}
           />
-        </View>
+        </TouchableOpacity>
         <View style={styles.lineHorizontal} />
 
         <Text style={[h1, {marginTop: 20}]}>Lakukan Pembayaran</Text>
 
-        {disbursements.va_numbers?.map((x, i) => (
-          <View key={i}>
+          <View>
             <View style={[rowCenter, {marginTop: 10}]}>
               <Image source={ic_bca} style={iconCustomSize(30)} />
               <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
-                {x.bank} Virtual Account
+                {bookingDetail?.disbursement?.payment?.code} Virtual Account
               </Text>
             </View>
 
@@ -200,7 +206,7 @@ const VirtualAccountScreen = () => {
                   padding: 10,
                 },
               ]}>
-              <Text style={[h1]}>{x.va_number}</Text>
+              <Text style={[h1]}>{bookingDetail?.disbursement?.va_number}</Text>
               <Image
                 source={ic_copy}
                 style={iconCustomSize(40)}
@@ -208,7 +214,6 @@ const VirtualAccountScreen = () => {
               />
             </View>
           </View>
-        ))}
 
         <View style={styles.lineHorizontal} />
         <Text style={[h1, {marginTop: 20, marginBottom: 10}]}>
@@ -222,7 +227,7 @@ const VirtualAccountScreen = () => {
               padding: 10,
             },
           ]}>
-          <Text>{currencyFormat(order.total_payment)}</Text>
+          <Text>{currencyFormat(bookingDetail?.total_payment)}</Text>
         </View>
 
         <View style={styles.lineHorizontal} />

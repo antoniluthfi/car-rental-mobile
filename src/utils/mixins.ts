@@ -16,7 +16,7 @@ function dimensions(
   left = right,
   property: string,
 ) {
-  let styles = {} as any;
+  const styles = {} as any;
 
   styles[`${property}Top`] = top;
   styles[`${property}Right`] = right;

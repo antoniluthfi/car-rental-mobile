@@ -3,37 +3,23 @@ import {
   Linking,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import hoc from 'components/hoc';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import {iconCustomSize, rowCenter} from 'utils/mixins';
 import {
-  ic_american_express,
   ic_arrow_left_white,
   ic_arrow_right,
-  ic_bca,
-  ic_copy,
   ic_gopay,
-  ic_jcb,
-  ic_master_card,
-  ic_qr,
-  ic_shield,
-  ic_visa,
 } from 'assets/icons';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
+import {h1, h4, h5} from 'utils/styles';
 import {theme} from 'utils';
-import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
-import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
-import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
 import Button from 'components/Button';
-import {showToast} from 'utils/Toast';
 import {showBSheet} from 'utils/BSheet';
-import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {RootStackParamList} from 'types/navigator';
 import {currencyFormat} from 'utils/currencyFormat';
 import {useAppSelector} from 'redux/hooks';
@@ -117,11 +103,11 @@ const InstantPaymentScreen = () => {
     },
     secondsToHms: (d: any) => {
       d = Number(d);
-      var m = Math.floor((d % 3600) / 60);
-      var s = Math.floor((d % 3600) % 60);
+      const m = Math.floor((d % 3600) / 60);
+      const s = Math.floor((d % 3600) % 60);
 
-      var mDisplay = m > 0 ? m : '0';
-      var sDisplay = s > 0 ? s : '0';
+      const mDisplay = m > 0 ? m : '0';
+      const sDisplay = s > 0 ? s : '0';
       return '0' + mDisplay + ':' + (sDisplay > 9 ? sDisplay : '0' + sDisplay);
     },
   };

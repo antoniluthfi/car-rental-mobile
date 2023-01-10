@@ -74,7 +74,7 @@ const RegisterPasswordScreen: FC = () => {
   }, [navigation]);
 
   useEffect(() => {
-    let _errorMessage: any = {};
+    const _errorMessage: any = {};
     errorRegister?.detail?.map((x: {field: string; message: string;})=> {
       _errorMessage[`error_${x.field}`] = x?.message;
     })
@@ -85,7 +85,7 @@ const RegisterPasswordScreen: FC = () => {
   const methods = {
     handleRegister: async () => {
       try {
-        let _errorMessage: any = {};
+        const _errorMessage: any = {};
         let status = true;
         Object.keys(form).map((x, i) => {
           if (!form[x as keyof IPasswordForm]) {

@@ -122,7 +122,7 @@ const OrderDetailScreen: FC = () => {
 
   const methods = {
     handleOrder: async () => {
-      let res = await dispatch(
+      const res = await dispatch(
         createOrder({
           booking_price: summaryOrder.booking_price,
           email: user.email,

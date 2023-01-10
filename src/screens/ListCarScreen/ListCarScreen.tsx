@@ -81,10 +81,10 @@ const ListCarScreen: FC = () => {
 
   useEffect(() => {
     let params: string = '?';
-    let _formdaily: IFormDaily = {...formDaily, passanger: form.filter_seat};
+    const _formdaily: IFormDaily = {...formDaily, passanger: form.filter_seat};
 
     if (form.brands) {
-      _formdaily.brand = brands.find(x => x.name === form.brands)?.id!;
+      _formdaily['brand'] = brands.find(x => x.name === form.brands)?.id!;
     }
     Object.keys(_formdaily).map(x => {
       params += `${x}=${_formdaily[x as keyof IFormDaily]}&`;

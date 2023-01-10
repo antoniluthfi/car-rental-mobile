@@ -156,7 +156,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
   }, [vehicle]);
 
   useEffect(() => {
-    setOrderState(selected?.order_status);
+    setOrderState(selected?.order_status as any);
 
     if (
       (selected?.order_status?.toLowerCase() == 'pending' &&
@@ -334,7 +334,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
         <View style={styles.solidLine} />
         <View style={{marginHorizontal: 16}}>
           
-          {isFuture(new Date(selected?.order_detail?.start_booking_date)) &&
+          {isFuture(new Date(selected?.order_detail?.start_booking_date as any)) &&
             (slugify(orderState) !== 'failed' && slugify(orderState) !== 'cancelled') && (
               <Button
                 _theme="white"
@@ -389,7 +389,6 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                 marginTop: 10,
               }}
               onSelect={(v: IPayments) => {
-                console.log(v);
                 setFormCancel({...formCancel, bank: v.code});
                 // setFormError({...formError, sender_bank_name: ''});
               }}

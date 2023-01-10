@@ -78,7 +78,7 @@ const ProfileScreen: React.FC = () => {
 
   const methods = {
     handleValidate: () => {
-      let _errorMessage: any = {};
+      const _errorMessage: any = {};
       let status = true;
       if (!form.name) {
         _errorMessage['name'] = 'Masukan Nama Anda';
@@ -107,7 +107,7 @@ const ProfileScreen: React.FC = () => {
     handleSubmit: () => {
       setLoading(true);
 
-      let _errorMessage: any = {};
+      const _errorMessage: any = {};
       let status = true;
       if (!form.password) {
         _errorMessage['password'] = 'Masukkan Kata Sandi';
