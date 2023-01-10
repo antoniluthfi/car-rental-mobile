@@ -35,6 +35,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { authState, logout } from 'redux/features/auth/authSlice';
 import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
@@ -44,6 +45,7 @@ import {showBSheet} from 'utils/BSheet';
 import {currencyFormat} from 'utils/currencyFormat';
 import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
 import {h1, h3, h4, h5} from 'utils/styles';
+import { showToast } from 'utils/Toast';
 import useLangSelector from 'utils/useLangSelector';
 const t_priceTerm = useLangSelector().priceTerm;
 
@@ -75,27 +77,15 @@ const DATA_INCLUDE_PRICES = [
     icon: ic_toll,
   },
 ];
-const INFO_BEFORE_PICKUP = [
-  'Penyewa harus membagikan kepada penyedia foto KTP/paspor mereka.',
-  'Penyewa harus membagikan kepada penyedia foto SIM A mereka.',
-  'Penyewa harus membagikan kepada penyedia foto kartu kredit mereka.',
-  'Penyewa harus membagikan kepada penyedia salinan bukti pekerjaan mereka, seperti NPWP, kartu identitas perusahaan, surat keterangan kerja, Surat Izin Usaha Perdagangan, Akta Pendirian, atau Tanda Daftar Perusahaan.',
-  'Penyewa yang tidak memiliki bukti pekerjaan dapat menggunakan bukti pekerjaan milik anggota keluarga selama penyewa bisa menunjukkan ikatan keluarganya dalam bentuk kartu keluarga atau surat nikah.',
-];
-const INFO_RENT = [
-  'KTP/paspor',
-  'Kartu Keluarga',
-  'Survei Rumah, Kantor, atau Hotel',
-  'Deposit senilai 500K',
-  'SIM A/SIM Internasional',
-  'Lainnya (jika penyedia membutuhkan verifikasi tambahan)',
-];
+
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'DetailCar'>;
 const DetailCarScreen: FC = () => {
   const navigation = useNavigation();
   const route = useRoute<ProfileScreenRouteProp>();
   const dispatch = useAppDispatch();
   const vehicle = useAppSelector(vehiclesState).vehicleById;
+  const auth = useAppSelector(authState).auth;
+
   const t = useLangSelector().carDetail;
   const t_dailyRules = useLangSelector().dailyRules;
   const t_global = useLangSelector().global;
@@ -354,7 +344,19 @@ const DetailCarScreen: FC = () => {
         <View style={{flexBasis: '50%', alignSelf: 'flex-end'}}>
           <Button
             title={t_global.button.next}
-            onPress={() => navigation.navigate('OrderDetail')}
+            onPress={() => {
+              console.log(auth)
+              if (!auth?.access_token) {
+                showToast({
+                  message: "Please Login first to continue!",
+                  type: 'error',
+                  title: 'Error'
+                })
+                dispatch(logout());
+                return;
+              }
+              navigation.navigate('OrderDetail')
+            }}
             _theme="navy"
             disabled={!checkInfo}
           />

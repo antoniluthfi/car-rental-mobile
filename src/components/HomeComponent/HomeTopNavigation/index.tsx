@@ -25,20 +25,20 @@ const DataTab: IDataTab[] = [
     id: 'daily',
     comp: <DailyLayout/>,
   },
-  // {
-  //   title: 'Airport Transfer',
-  //   active_icon: ic_daily_car_active,
-  //   inactive_icon: ic_daily_car_active,
-  //   id: 'airport',
-  //   comp: <AirportLayout/>,
-  // },
-  // {
-  //   title: 'tour',
-  //   active_icon: ic_daily_car_active,
-  //   inactive_icon: ic_daily_car_active,
-  //   id: 'tour',
-  //   comp: <TourLayout/>,
-  // },
+  {
+    title: 'Airport Transfer',
+    active_icon: ic_daily_car_active,
+    inactive_icon: ic_daily_car_active,
+    id: 'airport',
+    comp: <AirportLayout/>,
+  },
+  {
+    title: 'tour',
+    active_icon: ic_daily_car_active,
+    inactive_icon: ic_daily_car_active,
+    id: 'tour',
+    comp: <TourLayout/>,
+  },
 ];
 const HomeTopNavigation: FC = () => {
   const [activeTab, setActiveTab] = useState<ITopTabs>('daily');
