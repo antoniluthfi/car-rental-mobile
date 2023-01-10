@@ -84,6 +84,7 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
       if (disbursement?.payment?.method === 'E-money') {
         navigation.navigate('InstantPayment', {
           selectedPayment: disbursement?.payment,
+          transaction_key,
         });
       }
       if (disbursement?.payment?.method === 'Credit Card') {

@@ -142,9 +142,6 @@ const PaymentMethodScreen: FC = () => {
                       transaction_key: route.params?.transaction_key,
                     });
                   } else if (data.method === 'E-money') {
-                    // navigation.navigate('InstantPayment', {
-                    //   selectedPayment: data,
-                    // });
                     methods.handleInstantPayment(data);
                   } else if (data.method === 'Virtual Account') {
                     methods.handlePaymentVA(data);
@@ -174,7 +171,8 @@ const PaymentMethodScreen: FC = () => {
       if (res.type.includes('fulfilled')) {
         navigation.navigate('VirtualAccount', {
           selectedPayment: data,
-          transaction_key: route.params?.transaction_key || order.transaction_key,
+          transaction_key:
+            route.params?.transaction_key || order.transaction_key,
         });
       }
     },
@@ -182,11 +180,16 @@ const PaymentMethodScreen: FC = () => {
       const res = await dispatch(
         createDisbursements({
           payment_type_id: data.id,
-          transaction_key: order.transaction_key,
+          transaction_key:
+            route.params?.transaction_key || order.transaction_key,
         }),
       );
       if (res.type.includes('fulfilled')) {
-        navigation.navigate('InstantPayment', {selectedPayment: data});
+        navigation.navigate('InstantPayment', {
+          selectedPayment: data,
+          transaction_key:
+            route.params?.transaction_key || order.transaction_key,
+        });
       }
     },
     handleIcon: (ic: string) => {
