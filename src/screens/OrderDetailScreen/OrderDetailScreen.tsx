@@ -425,6 +425,7 @@ const OrderDetailScreen: FC = () => {
                 onChangeText={x => setInputPickup(x)}
                 placeholder={t.tripDetail.deliveryLocationPlaceholder}
                 value={inputPickup}
+                style={{padding: 0, marginVertical: 0, marginLeft: 5}}
               />
             )}
           </View>
