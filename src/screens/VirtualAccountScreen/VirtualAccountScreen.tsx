@@ -20,9 +20,11 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
 import {bookingState} from 'redux/features/myBooking/myBookingSlice';
+import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
 import OrderDetailModalContent from 'components/OrderDetailModalContent/OrderDetailModalContent';
 import moment from 'moment';
-import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
+import Clipboard from '@react-native-clipboard/clipboard';
+import { showToast } from 'utils/Toast';
 
 const TIMER = 299;
 const FAQ = [
@@ -36,10 +38,10 @@ type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'VirtualAccount'>;
 const VirtualAccountScreen = () => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
-  const [seconds, setSeconds] = useState(TIMER);
   const bookingDetail = useAppSelector(bookingState).selected;
   const route = useRoute<ProfileScreenRouteProp>();
   const vehicle = useAppSelector(vehiclesState).vehicleById;
+  const [seconds, setSeconds] = useState(TIMER);
 
   const methods = {
     handleFAQ: () => {
@@ -76,6 +78,14 @@ const VirtualAccountScreen = () => {
     handleOrderDetail: () => {
       showBSheet({
         content: <OrderDetailModalContent />,
+      });
+    },
+    copyText: () => {
+      Clipboard.setString(bookingDetail?.disbursement?.va_number as any);
+      showToast({
+        title: 'Berhasil',
+        type: 'success',
+        message: 'berhasil menyalin teks',
       });
     },
   };
@@ -189,31 +199,33 @@ const VirtualAccountScreen = () => {
 
         <Text style={[h1, {marginTop: 20}]}>Lakukan Pembayaran</Text>
 
-          <View>
-            <View style={[rowCenter, {marginTop: 10}]}>
-              <Image source={ic_bca} style={iconCustomSize(30)} />
-              <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
-                {bookingDetail?.disbursement?.payment?.code} Virtual Account
-              </Text>
-            </View>
+        <View>
+          <View style={[rowCenter, {marginTop: 10}]}>
+            <Image source={ic_bca} style={iconCustomSize(30)} />
+            <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
+              {bookingDetail?.disbursement?.payment?.code} Virtual Account
+            </Text>
+          </View>
 
-            <View
-              style={[
-                rowCenter,
-                {
-                  justifyContent: 'space-between',
-                  backgroundColor: theme.colors.cloud,
-                  padding: 10,
-                },
-              ]}>
-              <Text style={[h1]}>{bookingDetail?.disbursement?.va_number}</Text>
+          <View
+            style={[
+              rowCenter,
+              {
+                justifyContent: 'space-between',
+                backgroundColor: theme.colors.cloud,
+                padding: 10,
+              },
+            ]}>
+            <Text style={[h1]}>{bookingDetail?.disbursement?.va_number}</Text>
+            <TouchableOpacity onPress={methods.copyText}>
               <Image
                 source={ic_copy}
                 style={iconCustomSize(40)}
                 resizeMode={'contain'}
               />
-            </View>
+            </TouchableOpacity>
           </View>
+        </View>
 
         <View style={styles.lineHorizontal} />
         <Text style={[h1, {marginTop: 20, marginBottom: 10}]}>
