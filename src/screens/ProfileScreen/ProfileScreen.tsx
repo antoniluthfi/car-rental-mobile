@@ -28,6 +28,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
+import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -39,13 +40,10 @@ const ProfileScreen: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [whatsappChecked, setWhatsappChecked] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
   // FIXME: create optional generic for setTypeUpload state
   const [typeUpload, setTypeUpload] = useState<
     'photo_ktp' | 'photo_license' | 'photo_profile'
   >('photo_profile');
-  const [passwordConfirmationModal, setPasswordConfirmationModal] =
-    useState<boolean>(false);
   const [form, setForm] = useState<ProfileForm>({
     name: '',
     phone_code: '',
@@ -141,16 +139,25 @@ const ProfileScreen: React.FC = () => {
         dispatch(uploadFile({file: val?.[0], name: typeUpload}));
       }
     },
+    showImagePickerOptionsModal: () => {
+      showBSheet({
+        snapPoint: ['30%', '30%'],
+        content: (
+          <ImagePickerModal
+            onCameraChange={methods.onCameraChange}
+            onImageLibraryChange={methods.onImageLibraryChange}
+          />
+        ),
+      });
+    },
     showPasswordConfirmationModal: () => {
       showBSheet({
-        snapPoint: ['35%', '35%'],
+        snapPoint: ['40%', '35%'],
         content: (
           <View style={styles.passwordModalContainer}>
             <View style={styles.header}>
               <View style={styles.headerTitleContainer}>
-                <Text
-                  textBreakStrategy="simple"
-                  style={h2}>
+                <Text textBreakStrategy="simple" style={h2}>
                   Kata Sandi
                 </Text>
               </View>
@@ -193,7 +200,7 @@ const ProfileScreen: React.FC = () => {
         message: 'Berhasil Mengedit Data Profil',
       });
 
-      setPasswordConfirmationModal(false);
+      dispatch(toggleBSheet(false));
       setTimeout(() => {
         navigation.goBack();
       }, 500);
@@ -353,7 +360,7 @@ const ProfileScreen: React.FC = () => {
             selectedImageLabel="foto-ktp.jpg"
             selected={temporaryFileUpload.photo_ktp}
             onPress={() => {
-              setModalVisible(true);
+              methods.showImagePickerOptionsModal();
               setTypeUpload('photo_ktp');
             }}
             onDelete={() => {
@@ -378,7 +385,7 @@ const ProfileScreen: React.FC = () => {
             selectedImageLabel="foto-sim.jpg"
             selected={temporaryFileUpload.photo_license}
             onPress={() => {
-              setModalVisible(true);
+              methods.showImagePickerOptionsModal();
               setTypeUpload('photo_license');
             }}
             onDelete={() => {
@@ -398,13 +405,6 @@ const ProfileScreen: React.FC = () => {
         title={useLangSelector().global.button.save}
         isLoading={loading}
         disabled={isDisabled}
-      />
-
-      <ImagePickerModal
-        trigger={modalVisible}
-        setTrigger={setModalVisible}
-        onCameraChange={methods.onCameraChange}
-        onImageLibraryChange={methods.onImageLibraryChange}
       />
     </ScrollView>
   );
