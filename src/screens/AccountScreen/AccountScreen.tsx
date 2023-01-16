@@ -345,6 +345,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
+    marginVertical: 20
   },
   headerTitleContainer: {
     flexDirection: 'column',
