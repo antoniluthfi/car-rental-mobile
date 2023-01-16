@@ -1,3 +1,25 @@
+import appBar from 'components/AppBar/AppBar';
+import Button from 'components/Button';
+import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
+import FileExistCard from 'components/MyProfileComponent/FileExistCard/FileExistCard';
+import hoc from 'components/hoc';
+import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
+import ProfileTextInput from 'components/MyProfileComponent/ProfileTextInput/ProfileTextInput';
+import React, {useCallback, useEffect, useState} from 'react';
+import UploadImageInput from 'components/UploadImageInput/UploadImageInput';
+import useLangSelector from 'utils/useLangSelector';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {editUser, uploadFile} from 'redux/features/user/userAPI';
+import {getUser} from 'redux/features/appData/appDataAPI';
+import {h1, h2} from 'utils/styles';
+import {ic_arrow_left_white, ic_wa} from 'assets/icons';
+import {ImagePickerResponse} from 'react-native-image-picker';
+import {rowCenter} from 'utils/mixins';
+import {showBSheet} from 'utils/BSheet';
+import {showToast} from 'utils/Toast';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {userState} from 'redux/features/user/userSlice';
 import {
   Image,
   Text,
@@ -6,32 +28,6 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
-import hoc from 'components/hoc';
-import Button from 'components/Button';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, rowCenter} from 'utils/mixins';
-import {ic_arrow_left_white, ic_check2, ic_wa} from 'assets/icons';
-import {h1} from 'utils/styles';
-import {showToast} from 'utils/Toast';
-import {editUser, uploadFile} from 'redux/features/user/userAPI';
-import {userState} from 'redux/features/user/userSlice';
-import ProfileTextInput from 'components/MyProfileComponent/ProfileTextInput/ProfileTextInput';
-import Checkbox from 'components/Checkbox/Checkbox';
-import CustomModal from 'components/CustomModal/CustomModal';
-import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
-import {getUser} from 'redux/features/appData/appDataAPI';
-import {appDataState} from 'redux/features/appData/appDataSlice';
-import UploadImageInput from 'components/UploadImageInput/UploadImageInput';
-import {
-  ImagePickerResponse,
-  launchImageLibrary,
-} from 'react-native-image-picker';
-import FileExistCard from 'components/MyProfileComponent/FileExistCard/FileExistCard';
-import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
-import useLangSelector from 'utils/useLangSelector';
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -102,7 +98,7 @@ const ProfileScreen: React.FC = () => {
         return;
       }
 
-      setPasswordConfirmationModal(true);
+      methods.showPasswordConfirmationModal();
     },
     handleSubmit: () => {
       setLoading(true);
@@ -145,6 +141,42 @@ const ProfileScreen: React.FC = () => {
         dispatch(uploadFile({file: val?.[0], name: typeUpload}));
       }
     },
+    showPasswordConfirmationModal: () => {
+      showBSheet({
+        snapPoint: ['35%', '35%'],
+        content: (
+          <View style={styles.passwordModalContainer}>
+            <View style={styles.header}>
+              <View style={styles.headerTitleContainer}>
+                <Text
+                  textBreakStrategy="simple"
+                  style={h2}>
+                  Kata Sandi
+                </Text>
+              </View>
+            </View>
+
+            <ChangePasswordTextInput
+              label="Masukan Kata Sandi untuk melakukan perubahan"
+              placeholder="Kata sandi anda"
+              onChangeText={v => {
+                setForm({...form, password: v});
+                setFormError({...formError, password: ''});
+              }}
+              value={form.password}
+              errorMessage={formError.password}
+            />
+
+            <Button
+              _theme="navy"
+              onPress={methods.handleSubmit}
+              title={'Konfirmasi'}
+              isLoading={loading}
+            />
+          </View>
+        ),
+      });
+    },
   };
 
   useFocusEffect(
@@ -183,7 +215,9 @@ const ProfileScreen: React.FC = () => {
                 marginLeft: 16,
               }}
             />
-            <Text style={[h1, {color: 'white', marginLeft: 10}]}>{t.profile}</Text>
+            <Text style={[h1, {color: 'white', marginLeft: 10}]}>
+              {t.profile}
+            </Text>
           </TouchableOpacity>
         ),
       }),
@@ -372,31 +406,6 @@ const ProfileScreen: React.FC = () => {
         onCameraChange={methods.onCameraChange}
         onImageLibraryChange={methods.onImageLibraryChange}
       />
-
-      <CustomModal
-        trigger={passwordConfirmationModal}
-        onClose={() => setPasswordConfirmationModal(false)}
-        headerTitle="Kata Sandi">
-        <View style={styles.passwordModalContainer}>
-          <ChangePasswordTextInput
-            label="Masukan Kata Sandi untuk melakukan perubahan"
-            placeholder="Kata sandi anda"
-            onChangeText={v => {
-              setForm({...form, password: v});
-              setFormError({...formError, password: ''});
-            }}
-            value={form.password}
-            errorMessage={formError.password}
-          />
-
-          <Button
-            _theme="navy"
-            onPress={methods.handleSubmit}
-            title={'Konfirmasi'}
-            isLoading={loading}
-          />
-        </View>
-      </CustomModal>
     </ScrollView>
   );
 };
@@ -413,5 +422,13 @@ const styles = StyleSheet.create({
   passwordModalContainer: {
     width: '100%',
     padding: '5%',
+  },
+  header: {
+    flexDirection: 'row',
+  },
+  headerTitleContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: '100%',
   },
 });
