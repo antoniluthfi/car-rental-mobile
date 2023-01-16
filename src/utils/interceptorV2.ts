@@ -1,7 +1,8 @@
-import {create, ApisauceConfig} from 'apisauce';
-import {URL_API} from '@env';
 import store from 'redux/store';
+import {ApisauceConfig, create} from 'apisauce';
+import {logout} from 'redux/features/auth/authSlice';
 import {refreshToken} from 'redux/features/auth/authAPI';
+import {URL_API} from '@env';
 
 type ApiConfig = {
   method: ApisauceConfig['method'];
@@ -38,8 +39,16 @@ export const apiWithInterceptor = async (config: ApiConfig) => {
 
         if (error.response.status === 401) {
           const refresh_token = store?.getState()?.auth?.auth.refresh_token;
-          store.dispatch(refreshToken(refresh_token as any));
-          return api.axiosInstance.request(error.config);
+
+          if (
+            refresh_token &&
+            error.response.data?.slug !== 'refresh-token-invalid'
+          ) {
+            store.dispatch(refreshToken(refresh_token as any));
+            return api.axiosInstance.request(error.config);
+          } else {
+            store.dispatch(logout());
+          }
         }
         return Promise.reject(error);
       } catch (e) {}

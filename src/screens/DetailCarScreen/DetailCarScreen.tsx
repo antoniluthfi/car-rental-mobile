@@ -35,7 +35,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { authState, logout } from 'redux/features/auth/authSlice';
+import {authState, logout} from 'redux/features/auth/authSlice';
 import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
@@ -45,7 +45,7 @@ import {showBSheet} from 'utils/BSheet';
 import {currencyFormat} from 'utils/currencyFormat';
 import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
 import {h1, h3, h4, h5} from 'utils/styles';
-import { showToast } from 'utils/Toast';
+import {showToast} from 'utils/Toast';
 import useLangSelector from 'utils/useLangSelector';
 const t_priceTerm = useLangSelector().priceTerm;
 
@@ -135,24 +135,25 @@ const DetailCarScreen: FC = () => {
             </View>
             <View style={{width: '100%', flex: 1}}>
               <BottomSheetScrollView>
-                <View style={{marginTop: 20, margin: 16}}>
+                <View style={{paddingHorizontal: '5%'}}>
                   {Object.keys(t_dailyRules).map((x, i) => (
                     <View key={i}>
                       <Text style={[h1, {marginTop: 10}]}>
                         {t_dailyRules[x as keyof typeof t_dailyRules].title}
-                        <View style={{marginLeft: 20, marginTop: 10}}>
-                          {t_dailyRules[
-                            x as keyof typeof t_dailyRules
-                          ].list.map((x, i) => (
+                      </Text>
+
+                      <View style={{marginTop: 10, marginLeft: 5}}>
+                        {t_dailyRules[x as keyof typeof t_dailyRules].list.map(
+                          (x, i) => (
                             <View
                               key={i}
                               style={{flexDirection: 'row', marginBottom: 5}}>
                               <Text>• </Text>
                               <Text style={[h4, {lineHeight: 24}]}>{x}</Text>
                             </View>
-                          ))}
-                        </View>
-                      </Text>
+                          ),
+                        )}
+                      </View>
                     </View>
                   ))}
                 </View>
@@ -284,9 +285,7 @@ const DetailCarScreen: FC = () => {
         </View>
 
         <View style={{marginTop: 20, margin: 16}}>
-          <Text style={[h1, {marginTop: 10}]}>
-            {t.rentalRequirement}
-          </Text>
+          <Text style={[h1, {marginTop: 10}]}>{t.rentalRequirement}</Text>
           <View style={{marginLeft: 20, marginTop: 10}}>
             {[...t.policies, ...t.requirements].map((x, i) => (
               <View key={i} style={{flexDirection: 'row', marginBottom: 5}}>
@@ -345,17 +344,17 @@ const DetailCarScreen: FC = () => {
           <Button
             title={t_global.button.next}
             onPress={() => {
-              console.log(auth)
+              console.log(auth);
               if (!auth?.access_token) {
                 showToast({
-                  message: "Please Login first to continue!",
+                  message: 'Please Login first to continue!',
                   type: 'error',
-                  title: 'Error'
-                })
+                  title: 'Error',
+                });
                 dispatch(logout());
                 return;
               }
-              navigation.navigate('OrderDetail')
+              navigation.navigate('OrderDetail');
             }}
             _theme="navy"
             disabled={!checkInfo}
