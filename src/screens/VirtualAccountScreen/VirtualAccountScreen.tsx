@@ -88,6 +88,13 @@ const VirtualAccountScreen = () => {
         message: 'berhasil menyalin teks',
       });
     },
+    getPaymentLabel: () => {
+      if (bookingDetail?.disbursement?.payment?.code === 'Permata') {
+        return bookingDetail?.disbursement?.permata_va_number
+      }
+
+      return bookingDetail?.disbursement?.va_number
+    }
   };
 
   useEffect(() => {
@@ -216,7 +223,7 @@ const VirtualAccountScreen = () => {
                 padding: 10,
               },
             ]}>
-            <Text style={[h1]}>{bookingDetail?.disbursement?.va_number}</Text>
+            <Text style={[h1]}>{methods.getPaymentLabel()}</Text>
             <TouchableOpacity onPress={methods.copyText}>
               <Image
                 source={ic_copy}
