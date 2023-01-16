@@ -1,6 +1,5 @@
 import appBar from 'components/AppBar/AppBar';
 import Button from 'components/Button';
-import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
 import FileExistCard from 'components/MyProfileComponent/FileExistCard/FileExistCard';
 import hoc from 'components/hoc';
 import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
@@ -29,6 +28,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {toggleBSheet} from 'redux/features/utils/utilsSlice';
+import BSheetPasswordTextInput from 'components/MyProfileComponent/BSheetPasswordTextInput/BSheetPasswordTextInput';
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -152,7 +152,7 @@ const ProfileScreen: React.FC = () => {
     },
     showPasswordConfirmationModal: () => {
       showBSheet({
-        snapPoint: ['40%', '35%'],
+        snapPoint: ['35%', '35%'],
         content: (
           <View style={styles.passwordModalContainer}>
             <View style={styles.header}>
@@ -163,7 +163,7 @@ const ProfileScreen: React.FC = () => {
               </View>
             </View>
 
-            <ChangePasswordTextInput
+            <BSheetPasswordTextInput
               label="Masukan Kata Sandi untuk melakukan perubahan"
               placeholder="Kata sandi anda"
               onChangeText={v => {
@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
   },
   passwordModalContainer: {
     width: '100%',
-    padding: '5%',
+    paddingHorizontal: '5%',
   },
   header: {
     flexDirection: 'row',

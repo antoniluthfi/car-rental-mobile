@@ -1,6 +1,5 @@
 import appBar from 'components/AppBar/AppBar';
 import Button from 'components/Button';
-import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
 import hoc from 'components/hoc';
 import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
@@ -35,6 +34,7 @@ import {
   appDataState,
   toggleLanguages,
 } from 'redux/features/appData/appDataSlice';
+import BSheetPasswordTextInput from 'components/MyProfileComponent/BSheetPasswordTextInput/BSheetPasswordTextInput';
 
 const AccountScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -128,7 +128,7 @@ const AccountScreen: React.FC = () => {
               </View>
             </View>
 
-            <ChangePasswordTextInput
+            <BSheetPasswordTextInput
               label="Masukan Kata Sandi untuk melakukan perubahan"
               placeholder="Kata sandi anda"
               onChangeText={v => {
@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
   },
   passwordModalContainer: {
     width: '100%',
-    padding: '5%',
+    paddingHorizontal: '5%',
   },
   header: {
     flexDirection: 'row',
