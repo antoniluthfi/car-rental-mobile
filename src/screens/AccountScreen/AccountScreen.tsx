@@ -1,21 +1,23 @@
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  PermissionsAndroid,
-  Switch,
-} from 'react-native';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import hoc from 'components/hoc';
-import Button from 'components/Button';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {logout} from 'redux/features/auth/authSlice';
-import {toggleLoader} from 'redux/features/utils/utilsSlice';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
+import Button from 'components/Button';
+import hoc from 'components/hoc';
+import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import useLangSelector from 'utils/useLangSelector';
+import {editUser, uploadFile} from 'redux/features/user/userAPI';
+import {getUser} from 'redux/features/appData/appDataAPI';
+import {h1, h2, h5} from 'utils/styles';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ImagePickerResponse} from 'react-native-image-picker';
+import {logout} from 'redux/features/auth/authSlice';
+import {resetUser, userState} from 'redux/features/user/userSlice';
 import {rowCenter} from 'utils/mixins';
+import {showBSheet} from 'utils/BSheet';
+import {showToast} from 'utils/Toast';
+import {toggleBSheet, toggleLoader} from 'redux/features/utils/utilsSlice';
+import {URL_IMAGE} from '@env';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {
   ic_arrow_left_white,
   ic_camera,
@@ -24,30 +26,15 @@ import {
   ic_password_lock,
   ic_profile_active,
 } from 'assets/icons';
-import {h1, h5} from 'utils/styles';
-import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
-import {
-  ImagePickerResponse,
-  launchCamera,
-  launchImageLibrary,
-} from 'react-native-image-picker';
-import {resetUser, user, userState} from 'redux/features/user/userSlice';
 import {
   notificationState,
   resetNotification,
 } from 'redux/features/notifications/notificationSlice';
-import {showToast} from 'utils/Toast';
-import {editUser, uploadFile} from 'redux/features/user/userAPI';
 import {
   appDataState,
   toggleLanguages,
 } from 'redux/features/appData/appDataSlice';
-import CustomModal from 'components/CustomModal/CustomModal';
-import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
-import {URL_IMAGE} from '@env';
-import {getUser} from 'redux/features/appData/appDataAPI';
-import langSelector from 'utils/useLangSelector';
-import useLangSelector from 'utils/useLangSelector';
+import BSheetPasswordTextInput from 'components/MyProfileComponent/BSheetPasswordTextInput/BSheetPasswordTextInput';
 
 const AccountScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -68,9 +55,6 @@ const AccountScreen: React.FC = () => {
   };
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [passwordConfirmationModal, setPasswordConfirmationModal] =
-    useState<boolean>(false);
   const [password, setPassword] = useState<string>('12345678abc');
   const [errorPassword, setErrorPassword] = useState<string>('');
 
@@ -110,7 +94,7 @@ const AccountScreen: React.FC = () => {
       };
 
       dispatch(editUser(formData)).then(() => {
-        setPasswordConfirmationModal(false);
+        dispatch(toggleBSheet(false));
         showToast({
           title: 'Berhasil',
           type: 'success',
@@ -119,6 +103,51 @@ const AccountScreen: React.FC = () => {
         dispatch(getUser());
       });
       setLoading(false);
+    },
+    showImagePickerOptionsModal: () => {
+      showBSheet({
+        snapPoint: ['30%', '30%'],
+        content: (
+          <ImagePickerModal
+            onCameraChange={methods.openCamera}
+            onImageLibraryChange={methods.openImageLibrary}
+          />
+        ),
+      });
+    },
+    showPasswordConfirmationModal: () => {
+      showBSheet({
+        snapPoint: ['35%', '35%'],
+        content: (
+          <View style={styles.passwordModalContainer}>
+            <View style={styles.header}>
+              <View style={styles.headerTitleContainer}>
+                <Text textBreakStrategy="simple" style={h2}>
+                  Kata Sandi
+                </Text>
+              </View>
+            </View>
+
+            <BSheetPasswordTextInput
+              label="Masukan Kata Sandi untuk melakukan perubahan"
+              placeholder="Kata sandi anda"
+              onChangeText={v => {
+                setPassword(v);
+                setErrorPassword('');
+              }}
+              value={password}
+              errorMessage={errorPassword}
+            />
+
+            <Button
+              _theme="navy"
+              onPress={methods.handleSubmit}
+              title={'Konfirmasi'}
+              isLoading={loading}
+            />
+          </View>
+        ),
+      });
     },
   };
 
@@ -147,7 +176,7 @@ const AccountScreen: React.FC = () => {
 
   useEffect(() => {
     if (Object.keys(user.data).length) {
-      setPasswordConfirmationModal(true);
+      methods.showPasswordConfirmationModal();
     }
   }, [user.data]);
 
@@ -188,9 +217,18 @@ const AccountScreen: React.FC = () => {
               {
                 marginRight: 16,
               },
-            ]} onPress={()=>toggleSwitch(isEnabled)}>
-            <Text style={[h1, {color: isEnabled ? '#fff' : '#828181', marginRight: 10}]}>id</Text>
-            <Text style={[h1, {color: !isEnabled ? '#fff' : '#828181'}]}>en</Text>
+            ]}
+            onPress={() => toggleSwitch(isEnabled)}>
+            <Text
+              style={[
+                h1,
+                {color: isEnabled ? '#fff' : '#828181', marginRight: 10},
+              ]}>
+              id
+            </Text>
+            <Text style={[h1, {color: !isEnabled ? '#fff' : '#828181'}]}>
+              en
+            </Text>
           </TouchableOpacity>
         ),
       }),
@@ -204,7 +242,7 @@ const AccountScreen: React.FC = () => {
           <View style={styles.imageContainer}>{ProfileImage}</View>
           <TouchableOpacity
             style={styles.pickerContainer}
-            onPress={() => setModalVisible(true)}>
+            onPress={methods.showImagePickerOptionsModal}>
             <Image source={ic_camera} style={styles.camera} />
           </TouchableOpacity>
         </View>
@@ -238,38 +276,6 @@ const AccountScreen: React.FC = () => {
       </View>
 
       <Button _theme="navy" onPress={methods.handleLogout} title={'LOGOUT'} />
-
-      <ImagePickerModal
-        trigger={modalVisible}
-        setTrigger={setModalVisible}
-        onCameraChange={methods.openCamera}
-        onImageLibraryChange={methods.openImageLibrary}
-      />
-
-      <CustomModal
-        trigger={passwordConfirmationModal}
-        onClose={() => setPasswordConfirmationModal(false)}
-        headerTitle="Kata Sandi">
-        <View style={styles.passwordModalContainer}>
-          <ChangePasswordTextInput
-            label="Masukan Kata Sandi untuk melakukan perubahan"
-            placeholder="Kata sandi anda"
-            onChangeText={v => {
-              setPassword(v);
-              setErrorPassword('');
-            }}
-            value={password}
-            errorMessage={errorPassword}
-          />
-
-          <Button
-            _theme="navy"
-            onPress={methods.handleSubmit}
-            title={'Konfirmasi'}
-            isLoading={loading}
-          />
-        </View>
-      </CustomModal>
     </View>
   );
 };
@@ -335,6 +341,15 @@ const styles = StyleSheet.create({
   },
   passwordModalContainer: {
     width: '100%',
-    padding: '5%',
+    paddingHorizontal: '5%',
+  },
+  header: {
+    flexDirection: 'row',
+    marginVertical: 20
+  },
+  headerTitleContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: '100%',
   },
 });

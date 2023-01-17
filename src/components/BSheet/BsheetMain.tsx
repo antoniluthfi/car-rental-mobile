@@ -1,24 +1,29 @@
 import BottomSheet, {WINDOW_HEIGHT, WINDOW_WIDTH} from '@gorhom/bottom-sheet';
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {toggleBSheet, utilsState} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {BackHandler} from 'react-native';
 
 const BsheetMain = () => {
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const [isClose, setIsClose] = useState(false);
   const dispatch = useAppDispatch();
 
   const isShowBsheet = useAppSelector(utilsState);
 
   // variables
-  const snapPoints = useMemo(() => ['60%', '90%'], []);
+  const snapPoints = useMemo(() => {
+    if (isShowBsheet.snapPoint) {
+      return isShowBsheet.snapPoint;
+    }
+
+    return ['50%', '90%'];
+  }, []);
 
   // callbacks
   const handleSheetChanges = useCallback(
     (index: number) => {
-      console.log('handleSheetChanges', index);
       if (index === -1) {
         dispatch(toggleBSheet(false));
       }
@@ -26,6 +31,19 @@ const BsheetMain = () => {
     [isShowBsheet.isShowBSHeet],
   );
 
+  useEffect(() => {
+    const backAction = () => {
+      bottomSheetRef?.current?.close();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   // renders
   return (
     <View style={[styles.container, {height: WINDOW_HEIGHT}]}>

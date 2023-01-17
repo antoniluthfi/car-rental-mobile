@@ -1,21 +1,23 @@
-import { ReactNode } from "react";
-import { useDispatch } from "react-redux"
-import { toggleBSheet, toggleToast } from "redux/features/utils/utilsSlice";
-import store from "redux/store";
+import store from 'redux/store';
+import {ReactNode} from 'react';
+import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 
 interface IToast {
-    content:ReactNode;
-    height?: 'half' | 'full' | 'both';
+  content: ReactNode;
+  /**
+   * value should be in percentage
+   */
+  snapPoint?: [string, string];
 }
-export const showBSheet = ({
-    content,
-    height
-}: IToast) => {
-    const dispatch = store.dispatch;
-    const showBsheet = store.getState().utils.isShowBSHeet;
-    dispatch(toggleBSheet({
-        content,
-        height: height,
-        show: !showBsheet
-    }));
-}
+
+export const showBSheet = ({content, snapPoint}: IToast) => {
+  const dispatch = store.dispatch;
+  const showBsheet = store.getState().utils.isShowBSHeet;
+  dispatch(
+    toggleBSheet({
+      content,
+      snapPoint,
+      show: !showBsheet,
+    }),
+  );
+};
