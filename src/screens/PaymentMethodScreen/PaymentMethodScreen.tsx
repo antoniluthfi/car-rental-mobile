@@ -159,6 +159,7 @@ const PaymentMethodScreen: FC = () => {
             </View>
           </View>
         ),
+        height: 'half'
       });
     },
     handlePaymentVA: async (data: IPayments) => {

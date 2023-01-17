@@ -10,6 +10,7 @@ interface IInit {
     isShowBSHeet: boolean;
     contentBsheet ? :ReactNode;
     typeToast: 'success' | 'warning' | 'error';
+    height: 'half' | 'full';
 }
 const initialState: IInit = {
     isShowLoader: false,
@@ -19,6 +20,7 @@ const initialState: IInit = {
     typeToast: 'success',
     isShowBSHeet: false,
     contentBsheet: undefined,
+    height: "full",
 };
 
 export const utilsSlice = createSlice({
@@ -37,6 +39,7 @@ export const utilsSlice = createSlice({
         toggleBSheet: (state, action)=> {
             state.isShowBSHeet = action.payload.show;
             state.contentBsheet = action.payload.content;
+            state.height = action.payload.height || 'full';
         }
     },
 });

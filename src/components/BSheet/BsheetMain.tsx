@@ -13,7 +13,7 @@ const BsheetMain = () => {
   const isShowBsheet = useAppSelector(utilsState);
 
   // variables
-  const snapPoints = useMemo(() => ['50%', '90%'], []);
+  const snapPoints = useMemo(() => ['60%', '90%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback(
@@ -31,7 +31,7 @@ const BsheetMain = () => {
     <View style={[styles.container, {height: WINDOW_HEIGHT}]}>
       <BottomSheet
         ref={bottomSheetRef}
-        index={1}
+        index={isShowBsheet.height === 'half' ? 0 : 1}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         enablePanDownToClose={true}>

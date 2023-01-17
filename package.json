@@ -4,9 +4,10 @@
     "private": true,
     "scripts": {
         "android": "react-native run-android",
-        "ios": "react-native run-ios --simulator='iPhone 13'",
+        "ios": "react-native run-ios --simulator='iPhone 14 Pro'",
         "start": "react-native start",
         "test": "jest",
+        "reset": "yarn start --reset-cache",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
     },
     "dependencies": {
