@@ -4,17 +4,17 @@ import hoc from 'components/hoc';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {
   boxShadow,
-  iconCustomSize,
   WINDOW_HEIGHT,
   WINDOW_WIDTH,
 } from 'utils/mixins';
 import {Image} from 'react-native';
-import {img_beach, img_car, img_car_2, img_mall} from 'assets/images';
+import {img_beach, img_car_2, img_car_3} from 'assets/images';
 import HomeTopNavigation from 'components/HomeComponent/HomeTopNavigation';
 import {useAppDispatch} from 'redux/hooks';
 import {getUser} from 'redux/features/appData/appDataAPI';
 import {h1, h5} from 'utils/styles';
 import useLangSelector from 'utils/useLangSelector';
+import HomeHero from 'components/HomeComponent/HomeHero/HomeHero';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -37,7 +37,7 @@ const HomeScreen: React.FC = () => {
     <View style={[styles.wrapper]}>
       {/* <Text>{update}</Text> */}
       <ScrollView>
-        <Image source={img_car} style={styles.imgCar} resizeMode="cover" />
+        <HomeHero />
         <HomeTopNavigation />
         <View style={{paddingLeft: 16, marginTop: 20}}>
 
