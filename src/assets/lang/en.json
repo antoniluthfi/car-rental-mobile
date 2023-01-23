@@ -10,6 +10,7 @@
             "location": "Choose your location",
             "placeholder_location": "Choose your location",
             "without_driver": "Without Driver",
+            "with_driver": "With Driver",
             "rent_start_date": "Rental Start Date",
             "rent_end_date": "Rental End Date",
             "rent_start_time": "Rental Start Time",

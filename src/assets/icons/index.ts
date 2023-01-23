@@ -84,3 +84,5 @@ export const ic_rent_motorcycle = require('./ic_rent_motorcycle.png');
 export const ic_rent_motorcycle_active = require('./ic_rent_motorcycle_active.png');
 export const ic_rent_bicycle = require('./ic_rent_bicycle.png');
 export const ic_rent_bicycle_active = require('./ic_rent_bicycle_active.png');
+export const ic_without_driver_active = require('./ic_without_driver_active.png');
+export const ic_with_driver = require('./ic_with_driver.png');
