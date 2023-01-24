@@ -9,7 +9,8 @@
         "daily": {
             "location": "Pilih Lokasi Anda",
             "placeholder_location": "Pilih Lokasi Anda",
-            "without_driver": "Tanpa Driver",
+            "without_driver": "Tanpa Supir",
+            "with_driver": "Dengan Supir",
             "rent_start_date": "Tanggal Mulai Sewa",
             "rent_end_date": "Tanggal Selesai Sewa",
             "rent_start_time": "Waktu Mulai Sewa",

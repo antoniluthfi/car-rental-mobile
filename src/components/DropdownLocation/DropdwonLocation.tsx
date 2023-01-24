@@ -1,5 +1,15 @@
-import {ic_apple, ic_info, ic_info_error, ic_pinpoin} from 'assets/icons';
 import React, {FC, ReactElement, useRef, useState} from 'react';
+import useLangSelector from 'utils/useLangSelector';
+import {
+  colorSelecting,
+  iconCustomSize,
+  iconSize,
+  rowCenter,
+} from 'utils/mixins';
+import {h1, h2, h5} from 'utils/styles';
+import {ic_info_error, ic_pinpoin} from 'assets/icons';
+import {ICities} from 'types/global.types';
+import {theme} from 'utils';
 import {
   FlatList,
   StyleSheet,
@@ -9,12 +19,6 @@ import {
   View,
   Image,
 } from 'react-native';
-import {ICities} from 'types/global.types';
-import {theme} from 'utils';
-import {colorSelecting, iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
-import {h1, h2, h5} from 'utils/styles';
-import useLangSelector from 'utils/useLangSelector';
-// import { Icon } from 'react-native-elements';
 
 interface Props {
   label: string;
@@ -93,10 +97,6 @@ const Dropdown: FC<Props> = ({
     <View>
       <View style={[rowCenter, {justifyContent: 'space-between'}]}>
         <Text style={[h1]}>{lang.Home.daily.location}</Text>
-        <View style={[rowCenter, styles.wrapperInfo]}>
-          <Image source={ic_info} style={iconSize} />
-          <Text style={[h2, {color: '#fff', fontSize: 12, marginLeft: 5}]}>{lang.Home.daily.without_driver}</Text>
-        </View>
       </View>
 
       <TouchableOpacity
@@ -175,13 +175,6 @@ const styles = StyleSheet.create({
     // borderBottomColor: theme.colors.grey5,
     paddingVertical: 10,
     marginTop: 10,
-  },
-  wrapperInfo: {
-    backgroundColor: theme.colors.navy,
-    paddingHorizontal: 7,
-    paddingVertical: 3,
-    borderRadius: 20,
-    alignItems: 'center',
   },
 });
 

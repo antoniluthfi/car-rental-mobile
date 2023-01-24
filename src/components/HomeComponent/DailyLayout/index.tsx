@@ -1,21 +1,20 @@
-import {useNavigation} from '@react-navigation/native';
-import {ic_info} from 'assets/icons';
 import Button from 'components/Button';
 import DatePickerComponent from 'components/DatePicker/DatePicker';
 import DropdownLocation from 'components/DropdownLocation/DropdwonLocation';
 import moment from 'moment';
 import React, {FC, useEffect, useState} from 'react';
-import {StyleSheet, Text, View, Platform, Image} from 'react-native';
 import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
-import {getAllCities} from 'redux/features/appData/appDataAPI';
+import useLangSelector from 'utils/useLangSelector';
 import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
+import {getAllCities} from 'redux/features/appData/appDataAPI';
+import {h1} from 'utils/styles';
+import {ICities} from 'types/global.types';
+import {Platform, Text, View} from 'react-native';
 import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {ICities} from 'types/global.types';
-import useLangSelector from 'utils/useLangSelector';
-import {theme} from 'utils';
-import {iconCustomSize, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import {h1, h2} from 'utils/styles';
+import {useNavigation} from '@react-navigation/native';
+import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
+import DriverSelection from '../DriverSelection/DriverSelection';
 
 interface IForm {
   location: ICities;
@@ -71,7 +70,7 @@ const DailyLayout: FC = () => {
       }
       if (!form.tanggal_pengembalian) {
         _errorMessage['error_tanggal_pengembalian'] =
-        lang.Home.daily.error_rent_date;
+          lang.Home.daily.error_rent_date;
         status = false;
       }
       if (!form.jam_sewa) {
@@ -80,7 +79,7 @@ const DailyLayout: FC = () => {
       }
       setFormError({..._errorMessage});
 
-      if(parseInt(form.jam_sewa.slice(0, form.jam_sewa.length / 2)) < 7) {
+      if (parseInt(form.jam_sewa.slice(0, form.jam_sewa.length / 2)) < 7) {
         return;
       }
 
@@ -126,11 +125,12 @@ const DailyLayout: FC = () => {
   };
 
   return (
-    <View style={{flex: 1, margin: 16}}>
-      <View style={styles.withoutDriver}>
-        <Image source={ic_info} style={iconCustomSize(13)} />
-        <Text style={[h2, styles.withoutDriverLabel]}>Tanpa Supir</Text>
-      </View>
+    <View style={{flex: 1, marginHorizontal: 16, marginTop: 16}}>
+      <DriverSelection
+        onChange={() => {
+          /** TODO */
+        }}
+      />
 
       <DropdownLocation
         data={cities}
@@ -163,7 +163,9 @@ const DailyLayout: FC = () => {
           value={form.tanggal_sewa ?? ''}
           content={
             <View>
-              <Text style={[h1, {marginLeft: 16}]}>{lang.Home.daily.rent_start_date}</Text>
+              <Text style={[h1, {marginLeft: 16}]}>
+                {lang.Home.daily.rent_start_date}
+              </Text>
               <ReactNativeModernDatepicker
                 style={{
                   width: WINDOW_WIDTH,
@@ -222,7 +224,9 @@ const DailyLayout: FC = () => {
           value={form.tanggal_pengembalian ?? ''}
           content={
             <View>
-              <Text style={[h1, {marginLeft: 16}]}>{lang.Home.daily.rent_end_date}</Text>
+              <Text style={[h1, {marginLeft: 16}]}>
+                {lang.Home.daily.rent_end_date}
+              </Text>
               <ReactNativeModernDatepicker
                 style={{
                   width: WINDOW_WIDTH,
@@ -279,17 +283,3 @@ const DailyLayout: FC = () => {
 };
 
 export default DailyLayout;
-
-const styles = StyleSheet.create({
-  withoutDriver: {
-    backgroundColor: theme.colors.navy,
-    borderRadius: 50,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    position: 'absolute',
-    right: 0,
-  },
-  withoutDriverLabel: {color: theme.colors.white, marginLeft: 5, fontSize: 10},
-});
