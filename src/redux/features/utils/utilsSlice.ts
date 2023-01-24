@@ -20,11 +20,7 @@ const initialState: IInit = {
     typeToast: 'success',
     isShowBSHeet: false,
     contentBsheet: undefined,
-<<<<<<< HEAD
-    height: "full",
-=======
     snapPoint: undefined
->>>>>>> 5800bace9a6274231cfa40a6e758935c7abfb889
 };
 
 export const utilsSlice = createSlice({
@@ -43,11 +39,7 @@ export const utilsSlice = createSlice({
         toggleBSheet: (state, action)=> {
             state.isShowBSHeet = action.payload.show;
             state.contentBsheet = action.payload.content;
-<<<<<<< HEAD
-            state.height = action.payload.height || 'full';
-=======
             state.snapPoint = action.payload.snapPoint;
->>>>>>> 5800bace9a6274231cfa40a6e758935c7abfb889
         }
     },
 });

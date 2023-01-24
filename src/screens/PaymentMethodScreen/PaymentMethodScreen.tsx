@@ -159,7 +159,7 @@ const PaymentMethodScreen: FC = () => {
             </View>
           </View>
         ),
-        height: 'half'
+        snapPoint: ['60%', '90%'],
       });
     },
     handlePaymentVA: async (data: IPayments) => {

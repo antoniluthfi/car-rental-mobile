@@ -71,7 +71,7 @@ const MainStack: React.FC = () => {
 
   useEffect(() => {
     if (auth.isSignIn && auth.status === 'failed' && !auth.token.token) {
-      dispatch(logout());
+      // dispatch(logout());
     }
   }, []);
 

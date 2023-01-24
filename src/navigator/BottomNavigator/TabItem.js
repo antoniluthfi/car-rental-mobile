@@ -16,9 +16,15 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import { authState, logout } from 'redux/features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import theme from 'utils/theme';
+import { showToast } from 'utils/Toast';
 
 const TabItem = ({title, active, onPress, onLongPress}) => {
+  const dispatch = useAppDispatch();
+  const auth = useAppSelector(authState).auth;
+
   const Icon = () => {
     if (title === 'Home') {
       return active ? (
@@ -66,7 +72,18 @@ const TabItem = ({title, active, onPress, onLongPress}) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={onPress}
+      onPress={() => {
+        if (!auth?.access_token) {
+                showToast({
+                  message: 'Please Login first to continue!',
+                  type: 'error',
+                  title: 'Error',
+                });
+                dispatch(logout());
+                return;
+              }
+        onPress();
+      }}
       onLongPress={onLongPress}>
       <Icon />
       <Text style={styles.text(active)}>{title}</Text>
