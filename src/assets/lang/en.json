@@ -21,7 +21,8 @@
             "error_rent_date": "Enter the Date first",
             "error_rent_time": "Choose Your Clock",
             "day": "Day",
-            "days": "Days"
+            "days": "Days",
+            "continue_to_whatsapp": "Continue to Whatsapp"
         },
         "destinationFavTitle": "Popular Destination in Bali",
         "destinationFavList": [{

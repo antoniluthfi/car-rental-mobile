@@ -21,7 +21,8 @@
             "error_rent_date": "Masukan Tanggal terlebih dahulu",
             "error_rent_time": "Pilih Jam Anda",
             "day": "Hari",
-            "days": "Hari"
+            "days": "Hari",
+            "continue_to_whatsapp": "Lanjutkan ke Whatsapp"
         },
         "destinationFavTitle": "Destinasi Popular di Bali",
         "destinationFavList": [{

@@ -1,14 +1,18 @@
 import React from 'react';
+import theme from 'utils/theme';
 import {
   ActivityIndicator,
+  Image,
+  ImageSourcePropType,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  ViewStyle,
   TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
 } from 'react-native';
 import {h1} from 'utils/styles';
-import theme from 'utils/theme';
+import {iconCustomSize} from 'utils/mixins';
 
 interface IButton {
   title: string;
@@ -19,6 +23,7 @@ interface IButton {
   isLoading?: boolean;
   disabled?: boolean;
   lineColor?: string;
+  rightIcon?: ImageSourcePropType;
 }
 
 type ITheme = 'white' | 'navy' | 'transparent';
@@ -33,7 +38,6 @@ const TEXT_COLORS = {
   white: theme.colors.navy,
   navy: theme.colors.white,
   transparent: theme.colors.white,
-  
 };
 
 const Button = ({
@@ -45,6 +49,7 @@ const Button = ({
   isLoading,
   disabled = false,
   lineColor,
+  rightIcon,
 }: IButton) => {
   return (
     <TouchableOpacity
@@ -55,14 +60,22 @@ const Button = ({
         ButtonTheme(_theme, isLoading),
         styleWrapper,
         disabled && {backgroundColor: theme.colors.grey6},
-        lineColor && {borderColor: lineColor, borderWidth: 1}
+        lineColor && {borderColor: lineColor, borderWidth: 1},
       ]}>
-      {!isLoading && (
-        <Text style={[h1, TextTheme(_theme), styleText]}>{title}</Text>
-      )}
-      {isLoading && (
-        <ActivityIndicator size={'small'} color={theme.colors.white} />
-      )}
+      <View style={styles.content}>
+        {!isLoading && (
+          <Text style={[h1, TextTheme(_theme), styleText]}>{title}</Text>
+        )}
+        {isLoading && (
+          <ActivityIndicator size={'small'} color={theme.colors.white} />
+        )}
+        {rightIcon && (
+          <Image
+            source={rightIcon}
+            style={[iconCustomSize(20), {marginLeft: 5}]}
+          />
+        )}
+      </View>
     </TouchableOpacity>
   );
 };
@@ -89,5 +102,8 @@ const styles = StyleSheet.create({
   textTitle: {
     fontWeight: '700',
     fontSize: 16,
+  },
+  content: {
+    flexDirection: 'row',
   },
 });

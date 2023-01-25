@@ -1,13 +1,18 @@
 import useLangSelector from 'utils/useLangSelector';
 import {h1} from 'utils/styles';
-import {ic_with_driver, ic_without_driver_active} from 'assets/icons';
+import {
+  ic_with_driver,
+  ic_without_driver_active,
+  ic_without_driver,
+  ic_with_driver_active,
+} from 'assets/icons';
 import {iconSize, rowCenter} from 'utils/mixins';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {theme} from 'utils';
 import {useState} from 'react';
 
 type Props = {
-  onChange: (val: number) => void;
+  onChange: ({withDriver}: {withDriver: boolean}) => void;
 };
 
 const DriverSelection: React.FC<Props> = ({onChange}) => {
@@ -17,17 +22,19 @@ const DriverSelection: React.FC<Props> = ({onChange}) => {
   const buttonList = [
     {
       id: 1,
-      img: ic_without_driver_active,
+      img: ic_without_driver,
       imgActive: ic_without_driver_active,
       name: lang.Home.daily.without_driver,
+      withDriver: false,
       disabled: false,
     },
     {
       id: 2,
       img: ic_with_driver,
-      imgActive: ic_with_driver,
+      imgActive: ic_with_driver_active,
       name: lang.Home.daily.with_driver,
-      disabled: true,
+      withDriver: true,
+      disabled: false,
     },
   ];
 
@@ -48,7 +55,7 @@ const DriverSelection: React.FC<Props> = ({onChange}) => {
           ]}
           onPress={() => {
             setSelected(button.id);
-            onChange(button.id);
+            onChange({withDriver: button.withDriver});
           }}
           disabled={button.disabled}>
           <View style={rowCenter}>
