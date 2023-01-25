@@ -13,7 +13,7 @@ const theme = {
     grey8: '#F5F5F5',
     grey9: '#FAFAFA',
     cloud: '#ECF0F1',
-    navy: '#344F67',
+    navy: '#1C3D5D',
     dark: '#000000',
     blue: '#0085FF',
     red: '#EA2626',
