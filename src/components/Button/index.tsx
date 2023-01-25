@@ -21,17 +21,19 @@ interface IButton {
   lineColor?: string;
 }
 
-type ITheme = 'white' | 'navy' | 'transparent';
+type ITheme = 'white' | 'navy' | 'transparent' | 'red';
 
 const BUTTON_COLORS = {
   white: theme.colors.white,
   navy: theme.colors.navy,
   transparent: 'transparent',
+  red: '#FF5757'
 };
 
 const TEXT_COLORS = {
   white: theme.colors.navy,
   navy: theme.colors.white,
+  red: theme.colors.white,
   transparent: theme.colors.white,
   
 };

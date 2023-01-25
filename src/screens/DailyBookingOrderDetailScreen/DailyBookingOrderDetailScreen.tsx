@@ -31,6 +31,7 @@ import {theme} from 'utils';
 import {showBSheet} from 'utils/BSheet';
 import CustomTextInput from 'components/TextInput';
 import DropdownBank from 'components/UploadBankTransferComponent/DropdownBank/DropdwonBank';
+import ModalSuccessCancelOrder from 'components/ModalSuccessCancelOrder/ModalSuccessCancelOrder';
 import {IPayments} from 'types/global.types';
 import {cancelOrder} from 'redux/features/order/orderAPI';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -52,6 +53,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
   const t = useLangSelector().myBooking;
   const t_global = useLangSelector().global;
 
+  const [showModalSuccess, setShowModalSuccess] = useState(false);
   const [images, setImages] = useState<any[]>([]);
   const [orderState, setOrderState] = useState<string>('');
   const [formCancel, setFormCancel] = useState({
@@ -337,10 +339,11 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
           {isFuture(new Date(selected?.order_detail?.start_booking_date as any)) &&
             (slugify(orderState) !== 'failed' && slugify(orderState) !== 'cancelled') && (
               <Button
-                _theme="white"
+                _theme="red"
                 title="Batalkan Pesanan"
                 onPress={() => {
                   methods.handleConfirmation('cancel_order');
+                  
                 }}
                 styleWrapper={{
                   marginBottom: 10,
@@ -452,9 +455,10 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                   );
                   console.log('res = ', res);
                   if(res?.type.includes('fulfilled')) {
-                    navigation.goBack();
-                    bottomSheetRef.current?.close();
-                    dispatch(getOrders());
+                    setShowModalSuccess(true);
+                    // navigation.goBack();
+                    // bottomSheetRef.current?.close();
+                    // dispatch(getOrders());
                     return;
                   }
                   showToast({
@@ -469,6 +473,11 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
           </View>
         </View>
       </BottomSheet>
+      {<ModalSuccessCancelOrder visible={showModalSuccess} setVisible={setShowModalSuccess} onFinish={()=> {
+        navigation.goBack();
+        bottomSheetRef.current?.close();
+        dispatch(getOrders());
+      }} />}
     </View>
   );
 };
