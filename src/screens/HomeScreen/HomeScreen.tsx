@@ -8,7 +8,7 @@ import {
   WINDOW_WIDTH,
 } from 'utils/mixins';
 import {Image} from 'react-native';
-import {img_beach, img_car_2, img_car_3} from 'assets/images';
+import {img_beach, img_car_2} from 'assets/images';
 import HomeTopNavigation from 'components/HomeComponent/HomeTopNavigation';
 import {useAppDispatch} from 'redux/hooks';
 import {getUser} from 'redux/features/appData/appDataAPI';
@@ -16,12 +16,15 @@ import {h1, h5} from 'utils/styles';
 import useLangSelector from 'utils/useLangSelector';
 import HomeHero from 'components/HomeComponent/HomeHero/HomeHero';
 
+type HeroState = "Sewa Mobil" | "Sewa Motor" | "Sewa Sepeda"
+
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const t = useLangSelector().Home;
   const t1 = useLangSelector();
   const [update, setUpdate] = useState(false);
+  const [heroState, setHeroState] = useState<HeroState>("Sewa Mobil");
 
   useEffect(() => {
     dispatch(getUser());
@@ -37,8 +40,8 @@ const HomeScreen: React.FC = () => {
     <View style={[styles.wrapper]}>
       {/* <Text>{update}</Text> */}
       <ScrollView>
-        <HomeHero />
-        <HomeTopNavigation />
+        <HomeHero onSelectionChange={setHeroState as any} />
+        <HomeTopNavigation state={heroState} />
         <View style={{paddingLeft: 16, marginTop: 20}}>
 
         <Text style={[h1]}>{t.carFavTitle}</Text>

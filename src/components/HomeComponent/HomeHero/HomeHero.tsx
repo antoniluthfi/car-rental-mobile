@@ -1,18 +1,7 @@
-import {
-  get_ride_logo,
-  img_carousel_1,
-  img_hero_background,
-} from 'assets/images';
+import {get_ride_logo, img_hero_background} from 'assets/images';
 import {h1} from 'utils/styles';
 import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useState} from 'react';
 import {
   ic_rent_bicycle,
@@ -22,8 +11,11 @@ import {
   ic_rent_motorcycle,
   ic_rent_motorcycle_active,
 } from 'assets/icons';
-import {ScrollView} from 'react-native-gesture-handler';
 import CarouselHero from '../CarouselHero/CarouselHero';
+
+type HomeHeroProps = {
+  onSelectionChange: (val: string) => void;
+};
 
 const buttonList = [
   {
@@ -46,7 +38,7 @@ const buttonList = [
   },
 ];
 
-const HomeHero: React.FC = () => {
+const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
   const [selected, setSelected] = useState(1);
 
   return (
@@ -78,7 +70,10 @@ const HomeHero: React.FC = () => {
                 ...(button.id === 3 ? styles.buttonBorderRight : {}),
               },
             ]}
-            onPress={() => setSelected(button.id)}
+            onPress={() => {
+              setSelected(button.id);
+              onSelectionChange(button.title);
+            }}
             key={i}>
             <View style={rowCenter}>
               <Image

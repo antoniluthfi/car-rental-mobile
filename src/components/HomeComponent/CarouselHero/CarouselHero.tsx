@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     height: 100,
     marginRight: 5,
-    borderRadius: 5
+    borderRadius: 10
   },
   title: {
     color: theme.colors.white,
