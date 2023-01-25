@@ -11,6 +11,7 @@
             "placeholder_location": "Pilih Lokasi Anda",
             "without_driver": "Tanpa Supir",
             "with_driver": "Dengan Supir",
+            "select_date": "Pilih Tanggal",
             "rent_start_date": "Tanggal Mulai Sewa",
             "rent_end_date": "Tanggal Selesai Sewa",
             "rent_start_time": "Waktu Mulai Sewa",
@@ -18,7 +19,10 @@
             "btn_search": "Cari Mobil",
             "error_location": "Masukan lokasi anda",
             "error_rent_date": "Masukan Tanggal terlebih dahulu",
-            "error_rent_time": "Pilih Jam Anda"
+            "error_rent_time": "Pilih Jam Anda",
+            "day": "Hari",
+            "days": "Hari",
+            "continue_to_whatsapp": "Lanjutkan ke Whatsapp"
         },
         "destinationFavTitle": "Destinasi Popular di Bali",
         "destinationFavList": [{

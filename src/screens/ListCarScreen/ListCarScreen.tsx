@@ -1,3 +1,21 @@
+import appBar from 'components/AppBar/AppBar';
+import DropdownFilter from 'components/DropdownFilter/DropdownFilter';
+import hoc from 'components/hoc';
+import React, {FC, useEffect, useState} from 'react';
+import useLangSelector from 'utils/useLangSelector';
+import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
+import {currencyFormat} from 'utils/currencyFormat';
+import {FONT_SIZE_12} from 'utils/typography';
+import {getBrands, getVehicles} from 'redux/features/vehicles/vehiclesAPI';
+import {h1, h2, h3, h4, h5} from 'utils/styles';
+import {iconSize, rowCenter} from 'utils/mixins';
+import {IFormDaily} from 'types/global.types';
+import {IVehicles} from 'types/vehicles';
+import {theme} from 'utils';
+import {URL_IMAGE} from '@env';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
+import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {
   FlatList,
   Image,
@@ -7,12 +25,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {FC, useEffect, useState} from 'react';
-import hoc from 'components/hoc';
-import {useNavigation} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
 import {
-  ic_arrow_left,
   ic_arrow_left_white,
   ic_disable,
   ic_dog,
@@ -20,21 +33,6 @@ import {
   ic_nosmoke,
   ic_seat,
 } from 'assets/icons';
-import {iconSize, rowCenter} from 'utils/mixins';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
-import DropdownFilter from 'components/DropdownFilter/DropdownFilter';
-import {img_car_2} from 'assets/images';
-import {theme} from 'utils';
-import {FONT_SIZE_10, FONT_SIZE_12} from 'utils/typography';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {getBrands, getVehicles} from 'redux/features/vehicles/vehiclesAPI';
-import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
-import {IFormDaily} from 'types/global.types';
-import {IVehicles} from 'types/vehicles';
-import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
-import {URL_IMAGE} from '@env';
-import { currencyFormat } from 'utils/currencyFormat';
-import useLangSelector from 'utils/useLangSelector';
 
 const ListCarScreen: FC = () => {
   const navigation = useNavigation();
@@ -71,7 +69,9 @@ const ListCarScreen: FC = () => {
           </TouchableOpacity>
         ),
         trailing: (
-          <Text style={[h5, {color: 'white', marginRight: 16}]} onPress={()=> navigation.goBack()}>
+          <Text
+            style={[h5, {color: 'white', marginRight: 16}]}
+            onPress={() => navigation.goBack()}>
             {lang.change_search}
           </Text>
         ),
@@ -97,7 +97,7 @@ const ListCarScreen: FC = () => {
     <TouchableOpacity
       style={[rowCenter, styles.cardWrapper]}
       onPress={() => {
-        navigation.navigate('DetailCar', {vehicle_id: item.id})
+        navigation.navigate('DetailCar', {vehicle_id: item.id});
         dispatch(saveFormDaily({...formDaily, vehicle_id: item.id}));
       }}>
       <Image

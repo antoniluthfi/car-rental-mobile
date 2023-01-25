@@ -1,3 +1,9 @@
+import React, {ReactNode, useEffect, useRef, useState} from 'react';
+import useLangSelector from 'utils/useLangSelector';
+import {h1, h5} from 'utils/styles';
+import {ic_calendar, ic_clock, ic_info_error} from 'assets/icons';
+import {showBSheet} from 'utils/BSheet';
+import {theme} from 'utils';
 import {
   Image,
   StyleSheet,
@@ -7,18 +13,12 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import {ic_calendar, ic_clock, ic_info_error} from 'assets/icons';
 import {
   rowCenter,
   iconSize,
   iconCustomSize,
   colorSelecting,
 } from 'utils/mixins';
-import {h1, h5} from 'utils/styles';
-import {theme} from 'utils';
-import {showBSheet} from 'utils/BSheet';
-import useLangSelector from 'utils/useLangSelector';
 
 interface IProps {
   title: string;
@@ -73,17 +73,19 @@ const CustomDatePicker = ({
   }, [hour, minutes]);
 
   useEffect(() => {
-    if(parseInt(hour) < 7) {
+    if (parseInt(hour) < 7) {
       setAlertHour('Rent Time Starts At 7');
     } else {
       setAlertHour('');
     }
-  }, [hour])
-  
+  }, [hour]);
+
   return (
     <View style={containerStyle}>
       <Text style={[h1, {fontSize: 14}]}>{title}</Text>
-      {mode === 'clock' && alertHour &&<Text style={styles.textAlertClock}>{alertHour}</Text>}
+      {mode === 'clock' && alertHour && (
+        <Text style={styles.textAlertClock}>{alertHour}</Text>
+      )}
       <View style={[rowCenter, styles.wrapper, inputContainerStyle]}>
         <Image
           source={mode === 'clock' ? ic_clock : ic_calendar}
@@ -123,9 +125,9 @@ const CustomDatePicker = ({
               value={minutes}
               onChangeText={v => {
                 if (Number(v) > 59) {
-                  setMinutes("59")
+                  setMinutes('59');
                 } else {
-                  setMinutes(v)
+                  setMinutes(v);
                 }
               }}
               keyboardType="numeric"
@@ -134,7 +136,7 @@ const CustomDatePicker = ({
           </View>
         )}
         {disableTime && (
-          <Text style={{marginLeft: 10}}>
+          <Text style={{marginLeft: 10, marginVertical: 4}}>
             {value?.slice(0, 2) || '00'} :{' '}
             {value?.length > 2 ? value.slice(-2) : '00'}
           </Text>
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.colors.grey5,
     width: '100%',
     paddingVertical: 10,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   },
   textFormatHour: {
     fontSize: 10,
