@@ -7,14 +7,15 @@ import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
 import useLangSelector from 'utils/useLangSelector';
 import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
 import {getAllCities} from 'redux/features/appData/appDataAPI';
-import {h1} from 'utils/styles';
+import {h1, h5} from 'utils/styles';
 import {ICities} from 'types/global.types';
-import {Platform, Text, View} from 'react-native';
+import {Platform, Text, View, StyleSheet} from 'react-native';
 import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useNavigation} from '@react-navigation/native';
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 import DriverSelection from '../DriverSelection/DriverSelection';
+import {theme} from 'utils';
 
 interface IForm {
   location: ICities;
@@ -122,6 +123,17 @@ const DailyLayout: FC = () => {
       );
       navigation.navigate('ListCar');
     },
+    calculateDateDifference: () => {
+      if (form.tanggal_sewa && form.tanggal_pengembalian) {
+        const tglSewa = moment(form.tanggal_sewa.split('/'));
+        const tglPengembalian = moment(form.tanggal_pengembalian.split('/'));
+        const res = tglPengembalian.diff(tglSewa, 'days');
+
+        return `${res} ${res > 1 ? lang.Home.daily.days : lang.Home.daily.day}`;
+      }
+
+      return '';
+    },
   };
 
   return (
@@ -152,13 +164,10 @@ const DailyLayout: FC = () => {
         ]}>
         <DatePickerComponent
           mode="date"
-          placeholder={lang.Home.daily.rent_start_date}
+          placeholder={lang.Home.daily.select_date}
           title={lang.Home.daily.rent_start_date}
           containerStyle={{
-            width: '45%',
-          }}
-          inputContainerStyle={{
-            marginTop: 6,
+            width: '49%',
           }}
           value={form.tanggal_sewa ?? ''}
           content={
@@ -190,36 +199,13 @@ const DailyLayout: FC = () => {
           }
           errorMessage={formError.error_tanggal_sewa}
         />
-        <DatePickerComponent
-          mode="clock"
-          placeholder={lang.Home.daily.rent_start_time}
-          title={lang.Home.daily.rent_start_time}
-          containerStyle={{
-            width: '45%',
-          }}
-          value={form?.jam_sewa}
-          onChangeTime={(v: string) => {
-            setForm({...form, jam_sewa: v});
-            setFormError({...formError, error_jam_sewa: ''});
-          }}
-          errorMessage={formError.error_jam_sewa}
-        />
-      </View>
 
-      <View
-        style={[
-          {
-            justifyContent: 'space-between',
-            marginTop: 30,
-            flexDirection: 'row',
-          },
-        ]}>
         <DatePickerComponent
           mode="date"
-          placeholder={lang.Home.daily.rent_end_date}
+          placeholder={lang.Home.daily.select_date}
           title={lang.Home.daily.rent_end_date}
           containerStyle={{
-            width: '45%',
+            width: '49%',
           }}
           value={form.tanggal_pengembalian ?? ''}
           content={
@@ -237,12 +223,10 @@ const DailyLayout: FC = () => {
                     ? form.tanggal_sewa
                     : moment(form.tanggal_sewa).format('YYYY-MM-DD')
                 }
-                // maximumDate={moment(new Date()).format('YYYY-MM-DD')}
                 onDateChange={v => {
                   setTimeout(() => {
                     dispatch(
                       toggleBSheet({
-                        // content: <View />,
                         show: false,
                       }),
                     );
@@ -256,16 +240,48 @@ const DailyLayout: FC = () => {
           }
           errorMessage={formError.error_tanggal_pengembalian}
         />
+
+        {/* Date Diff */}
+        {form.tanggal_sewa && form.tanggal_pengembalian && (
+          <View style={styles.dateDiffContainer}>
+            <Text style={[h5, styles.dateDiff]}>
+              {methods.calculateDateDifference()}
+            </Text>
+          </View>
+        )}
+      </View>
+
+      <View
+        style={[
+          {
+            justifyContent: 'space-between',
+            marginTop: 30,
+            flexDirection: 'row',
+          },
+        ]}>
+        <DatePickerComponent
+          mode="clock"
+          placeholder={lang.Home.daily.rent_start_time}
+          title={lang.Home.daily.rent_start_time}
+          containerStyle={{
+            width: '49%',
+          }}
+          value={form?.jam_sewa}
+          onChangeTime={(v: string) => {
+            setForm({...form, jam_sewa: v});
+            setFormError({...formError, error_jam_sewa: ''});
+          }}
+          errorMessage={formError.error_jam_sewa}
+        />
         <DatePickerComponent
           mode="clock"
           placeholder={lang.Home.daily.rent_end_time}
           title={lang.Home.daily.rent_end_time}
           containerStyle={{
-            width: '45%',
+            width: '49%',
           }}
           value={form.jam_sewa}
-          // onChangeTime={(v: string) => setForm({...form, jam_pengembalian: v})}
-          disableTime={true}
+          disableTime
           errorMessage={formError.error_jam_sewa}
         />
       </View>
@@ -283,3 +299,16 @@ const DailyLayout: FC = () => {
 };
 
 export default DailyLayout;
+
+const styles = StyleSheet.create({
+  dateDiffContainer: {
+    position: 'absolute',
+    width: 72,
+    height: 17,
+    backgroundColor: '#F1A33A',
+    borderRadius: 16,
+    top: 53,
+    left: '40%',
+  },
+  dateDiff: {textAlign: 'center', fontSize: 12, color: theme.colors.white},
+});

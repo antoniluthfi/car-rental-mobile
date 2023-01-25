@@ -11,6 +11,7 @@
             "placeholder_location": "Choose your location",
             "without_driver": "Without Driver",
             "with_driver": "With Driver",
+            "select_date": "Select Date",
             "rent_start_date": "Rental Start Date",
             "rent_end_date": "Rental End Date",
             "rent_start_time": "Rental Start Time",
@@ -18,7 +19,9 @@
             "btn_search": "Find A Car",
             "error_location": "Enter your location",
             "error_rent_date": "Enter the Date first",
-            "error_rent_time": "Choose Your Clock"
+            "error_rent_time": "Choose Your Clock",
+            "day": "Day",
+            "days": "Days"
         },
         "destinationFavTitle": "Popular Destination in Bali",
         "destinationFavList": [{
