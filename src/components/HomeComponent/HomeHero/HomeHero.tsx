@@ -1,12 +1,18 @@
+import {
+  get_ride_logo,
+  img_carousel_1,
+  img_hero_background,
+} from 'assets/images';
 import {h1} from 'utils/styles';
 import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {
-  img_bicycle,
-  img_car_3,
-  get_ride_logo,
-  img_motorcycle,
-} from 'assets/images';
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useState} from 'react';
 import {
   ic_rent_bicycle,
@@ -16,27 +22,26 @@ import {
   ic_rent_motorcycle,
   ic_rent_motorcycle_active,
 } from 'assets/icons';
+import {ScrollView} from 'react-native-gesture-handler';
+import CarouselHero from '../CarouselHero/CarouselHero';
 
 const buttonList = [
   {
     id: 1,
     img: ic_rent_car,
     imgActive: ic_rent_car_active,
-    imgBackground: img_car_3,
     title: 'Sewa Mobil',
   },
   {
     id: 2,
     img: ic_rent_motorcycle,
     imgActive: ic_rent_motorcycle_active,
-    imgBackground: img_motorcycle,
     title: 'Sewa Motor',
   },
   {
     id: 3,
     img: ic_rent_bicycle,
     imgActive: ic_rent_bicycle_active,
-    imgBackground: img_bicycle,
     title: 'Sewa Sepeda',
   },
 ];
@@ -47,17 +52,19 @@ const HomeHero: React.FC = () => {
   return (
     <View>
       <Image
-        source={
-          buttonList.find(button => button.id === selected)?.imgBackground
-        }
+        source={img_hero_background}
         style={styles.imgCar}
         resizeMode="cover"
       />
-      <Image
-        source={get_ride_logo}
-        style={styles.getRideLogo}
-        resizeMode="cover"
-      />
+      <View style={styles.heroContentContainer}>
+        <Image
+          source={get_ride_logo}
+          style={styles.getRideLogo}
+          resizeMode="cover"
+        />
+
+        <CarouselHero />
+      </View>
 
       <View style={styles.buttonMenu}>
         {buttonList.map((button, i) => (
@@ -104,11 +111,14 @@ const styles = StyleSheet.create({
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT / 3,
   },
-  getRideLogo: {
+  heroContentContainer: {
     position: 'absolute',
     top: '10%',
-    left: '5%',
-    width: '20%',
+    alignSelf: 'center',
+    width: '90%',
+  },
+  getRideLogo: {
+    width: '25%',
     height: 35,
   },
   buttonMenu: {
@@ -136,4 +146,5 @@ const styles = StyleSheet.create({
   buttonName: {
     fontSize: 13,
   },
+  flatlist: {},
 });
