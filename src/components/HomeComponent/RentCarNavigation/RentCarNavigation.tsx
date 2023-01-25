@@ -49,7 +49,7 @@ const RentCarNavigation: React.FC = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={[styles.wrapper]}>
         {DataTab.map((x: IDataTab, i: number) => (
           <TouchableOpacity onPress={() => setActiveTab(x.id)} key={i}>
@@ -81,6 +81,9 @@ const RentCarNavigation: React.FC = () => {
 export default RentCarNavigation;
 
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: 20
+  },
   wrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
