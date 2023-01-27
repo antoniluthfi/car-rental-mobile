@@ -12,6 +12,7 @@ import {h1, h5} from 'utils/styles';
 import useLangSelector from 'utils/useLangSelector';
 import HomeHero from 'components/HomeComponent/HomeHero/HomeHero';
 import FavoriteCar from 'components/HomeComponent/FavoriteCar/FavoriteCar';
+import GetRideDescription from 'components/HomeComponent/GetRideDescription/GetRideDescription';
 
 type HeroState = 'Sewa Mobil' | 'Sewa Motor' | 'Sewa Sepeda';
 
@@ -40,6 +41,7 @@ const HomeScreen: React.FC = () => {
         <HomeHero onSelectionChange={setHeroState as any} />
         <HomeTopNavigation state={heroState} />
         <FavoriteCar />
+        <GetRideDescription/>
 
         <View style={{paddingLeft: 16, marginTop: 20}}>
           <Text style={[h1, {marginTop: 20}]}>{t.destinationFavTitle}</Text>

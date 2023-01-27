@@ -24,6 +24,10 @@
             "days": "Days",
             "continue_to_whatsapp": "Continue to Whatsapp"
         },
+        "getrideDescription": {
+            "title": "What is Get & Ride?",
+            "description": "Get & Ride is an online application that provides car rental and rental services with a driver or off key specifically for the Bali area. We provide various types of cars at affordable prices. Immediately submit a business trip, vacation, or private event to us."
+        },
         "destinationFavTitle": "Popular Destination in Bali",
         "destinationFavList": [{
                 "name": "Tirta Gangga Water Palace in Bali",

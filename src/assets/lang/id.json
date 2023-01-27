@@ -24,6 +24,10 @@
             "days": "Hari",
             "continue_to_whatsapp": "Lanjutkan ke Whatsapp"
         },
+        "getrideDescription": {
+            "title": "Apa itu Get & Ride?",
+            "description": "Get & Ride adalah aplikasi online yang menyediakan layanan rental dan sewa mobil dengan supir atau lepas kunci khusus untuk wilayah Bali. Kami menyediakan berbagai tipe mobil dengan harga terjangkau. Segera serahkan perjalanan bisnis, liburan, maupun private event kepada kami."
+        },
         "destinationFavTitle": "Destinasi Popular di Bali",
         "destinationFavList": [{
                 "name": "Taman Air Tirta Gangga, Karang Asem Bali",
