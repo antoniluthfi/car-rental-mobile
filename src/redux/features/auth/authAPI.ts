@@ -96,11 +96,11 @@ export const refreshToken = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
-      showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
-        type: 'error',
-      });
+      // showToast({
+      //   message: error?.response.data?.slug || 'Terjadi kesalahan',
+      //   title: 'Warning',
+      //   type: 'error',
+      // });
       return thunkAPI.rejectWithValue(error.response.data);
     }
   },
