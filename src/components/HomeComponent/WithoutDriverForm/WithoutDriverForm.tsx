@@ -125,8 +125,8 @@ const WithoutDriverForm: React.FC = () => {
     },
     calculateDateDifference: () => {
       if (form.tanggal_sewa && form.tanggal_pengembalian) {
-        const tglSewa = moment(form.tanggal_sewa.split('/'));
-        const tglPengembalian = moment(form.tanggal_pengembalian.split('/'));
+        const tglSewa = moment(form.tanggal_sewa.replace(/\//g, '-'));
+        const tglPengembalian = moment(form.tanggal_pengembalian.replace(/\//g, '-'));
         const res = tglPengembalian.diff(tglSewa, 'days');
 
         return `${res} ${res > 1 ? lang.Home.daily.days : lang.Home.daily.day}`;
