@@ -47,7 +47,7 @@ export const apiWithInterceptor = async (config: ApiConfig) => {
             store.dispatch(refreshToken(refresh_token as any));
             return api.axiosInstance.request(error.config);
           } else {
-            // store.dispatch(logout());
+            store.dispatch(logout());
           }
         }
         return Promise.reject(error);
