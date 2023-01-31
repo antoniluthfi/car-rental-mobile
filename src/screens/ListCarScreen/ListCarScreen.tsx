@@ -33,6 +33,7 @@ import {
   ic_nosmoke,
   ic_seat,
 } from 'assets/icons';
+import CarCard from 'components/CarCard/CarCard';
 
 const ListCarScreen: FC = () => {
   const navigation = useNavigation();
@@ -94,66 +95,13 @@ const ListCarScreen: FC = () => {
   }, [navigation, form.brands, form.filter_seat]);
 
   const renderItem = ({item, index}: {item: IVehicles; index: number}) => (
-    <TouchableOpacity
-      style={[rowCenter, styles.cardWrapper]}
+    <CarCard
+      item={item}
       onPress={() => {
         navigation.navigate('DetailCar', {vehicle_id: item.id});
         dispatch(saveFormDaily({...formDaily, vehicle_id: item.id}));
-      }}>
-      <Image
-        source={{uri: URL_IMAGE + item?.photo?.[0]?.name}}
-        style={{
-          height: 86,
-          width: 120,
-        }}
-      />
-      <View style={{width: '60%'}}>
-        <View style={[rowCenter, {justifyContent: 'space-between'}]}>
-          <Text style={[h1]}>{item.name}</Text>
-          <View style={styles.machineWrapper}>
-            <Text
-              style={[h3, {color: theme.colors.navy, fontSize: FONT_SIZE_12}]}>
-              Manual
-            </Text>
-          </View>
-        </View>
-
-        <View
-          style={[rowCenter, {justifyContent: 'space-between', marginTop: 10}]}>
-          <View style={[rowCenter, {}]}>
-            <View style={[rowCenter]}>
-              <View style={[rowCenter]}>
-                <Image source={ic_seat} style={iconSize} />
-                <Text style={[h2, {marginLeft: 5}]}>{item.max_passanger}</Text>
-              </View>
-            </View>
-            <View style={[rowCenter, styles.wrapperLineVertical]}>
-              <Image source={ic_koper} style={iconSize} />
-              <Text style={[h2, {marginLeft: 5}]}>{item.max_suitcase}</Text>
-            </View>
-          </View>
-
-          <View style={[rowCenter, {width: '40%'}]}>
-            {item.smoke_allowed && (
-              <Image source={ic_nosmoke} style={iconSize} />
-            )}
-            {item.pet_allowed && (
-              <Image source={ic_dog} style={[iconSize, {marginRight: 10}]} />
-            )}
-            {item.disablility_allowed && (
-              <Image source={ic_disable} style={iconSize} />
-            )}
-          </View>
-        </View>
-
-        <View style={{marginTop: 10}}>
-          <Text style={[h4, {fontSize: 12}]}>{lang.rent_price}</Text>
-          <Text style={[h1, {color: theme.colors.blue, marginTop: 5}]}>
-            {currencyFormat(item.price)} <Text style={[h4]}>/ {lang.day}</Text>
-          </Text>
-        </View>
-      </View>
-    </TouchableOpacity>
+      }}
+    />
   );
   return (
     <View

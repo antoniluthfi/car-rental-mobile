@@ -15,6 +15,12 @@ import {
   ic_transisi,
 } from 'assets/icons';
 import {currencyFormat} from 'utils/currencyFormat';
+import {useEffect} from 'react';
+import {getVehicles} from 'redux/features/vehicles/vehiclesAPI';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
+import {URL_IMAGE} from '@env';
+import CarCard from 'components/CarCard/CarCard';
 
 const favoriteCarsDummy = [
   {
@@ -67,65 +73,23 @@ const FavoriteCar: React.FC = () => {
   const t = useLangSelector().Home;
   const navigation = useNavigation();
   const lang = useLangSelector().list_car;
+  const dispatch = useAppDispatch();
+  const vehicles = useAppSelector(vehiclesState).vehicles;
+
+  useEffect(() => {
+    dispatch(getVehicles(''));
+  }, []);
 
   return (
     <View style={styles.container}>
       <Text style={[h1, styles.title]}>{t.carFavTitle}</Text>
-      {favoriteCarsDummy.map((item, i) => (
-        <TouchableOpacity
-          key={i}
-          style={[rowCenter, styles.cardWrapper]}
-          onPress={() => {
-            // navigation.navigate('DetailCar', {vehicle_id: item.id});
-            // dispatch(saveFormDaily({...formDaily, vehicle_id: item.id}));
-          }}>
-          <Image
-            // source={{uri: URL_IMAGE + item?.photo?.[0]?.name}}
-            source={item.img}
-            style={{
-              height: 86,
-              width: 120,
-            }}
-          />
-          <View style={{width: '60%'}}>
-            <View style={[rowCenter, {justifyContent: 'space-between'}]}>
-              <Text style={[h1]}>{item.name}</Text>
-            </View>
-
-            <View
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', marginTop: 10},
-              ]}>
-              <View style={[rowCenter]}>
-                <View style={[rowCenter]}>
-                  <Image source={ic_seat} style={iconSize} />
-                  <Text style={[h2, {marginLeft: 5}]}>
-                    {item.max_passanger}
-                  </Text>
-                </View>
-              </View>
-
-              <View style={[rowCenter, styles.wrapperLineVertical]}>
-                <Image source={ic_koper} style={iconSize} />
-                <Text style={[h2, {marginLeft: 5}]}>{item.max_suitcase}</Text>
-              </View>
-
-              <View style={[rowCenter, {width: '40%'}]}>
-                <Image source={ic_transisi} style={iconSize} />
-                <Text style={[h2, {marginLeft: 5}]}>Manual</Text>
-              </View>
-            </View>
-
-            <View style={{marginTop: 10}}>
-              <Text style={[h4, {fontSize: 12}]}>{lang.rent_price}</Text>
-              <Text style={[h1, {color: theme.colors.navy, marginTop: 5}]}>
-                {currencyFormat(item.price)}{' '}
-                <Text style={[h4]}>/ {lang.day}</Text>
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
+      {[...vehicles].splice(0, 4).map((item, i) => (
+        <CarCard
+          item={item}
+          onPress={() =>
+            navigation.navigate('DetailCar', {vehicle_id: item.id})
+          }
+        />
       ))}
     </View>
   );
