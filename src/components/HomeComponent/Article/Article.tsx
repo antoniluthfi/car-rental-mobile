@@ -52,7 +52,7 @@ export default Article;
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 16,
+    paddingLeft: '5%',
   },
   title: {marginTop: 20, fontSize: 21, marginBottom: 10},
   boxWrapper: {
