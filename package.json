@@ -8,7 +8,8 @@
         "start": "react-native start",
         "test": "jest",
         "reset": "yarn start --reset-cache",
-        "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+        "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "keygen": "keytool -genkeypair -v -keystore android/app/getride-key.keystore -alias getride -keyalg RSA -keysize 2048 -validity 10000"
     },
     "dependencies": {
         "@gorhom/bottom-sheet": "^4",

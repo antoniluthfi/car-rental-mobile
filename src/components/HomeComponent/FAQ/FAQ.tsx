@@ -1,9 +1,11 @@
+import {useState} from 'react';
 import Accordion from 'react-native-collapsible/Accordion';
-import React, {useState} from 'react';
-import {h1} from 'utils/styles';
-import {ic_arrow_down} from 'assets/icons';
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {useAppSelector} from 'redux/hooks';
 import {theme} from 'utils';
+import {h1} from 'utils/styles';
+import useLangSelector from 'utils/useLangSelector';
+import {View, Text, Image, SafeAreaView, StyleSheet} from 'react-native';
+import {ic_arrow_down} from 'assets/icons';
 
 const SECTIONS = [
   {
@@ -40,6 +42,8 @@ const SECTIONS = [
 
 export default function FAQ() {
   const [activeSections, setActiveSections] = useState([]);
+  const [State, setState] = useState({});
+  const t = useLangSelector().Home;
 
   const _renderSectionTitle = (section: any) => {
     return (
@@ -112,7 +116,7 @@ export default function FAQ() {
       <Text style={[h1, styles.title]}>FAQ</Text>
       <Accordion
         underlayColor={'#FFF'}
-        sections={SECTIONS}
+        sections={t.faq}
         activeSections={activeSections}
         renderHeader={_renderHeader}
         renderContent={_renderContent}

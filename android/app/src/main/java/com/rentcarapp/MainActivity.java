@@ -1,4 +1,4 @@
-package com.rentcarapp;
+package com.getrideapp;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

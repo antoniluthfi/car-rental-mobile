@@ -1,4 +1,4 @@
-package com.rentcarapp.newarchitecture.components;
+package com.getrideapp.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

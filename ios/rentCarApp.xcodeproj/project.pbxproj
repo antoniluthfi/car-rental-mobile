@@ -589,7 +589,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.rentcarapp;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.getrideapp;
 				PRODUCT_NAME = rentCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Aroma Medan Distribution";
@@ -622,7 +622,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.rentcarapp;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.getrideapp;
 				PRODUCT_NAME = rentCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Aroma Medan Distribution";
