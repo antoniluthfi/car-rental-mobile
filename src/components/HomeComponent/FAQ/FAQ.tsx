@@ -2,8 +2,10 @@ import { ic_arrow_down } from 'assets/icons';
 import React, {Component, useEffect, useState} from 'react';
 import {View, Text, SafeAreaView, Image, StyleSheet} from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
+import { useAppSelector } from 'redux/hooks';
 import { theme } from 'utils';
 import { h1 } from 'utils/styles';
+import useLangSelector from 'utils/useLangSelector';
 
 const SECTIONS = [
   {
@@ -41,6 +43,7 @@ const SECTIONS = [
 export default function FAQ() {
   const [activeSections, setActiveSections] = useState([]);
   const [State, setState] = useState({});
+  const t = useLangSelector().Home;
 
   
 
@@ -114,7 +117,7 @@ export default function FAQ() {
         <Text style={[h1, {fontSize: 21, alignSelf: 'center', color: theme.colors.navy}]}>FAQ</Text>
       <Accordion
         underlayColor={'#FFF'}
-        sections={SECTIONS}
+        sections={t.faq}
         activeSections={activeSections}
         renderHeader={_renderHeader}
         renderContent={_renderContent}
