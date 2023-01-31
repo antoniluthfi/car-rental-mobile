@@ -1,11 +1,10 @@
-import {useState} from 'react';
 import Accordion from 'react-native-collapsible/Accordion';
-import {useAppSelector} from 'redux/hooks';
-import {theme} from 'utils';
-import {h1} from 'utils/styles';
 import useLangSelector from 'utils/useLangSelector';
-import {View, Text, Image, SafeAreaView, StyleSheet} from 'react-native';
+import {h1} from 'utils/styles';
 import {ic_arrow_down} from 'assets/icons';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {theme} from 'utils';
+import {useState} from 'react';
 
 const SECTIONS = [
   {
@@ -42,7 +41,6 @@ const SECTIONS = [
 
 export default function FAQ() {
   const [activeSections, setActiveSections] = useState([]);
-  const [State, setState] = useState({});
   const t = useLangSelector().Home;
 
   const _renderSectionTitle = (section: any) => {
