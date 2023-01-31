@@ -1,27 +1,24 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
-import hoc from 'components/hoc';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {boxShadow, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import {Image} from 'react-native';
-import {img_beach, img_car_2} from 'assets/images';
-import HomeTopNavigation from 'components/HomeComponent/HomeTopNavigation';
-import {useAppDispatch} from 'redux/hooks';
-import {getUser} from 'redux/features/appData/appDataAPI';
-import {h1, h5} from 'utils/styles';
-import useLangSelector from 'utils/useLangSelector';
-import HomeHero from 'components/HomeComponent/HomeHero/HomeHero';
+import Article from 'components/HomeComponent/Article/Article';
+import FAQ from 'components/HomeComponent/FAQ/FAQ';
 import FavoriteCar from 'components/HomeComponent/FavoriteCar/FavoriteCar';
 import GetRideDescription from 'components/HomeComponent/GetRideDescription/GetRideDescription';
-import FAQ from 'components/HomeComponent/FAQ/FAQ';
+import hoc from 'components/hoc';
+import HomeHero from 'components/HomeComponent/HomeHero/HomeHero';
+import HomeTopNavigation from 'components/HomeComponent/HomeTopNavigation';
+import React, {useCallback, useEffect, useState} from 'react';
+import useLangSelector from 'utils/useLangSelector';
 import WhyChooseUs from 'components/HomeComponent/WhyChooseUs/WhyChooseUs';
+import {getUser} from 'redux/features/appData/appDataAPI';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import {useAppDispatch} from 'redux/hooks';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 
 type HeroState = 'Sewa Mobil' | 'Sewa Motor' | 'Sewa Sepeda';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const t = useLangSelector().Home;
   const t1 = useLangSelector();
   const [update, setUpdate] = useState(false);
   const [heroState, setHeroState] = useState<HeroState>('Sewa Mobil');
@@ -33,7 +30,7 @@ const HomeScreen: React.FC = () => {
   useFocusEffect(
     useCallback(() => {
       setUpdate(prev => !prev);
-    }, [t, t1]),
+    }, [t1]),
   );
 
   return (
@@ -43,77 +40,10 @@ const HomeScreen: React.FC = () => {
         <HomeHero onSelectionChange={setHeroState as any} />
         <HomeTopNavigation state={heroState} />
         <FavoriteCar />
-        <GetRideDescription/>
+        <GetRideDescription />
         <WhyChooseUs />
-        <FAQ/>
-
-        <View style={{paddingLeft: 16, marginTop: 20}}>
-          <Text style={[h1, {marginTop: 20}]}>{t.destinationFavTitle}</Text>
-          <ScrollView horizontal style={{marginTop: 12}}>
-            {t.destinationFavList.map((x, i) => (
-              <View
-                key={i}
-                style={[
-                  boxShadow('#000', {height: 1, width: 2}, 3.27, 0.24),
-                  ,
-                  styles.boxWrapper,
-                  {width: 300},
-                ]}>
-                <Image
-                  source={img_beach}
-                  style={[
-                    ,
-                    {
-                      borderTopLeftRadius: 10,
-                      borderTopRightRadius: 10,
-                      width: 300,
-                      height: 200,
-                    },
-                  ]}
-                />
-                <View style={{padding: 10}}>
-                  <Text style={[h1]}>{x.name}</Text>
-                  <Text style={[h5, {fontSize: 12, marginTop: 5}]}>
-                    {x.description}
-                  </Text>
-                </View>
-              </View>
-            ))}
-          </ScrollView>
-
-          <Text style={[h1, {marginTop: 20}]}>{t.articleTitle}</Text>
-          <ScrollView horizontal style={{marginTop: 12}}>
-            {t.articleList.map((x, i) => (
-              <View
-                key={i}
-                style={[
-                  boxShadow('#000', {height: 1, width: 2}, 3.27, 0.24),
-                  ,
-                  styles.boxWrapper,
-                  {width: 300},
-                ]}>
-                <Image
-                  source={img_beach}
-                  style={[
-                    ,
-                    {
-                      borderTopLeftRadius: 10,
-                      borderTopRightRadius: 10,
-                      width: 300,
-                      height: 200,
-                    },
-                  ]}
-                />
-                <View style={{padding: 10}}>
-                  <Text style={[h1]}>{x.title}</Text>
-                  <Text style={[h5, {fontSize: 12, marginTop: 5}]}>
-                    {x.description}
-                  </Text>
-                </View>
-              </View>
-            ))}
-          </ScrollView>
-        </View>
+        <FAQ />
+        <Article />
       </ScrollView>
     </View>
   );
@@ -128,11 +58,5 @@ const styles = StyleSheet.create({
   imgCar: {
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT / 3,
-  },
-  boxWrapper: {
-    marginRight: 12,
-    backgroundColor: '#fff',
-    marginBottom: 10,
-    borderRadius: 10,
   },
 });
