@@ -36,7 +36,7 @@ import {IPayments} from 'types/global.types';
 import {cancelOrder} from 'redux/features/order/orderAPI';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {isFuture} from 'date-fns';
-import { showToast } from 'utils/Toast';
+import {showToast} from 'utils/Toast';
 import useLangSelector from 'utils/useLangSelector';
 
 type DailyBookingOrderDetailScreenRouteProp = RouteProp<
@@ -223,12 +223,14 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
       <ScrollView contentContainerStyle={styles.container}>
         <CustomCarousel
           data={images}
-          carouselTitle={
-            vehicle?.brand_name
-              ? `${vehicle?.brand_name}${
+          renderCarouselTitle={
+            vehicle?.brand_name ? (
+              <View style={styles.carouselTitleContainer}>
+                <Text style={{fontWeight: 'bold'}}>{`${vehicle?.brand_name}${
                   vehicle?.name ? ` ${vehicle?.name}` : ''
-                }`
-              : undefined
+                }`}</Text>
+              </View>
+            ) : undefined
           }
           renderItem={({item, index}) => (
             <View
@@ -335,15 +337,16 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
         </View>
         <View style={styles.solidLine} />
         <View style={{marginHorizontal: 16}}>
-          
-          {isFuture(new Date(selected?.order_detail?.start_booking_date as any)) &&
-            (slugify(orderState) !== 'failed' && slugify(orderState) !== 'cancelled') && (
+          {isFuture(
+            new Date(selected?.order_detail?.start_booking_date as any),
+          ) &&
+            slugify(orderState) !== 'failed' &&
+            slugify(orderState) !== 'cancelled' && (
               <Button
                 _theme="red"
                 title="Batalkan Pesanan"
                 onPress={() => {
                   methods.handleConfirmation('cancel_order');
-                  
                 }}
                 styleWrapper={{
                   marginBottom: 10,
@@ -439,7 +442,9 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
               <Button
                 _theme="white"
                 title="Kembali"
-                onPress={() => {bottomSheetRef.current?.close();}}
+                onPress={() => {
+                  bottomSheetRef.current?.close();
+                }}
                 styleWrapper={{width: '48%'}}
               />
 
@@ -454,7 +459,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                     }),
                   );
                   console.log('res = ', res);
-                  if(res?.type.includes('fulfilled')) {
+                  if (res?.type.includes('fulfilled')) {
                     setShowModalSuccess(true);
                     // navigation.goBack();
                     // bottomSheetRef.current?.close();
@@ -473,11 +478,17 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
           </View>
         </View>
       </BottomSheet>
-      {<ModalSuccessCancelOrder visible={showModalSuccess} setVisible={setShowModalSuccess} onFinish={()=> {
-        navigation.goBack();
-        bottomSheetRef.current?.close();
-        dispatch(getOrders());
-      }} />}
+      {
+        <ModalSuccessCancelOrder
+          visible={showModalSuccess}
+          setVisible={setShowModalSuccess}
+          onFinish={() => {
+            navigation.goBack();
+            bottomSheetRef.current?.close();
+            dispatch(getOrders());
+          }}
+        />
+      }
     </View>
   );
 };
@@ -549,5 +560,14 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  carouselTitleContainer: {
+    padding: 10,
+    backgroundColor: '#F0F0F0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 20,
+    top: 20,
   },
 });

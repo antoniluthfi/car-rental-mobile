@@ -14,6 +14,7 @@ import HomeHero from 'components/HomeComponent/HomeHero/HomeHero';
 import FavoriteCar from 'components/HomeComponent/FavoriteCar/FavoriteCar';
 import GetRideDescription from 'components/HomeComponent/GetRideDescription/GetRideDescription';
 import FAQ from 'components/HomeComponent/FAQ/FAQ';
+import WhyChooseUs from 'components/HomeComponent/WhyChooseUs/WhyChooseUs';
 
 type HeroState = 'Sewa Mobil' | 'Sewa Motor' | 'Sewa Sepeda';
 
@@ -43,6 +44,7 @@ const HomeScreen: React.FC = () => {
         <HomeTopNavigation state={heroState} />
         <FavoriteCar />
         <GetRideDescription/>
+        <WhyChooseUs />
         <FAQ/>
 
         <View style={{paddingLeft: 16, marginTop: 20}}>

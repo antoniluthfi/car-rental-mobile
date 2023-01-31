@@ -1,9 +1,9 @@
-import { ic_arrow_down } from 'assets/icons';
-import React, {Component, useEffect, useState} from 'react';
-import {View, Text, SafeAreaView, Image, StyleSheet} from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
-import { theme } from 'utils';
-import { h1 } from 'utils/styles';
+import React, {useState} from 'react';
+import {h1} from 'utils/styles';
+import {ic_arrow_down} from 'assets/icons';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {theme} from 'utils';
 
 const SECTIONS = [
   {
@@ -26,7 +26,8 @@ const SECTIONS = [
       'Untuk saat ini, Aroma Medan belum memiliki cabang. Silahkan pesan produk Aroma Medan melalui berbagai cara yang telah tersedia.',
   },
   {
-    title: 'Apakah ada biaya tambahan yang harus dibayar saat mengambil atau mengembalikan mobil?',
+    title:
+      'Apakah ada biaya tambahan yang harus dibayar saat mengambil atau mengembalikan mobil?',
     content:
       'Silahkan lihat menu kami pada halaman utama aplikasi ini. Jika ada produk kami yang ingin kamu beli, silahkan tambahkan ke keranjang dan lakukan pembayaran. Semua pesanan yang kamu buat, akan segera kami proses dan antar ke tempat kamu.',
   },
@@ -35,14 +36,10 @@ const SECTIONS = [
     content:
       'Untuk memastikan produk yang kami buat masih dalam keadaan fresh ketika sampai di tempat kamu, kami hanya melayani pengantaran ke Jakarta, Depok, Tangerang, dan Bekasi saja. Namun, kamu juga dapat melakukan pengambilan langsung ke outlet kami.',
   },
-  
 ];
 
 export default function FAQ() {
   const [activeSections, setActiveSections] = useState([]);
-  const [State, setState] = useState({});
-
-  
 
   const _renderSectionTitle = (section: any) => {
     return (
@@ -55,11 +52,19 @@ export default function FAQ() {
   };
 
   const _renderHeader = (section: any, i: any, isActive: any) => {
-    // console.log('activeText:', isActive);
     return (
-      <View style={[styles.header, {backgroundColor: i%2!== 0 ? '#fff' :'#F5F6FA', paddingHorizontal: 10}]}>
-        <Text allowFontScaling={false} style={[styles.headerText, {width: '80%'}]}>
-          {i+1}. {section.title}
+      <View
+        style={[
+          styles.header,
+          {
+            backgroundColor: i % 2 !== 0 ? '#fff' : '#F5F6FA',
+            paddingHorizontal: 10,
+          },
+        ]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.headerText, {width: '80%'}]}>
+          {i + 1}. {section.title}
         </Text>
         {isActive ? (
           <Image
@@ -95,14 +100,7 @@ export default function FAQ() {
   };
 
   const _updateSections = (activeSections: any) => {
-    // setState({activeSections});
-    // console.log('activesection:', activeSections);
-    // if (activeSections.length === 1) {
-      // setState({valueSection: 1});
-      setActiveSections(activeSections);
-    // } else {
-    //   setActiveSections([]);
-    // }
+    setActiveSections(activeSections);
   };
 
   const _renderFooter = () => {
@@ -111,7 +109,7 @@ export default function FAQ() {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-        <Text style={[h1, {fontSize: 21, alignSelf: 'center', color: theme.colors.navy}]}>FAQ</Text>
+      <Text style={[h1, styles.title]}>FAQ</Text>
       <Accordion
         underlayColor={'#FFF'}
         sections={SECTIONS}
@@ -128,36 +126,32 @@ export default function FAQ() {
 }
 
 const styles = StyleSheet.create({
-    header: {
-      // marginBottom: 10,
-      // borderBottomWidth: 1,
-      // borderBottomColor: '#dedede',
-      // paddingBottom: 15,
-      // paddingTop: 5,
-      paddingVertical: 16,
-      borderColor: '#C4C4C4',
-      width: '100%',
-      justifyContent: 'space-between',
-      flexDirection: 'row',
-    },
-    footer: {
-      borderBottomWidth: 1,
-      borderBottomColor: '#dedede',
-    },
-    headerText: {
-      fontSize: 14,
-      
-    },
-    headerTextRotate: {
-      transform: [{rotate: '180deg'}],
-      fontSize: 12,
-      
-    },
-    content: {
-      // padding: 10,
-      // paddingTop: 16,
-      paddingBottom: 16,
-    },
-    textContent: {},
-  });
-  
+  title: {
+    fontSize: 21,
+    alignSelf: 'center',
+    color: theme.colors.navy,
+    marginTop: 20,
+  },
+  header: {
+    paddingVertical: 16,
+    borderColor: '#C4C4C4',
+    width: '100%',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  footer: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#dedede',
+  },
+  headerText: {
+    fontSize: 14,
+  },
+  headerTextRotate: {
+    transform: [{rotate: '180deg'}],
+    fontSize: 12,
+  },
+  content: {
+    paddingBottom: 16,
+  },
+  textContent: {},
+});

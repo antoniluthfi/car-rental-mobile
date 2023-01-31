@@ -6,23 +6,32 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 
-const PaginationItem: React.FC<{
+type Props = {
   index: number;
   backgroundColor: string;
   length: number;
   animValue: Animated.SharedValue<number>;
   isRotate?: boolean;
-}> = props => {
-  const {animValue, index, length, backgroundColor, isRotate} = props;
-  const width = 10;
+  size?: number;
+  marginTop?: number;
+};
 
+const PaginationItem: React.FC<Props> = ({
+  animValue,
+  index,
+  length,
+  backgroundColor,
+  isRotate,
+  size = 10,
+  marginTop
+}) => {
   const animStyle = useAnimatedStyle(() => {
     let inputRange = [index - 1, index, index + 1];
-    let outputRange = [-width, 0, width];
+    let outputRange = [-size, 0, size];
 
     if (index === 0 && animValue?.value > length - 1) {
       inputRange = [length - 1, length, length + 1];
-      outputRange = [-width, 0, width];
+      outputRange = [-size, 0, size];
     }
 
     return {
@@ -43,10 +52,11 @@ const PaginationItem: React.FC<{
     <View
       style={{
         backgroundColor: '#E7E7E7',
-        width,
-        height: width,
+        width: size,
+        height: size,
         borderRadius: 50,
         overflow: 'hidden',
+        marginTop,
         transform: [
           {
             rotateZ: isRotate ? '90deg' : '0deg',
