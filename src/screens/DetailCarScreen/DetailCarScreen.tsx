@@ -173,7 +173,11 @@ const DetailCarScreen: FC = () => {
       <ScrollView>
         <CustomCarousel
           data={vehicle.photo}
-          carouselTitle={vehicle.name}
+          renderCarouselTitle={
+            <View style={styles.carouselTitleContainer}>
+              <Text style={{fontWeight: 'bold'}}>{vehicle.name}</Text>
+            </View>
+          }
           renderItem={({item, index}) => (
             <View
               style={{
@@ -408,5 +412,14 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     padding: 16,
+  },
+  carouselTitleContainer: {
+    padding: 10,
+    backgroundColor: '#F0F0F0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 20,
+    top: 20,
   },
 });

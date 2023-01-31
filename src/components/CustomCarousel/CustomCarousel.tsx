@@ -1,22 +1,42 @@
-import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {useSharedValue} from 'react-native-reanimated';
 import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel';
-import {CarouselRenderItem} from 'react-native-reanimated-carousel/lib/typescript/types';
-import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 import CarouselButton from './CarouselButton';
 import PaginationItem from './PaginationItem';
+import React, {Fragment, ReactNode} from 'react';
+import {CarouselRenderItem} from 'react-native-reanimated-carousel/lib/typescript/types';
+import {StyleSheet, Text, View} from 'react-native';
+import {useSharedValue} from 'react-native-reanimated';
+import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 
 interface IProps {
   data: any[];
   renderItem: CarouselRenderItem<any>;
-  carouselTitle?: string;
+  renderCarouselTitle?: ReactNode;
+  autoPlay?: boolean;
+  showButtonNavigator?: boolean;
+  scrollAnimationDuration?: number;
+  progressValueSpace?: number;
+  height?: number;
+  paginationSize?: number;
+  paginationColor?: string;
+  /** 
+   * @prop paginationPosition
+   * Define margin to determine top position  
+   */
+  paginationPosition?: number;
 }
 
 const CustomCarousel: React.FC<IProps> = ({
   data,
   renderItem,
-  carouselTitle,
+  renderCarouselTitle,
+  autoPlay = false,
+  showButtonNavigator = true,
+  scrollAnimationDuration = 1000,
+  progressValueSpace = 100,
+  height = WINDOW_HEIGHT / 3,
+  paginationSize,
+  paginationColor = '#344F67',
+  paginationPosition
 }) => {
   const progressValue = useSharedValue<number>(0);
   const ref = React.useRef<ICarouselInstance>(null);
@@ -27,10 +47,10 @@ const CustomCarousel: React.FC<IProps> = ({
         // loop
         ref={ref}
         width={WINDOW_WIDTH}
-        height={WINDOW_HEIGHT / 3}
-        // autoPlay
+        height={height}
+        autoPlay={autoPlay}
         data={data}
-        scrollAnimationDuration={1000}
+        scrollAnimationDuration={scrollAnimationDuration}
         onSnapToItem={index => console.log('current index:', index)}
         onProgressChange={(_, absoluteProgress) =>
           (progressValue.value = absoluteProgress)
@@ -45,41 +65,43 @@ const CustomCarousel: React.FC<IProps> = ({
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            width: 100,
+            width: progressValueSpace,
             alignSelf: 'center',
           }}>
           {data.map((_, index) => {
             return (
               <PaginationItem
-                backgroundColor="#344F67"
+                backgroundColor={paginationColor}
                 animValue={progressValue}
                 index={index}
                 key={index}
                 length={data.length}
+                size={paginationSize}
+                marginTop={paginationPosition}
               />
             );
           })}
         </View>
       )}
 
-      <CarouselButton
-        iconName="arrowleft"
-        onPress={() => {
-          ref.current?.scrollTo({count: -1, animated: true});
-        }}
-      />
-      <CarouselButton
-        iconName="arrowright"
-        onPress={() => {
-          ref.current?.scrollTo({count: 1, animated: true});
-        }}
-      />
-
-      {!!carouselTitle && (
-        <View style={styles.carouselTitleContainer}>
-          <Text style={{fontWeight: 'bold'}}>{carouselTitle}</Text>
-        </View>
+      {showButtonNavigator && (
+        <Fragment>
+          <CarouselButton
+            iconName="arrowleft"
+            onPress={() => {
+              ref.current?.scrollTo({count: -1, animated: true});
+            }}
+          />
+          <CarouselButton
+            iconName="arrowright"
+            onPress={() => {
+              ref.current?.scrollTo({count: 1, animated: true});
+            }}
+          />
+        </Fragment>
       )}
+
+      {!!renderCarouselTitle && renderCarouselTitle}
     </View>
   );
 };
