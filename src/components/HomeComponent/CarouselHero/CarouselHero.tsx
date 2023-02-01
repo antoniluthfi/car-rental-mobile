@@ -39,11 +39,11 @@ const CarouselHero: React.FC = () => {
   const renderItem = ({item}: {item: CarouselRenderItem}) => {
     return (
       <View style={styles.itemContainer}>
-        <View style={{width: '50%', padding: 5}}>
+        <View style={{width: '50%', padding: 10}}>
           <Text style={[h1, styles.title]}>{item.title}</Text>
           <Text style={[h5, styles.description]}>{item.description}</Text>
         </View>
-        <View style={{width: '50%', overflow: 'hidden'}}>
+        <View style={{width: '50%', overflow: 'hidden', borderTopRightRadius: 10, borderBottomRightRadius: 10}}>
           <Image source={item.img} resizeMode="cover" style={styles.image} />
         </View>
       </View>
@@ -69,8 +69,10 @@ const styles = StyleSheet.create({
     width: 350,
     marginTop: 20,
     height: 100,
+    alignItems: 'center',
     marginRight: 5,
-    borderRadius: 10
+    borderRadius: 10,
+    
   },
   title: {
     color: theme.colors.white,

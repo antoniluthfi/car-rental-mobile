@@ -39,6 +39,7 @@ export const apiWithInterceptor = async (config: ApiConfig) => {
 
         if (error.response.status === 401) {
           const refresh_token = store?.getState()?.auth?.auth.refresh_token;
+          const isLogin = store?.getState()?.auth?.isSignIn;
 
           if (
             refresh_token &&
@@ -46,6 +47,8 @@ export const apiWithInterceptor = async (config: ApiConfig) => {
           ) {
             store.dispatch(refreshToken(refresh_token as any));
             return api.axiosInstance.request(error.config);
+          } else if(!refresh_token && isLogin) {
+
           } else {
             console.log('masuk sini lgotu')
             // store.dispatch(logout());

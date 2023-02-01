@@ -49,11 +49,11 @@ const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
         resizeMode="cover"
       />
       <View style={styles.heroContentContainer}>
-        <Image
+        {/* <Image
           source={get_ride_logo}
           style={styles.getRideLogo}
           resizeMode="cover"
-        />
+        /> */}
 
         <CarouselHero />
       </View>
@@ -104,11 +104,11 @@ export default HomeHero;
 const styles = StyleSheet.create({
   imgCar: {
     width: WINDOW_WIDTH,
-    height: WINDOW_HEIGHT / 3,
+    height: WINDOW_HEIGHT / 3.7,
   },
   heroContentContainer: {
     position: 'absolute',
-    top: '10%',
+    top: '2%',
     alignSelf: 'center',
     width: '90%',
   },

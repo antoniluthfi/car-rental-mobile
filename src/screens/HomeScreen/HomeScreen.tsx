@@ -15,6 +15,7 @@ import FavoriteCar from 'components/HomeComponent/FavoriteCar/FavoriteCar';
 import GetRideDescription from 'components/HomeComponent/GetRideDescription/GetRideDescription';
 import FAQ from 'components/HomeComponent/FAQ/FAQ';
 import WhyChooseUs from 'components/HomeComponent/WhyChooseUs/WhyChooseUs';
+import SwitchLanguage from 'components/HomeComponent/SwitchLanguage/SwitchLanguage';
 
 type HeroState = 'Sewa Mobil' | 'Sewa Motor' | 'Sewa Sepeda';
 
@@ -39,6 +40,9 @@ const HomeScreen: React.FC = () => {
   return (
     <View style={[styles.wrapper]}>
       {/* <Text>{update}</Text> */}
+
+      <SwitchLanguage/>
+      
       <ScrollView>
         <HomeHero onSelectionChange={setHeroState as any} />
         <HomeTopNavigation state={heroState} />
