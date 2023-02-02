@@ -5,13 +5,13 @@ import GetRideDescription from 'components/HomeComponent/GetRideDescription/GetR
 import hoc from 'components/hoc';
 import HomeHero from 'components/HomeComponent/HomeHero/HomeHero';
 import HomeTopNavigation from 'components/HomeComponent/HomeTopNavigation';
-import React, {useCallback, useEffect, useState} from 'react';
-import useLangSelector from 'utils/useLangSelector';
+import React, {useEffect, useState} from 'react';
+import SwitchLanguage from 'components/HomeComponent/SwitchLanguage/SwitchLanguage';
 import WhyChooseUs from 'components/HomeComponent/WhyChooseUs/WhyChooseUs';
 import {getUser} from 'redux/features/appData/appDataAPI';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useAppDispatch} from 'redux/hooks';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 
 type HeroState = 'Sewa Mobil' | 'Sewa Motor' | 'Sewa Sepeda';
@@ -19,23 +19,18 @@ type HeroState = 'Sewa Mobil' | 'Sewa Motor' | 'Sewa Sepeda';
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const t1 = useLangSelector();
-  const [update, setUpdate] = useState(false);
   const [heroState, setHeroState] = useState<HeroState>('Sewa Mobil');
 
   useEffect(() => {
     dispatch(getUser());
   }, [navigation]);
 
-  useFocusEffect(
-    useCallback(() => {
-      setUpdate(prev => !prev);
-    }, [t1]),
-  );
-
   return (
     <View style={[styles.wrapper]}>
       {/* <Text>{update}</Text> */}
+
+      <SwitchLanguage />
+
       <ScrollView>
         <HomeHero onSelectionChange={setHeroState as any} />
         <HomeTopNavigation state={heroState} />

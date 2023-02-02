@@ -210,27 +210,6 @@ const AccountScreen: React.FC = () => {
             </Text>
           </TouchableOpacity>
         ),
-        trailing: (
-          <TouchableOpacity
-            style={[
-              rowCenter,
-              {
-                marginRight: 16,
-              },
-            ]}
-            onPress={() => toggleSwitch(isEnabled)}>
-            <Text
-              style={[
-                h1,
-                {color: isEnabled ? '#fff' : '#828181', marginRight: 10},
-              ]}>
-              id
-            </Text>
-            <Text style={[h1, {color: !isEnabled ? '#fff' : '#828181'}]}>
-              en
-            </Text>
-          </TouchableOpacity>
-        ),
       }),
     );
   }, [navigation, lang, isEnabled]);
