@@ -51,6 +51,7 @@ type RootStackParamList = {
   InboxDetail: {
     id: number;
   };
+  CodepushUpdateManager: {failedInstall: boolean};
 };
 
 type RootTabParamList = {
