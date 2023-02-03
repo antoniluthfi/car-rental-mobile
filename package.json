@@ -17,7 +17,9 @@
         "android:prod": "react-native run-android --variant=productiondebug",
         "android:prod-release": "react-native run-android --variant=productionrelease",
         "appcenter:android-dev": "appcenter codepush release-react -a antoni_luthfi3/Get-Ride-User-Android -d Development -m --disable-duplicate-release-error",
-        "appcenter:android-prod": "appcenter codepush release-react -a antoni_luthfi3/Get-Ride-User-Android -d Production -m --disable-duplicate-release-error"
+        "appcenter:android-prod": "appcenter codepush release-react -a antoni_luthfi3/Get-Ride-User-Android -d Production -m --disable-duplicate-release-error",
+        "appcenter:ios-dev": "appcenter codepush release-react -a antoni_luthfi3/Get-Ride-User-iOS -d Development -m --disable-duplicate-release-error",
+        "appcenter:ios-prod": "appcenter codepush release-react -a antoni_luthfi3/Get-Ride-User-iOS -d Production -m --disable-duplicate-release-error"
     },
     "dependencies": {
         "@gorhom/bottom-sheet": "^4",
