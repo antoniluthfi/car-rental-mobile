@@ -1,6 +1,19 @@
-import {createStackNavigator} from '@react-navigation/stack';
-import React, { useEffect } from 'react';
+import ChangePasswordScreen from 'screens/ChangePasswordScreen/ChangePasswordScreen';
+import CodePush from 'react-native-code-push';
+import CodepushUpdateManager from 'screens/CodepushUpdateManager/CodepushUpdateManager';
+import DailyBookingOrderDetailScreen from 'screens/DailyBookingOrderDetailScreen/DailyBookingOrderDetailScreen';
+import DeviceInfo from 'react-native-device-info';
+import MainTabNavigator from './MainTabNavigator';
+import NotificationScreen from 'screens/NotificationScreen/NotificationScreen';
+import ProfileScreen from 'screens/ProfileScreen/ProfileScreen';
+import React, {useEffect} from 'react';
+import UploadBankTransferScreen from 'screens/UploadBankTransferScreen/UploadBankTransferScreen';
+import {authState} from 'redux/features/auth/authSlice';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {RootStackParamList} from '../types/navigator';
+import {theme} from 'utils';
+import {useAppSelector} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
 import {
   AuthScreen,
   ForgotPasswordScreen,
@@ -19,15 +32,6 @@ import {
   InstantPaymentScreen,
   InboxDetailScreen,
 } from '../screens';
-import MainTabNavigator from './MainTabNavigator';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {authState, logout} from 'redux/features/auth/authSlice';
-import {theme} from 'utils';
-import DailyBookingOrderDetailScreen from 'screens/DailyBookingOrderDetailScreen/DailyBookingOrderDetailScreen';
-import UploadBankTransferScreen from 'screens/UploadBankTransferScreen/UploadBankTransferScreen';
-import ChangePasswordScreen from 'screens/ChangePasswordScreen/ChangePasswordScreen';
-import ProfileScreen from 'screens/ProfileScreen/ProfileScreen';
-import NotificationScreen from 'screens/NotificationScreen/NotificationScreen';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -66,13 +70,27 @@ const leftToRightAnimation = {
 };
 
 const MainStack: React.FC = () => {
+  const navigation = useNavigation();
   const auth = useAppSelector(authState);
-  const dispatch = useAppDispatch();
+
+  const checkCodepushUpdate = () => {
+    CodePush.checkForUpdate()
+      .then(async update => {
+        if (update) {
+          navigation.navigate('CodepushUpdateManager', {
+            failedInstall: update.failedInstall,
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-    if (auth.isSignIn && auth.status === 'failed' && !auth.token.token) {
-      // dispatch(logout());
-    }
+    const bundleId = DeviceInfo.getBundleId();
+    console.log(bundleId);
+    checkCodepushUpdate();
   }, []);
 
   return (
@@ -244,6 +262,13 @@ const MainStack: React.FC = () => {
           />
         </>
       )}
+      <RootStack.Screen
+        name="CodepushUpdateManager"
+        component={CodepushUpdateManager}
+        options={{
+          ...TransitionPresets.ModalSlideFromBottomIOS,
+        }}
+      />
     </RootStack.Navigator>
   );
 };
