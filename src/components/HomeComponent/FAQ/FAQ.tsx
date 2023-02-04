@@ -94,7 +94,7 @@ export default function FAQ() {
   const _renderContent = (section: any) => {
     return (
       <View style={styles.content}>
-        <Text allowFontScaling={false} style={{fontSize: 12}}>
+        <Text allowFontScaling={false} style={{fontSize: 12, lineHeight: 20 }}>
           {section.content}
         </Text>
       </View>
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingBottom: 16,
+    marginHorizontal: 16
   },
   textContent: {},
 });
