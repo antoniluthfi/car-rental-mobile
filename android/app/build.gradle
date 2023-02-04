@@ -82,8 +82,17 @@ project.ext.react = [
     enableHermes: true,  // clean and rebuild if changing
 ]
 
+project.ext.envConfigFiles = [
+   productiondebug: ".env.production",
+   productionrelease: ".env.production",
+   developmentrelease: ".env.development",
+   developmentdebug: ".env.development",
+]
+
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -134,6 +143,25 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
+
+    flavorDimensions "default"
+    productFlavors {
+        production {
+            minSdkVersion rootProject.ext.minSdkVersion
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.getrideapp"
+            resValue "string", "CodePushDeploymentKey", "iWJvyxeCBm8T0j-cBWLdhFAu-uf8CWIiSANvk"
+            resValue "string", "app_name", "Get Ride"
+        }
+        development {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationIdSuffix ".development"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.getrideapp"
+            resValue "string", "CodePushDeploymentKey", "H3gXUlUsRxUq_ltcA1jnACm-WGh5mOa9eDXFO"
+            resValue "string", "app_name", "Get Ride Dev"
+        }
+    }
 
     defaultConfig {
         applicationId "com.getrideapp"
@@ -230,6 +258,18 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug', 'release']
+        }
+        releaseStaging {
+            // Caution! In production, you need to generate your own keystore file.
+            // see https://reactnative.dev/docs/signed-apk-android.
+            signingConfig signingConfigs.release
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            resValue "string", "CodePushDeploymentKey", "H3gXUlUsRxUq_ltcA1jnACm-WGh5mOa9eDXFO"
+            resValue "string", "app_name", "Get Ride Dev"
+            applicationIdSuffix ".development"
+            matchingFallbacks = ['release']
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -237,6 +277,8 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            resValue "string", "CodePushDeploymentKey", "iWJvyxeCBm8T0j-cBWLdhFAu-uf8CWIiSANvk"
+            resValue "string", "app_name", "Get Ride"
         }
     }
 
@@ -265,6 +307,7 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation project(':react-native-vector-icons')
+    implementation project(':react-native-config')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
