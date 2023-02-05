@@ -35,7 +35,7 @@ type IFormError = {
 const WithoutDriverForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const cities = useAppSelector(appDataState)?.cities || [];
+  const appData = useAppSelector(appDataState);
   const lang = useLangSelector();
 
   const [form, setForm] = useState<IForm>({
@@ -139,12 +139,12 @@ const WithoutDriverForm: React.FC = () => {
   return (
     <View>
       <DropdownLocation
-        data={cities}
+        searchHistory={appData?.searchHistory || undefined}
+        data={appData?.cities || []}
         onSelect={(v: ICities) => {
           setForm({...form, location: v});
           setFormError({...formError, error_location: ''});
         }}
-        label={''}
         selected={form.location}
         errorMessage={formError.error_location}
       />

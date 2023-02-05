@@ -76,9 +76,10 @@ const MainStack: React.FC = () => {
   const checkCodepushUpdate = () => {
     CodePush.checkForUpdate()
       .then(async update => {
-        if (update) {
+        console.log(update)
+        if (!update?.failedInstall) {
           navigation.navigate('CodepushUpdateManager', {
-            failedInstall: update.failedInstall,
+            failedInstall: !!update?.failedInstall,
           });
         }
       })

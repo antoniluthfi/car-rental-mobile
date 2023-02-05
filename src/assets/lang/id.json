@@ -9,6 +9,9 @@
         "daily": {
             "location": "Pilih Lokasi Anda",
             "placeholder_location": "Pilih Lokasi Anda",
+            "your_location": "Lokasi Anda",
+            "available_location": "Lokasi Tersedia",
+            "search_history": "History Pencarian",
             "without_driver": "Tanpa Supir",
             "with_driver": "Dengan Supir",
             "select_date": "Pilih Tanggal",
