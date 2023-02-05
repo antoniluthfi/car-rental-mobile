@@ -79,7 +79,7 @@ const MainStack: React.FC = () => {
       .then(async update => {
         if (update?.failedInstall) {
           await AsyncStorage.clear();
-        } else {
+        } else if (!update?.failedInstall) {
           navigation.navigate('CodepushUpdateManager', {
             failedInstall: !!update?.failedInstall,
           });
