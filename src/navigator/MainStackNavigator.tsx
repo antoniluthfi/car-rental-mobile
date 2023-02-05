@@ -77,12 +77,14 @@ const MainStack: React.FC = () => {
   const checkCodepushUpdate = () => {
     CodePush.checkForUpdate()
       .then(async update => {
-        if (update?.failedInstall) {
-          await AsyncStorage.clear();
-        } else if (!update?.failedInstall) {
-          navigation.navigate('CodepushUpdateManager', {
-            failedInstall: !!update?.failedInstall,
-          });
+        if (update) {
+          if (update?.failedInstall) {
+            await AsyncStorage.clear();
+          } else {
+            navigation.navigate('CodepushUpdateManager', {
+              failedInstall: !!update?.failedInstall,
+            });
+          }
         }
       })
       .catch(err => {
