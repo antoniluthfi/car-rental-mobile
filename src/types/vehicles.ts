@@ -12,6 +12,7 @@ export type IVehicles = {
     smoke_allowed: boolean;
     status: string;
     year: number;
+    discount_price: number;
 }
 export type IPaginationVehicle = {
     last_page: number;

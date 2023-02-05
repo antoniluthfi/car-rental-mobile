@@ -32,6 +32,7 @@ const initialState: IInitState = {
     start_booking_time: '',
     total_payment: 0,
     vehicle_id: 0,
+    discount_price: 0
   },
   order: {
     booking_price: 0,

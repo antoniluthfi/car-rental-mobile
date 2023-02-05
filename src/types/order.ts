@@ -10,6 +10,7 @@ export type IOrderSummary = {
     start_booking_time: string;
     total_payment: number;
     vehicle_id: number;
+    discount_price: number;
 }
 export type IPayloadSummary = {
     order_type_id: number;

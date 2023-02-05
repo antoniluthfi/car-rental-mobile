@@ -35,6 +35,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { appDataState } from 'redux/features/appData/appDataSlice';
 import {authState, logout} from 'redux/features/auth/authSlice';
 import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
@@ -85,6 +86,7 @@ const DetailCarScreen: FC = () => {
   const dispatch = useAppDispatch();
   const vehicle = useAppSelector(vehiclesState).vehicleById;
   const auth = useAppSelector(authState).auth;
+  const formDaily = useAppSelector(appDataState).formDaily;
 
   const t = useLangSelector().carDetail;
   const t_dailyRules = useLangSelector().dailyRules;
@@ -340,9 +342,14 @@ const DetailCarScreen: FC = () => {
         <View>
           <Text style={[h4]}>{t.carPrice}</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
-            {currencyFormat(vehicle.price)}{' '}
+            {currencyFormat(vehicle.price - vehicle.discount_price)}{' '}
             <Text style={[h3, {fontSize: 12}]}>{t.perDay}</Text>
           </Text>
+          {vehicle.discount_price > 0 && (
+            <Text style={[h5, styles.hargaCoret]}>
+              {currencyFormat(vehicle.price)}
+            </Text>
+          )}
         </View>
         <View style={{flexBasis: '50%', alignSelf: 'flex-end'}}>
           <Button
@@ -356,6 +363,10 @@ const DetailCarScreen: FC = () => {
                   title: 'Error',
                 });
                 dispatch(logout());
+                return;
+              }
+              if(!formDaily.start_booking_date) {
+                navigation.goBack();
                 return;
               }
               navigation.navigate('OrderDetail');
@@ -421,5 +432,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderRadius: 20,
     top: 20,
+  },
+  hargaCoret: {
+    textDecorationLine: 'line-through',
+    textDecorationColor: 'orange',
+    color: theme.colors.grey4,
+    marginTop: 6,
   },
 });

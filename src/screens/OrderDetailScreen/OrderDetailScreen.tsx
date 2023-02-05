@@ -485,13 +485,18 @@ const OrderDetailScreen: FC = () => {
                 h1,
                 {color: theme.colors.navy, marginRight: 10, marginBottom: 12},
               ]}>
-              {currencyFormat(summaryOrder.total_payment)}
+              {currencyFormat(summaryOrder.total_payment - (summaryOrder.discount_price || 0))}
             </Text>
             <Image
               source={ic_arrow_down}
               style={[iconCustomSize(10), {marginBottom: 12}]}
             />
           </View>
+          {summaryOrder.discount_price > 0 && (
+            <Text style={[h5, styles.hargaCoret]}>
+              {currencyFormat(summaryOrder.total_payment)}
+            </Text>
+          )}
         </TouchableOpacity>
         <Button
           _theme="navy"
@@ -545,5 +550,11 @@ const styles = StyleSheet.create({
     padding: 16,
     marginHorizontal: '5%',
     // paddingBottom: 25,
+  },
+  hargaCoret: {
+    textDecorationLine: 'line-through',
+    textDecorationColor: 'orange',
+    color: theme.colors.grey4,
+    marginTop: 6,
   },
 });

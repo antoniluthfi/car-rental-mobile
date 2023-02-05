@@ -6,7 +6,7 @@ import {lang} from 'moment';
 import {theme} from 'utils';
 import {currencyFormat} from 'utils/currencyFormat';
 import {rowCenter, iconSize} from 'utils/mixins';
-import {h4, h1, h2} from 'utils/styles';
+import {h4, h1, h2, h5} from 'utils/styles';
 import {IVehicles} from 'types/vehicles';
 import useLangSelector from 'utils/useLangSelector';
 
@@ -16,6 +16,7 @@ interface ICardCar {
 }
 const CarCard = ({item, onPress}: ICardCar) => {
   const lang = useLangSelector().list_car;
+  console.log('item = ', item);
   return (
     <TouchableOpacity style={[rowCenter, styles.cardWrapper]} onPress={onPress}>
       <View>
@@ -84,9 +85,20 @@ const CarCard = ({item, onPress}: ICardCar) => {
         <View style={{marginTop: 10}}>
           <Text style={[h4, {fontSize: 12}]}>{lang.rent_price}</Text>
           <Text style={[h1, {color: theme.colors.navy, marginTop: 5}]}>
-            {currencyFormat(item.price)} <Text style={[h4]}>/ {lang.day}</Text>
+            {currencyFormat(item.price - item.discount_price)} <Text style={[h4]}>/ {lang.day}</Text>
           </Text>
         </View>
+
+        {
+          item.discount_price > 0 &&
+          <Text
+            style={[
+              h5,
+              styles.hargaCoret
+            ]}>
+            {currencyFormat(item.price)}
+          </Text>
+        }
       </View>
     </TouchableOpacity>
   );
@@ -124,5 +136,11 @@ const styles = StyleSheet.create({
   wrapperLineVertical: {
     marginLeft: 5,
     paddingRight: 10,
+  },
+  hargaCoret: {
+    textDecorationLine: 'line-through',
+    textDecorationColor: 'orange',
+    color: theme.colors.grey4,
+    marginTop: 6
   },
 });
