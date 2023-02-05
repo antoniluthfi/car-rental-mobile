@@ -10,6 +10,7 @@ import {h1, h5} from 'utils/styles';
 import {img_carousel_1} from 'assets/images';
 import {theme} from 'utils';
 import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
+import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 
 type CarouselRenderItem = {
   id: number;
@@ -51,11 +52,22 @@ const CarouselHero: React.FC = () => {
   };
 
   return (
-    <FlatList
+    <CustomCarousel
+      containerStyle={{
+        width: '100%',
+        alignItems: 'center',
+        position: 'absolute',
+      }}
       data={carouselItems}
-      horizontal
       renderItem={renderItem}
-      pagingEnabled
+      autoPlay
+      showButtonNavigator={false}
+      scrollAnimationDuration={2000}
+      progressValueSpace={20}
+      height={120}
+      paginationSize={7}
+      paginationColor="#F1A33A"
+      paginationPosition={5}
     />
   );
 };
@@ -72,7 +84,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 5,
     borderRadius: 10,
-    
   },
   title: {
     color: theme.colors.white,

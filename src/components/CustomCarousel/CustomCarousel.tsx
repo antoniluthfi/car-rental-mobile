@@ -3,7 +3,7 @@ import CarouselButton from './CarouselButton';
 import PaginationItem from './PaginationItem';
 import React, {Fragment, ReactNode} from 'react';
 import {CarouselRenderItem} from 'react-native-reanimated-carousel/lib/typescript/types';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View, ViewStyle} from 'react-native';
 import {useSharedValue} from 'react-native-reanimated';
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 
@@ -18,11 +18,12 @@ interface IProps {
   height?: number;
   paginationSize?: number;
   paginationColor?: string;
-  /** 
+  /**
    * @prop paginationPosition
-   * Define margin to determine top position  
+   * Define margin to determine top position
    */
   paginationPosition?: number;
+  containerStyle?: ViewStyle;
 }
 
 const CustomCarousel: React.FC<IProps> = ({
@@ -36,17 +37,18 @@ const CustomCarousel: React.FC<IProps> = ({
   height = WINDOW_HEIGHT / 3,
   paginationSize,
   paginationColor = '#344F67',
-  paginationPosition
+  paginationPosition,
+  containerStyle = {width: '100%', alignItems: 'center'},
 }) => {
   const progressValue = useSharedValue<number>(0);
   const ref = React.useRef<ICarouselInstance>(null);
 
   return (
-    <View style={{width: '100%', alignItems: 'center'}}>
+    <View style={containerStyle}>
       <Carousel
         // loop
         ref={ref}
-        width={WINDOW_WIDTH}
+        width={WINDOW_WIDTH * (90 / 100)}
         height={height}
         autoPlay={autoPlay}
         data={data}
