@@ -5,92 +5,92 @@ import {
   iconCustomSize,
   iconSize,
   rowCenter,
+  WINDOW_WIDTH,
 } from 'utils/mixins';
-import {h1, h2, h5} from 'utils/styles';
-import {ic_info_error, ic_pinpoin} from 'assets/icons';
+import {h1, h5} from 'utils/styles';
+import {ic_history, ic_info_error, ic_pinpoin} from 'assets/icons';
 import {ICities} from 'types/global.types';
 import {theme} from 'utils';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Modal,
-  View,
-  Image,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
+import {showBSheet} from 'utils/BSheet';
+import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
+import {toggleBSheet} from 'redux/features/utils/utilsSlice';
+import {useAppDispatch} from 'redux/hooks';
+import {setSearchHistory} from 'redux/features/appData/appDataSlice';
 
 interface Props {
-  label: string;
   data:
     | Array<{name: string; dial_code: string; code: string; emoji: string}>
     | any;
   onSelect: (item: ICities) => void | any;
   selected: any;
   errorMessage: string;
+  searchHistory?: {
+    id: number;
+    name: string;
+  };
 }
 
 const Dropdown: FC<Props> = ({
-  label,
   data,
   onSelect,
   selected,
   errorMessage,
+  searchHistory,
 }) => {
+  const dispatch = useAppDispatch();
   const DropdownButton: any = useRef();
-  const [visible, setVisible] = useState(false);
   const [_selected, setSelected] = useState<any>(undefined);
-  const [dropdownTop, setDropdownTop] = useState(0);
   const lang = useLangSelector();
 
-  const toggleDropdown = (): void => {
-    visible ? setVisible(false) : openDropdown();
-  };
+  const renderItem = ({item}: any): ReactElement<any, any> => (
+    <TouchableOpacity onPress={() => onItemPress(item)}>
+      <View style={styles.item}>
+        <Image source={ic_pinpoin} style={iconSize} />
+        <Text style={[h1, {marginLeft: 10}]}>{item.name}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 
-  const openDropdown = (): void => {
-    DropdownButton.current.measure(
-      (
-        _fx: number,
-        _fy: number,
-        _w: number,
-        h: number,
-        _px: number,
-        py: number,
-      ) => {
-        setDropdownTop(py + h);
-      },
-    );
-    setVisible(true);
+  const toggleDropdown = (): void => {
+    showBSheet({
+      content: (
+        <View style={styles.bsheetWrapper}>
+          <Text style={[h1, {fontSize: 18, marginBottom: 17}]}>
+            {lang.Home.daily.your_location}
+          </Text>
+
+          {!!searchHistory && (
+            <View>
+              <Text style={[h5]}>{lang.Home.daily.search_history}</Text>
+              <TouchableOpacity
+                style={[styles.item, {marginBottom: 20}]}
+                onPress={() => {
+                  onItemPress(searchHistory);
+                }}>
+                <Image source={ic_history} style={iconSize} />
+                <Text style={[h1, {marginLeft: 10}]}>{searchHistory.name}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          <Text style={[h5]}>{lang.Home.daily.available_location}</Text>
+
+          <BottomSheetFlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      ),
+    });
   };
 
   const onItemPress = (item: any): void => {
     setSelected(item);
     onSelect(item);
-    setVisible(false);
-  };
-
-  const renderItem = ({item}: any): ReactElement<any, any> => (
-    <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
-      <Text>{item.name}</Text>
-    </TouchableOpacity>
-  );
-
-  const renderDropdown = (): ReactElement<any, any> => {
-    return (
-      <Modal visible={visible} transparent animationType="none">
-        <TouchableOpacity
-          style={styles.overlay}
-          onPress={() => setVisible(false)}>
-          <View style={[styles.dropdown, {top: dropdownTop}]}>
-            <FlatList
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
-        </TouchableOpacity>
-      </Modal>
-    );
+    dispatch(setSearchHistory(item));
+    dispatch(toggleBSheet(false));
   };
 
   return (
@@ -111,7 +111,6 @@ const Dropdown: FC<Props> = ({
           },
         ]}
         onPress={toggleDropdown}>
-        {renderDropdown()}
         <Image source={ic_pinpoin} style={iconSize} />
         <Text style={[h5, colorSelecting(selected?.name), {marginLeft: 10}]}>
           {selected?.name || lang.Home.daily.placeholder_location}
@@ -135,7 +134,6 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    // backgroundColor: '#efefef',
     height: 40,
     borderRadius: 8,
     borderWidth: 1,
@@ -149,32 +147,23 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
   },
-  dropdown: {
-    position: 'absolute',
-    backgroundColor: '#fff',
-    width: '90%',
-    alignSelf: 'center',
-    // marginLeft: 20,
-    shadowColor: '#000000',
-    shadowRadius: 4,
-    shadowOffset: {height: 4, width: 0},
-    shadowOpacity: 0.5,
-  },
-  overlay: {
-    width: '100%',
-    height: '100%',
-  },
   item: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    width: '100%',
+    paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.grey6,
+    flexDirection: 'row',
   },
   wrapper: {
     borderBottomWidth: 1,
-    // borderBottomColor: theme.colors.grey5,
     paddingVertical: 10,
     marginTop: 10,
+  },
+  bsheetWrapper: {
+    width: WINDOW_WIDTH,
+    flexGrow: 1,
+    paddingHorizontal: '5%',
+    paddingBottom: 30,
   },
 });
 

@@ -1,24 +1,32 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICities, IFormDaily, IGarages, IPayments, IRegisterVerificationMethod, IUserData, IUserProfile } from 'types/global.types';
-import { IBrands, IPaginationVehicle, IVehicles } from 'types/vehicles';
-import { RootState } from '../../store';
-import { getAllCities, getGarages, getPayments, getUser } from './appDataAPI';
+import {createSlice} from '@reduxjs/toolkit';
+import {getAllCities, getGarages, getPayments, getUser} from './appDataAPI';
+import {
+  ICities,
+  IFormDaily,
+  IGarages,
+  IPayments,
+  IUserData,
+  IUserProfile,
+} from 'types/global.types';
+import {RootState} from '../../store';
 
 interface IInitState {
   status: string;
   cities: ICities[];
+  searchHistory?: ICities;
   isLoading: boolean;
-  userData: IUserData,
-  userProfile: IUserProfile,
-  formDaily: IFormDaily,
-  garages: IGarages[],
-  payments: IPayments[],
-  languages: 'id' | 'en'
+  userData: IUserData;
+  userProfile: IUserProfile;
+  formDaily: IFormDaily;
+  garages: IGarages[];
+  payments: IPayments[];
+  languages: 'id' | 'en';
 }
 
 const initialState: IInitState = {
   status: '',
   cities: [],
+  searchHistory: undefined,
   isLoading: false,
   userData: {
     fullname: '',
@@ -28,7 +36,7 @@ const initialState: IInitState = {
     wa: '',
     password: '',
     password_confirmation: '',
-    registration_type: 'email'
+    registration_type: 'email',
   },
   formDaily: {
     limit: 10,
@@ -56,7 +64,7 @@ const initialState: IInitState = {
     phone: '',
     phone_code: '',
     wa_number: '',
-    photo_profile: ''
+    photo_profile: '',
   },
   garages: [],
   payments: [],
@@ -74,7 +82,8 @@ export const appDataSlice = createSlice({
       state.userData.phone = action.payload?.phone;
       state.userData.wa = action.payload?.wa;
       state.userData.password = action.payload?.password;
-      state.userData.password_confirmation = action.payload?.password_confirmation;
+      state.userData.password_confirmation =
+        action.payload?.password_confirmation;
       state.userData.registration_type = action.payload?.registration_type;
     },
     saveFormDaily: (state, action) => {
@@ -82,7 +91,10 @@ export const appDataSlice = createSlice({
     },
     toggleLanguages: (state, action) => {
       state.languages = action.payload;
-    }
+    },
+    setSearchHistory: (state, action) => {
+      state.searchHistory = action.payload;
+    },
   },
   extraReducers: builder => {
     builder
@@ -142,12 +154,16 @@ export const appDataSlice = createSlice({
       .addCase(getPayments.rejected, (state, action) => {
         state.status = 'failed';
         state.isLoading = false;
-      })
-      ;
+      });
   },
 });
 
-export const { saveFormRegister, saveFormDaily, toggleLanguages } = appDataSlice.actions;
+export const {
+  saveFormRegister,
+  saveFormDaily,
+  toggleLanguages,
+  setSearchHistory,
+} = appDataSlice.actions;
 
 export const appDataState = (state: RootState) => state.appData;
 export default appDataSlice.reducer;

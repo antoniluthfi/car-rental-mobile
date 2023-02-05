@@ -48,15 +48,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
         style={styles.imgCar}
         resizeMode="cover"
       />
-      <View style={styles.heroContentContainer}>
-        {/* <Image
-          source={get_ride_logo}
-          style={styles.getRideLogo}
-          resizeMode="cover"
-        /> */}
-
-        <CarouselHero />
-      </View>
+      <CarouselHero />
 
       <View style={styles.buttonMenu}>
         {buttonList.map((button, i) => (
@@ -105,12 +97,6 @@ const styles = StyleSheet.create({
   imgCar: {
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT / 3.7,
-  },
-  heroContentContainer: {
-    position: 'absolute',
-    top: '2%',
-    alignSelf: 'center',
-    width: '90%',
   },
   getRideLogo: {
     width: '25%',

@@ -9,6 +9,9 @@
         "daily": {
             "location": "Choose your location",
             "placeholder_location": "Choose your location",
+            "your_location": "Your Location",
+            "available_location": "Available Location",
+            "search_history": "Search History",
             "without_driver": "Without Driver",
             "with_driver": "With Driver",
             "select_date": "Select Date",

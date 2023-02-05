@@ -7,7 +7,7 @@ interface IToast {
   /**
    * value should be in percentage
    */
-  snapPoint?: [string, string];
+  snapPoint?: string[];
 }
 
 export const showBSheet = ({content, snapPoint}: IToast) => {

@@ -32,6 +32,7 @@ import {
   InstantPaymentScreen,
   InboxDetailScreen,
 } from '../screens';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -77,9 +78,13 @@ const MainStack: React.FC = () => {
     CodePush.checkForUpdate()
       .then(async update => {
         if (update) {
-          navigation.navigate('CodepushUpdateManager', {
-            failedInstall: update.failedInstall,
-          });
+          if (update?.failedInstall) {
+            await AsyncStorage.clear();
+          } else {
+            navigation.navigate('CodepushUpdateManager', {
+              failedInstall: !!update?.failedInstall,
+            });
+          }
         }
       })
       .catch(err => {

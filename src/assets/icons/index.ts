@@ -92,3 +92,4 @@ export const ic_with_driver_active = require('./ic_with_driver_active.png');
 export const ic_tick_success = require('./ic_tick_success.png');
 export const ic_get_ride_2 = require('./ic_get_ride_2.png');
 export const ic_getride= require('./ic_getride.png');
+export const ic_history= require('./ic_history.png');

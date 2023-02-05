@@ -1,15 +1,9 @@
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  ImageSourcePropType,
-} from 'react-native';
+import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 import {h1, h5} from 'utils/styles';
 import {img_carousel_1} from 'assets/images';
 import {theme} from 'utils';
 import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
+import {Image, StyleSheet, Text, View, ImageSourcePropType} from 'react-native';
 
 type CarouselRenderItem = {
   id: number;
@@ -43,7 +37,13 @@ const CarouselHero: React.FC = () => {
           <Text style={[h1, styles.title]}>{item.title}</Text>
           <Text style={[h5, styles.description]}>{item.description}</Text>
         </View>
-        <View style={{width: '50%', overflow: 'hidden', borderTopRightRadius: 10, borderBottomRightRadius: 10}}>
+        <View
+          style={{
+            width: '50%',
+            overflow: 'hidden',
+            borderTopRightRadius: 10,
+            borderBottomRightRadius: 10,
+          }}>
           <Image source={item.img} resizeMode="cover" style={styles.image} />
         </View>
       </View>
@@ -51,11 +51,23 @@ const CarouselHero: React.FC = () => {
   };
 
   return (
-    <FlatList
+    <CustomCarousel
+      containerStyle={{
+        width: '100%',
+        alignItems: 'center',
+        position: 'absolute',
+      }}
+      carouselWidth={WINDOW_WIDTH * (90 / 100)}
       data={carouselItems}
-      horizontal
       renderItem={renderItem}
-      pagingEnabled
+      autoPlay
+      showButtonNavigator={false}
+      scrollAnimationDuration={2000}
+      progressValueSpace={20}
+      height={120}
+      paginationSize={7}
+      paginationColor="#F1A33A"
+      paginationPosition={5}
     />
   );
 };
@@ -72,7 +84,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 5,
     borderRadius: 10,
-    
   },
   title: {
     color: theme.colors.white,
@@ -82,5 +93,5 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     fontSize: 10,
   },
-  image: {width: '100%', height: '100%'}
+  image: {width: '100%', height: '100%'},
 });
