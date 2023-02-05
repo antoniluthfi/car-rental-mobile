@@ -24,6 +24,7 @@ interface IProps {
    */
   paginationPosition?: number;
   containerStyle?: ViewStyle;
+  carouselWidth?: number;
 }
 
 const CustomCarousel: React.FC<IProps> = ({
@@ -39,6 +40,7 @@ const CustomCarousel: React.FC<IProps> = ({
   paginationColor = '#344F67',
   paginationPosition,
   containerStyle = {width: '100%', alignItems: 'center'},
+  carouselWidth = WINDOW_WIDTH
 }) => {
   const progressValue = useSharedValue<number>(0);
   const ref = React.useRef<ICarouselInstance>(null);
@@ -48,7 +50,7 @@ const CustomCarousel: React.FC<IProps> = ({
       <Carousel
         // loop
         ref={ref}
-        width={WINDOW_WIDTH * (90 / 100)}
+        width={carouselWidth}
         height={height}
         autoPlay={autoPlay}
         data={data}

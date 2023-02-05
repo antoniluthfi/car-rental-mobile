@@ -1,3 +1,24 @@
+import appBar from 'components/AppBar/AppBar';
+import Button from 'components/Button';
+import DeliveryLocationModalContent from 'components/OrderDetail/DeliveryLocationModalContent/DeliveryLocationModalContent';
+import hoc from 'components/hoc';
+import moment from 'moment';
+import PaymentDetailModalContent from 'components/OrderDetail/PaymentDetailModalContent/PaymentDetailModalContent';
+import React, {FC, useEffect, useState} from 'react';
+import ReturnLocationModalContent from 'components/OrderDetail/ReturnLocationModalContent/ReturnLocationModalContent';
+import TakingLocationModalContent from 'components/OrderDetail/TakingLocationModalContent/TakingLocationModalContent';
+import useLangSelector from 'utils/useLangSelector';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {createOrder, getSummaryOrder} from 'redux/features/order/orderAPI';
+import {currencyFormat} from 'utils/currencyFormat';
+import {h1, h3, h4, h5} from 'utils/styles';
+import {IGarages} from 'types/global.types';
+import {IPayloadSummary} from 'types/order';
+import {orderState} from 'redux/features/order/orderSlice';
+import {showBSheet} from 'utils/BSheet';
+import {theme} from 'utils';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
 import {
   Image,
   ScrollView,
@@ -7,18 +28,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {FC, useEffect, useState} from 'react';
-import hoc from 'components/hoc';
-import {useNavigation} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
 import {
   ic_arrow_down,
   ic_arrow_left_white,
   ic_blue_check,
-  ic_glasses,
   ic_pen,
   ic_pinpoin,
-  ic_pinpoin2,
   ic_uncheck,
 } from 'assets/icons';
 import {
@@ -28,27 +43,11 @@ import {
   iconSize,
   rowCenter,
 } from 'utils/mixins';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
-import {theme} from 'utils';
-import Button from 'components/Button';
-import {showBSheet} from 'utils/BSheet';
-import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {createOrder, getSummaryOrder} from 'redux/features/order/orderAPI';
-import {appDataState} from 'redux/features/appData/appDataSlice';
-import {IGarages} from 'types/global.types';
-import moment from 'moment';
-import {IPayloadSummary} from 'types/order';
-import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
-import {currencyFormat} from 'utils/currencyFormat';
-import {orderState} from 'redux/features/order/orderSlice';
 import {
   getGarages,
   getPayments,
   getUser,
 } from 'redux/features/appData/appDataAPI';
-import {differenceInCalendarDays, differenceInDays, parse} from 'date-fns';
-import useLangSelector from 'utils/useLangSelector';
 
 const OrderDetailScreen: FC = () => {
   const navigation = useNavigation();
@@ -56,9 +55,7 @@ const OrderDetailScreen: FC = () => {
   const user = useAppSelector(appDataState).userProfile;
 
   const formDaily = useAppSelector(appDataState).formDaily;
-  const vehicles = useAppSelector(vehiclesState);
   const summaryOrder = useAppSelector(orderState).summaryOrder;
-  const garages = useAppSelector(appDataState).garages;
   const t = useLangSelector().detail_order;
   const t_global = useLangSelector().global;
 
@@ -71,7 +68,6 @@ const OrderDetailScreen: FC = () => {
     return_location: null,
     special_request: '',
   });
-  const [inputPickup, setInputPickup] = useState('');
 
   const [checkInfo, setCheckInfo] = useState(false);
 
@@ -132,9 +128,7 @@ const OrderDetailScreen: FC = () => {
             end_booking_time: summaryOrder.end_booking_time,
             is_take_from_rental_office: checkInfo,
             passenger_number: formDaily.passanger,
-            rental_delivery_location: checkInfo
-              ? form.taking_location?.name!
-              : inputPickup,
+            rental_delivery_location: form.taking_location?.name!,
             rental_return_office_id: form.return_location?.id!,
             start_booking_date: summaryOrder.start_booking_date,
             start_booking_time: summaryOrder.start_booking_time,
@@ -162,212 +156,45 @@ const OrderDetailScreen: FC = () => {
     handlePengantaran: () => {
       showBSheet({
         content: (
-          <View style={{flex: 1, alignItems: 'flex-start', width: '95%'}}>
-            <Text style={[h1]}>Lokasi Pengantaran</Text>
-            <View style={[rowCenter, styles.searchWrapper]}>
-              <TextInput
-                style={{width: '95%'}}
-                placeholder="Cari berdasarkan Alamat"
-              />
-              <Image source={ic_glasses} style={iconSize} />
-            </View>
-            <Text style={[h1, {marginTop: 20}]}>Rekomendasi Tempat</Text>
-            <View style={{width: '100%', flex: 1}}>
-              <BottomSheetScrollView>
-                {garages?.map((x, i) => (
-                  <TouchableOpacity
-                    key={i}
-                    style={[rowCenter, styles.borderBottom]}
-                    onPress={() => {
-                      setForm({...form, taking_location: x});
-                      methods.handlePengantaran();
-                    }}>
-                    <Image source={ic_pinpoin} style={iconSize} />
-                    <View>
-                      <Text style={[h1, {marginLeft: 5}]}>{x.name}</Text>
-                      <Text style={[h5, {marginLeft: 5}]}>
-                        {x.address_details}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                ))}
-              </BottomSheetScrollView>
-            </View>
-          </View>
+          <DeliveryLocationModalContent
+            onPress={val => {
+              setForm({...form, taking_location: val as any});
+              methods.handlePengantaran();
+            }}
+          />
+        ),
+      });
+    },
+    handlePengambilan: () => {
+      showBSheet({
+        content: (
+          <TakingLocationModalContent
+            onPress={val => {
+              setForm({...form, taking_location: val});
+              methods.handlePengantaran();
+            }}
+          />
         ),
       });
     },
     handlePengembalian: () => {
       showBSheet({
         content: (
-          <View style={{flex: 1, alignItems: 'flex-start', width: '95%'}}>
-            <Text style={[h1]}>Lokasi Pengembalian</Text>
-            <View style={[rowCenter, styles.searchWrapper]}>
-              <TextInput
-                style={{width: '95%'}}
-                placeholder="Cari berdasarkan Alamat"
-              />
-              <Image source={ic_glasses} style={iconSize} />
-            </View>
-            <View style={[rowCenter, {marginTop: 20}]}>
-              <Image source={ic_pinpoin2} style={iconSize} />
-              <Text style={[h4]}> Kembalikan ditempat yang sama</Text>
-            </View>
-            <Text style={[h1, {marginTop: 20}]}>Rekomendasi Tempat</Text>
-            <View style={{width: '100%', flex: 1}}>
-              <BottomSheetScrollView>
-                {garages?.map((x, i) => (
-                  <TouchableOpacity
-                    key={i}
-                    style={[rowCenter, styles.borderBottom]}
-                    onPress={() => {
-                      setForm({...form, return_location: x});
-                      methods.handlePengantaran();
-                    }}>
-                    <Image source={ic_pinpoin} style={iconSize} />
-                    <View>
-                      <Text style={[h1, {marginLeft: 5}]}>{x.name}</Text>
-                      <Text style={[h5, {marginLeft: 5}]}>
-                        {x.address_details}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                ))}
-              </BottomSheetScrollView>
-            </View>
-          </View>
+          <ReturnLocationModalContent
+            onPress={val => {
+              setForm({...form, return_location: val});
+              methods.handlePengantaran();
+            }}
+          />
         ),
       });
     },
     handleDetailPayment: () => {
       showBSheet({
-        content: (
-          <View style={{flex: 1, alignItems: 'flex-start', width: '95%'}}>
-            <Text style={[h1, {fontSize: 20}]}>{t.summary.title}</Text>
-
-            <View
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', width: '100%', marginTop: 20},
-              ]}>
-              <Text style={h1}>
-                {
-                  vehicles.vehicles?.find(x => x.id === formDaily.vehicle_id)
-                    ?.name
-                }
-              </Text>
-              <Text style={h4}>{formDaily.passanger} {t.summary.passanger}</Text>
-            </View>
-
-            <View
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', width: '100%', marginTop: 15},
-              ]}>
-              <Text style={h4}>{t.summary.startDate}</Text>
-              <Text style={h4}>
-                {moment(formDaily.start_booking_date).format('DD MMMM YYYY')}
-              </Text>
-            </View>
-
-            <View
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', width: '100%', marginTop: 15},
-              ]}>
-              <Text style={h4}>{t.summary.startTime}</Text>
-              <Text style={h4}>{formDaily.start_booking_time}</Text>
-            </View>
-
-            <View
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', width: '100%', marginTop: 20},
-              ]}>
-              <Text style={h4}>{t.summary.endDate}</Text>
-              <Text style={h4}>
-                {moment(formDaily.end_booking_date).format('DD MMMM YYYY')}
-              </Text>
-            </View>
-
-            <View
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', width: '100%', marginTop: 15},
-              ]}>
-              <Text style={h4}>{t.summary.endTime}</Text>
-              <Text style={h4}>{formDaily.end_booking_time}</Text>
-            </View>
-            <View style={[styles.lineHorizontal, {width: '100%'}]} />
-
-            <Text style={[h1, {marginTop: 20}]}>{t.summary.rentalFee}</Text>
-            <View
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', width: '100%', marginTop: 15},
-              ]}>
-              <Text style={h4}>{t.summary.price}</Text>
-              <Text style={h4}>
-                {currencyFormat(summaryOrder.booking_price)} / {dayDifference}{' '}
-                {t.summary.day}
-              </Text>
-            </View>
-            <View style={[styles.lineHorizontal, {width: '100%'}]} />
-
-            <Text style={[h1, {marginTop: 20}]}>{t.summary.otherFee}</Text>
-            <View
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', width: '100%', marginTop: 15},
-              ]}>
-              <Text style={h4}>{t.summary.serviceFee}</Text>
-              <Text style={h4}>{currencyFormat(summaryOrder.service_fee)}</Text>
-            </View>
-            <View
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', width: '100%', marginTop: 15},
-              ]}>
-              <Text style={h4}>{t.summary.insuranceFee}</Text>
-              <Text style={h4}>
-                {currencyFormat(summaryOrder.insurance_fee)}
-              </Text>
-            </View>
-            <View style={[styles.lineHorizontal, {width: '100%'}]} />
-
-            <View
-              style={[
-                rowCenter,
-                {justifyContent: 'space-between', width: '100%', marginTop: 15},
-              ]}>
-              <Text style={[h1, {color: theme.colors.navy}]}>
-                {t.summary.totalPayment}
-              </Text>
-              <Text style={h1}>
-                {currencyFormat(summaryOrder.total_payment)}
-              </Text>
-            </View>
-          </View>
-        ),
+        content: <PaymentDetailModalContent />,
       });
     },
   };
-
-  const parsedStartDate = parse(
-    formDaily?.start_booking_date,
-    'yyyy-MM-dd',
-    new Date(),
-  );
-  const parsedEndDate = parse(
-    formDaily?.end_booking_date,
-    'yyyy-MM-dd',
-    new Date(),
-  );
-
-  const dayDifference = differenceInCalendarDays(
-    parsedEndDate,
-    parsedStartDate,
-  );
 
   return (
     <View style={{flex: 1, justifyContent: 'space-between'}}>
@@ -409,28 +236,31 @@ const OrderDetailScreen: FC = () => {
           </Text>
           <View style={[rowCenter, styles.borderBottom]}>
             <Image source={ic_pinpoin} style={iconSize} />
-            {checkInfo ? (
-              <TouchableOpacity onPress={methods.handlePengantaran}>
-                <Text
-                  style={[
-                    h5,
-                    colorSelecting(form.taking_location?.name),
-                    {marginLeft: 5},
-                  ]}>
-                  {form.taking_location?.name || t.tripDetail.deliveryLocationTakingPlaceholder}
-                </Text>
-              </TouchableOpacity>
-            ) : (
-              <TextInput
-                onChangeText={x => setInputPickup(x)}
-                placeholder={t.tripDetail.deliveryLocationPlaceholder}
-                value={inputPickup}
-                style={{padding: 0, marginVertical: 0, marginLeft: 5}}
-              />
-            )}
+            <TouchableOpacity
+              onPress={() => {
+                if (checkInfo) {
+                  methods.handlePengambilan();
+                } else {
+                  methods.handlePengantaran();
+                }
+              }}>
+              <Text
+                style={[
+                  h5,
+                  colorSelecting(form.taking_location?.name),
+                  {marginLeft: 5},
+                ]}>
+                {form.taking_location?.name ||
+                  (checkInfo
+                    ? t.tripDetail.deliveryLocationTakingPlaceholder
+                    : t.tripDetail.deliveryLocationPlaceholder)}
+              </Text>
+            </TouchableOpacity>
           </View>
 
-          <Text style={[h4, {marginTop: 20}]}>{t.tripDetail.returnLocation}</Text>
+          <Text style={[h4, {marginTop: 20}]}>
+            {t.tripDetail.returnLocation}
+          </Text>
           <TouchableOpacity
             style={[rowCenter, styles.borderBottom]}
             onPress={methods.handlePengembalian}>
@@ -441,7 +271,8 @@ const OrderDetailScreen: FC = () => {
                 colorSelecting(form.return_location?.name),
                 {marginLeft: 5},
               ]}>
-              {form.return_location?.name || t.tripDetail.returnLocationPlaceHolder}
+              {form.return_location?.name ||
+                t.tripDetail.returnLocationPlaceHolder}
             </Text>
           </TouchableOpacity>
         </View>
@@ -522,13 +353,6 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.colors.grey5,
     paddingVertical: 10,
   },
-  searchWrapper: {
-    width: '100%',
-    backgroundColor: theme.colors.grey7,
-    padding: 10,
-    borderRadius: 8,
-    marginTop: 20,
-  },
   formWrapper: {
     borderWidth: 1,
     borderColor: theme.colors.grey6,
@@ -544,6 +368,5 @@ const styles = StyleSheet.create({
     left: -16,
     padding: 16,
     marginHorizontal: '5%',
-    // paddingBottom: 25,
   },
 });
