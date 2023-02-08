@@ -1,6 +1,6 @@
 import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 import {h1, h5} from 'utils/styles';
-import {img_carousel_1} from 'assets/images';
+import {img_carousel_1, img_carousel_2} from 'assets/images';
 import {theme} from 'utils';
 import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {Image, StyleSheet, Text, View, ImageSourcePropType} from 'react-native';
@@ -18,14 +18,14 @@ const carouselItems: CarouselRenderItem[] = [
     title: 'Get & Ride - Rental dan Sewa Mobil di Bali',
     description:
       'Rasakan pengalaman rental dan sewa mobil di Bali dengan mudah, terpercaya, dan ga pake ribet hanya di Get & Ride.',
-    img: img_carousel_1,
+    img: img_carousel_2,
   },
   {
     id: 2,
     title: 'Get & Ride - Rental dan Sewa Mobil di Bali',
     description:
       'Rasakan pengalaman rental dan sewa mobil di Bali dengan mudah, terpercaya, dan ga pake ribet hanya di Get & Ride.',
-    img: img_carousel_1,
+    img: img_carousel_2,
   },
 ];
 
@@ -33,13 +33,13 @@ const CarouselHero: React.FC = () => {
   const renderItem = ({item}: {item: CarouselRenderItem}) => {
     return (
       <View style={styles.itemContainer}>
-        <View style={{width: '50%', padding: 10}}>
+        {/* <View style={{width: '50%', padding: 10}}>
           <Text style={[h1, styles.title]}>{item.title}</Text>
           <Text style={[h5, styles.description]}>{item.description}</Text>
-        </View>
+        </View> */}
         <View
           style={{
-            width: '50%',
+            width: '100%',
             overflow: 'hidden',
             borderTopRightRadius: 10,
             borderBottomRightRadius: 10,

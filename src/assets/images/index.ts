@@ -11,6 +11,7 @@ export const img_motorcycle = require('./img_motorcycle.png');
 export const img_bicycle = require('./img_bicycle.png');
 export const img_hero_background = require('./img_hero_background.png');
 export const img_carousel_1 = require('./img_carousel_1.png');
+export const img_carousel_2 = require('./img_carousel_2.png');
 export const img_with_driver_guide_1 = require('./img_with_driver_guide_1.png');
 export const img_with_driver_guide_2 = require('./img_with_driver_guide_2.png');
 export const img_wave = require('./img_wave.png');

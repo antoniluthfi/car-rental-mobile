@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {ic_get_ride_2} from 'assets/icons';
+import {ic_getride, ic_get_ride_2} from 'assets/icons';
 import useLangSelector from 'utils/useLangSelector';
 import {h1, h4, h5} from 'utils/styles';
 import {theme} from 'utils';
@@ -17,7 +17,7 @@ const GetRideDescription = () => {
           padding: 40,
         }}>
         <Image
-          source={ic_get_ride_2}
+          source={ic_getride}
           style={{height: 38, width: 94}}
           resizeMode={'contain'}
         />
