@@ -90,10 +90,10 @@ const WithoutDriverForm: React.FC = () => {
         saveFormDaily({
           limit: 10,
           location: form?.location?.name,
-          start_booking_date: `${moment(form?.tanggal_sewa)
+          start_booking_date: `${moment(form?.tanggal_sewa, 'YYYY/MM/DD')
             .format('YYYY-MM-DD')
             .toString()}`,
-          end_booking_date: `${moment(form?.tanggal_pengembalian)
+          end_booking_date: `${moment(form?.tanggal_pengembalian, 'YYYY/MM/DD')
             .format('YYYY-MM-DD')
             .toString()}`,
           start_trip: `${form?.tanggal_sewa?.replace(/\//g, '-')} ${
@@ -212,6 +212,7 @@ const WithoutDriverForm: React.FC = () => {
                   width: WINDOW_WIDTH,
                   height: WINDOW_HEIGHT,
                 }}
+                
                 minimumDate={
                   Platform.OS === 'android'
                     ? form.tanggal_sewa

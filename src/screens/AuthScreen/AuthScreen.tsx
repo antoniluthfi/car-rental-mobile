@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
-import {ic_arrow_right_2, ic_get_ride} from 'assets/icons';
+import {ic_arrow_right_2, ic_getride, ic_getride_white, ic_get_ride} from 'assets/icons';
 import {img_bg_auth} from 'assets/images';
 import Button from 'components/Button';
 import Splash from 'components/Splash/Splash';
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {
   Image,
   ImageBackground,
@@ -26,6 +26,7 @@ import {FONT_SIZE_14} from 'utils/typography';
 const AuthScreen: FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const [changeicon, setChangeicon] = useState(false);
 
   const heightValue = useSharedValue(123);
   const widthValue = useSharedValue(123);
@@ -35,7 +36,7 @@ const AuthScreen: FC = () => {
 
   const opacityBgValue = useSharedValue(1);
   const zIndexBgValue = useSharedValue(1);
-  const bgValue = useSharedValue(theme.colors.navy);
+  const bgValue = useSharedValue(theme.colors.white);
   const heightBgValue = useSharedValue(WINDOW_HEIGHT);
 
   const opacityTextValue = useSharedValue(0);
@@ -47,9 +48,9 @@ const AuthScreen: FC = () => {
     return {
       width: widthValue.value,
       height: heightValue.value,
-      position: positionValue.value,
+      // position: positionValue.value,
       zIndex: zIndexImgValue.value,
-      marginLeft: imgLeftValue.value,
+      // marginLeft: imgLeftValue.value,
     };
   });
   const rText: any = useAnimatedStyle(() => {
@@ -78,14 +79,15 @@ const AuthScreen: FC = () => {
       const option = {
         duration: 700,
       };
-      heightValue.value = withTiming(43, option);
-      widthValue.value = withTiming(43, option);
-      positionValue.value = withTiming('relative', option);
+      heightValue.value = withTiming(200, option);
+      widthValue.value = withTiming(200, option);
+      // positionValue.value = withTiming('relative', option);
       bgValue.value = withTiming('transparent', option);
       opacityTextValue.value = withTiming(1, option);
-      marginLeftValue.value = withTiming(50, option);
+      // marginLeftValue.value = withTiming(50, option);
       imgLeftValue.value = withTiming(0, option);
       opacityBtnValue.value = 1;
+      setChangeicon(true);
     }, 1500);
   }, []);
 
@@ -101,12 +103,10 @@ const AuthScreen: FC = () => {
 
         <View style={[rowCenter, styles.iconMainWrapper]}>
           <Animated.Image
-            source={ic_get_ride}
+            source={changeicon ? ic_getride_white : ic_getride}
+            resizeMode={'contain'}
             style={[styles.icMain, rImage]}
           />
-          <Animated.Text style={[styles.textIcon, rText]}>
-            Get & Ride
-          </Animated.Text>
         </View>
 
         <Animated.View style={[styles.buttonWrapper, rBtn]}>
@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
   },
   textTest: {fontSize: FONT_SIZE_14, color: theme.colors.white},
   icMain: {
-    height: 43,
-    width: 43,
+    height: 100,
+    width: 100,
     alignSelf: 'center',
   },
   textIcon: {
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   iconMainWrapper: {
     alignSelf: 'center',
-    marginTop: WINDOW_HEIGHT / 3,
+    marginTop: WINDOW_HEIGHT / 4,
   },
   buttonWrapper: {
     position: 'absolute',

@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React, { useEffect } from 'react';
-import {ic_get_ride} from 'assets/icons';
+import {ic_getride, ic_get_ride} from 'assets/icons';
 import {theme} from 'utils';
 import Animated, {Easing, useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
 
@@ -30,7 +30,7 @@ const Splash = () => {
     <Animated.View
       style={[styles.container, rView]}>
       <Image
-        source={ic_get_ride}
+        source={ic_getride}
         style={{
           height: 126,
           width: 126,

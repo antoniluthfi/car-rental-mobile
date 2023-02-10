@@ -33,6 +33,7 @@ const PaymentDetailModalContent: React.FC = () => {
     parsedEndDate,
     parsedStartDate,
   );
+  console.log('formDaily = ', formDaily);
 
   return (
     <View style={styles.container}>

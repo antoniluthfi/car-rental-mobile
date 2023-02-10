@@ -53,7 +53,7 @@ const CarCard = ({item, onPress}: ICardCar) => {
                 alignSelf: 'center',
               },
             ]}>
-            {item.status}
+            {item.status.toLowerCase() === 'locked' ? 'Booked': 'Available'}
           </Text>
         </View>
       </View>

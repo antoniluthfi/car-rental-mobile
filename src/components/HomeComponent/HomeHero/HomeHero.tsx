@@ -96,7 +96,7 @@ export default HomeHero;
 const styles = StyleSheet.create({
   imgCar: {
     width: WINDOW_WIDTH,
-    height: WINDOW_HEIGHT / 3.7,
+    height: WINDOW_HEIGHT / 3.5,
   },
   getRideLogo: {
     width: '25%',

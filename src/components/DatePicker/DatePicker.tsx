@@ -19,6 +19,7 @@ import {
   iconCustomSize,
   colorSelecting,
 } from 'utils/mixins';
+import moment from 'moment';
 
 interface IProps {
   title: string;
@@ -79,6 +80,9 @@ const CustomDatePicker = ({
       setAlertHour('');
     }
   }, [hour]);
+  console.log('value = ', value);
+  const IsoDateTo = moment(value, 'YYYY/MM/DD').format('DD-MM-YYYY');
+
 
   return (
     <View style={containerStyle}>
@@ -94,7 +98,7 @@ const CustomDatePicker = ({
         {content && (
           <TouchableOpacity onPress={methods.handleBSheet}>
             <Text style={[h5, colorSelecting(value), {marginLeft: 10}]}>
-              {value || placeholder}
+              {IsoDateTo || placeholder}
             </Text>
           </TouchableOpacity>
         )}

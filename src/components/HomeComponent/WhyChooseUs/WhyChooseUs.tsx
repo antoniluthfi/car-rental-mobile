@@ -7,7 +7,7 @@ import {
 } from 'assets/images';
 import {theme} from 'utils';
 import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
-import {iconCustomSize} from 'utils/mixins';
+import {iconCustomSize, WINDOW_WIDTH} from 'utils/mixins';
 import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 
 type DataRender = {
@@ -68,7 +68,7 @@ const WhyChooseUs = () => {
         </Text>
       }
       renderItem={renderItem}
-      autoPlay
+      // autoPlay
       showButtonNavigator={false}
       scrollAnimationDuration={2000}
       progressValueSpace={50}
@@ -85,9 +85,10 @@ export default WhyChooseUs;
 const styles = StyleSheet.create({
   itemContainer: {
     height: 360,
-    width: 399,
-    padding: '10%',
-    marginTop: 30
+    width: WINDOW_WIDTH-60,
+    // padding: '10%',
+    alignSelf: 'center',
+    marginTop: 80
   },
   mainTitle: {
     fontSize: 21,
