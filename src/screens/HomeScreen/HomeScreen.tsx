@@ -11,8 +11,13 @@ import WhyChooseUs from 'components/HomeComponent/WhyChooseUs/WhyChooseUs';
 import {getUser} from 'redux/features/appData/appDataAPI';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useAppDispatch} from 'redux/hooks';
-import {useFocusEffect, useNavigation, useScrollToTop} from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useNavigation,
+  useScrollToTop,
+} from '@react-navigation/native';
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
+import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
 
 type HeroState = 'Sewa Mobil' | 'Sewa Motor' | 'Sewa Sepeda';
 
@@ -21,18 +26,17 @@ const HomeScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const [heroState, setHeroState] = useState<HeroState>('Sewa Mobil');
   const scrollViewRef = React.useRef<ScrollView>(null);
- 
-  function scrollViewSizeChanged(){
+
+  function scrollViewSizeChanged() {
     // y since we want to scroll vertically, use x and the width-value if you want to scroll horizontally
-     scrollViewRef.current?.scrollTo({y: 0, animated: true}); 
-}
+    scrollViewRef.current?.scrollTo({y: 0, animated: true});
+  }
 
-
-useFocusEffect(
-  useCallback(() => {
-    scrollViewSizeChanged()
-  }, []),
-);
+  useFocusEffect(
+    useCallback(() => {
+      scrollViewSizeChanged();
+    }, []),
+  );
 
   useEffect(() => {
     dispatch(getUser());

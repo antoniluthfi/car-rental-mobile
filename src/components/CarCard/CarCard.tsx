@@ -16,7 +16,7 @@ interface ICardCar {
 }
 const CarCard = ({item, onPress}: ICardCar) => {
   const lang = useLangSelector().list_car;
-  console.log('item = ', item);
+  // console.log('item = ', item);
   return (
     <TouchableOpacity style={[rowCenter, styles.cardWrapper]} onPress={onPress}>
       <View>

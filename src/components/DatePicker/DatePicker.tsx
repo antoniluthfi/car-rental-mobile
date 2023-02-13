@@ -20,6 +20,7 @@ import {
   colorSelecting,
 } from 'utils/mixins';
 import moment from 'moment';
+import {dateFormatter} from 'utils/functions';
 
 interface IProps {
   title: string;
@@ -32,6 +33,7 @@ interface IProps {
   onChangeTime?: any;
   disableTime?: boolean;
   errorMessage?: string;
+  snapPoint?: string[];
 }
 
 const CustomDatePicker = ({
@@ -45,6 +47,7 @@ const CustomDatePicker = ({
   onChangeTime,
   disableTime = false,
   errorMessage,
+  snapPoint
 }: IProps) => {
   // const [showBSheet, setShowSheet] = useState(false);
   const [hour, setHour] = useState('');
@@ -57,6 +60,7 @@ const CustomDatePicker = ({
   const methods = {
     handleBSheet: () => {
       showBSheet({
+        snapPoint,
         content,
       });
     },
@@ -80,9 +84,6 @@ const CustomDatePicker = ({
       setAlertHour('');
     }
   }, [hour]);
-  console.log('value = ', value);
-  const IsoDateTo = moment(value, 'YYYY/MM/DD').format('DD-MM-YYYY');
-
 
   return (
     <View style={containerStyle}>
@@ -95,14 +96,14 @@ const CustomDatePicker = ({
           source={mode === 'clock' ? ic_clock : ic_calendar}
           style={iconSize}
         />
-        {content && (
+        {mode === 'date' && (
           <TouchableOpacity onPress={methods.handleBSheet}>
             <Text style={[h5, colorSelecting(value), {marginLeft: 10}]}>
-              {IsoDateTo || placeholder}
+              {dateFormatter(value) || placeholder}
             </Text>
           </TouchableOpacity>
         )}
-        {!content && !disableTime && (
+        {/* {mode === 'clock' && !disableTime && (
           <View style={[rowCenter, {marginLeft: 10}]}>
             <TextInput
               placeholder="00"
@@ -138,9 +139,21 @@ const CustomDatePicker = ({
               style={{padding: 0, margin: 0}}
             />
           </View>
+        )} */}
+
+        {mode === 'clock' && !disableTime && (
+          <TouchableOpacity
+            style={styles.inputContainer}
+            onPress={methods.handleBSheet}>
+            <Text>
+              {value?.slice(0, 2) || '00'} :{' '}
+              {value?.length > 2 ? value.slice(-2) : '00'}
+            </Text>
+          </TouchableOpacity>
         )}
-        {disableTime && (
-          <Text style={{marginLeft: 10, marginVertical: 4}}>
+
+        {mode === 'clock' && disableTime && (
+          <Text style={styles.inputContainer}>
             {value?.slice(0, 2) || '00'} :{' '}
             {value?.length > 2 ? value.slice(-2) : '00'}
           </Text>
@@ -182,6 +195,6 @@ const styles = StyleSheet.create({
   textAlertClock: {
     fontSize: 10,
     color: '#f79616',
-    // alignSelf: 'flex-end',
   },
+  inputContainer: {marginLeft: 10, marginVertical: 4},
 });

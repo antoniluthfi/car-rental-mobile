@@ -21,7 +21,7 @@ const DriverSelection: React.FC<Props> = ({onChange}) => {
 
   const buttonList = [
     {
-      id: 2,
+      id: 1,
       img: ic_with_driver,
       imgActive: ic_with_driver_active,
       name: lang.Home.daily.with_driver,
@@ -29,14 +29,13 @@ const DriverSelection: React.FC<Props> = ({onChange}) => {
       disabled: false,
     },
     {
-      id: 1,
+      id: 2,
       img: ic_without_driver,
       imgActive: ic_without_driver_active,
       name: lang.Home.daily.without_driver,
       withDriver: false,
       disabled: false,
     },
-    
   ];
 
   return (
@@ -50,8 +49,8 @@ const DriverSelection: React.FC<Props> = ({onChange}) => {
               backgroundColor:
                 selected === button.id ? theme.colors.navy : theme.colors.white,
               ...(selected === 2
-                ? styles.buttonBorderLeft
-                : styles.buttonBorderRight),
+                ? styles.buttonBorderRight
+                : styles.buttonBorderLeft),
             },
           ]}
           onPress={() => {

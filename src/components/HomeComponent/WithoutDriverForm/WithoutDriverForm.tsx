@@ -2,7 +2,6 @@ import Button from 'components/Button';
 import DatePickerComponent from 'components/DatePicker/DatePicker';
 import DropdownLocation from 'components/DropdownLocation/DropdwonLocation';
 import moment from 'moment';
-import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
 import useLangSelector from 'utils/useLangSelector';
 import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
 import {getAllCities} from 'redux/features/appData/appDataAPI';
@@ -15,6 +14,9 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
+import ReactNativeModernDatepicker, {
+  getToday,
+} from 'react-native-modern-datepicker';
 
 type IForm = {
   location: ICities;
@@ -126,7 +128,9 @@ const WithoutDriverForm: React.FC = () => {
     calculateDateDifference: () => {
       if (form.tanggal_sewa && form.tanggal_pengembalian) {
         const tglSewa = moment(form.tanggal_sewa.replace(/\//g, '-'));
-        const tglPengembalian = moment(form.tanggal_pengembalian.replace(/\//g, '-'));
+        const tglPengembalian = moment(
+          form.tanggal_pengembalian.replace(/\//g, '-'),
+        );
         const res = tglPengembalian.diff(tglSewa, 'days');
 
         return `${res} ${res > 1 ? lang.Home.daily.days : lang.Home.daily.day}`;
@@ -164,9 +168,10 @@ const WithoutDriverForm: React.FC = () => {
             width: '49%',
           }}
           value={form.tanggal_sewa ?? ''}
+          snapPoint={['75%', '75%']}
           content={
             <View>
-              <Text style={[h1, {marginLeft: 16}]}>
+              <Text style={[h1, {marginLeft: 16, fontSize: 18}]}>
                 {lang.Home.daily.rent_start_date}
               </Text>
               <ReactNativeModernDatepicker
@@ -174,7 +179,7 @@ const WithoutDriverForm: React.FC = () => {
                   width: WINDOW_WIDTH,
                   height: WINDOW_HEIGHT,
                 }}
-                minimumDate={moment(new Date()).format('YYYY-MM-DD')}
+                minimumDate={getToday()}
                 onDateChange={v => {
                   setTimeout(() => {
                     dispatch(
@@ -202,9 +207,10 @@ const WithoutDriverForm: React.FC = () => {
             width: '49%',
           }}
           value={form.tanggal_pengembalian ?? ''}
+          snapPoint={['75%', '75%']}
           content={
             <View>
-              <Text style={[h1, {marginLeft: 16}]}>
+              <Text style={[h1, {marginLeft: 16, fontSize: 18}]}>
                 {lang.Home.daily.rent_end_date}
               </Text>
               <ReactNativeModernDatepicker
@@ -212,7 +218,6 @@ const WithoutDriverForm: React.FC = () => {
                   width: WINDOW_WIDTH,
                   height: WINDOW_HEIGHT,
                 }}
-                
                 minimumDate={
                   Platform.OS === 'android'
                     ? form.tanggal_sewa
@@ -267,6 +272,29 @@ const WithoutDriverForm: React.FC = () => {
             setFormError({...formError, error_jam_sewa: ''});
           }}
           errorMessage={formError.error_jam_sewa}
+          snapPoint={['60%', '60%']}
+          content={
+            <View style={{width: '100%'}}>
+              <Text style={[h1, {marginLeft: 16, fontSize: 18}]}>
+                {lang.Home.daily.rent_start_time}
+              </Text>
+              <ReactNativeModernDatepicker
+                style={{width: '100%'}}
+                onDateChange={v => {
+                  setTimeout(() => {
+                    dispatch(
+                      toggleBSheet({
+                        show: false,
+                      }),
+                    );
+                  }, 200);
+                  setForm({...form, tanggal_pengembalian: v});
+                  setFormError({...formError, error_tanggal_pengembalian: ''});
+                }}
+                mode="time"
+              />
+            </View>
+          }
         />
         <DatePickerComponent
           mode="clock"
