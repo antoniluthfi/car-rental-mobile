@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
   input: {
     width: '95%',
     margin: 0,
-    padding: 0
+    padding: 0,
+    color: '#000'
   },
   eye: {
     height: 20,

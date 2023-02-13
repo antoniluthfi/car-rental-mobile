@@ -26,7 +26,7 @@ import moment from 'moment';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { showToast } from 'utils/Toast';
 
-const TIMER = 299;
+const TIMER = 15000;
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
   'Lalu verifikasi Debit Card anda dengan menekan button “Verifikasi”. Setelah Debit Card terverifikasi maka anda bisa melanjutkan pembayaran.',
@@ -41,7 +41,7 @@ const VirtualAccountScreen = () => {
   const bookingDetail = useAppSelector(bookingState).selected;
   const route = useRoute<ProfileScreenRouteProp>();
   const vehicle = useAppSelector(vehiclesState).vehicleById;
-  const [seconds, setSeconds] = useState(TIMER);
+  const [seconds, setSeconds] = useState(0);
 
   const methods = {
     handleFAQ: () => {
@@ -127,6 +127,18 @@ const VirtualAccountScreen = () => {
         ),
       }),
     );
+    console.log(bookingDetail?.created_at);
+    let newDate = moment(bookingDetail?.created_at).subtract(7, 'hours').format();
+    console.log(newDate);
+
+    const time = new Date(newDate);
+    const fifteenMinutesInSeconds = 15 * 60;
+    const totalSeconds = (time.getHours() * 60 * 60) + (time.getMinutes() * 60) + time.getSeconds() + (time.getMilliseconds() / 1000);
+    const remainingSeconds = totalSeconds - fifteenMinutesInSeconds;
+
+    console.log('time scnd = ', (remainingSeconds)?.toFixed());
+    setTimeLeft(remainingSeconds.toFixed())
+
   }, [navigation]);
 
   useEffect(() => {
@@ -140,6 +152,27 @@ const VirtualAccountScreen = () => {
       dispatch(getVehiclesById(bookingDetail?.order_detail?.vehicle_id as any));
     }
   }, [bookingDetail?.order_detail?.vehicle_id]);
+
+  const [timeLeft, setTimeLeft] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTimeLeft(prevTime => {
+        if (prevTime <= 0) {
+          clearInterval(intervalId);
+          return 0;
+        }
+
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds2 = timeLeft % 60;
+  // console.log('bookingDetail = ', bookingDetail)
 
   return (
     <View
@@ -156,11 +189,13 @@ const VirtualAccountScreen = () => {
         <View>
           <Text style={[h1]}>Selesaikan Sebelum</Text>
           <Text style={[h4, {marginTop: 10, fontSize: 12}]}>
-            {moment(bookingDetail?.expired_time).format('ddd, DD MMMM YYYY')}
+            {moment(bookingDetail?.expired_time).format('ddd, DD MMMM YYYY: HH:mm')}
           </Text>
         </View>
         <Text style={[h1, {color: theme.colors.blue}]}>
-          {methods.secondsToHms(seconds)}
+          {/* {methods.secondsToHms(seconds)} */}
+          {minutes}:{seconds2 < 10 ? `0${seconds2}` : seconds2}
+
         </Text>
       </View>
 
