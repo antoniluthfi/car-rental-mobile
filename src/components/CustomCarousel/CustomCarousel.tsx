@@ -63,6 +63,7 @@ const CustomCarousel: React.FC<IProps> = ({
           activeOffsetX: [-10, 10],
         }}
         renderItem={renderItem}
+        
       />
       {!!progressValue && (
         <View

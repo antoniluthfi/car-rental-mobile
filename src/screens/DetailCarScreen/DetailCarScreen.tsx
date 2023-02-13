@@ -54,29 +54,29 @@ type IDailyRules = {title: string; list: string[]};
 
 const DATA_INCLUDE_PRICES = [
   {
-    desc: t_priceTerm.driver,
+    desc: t_priceTerm.handSanitizer,
     icon: ic_driver,
   },
   {
-    desc: t_priceTerm.additional_needs,
+    desc: t_priceTerm.mask,
     icon: ic_care,
   },
   {
-    desc: t_priceTerm.parking,
+    desc: t_priceTerm.tissue,
     icon: ic_park,
   },
   {
-    desc: t_priceTerm.fuel,
+    desc: t_priceTerm.mineralWater,
     icon: ic_gas,
   },
-  {
-    desc: t_priceTerm.snacks,
-    icon: ic_snack,
-  },
-  {
-    desc: t_priceTerm.toll,
-    icon: ic_toll,
-  },
+  // {
+  //   desc: t_priceTerm.snacks,
+  //   icon: ic_snack,
+  // },
+  // {
+  //   desc: t_priceTerm.toll,
+  //   icon: ic_toll,
+  // },
 ];
 
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'DetailCar'>;
@@ -175,6 +175,9 @@ const DetailCarScreen: FC = () => {
       <ScrollView>
         <CustomCarousel
           data={vehicle.photo}
+          paginationSize={7}
+          paginationPosition={-15}
+          progressValueSpace={30}
           renderCarouselTitle={
             <View style={styles.carouselTitleContainer}>
               <Text style={{fontWeight: 'bold'}}>{vehicle.name}</Text>

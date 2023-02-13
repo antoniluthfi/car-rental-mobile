@@ -70,7 +70,7 @@ const WhyChooseUs = () => {
       renderItem={renderItem}
       // autoPlay
       showButtonNavigator={false}
-      scrollAnimationDuration={2000}
+      scrollAnimationDuration={500}
       progressValueSpace={50}
       height={360}
       paginationSize={7}

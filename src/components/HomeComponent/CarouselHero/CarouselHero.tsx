@@ -4,6 +4,7 @@ import {img_carousel_1, img_carousel_2, img_carousel_3, img_carousel_4} from 'as
 import {theme} from 'utils';
 import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {Image, StyleSheet, Text, View, ImageSourcePropType} from 'react-native';
+import { WINDOW_HEIGHT } from 'utils/mixins';
 
 type CarouselRenderItem = {
   id: number;
@@ -48,8 +49,6 @@ const CarouselHero: React.FC = () => {
           style={{
             width: '100%',
             overflow: 'hidden',
-            borderTopRightRadius: 10,
-            borderBottomRightRadius: 10,
             borderRadius: 10,
           }}>
           <Image source={item.img} resizeMode="cover" style={styles.image} />
@@ -71,11 +70,11 @@ const CarouselHero: React.FC = () => {
       autoPlay
       showButtonNavigator={false}
       scrollAnimationDuration={2000}
-      progressValueSpace={20}
       height={120}
       paginationSize={7}
       paginationColor="#F1A33A"
       paginationPosition={5}
+      progressValueSpace={30}
     />
   );
 };
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     width: 350,
     marginTop: 20,
-    height: 100,
+    // height: 100,
     alignItems: 'center',
     marginRight: 5,
     borderRadius: 10,
@@ -101,5 +100,5 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     fontSize: 10,
   },
-  image: {width: '100%', height: '100%'},
+  image: {width: '100%', height: '100%', resizeMode: 'contain'},
 });
