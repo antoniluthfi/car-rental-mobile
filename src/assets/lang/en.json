@@ -25,7 +25,10 @@
             "error_rent_time": "Choose Your Clock",
             "day": "Day",
             "days": "Days",
-            "continue_to_whatsapp": "Continue to Whatsapp"
+            "continue_to_whatsapp": "Continue to Whatsapp",
+            "startTime": "Rental Start Time",
+            "headerStartDate": "The time chosen is in accordance with the car rental time (WITA)",
+            "footerStartDate": "When selecting rental hours will be the same as Return hours"
         },
         "getrideDescription": {
             "title": "What is Get & Ride?",
