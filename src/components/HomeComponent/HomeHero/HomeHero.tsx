@@ -12,35 +12,38 @@ import {
   ic_rent_motorcycle_active,
 } from 'assets/icons';
 import CarouselHero from '../CarouselHero/CarouselHero';
+import useLangSelector from 'utils/useLangSelector';
 
 type HomeHeroProps = {
   onSelectionChange: (val: string) => void;
 };
 
-const buttonList = [
-  {
-    id: 1,
-    img: ic_rent_car,
-    imgActive: ic_rent_car_active,
-    title: 'Sewa Mobil',
-  },
-  {
-    id: 2,
-    img: ic_rent_motorcycle,
-    imgActive: ic_rent_motorcycle_active,
-    title: 'Sewa Motor',
-  },
-  {
-    id: 3,
-    img: ic_rent_bicycle,
-    imgActive: ic_rent_bicycle_active,
-    title: 'Sewa Sepeda',
-  },
-];
-
 const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
+  const lang = useLangSelector();
   const [selected, setSelected] = useState(1);
 
+  console.log('test')
+  const buttonList = [
+    {
+      id: 1,
+      img: ic_rent_car,
+      imgActive: ic_rent_car_active,
+      title: lang.Home.daily.car_rental,
+    },
+    {
+      id: 2,
+      img: ic_rent_motorcycle,
+      imgActive: ic_rent_motorcycle_active,
+      title: 'Sewa Motor',
+    },
+    {
+      id: 3,
+      img: ic_rent_bicycle,
+      imgActive: ic_rent_bicycle_active,
+      title: 'Sewa Sepeda',
+    },
+  ];
+  
   return (
     <View>
       <Image

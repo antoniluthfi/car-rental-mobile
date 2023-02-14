@@ -1,38 +1,29 @@
 import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
-import {h1, h5} from 'utils/styles';
-import {img_carousel_1, img_carousel_2, img_carousel_3, img_carousel_4} from 'assets/images';
+import {
+  img_carousel_2,
+  img_carousel_3,
+  img_carousel_4,
+} from 'assets/images';
 import {theme} from 'utils';
 import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
-import {Image, StyleSheet, Text, View, ImageSourcePropType} from 'react-native';
-import { WINDOW_HEIGHT } from 'utils/mixins';
+import {Image, StyleSheet, View, ImageSourcePropType} from 'react-native';
 
 type CarouselRenderItem = {
   id: number;
-  title: string;
-  description: string;
   img: ImageSourcePropType;
 };
 
 const carouselItems: CarouselRenderItem[] = [
   {
     id: 1,
-    title: 'Get & Ride - Rental dan Sewa Mobil di Bali',
-    description:
-      'Rasakan pengalaman rental dan sewa mobil di Bali dengan mudah, terpercaya, dan ga pake ribet hanya di Get & Ride.',
     img: img_carousel_2,
   },
   {
     id: 2,
-    title: 'Get & Ride - Rental dan Sewa Mobil di Bali',
-    description:
-      'Rasakan pengalaman rental dan sewa mobil di Bali dengan mudah, terpercaya, dan ga pake ribet hanya di Get & Ride.',
     img: img_carousel_3,
   },
   {
     id: 2,
-    title: 'Get & Ride - Rental dan Sewa Mobil di Bali',
-    description:
-      'Rasakan pengalaman rental dan sewa mobil di Bali dengan mudah, terpercaya, dan ga pake ribet hanya di Get & Ride.',
     img: img_carousel_4,
   },
 ];
@@ -41,10 +32,6 @@ const CarouselHero: React.FC = () => {
   const renderItem = ({item}: {item: CarouselRenderItem}) => {
     return (
       <View style={styles.itemContainer}>
-        {/* <View style={{width: '50%', padding: 10}}>
-          <Text style={[h1, styles.title]}>{item.title}</Text>
-          <Text style={[h5, styles.description]}>{item.description}</Text>
-        </View> */}
         <View
           style={{
             width: '100%',
@@ -84,12 +71,10 @@ export default CarouselHero;
 const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    width: 350,
+    width: '100%',
+    height: 'auto',
     marginTop: 20,
-    // height: 100,
     alignItems: 'center',
-    marginRight: 5,
     borderRadius: 10,
   },
   title: {
