@@ -27,6 +27,8 @@
             "days": "Days",
             "continue_to_whatsapp": "Continue to Whatsapp",
             "car_rental": "Car Rental",
+            "motorcycle_rental": "Motorcycle Rental",
+            "bike_rental": "Bike Rental",
             "startTime": "Rental Start Time",
             "headerStartDate": "The time chosen is in accordance with the car rental time (WITA)",
             "footerStartDate": "When selecting rental hours will be the same as Return hours"

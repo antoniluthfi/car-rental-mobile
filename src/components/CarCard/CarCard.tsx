@@ -2,7 +2,6 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {URL_IMAGE} from '@env';
 import {ic_seat, ic_koper, ic_transisi} from 'assets/icons';
-import {lang} from 'moment';
 import {theme} from 'utils';
 import {currencyFormat} from 'utils/currencyFormat';
 import {rowCenter, iconSize} from 'utils/mixins';
@@ -16,18 +15,18 @@ interface ICardCar {
 }
 const CarCard = ({item, onPress}: ICardCar) => {
   const lang = useLangSelector().list_car;
-  // console.log('item = ', item);
+
   return (
     <TouchableOpacity style={[rowCenter, styles.cardWrapper]} onPress={onPress}>
-      <View>
+      <View style={{flexBasis: '35%'}}>
         <View>
           <Image
             // source={{uri: URL_IMAGE + item?.photo?.[0]?.name}}
             source={{uri: URL_IMAGE + item?.photo?.[0]?.name}}
             style={{
-              height: 86,
-              width: 120,
-              borderRadius: 10
+              height: 75,
+              width: '100%',
+              borderRadius: 10,
             }}
           />
         </View>
@@ -39,7 +38,7 @@ const CarCard = ({item, onPress}: ICardCar) => {
                 : theme.colors.low_red,
             padding: 5,
             borderRadius: 20,
-            width: '50%',
+            width: '70%',
             marginTop: 10,
           }}>
           <Text
@@ -54,11 +53,12 @@ const CarCard = ({item, onPress}: ICardCar) => {
                 alignSelf: 'center',
               },
             ]}>
-            {item.status.toLowerCase() === 'locked' ? 'Booked': 'Available'}
+            {item.status.toLowerCase() === 'locked' ? 'Booked' : 'Available'}
           </Text>
         </View>
       </View>
-      <View style={{marginLeft: 20}}>
+
+      <View style={{flexBasis: '65%', marginLeft: 10}}>
         <View style={[rowCenter, {justifyContent: 'space-between'}]}>
           <Text style={[h1]}>{item?.name}</Text>
         </View>
@@ -86,20 +86,16 @@ const CarCard = ({item, onPress}: ICardCar) => {
         <View style={{marginTop: 10}}>
           <Text style={[h4, {fontSize: 12}]}>{lang.rent_price}</Text>
           <Text style={[h1, {color: theme.colors.navy, marginTop: 5}]}>
-            {currencyFormat(item.price - (item?.discount_price || 0))} <Text style={[h4]}>/ {lang.day}</Text>
+            {currencyFormat(item.price - (item?.discount_price || 0))}{' '}
+            <Text style={[h4]}>/ {lang.day}</Text>
           </Text>
         </View>
 
-        {
-          item.discount_price > 0 &&
-          <Text
-            style={[
-              h5,
-              styles.hargaCoret
-            ]}>
+        {item.discount_price > 0 && (
+          <Text style={[h5, styles.hargaCoret]}>
             {currencyFormat(item.price)}
           </Text>
-        }
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -142,6 +138,6 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
     textDecorationColor: 'orange',
     color: theme.colors.grey4,
-    marginTop: 6
+    marginTop: 6,
   },
 });

@@ -54,7 +54,7 @@ const HomeScreen: React.FC = () => {
         <FavoriteCar />
         <GetRideDescription />
         <WhyChooseUs />
-        <FAQ />
+        {/* <FAQ /> */}
         <Article />
       </ScrollView>
     </View>

@@ -27,6 +27,8 @@
             "days": "Hari",
             "continue_to_whatsapp": "Lanjutkan ke Whatsapp",
             "car_rental": "Sewa Mobil",
+            "motorcycle_rental": "Sewa Motor",
+            "bike_rental": "Sewa Sepeda",
             "startTime": "Jam Mulai Sewa",
             "headerStartDate": "Waktu yang dipilih sesaui dengan waktu tempat sewa Mobil (WITA)",
             "footerStartDate": "Waktu pilih jam sewa akan sama dengan jam Pengembalian"
