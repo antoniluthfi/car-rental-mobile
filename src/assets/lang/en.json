@@ -77,49 +77,30 @@
             }
         ],
         "articleTitle": "Article",
-        "articleList": [{
-                "title": "Favorite Car Rental Destinations in Bali",
-                "description": "Several destination places most visited in Bali are, Kuta Beach, Tanah Lot Temple, Garuda Wisnu Kencana (GWK), and Uluwatu Island. Apart from being strategic and easy to reach, its natural and cultural beauty is also interesting. As in the GWK area, foreign tourists can enjoy several types of Balinese art dances every day. Next is Tanah Lot Temple, which is unique and beautiful since it is located on a large rock on the seafront. On the other hand, to enjoy the panorama, you can eat at several restaurants or cafes around Uluwatu Beach while waiting for the sunset. It is indeed proven that Bali keeps developing and has a very strong attraction for vacations, that's why tourists are never bored to visit the Island of the Gods"
+        "whyChooseUs": {
+            "title": "Why Rent a Car at Get&Ride",
+            "list_1": {
+                "subtitle": "Time-saving",
+                "description": "Hire a car online, anywhere and anytime. Choose your schedule and car type easily and reliably at Get & Ride."
             },
-            {
-                "title": "Fuel Saving Driving Tips",
-                "description": "Saving fuel when renting a car for traveling is certainly one of our ways to save more, right? You can start changing it from the way you normally drive, such as not pressing the pedal too deep, because this is one of the triggers for your gasoline to be more wasteful or you can adjust the ECO indicator to save more."
+            "list_2": {
+                "subtitle": "Competitive Price",
+                "description": "Don't worry! Get & Ride's rental prices are affordable and guaranteed to be competitive."
             },
-            {
-                "title": "Spending Holiday Time with Family in Bali Safari and Marine Park",
-                "description": "This might be the best place to visit with your children! There are around 120 species of animals here, and for those of you who come here, not only enjoy the atmosphere, but also have an adventure and learn. In addition, Bali Safari and Marine Park is also a wildlife conservation area in Indonesia. "
+            "list_3": {
+                "subtitle": "Best Cars",
+                "description": "Get & Ride provides the best quality and cleanest cars. All cars are serviced regularly for convenience."
             },
-            {
-                "title": "SAffordable and Reliable Rental Car in Bali",
-                "description": "Renting a car is the right choice for an easy and cheap travel solution in Bali. You can enjoy more benefits, especially if you rent it at Get&Ride! Lots of car choices, you are allowed to bring pets, and you can be delivered and picked up by our driver too. It's really practical! Come on, book directly via Get&Ride now!"
+            "list_4": {
+                "subtitle": "Best Services",
+                "description": "Providing professional drivers, implementation of health protocols, and vehicle protection. All cars at Get & Ride are covered by insurance."
             }
-        ],
-        "faq": [{
-                "title": "Mengapa harus rental dan sewa mobil di Get & Ride?",
-                "content": "Dengan rental dan sewa mobil di Get & Ride, kamu nggak perlu repot lagi. Semua serba mudah, cepat, dan pastinya terpercaya. Kamu bisa menghemat waktu dan biaya. Selain itu juga bisa memilih mobil untuk liburan keliling kota Bali sesuai dengan kebutuhan dengan harga terbaik."
-            },
-            {
-                "title": "Bagimana cara rental dan sewa mobil di Get & Ride?",
-                "content": "Kamu dapat melakukan rental dan sewa mobil melaui website maupun aplikasi Get&Ride. Berikut langkah yang bisa kamu ikuti:\n\n● Masuk atau Daftar untuk bisa melakukan reservasi di aplikasi.\n\n● Pilih sewa mobil lepas kunci atau dengan supir.\n\n● Isi lokasi, waktu, dan durasi sewa yang diinginkan.\n\n● Pilih jenis mobil.Pastikan kamu membaca dan setuju dengan Rental Terms & Conditions serta Policy Conditions.\n\n● Pilih detail pengambilan mobil.Kamu bisa mengambil langsung ke tempat rental atau memilih untuk diantarkan ke tempatmu.\n\n● Pastikan kamu sudah mengisi dan mengupload data diri seperti seperti foto KTP dan SIM.\n\n● Periksa kembali pesananmu\n\n● Lakukan pembayaran"
-
-            },
-            {
-                "title": "Apakah saya harus memiliki SIM untuk menyewa mobil di Get & Ride?",
-                "content": "Untuk rental dan sewa mobil di Get & Ride, penyewa lepas kunci wajib untuk memiliki dan menunjukkan KTP/SIM A untuk wisatawan domestik dan SIM Internasional/Paspor untuk wisatawan non domestik. Pastikan juga seluruh dokumen asli, tidak mengatasnamakan orang lain, dan masih aktif."
-            },
-            {
-                "title": "Apakah ada batasan usia untuk menyewa mobil di Get & Ride?",
-                "content": "Penyewa wajib berusia diatas 17 tahun dan harus menunjukkan Identification Card (KTP)/SIM A atau SIM Internasional/Paspor yang masih aktif."
-            },
-            {
-                "title": "Apakah ada biaya tambahan yang harus dibayar saat mengambil atau mengembalikan mobil?",
-                "content": "Jika mengambil dan mengembalikan mobil sewa langsung di rental place, maka tidak dikenakan biaya apapun (gratis). Jika mobil sewa ingin dikirim dan dikembalikan di tempat penyewa (diluar rental place) maka akan dikenakan biaya tambahan tergantung jarak yang ditentukan."
-            },
-            {
-                "title": "Bagaimana cara mengubah / membatalkan booking mobil rental?",
-                "content": "Untuk pengajuan reschedule sewa mobil dapat menghubungi whatsapp kami di +62 81262511511. Pastikan kamu sudah memahami ketentuan refund dan reschedule yang sudah diinfokan. Jika kamu ingin mengetahui status reschedule tiket Sewa Mobil kamu, kamu dapat menghubungi Whatsapp kami untuk info yang lebih detail."
-            }
-        ]
+        },
+        "withDriver": {
+            "description_1": "If you select the car rental \"With Driver\" then you will be redirected to Whatsapp",
+            "description_2": "Once you have selected the time and date, you will select an available car and driver.",
+            "description_3": "Once you have selected a car, you will receive an invoice for your car rental."
+        }
     },
     "list_car": {
         "header": "Choose Car Type",
@@ -157,18 +138,18 @@
         "rentalGas": "Return the fuel as before",
         "rentalTime": "Use up to 24 hours per rental day",
         "agreeState": "I agree to the terms that apply",
-        "requirements": [
-            "SIM A/International SIM",
-            "KTP/Passport",
-            "Social Media Account Username",
-            "Deposit IDR 500.000"
-        ],
-        "policies": [
-            "The duration of car rental per day is 24 hours",
-            "Overtime fee per hour 10% of the rental price",
-            "Prices include VAT",
-            "Not including fuel, parking, toll and driver"
-        ]
+        "requirements": {
+            "list_1": "SIM A/International SIM",
+            "list_2": "KTP/Passport",
+            "list_3": "Social Media Account Username",
+            "list_4": "Deposit IDR 500.000"
+        },
+        "policies": {
+            "list_1": "The duration of car rental per day is 24 hours",
+            "list_2": "Overtime fee per hour 10% of the rental price",
+            "list_3": "Prices include VAT",
+            "list_4": "Not including fuel, parking, toll and driver"
+        }
     },
     "priceTerm": {
         "handSanitizer": "Hand Sanitizer",
@@ -185,68 +166,54 @@
     "dailyRules": {
         "sebelum_pengambilan": {
             "title": "Before Rental",
-            "list": [
-                "Renters must share with the provider a photo of their driver's license (SIM A or International SIM), as well as their ID Card (KTP or Passport).",
-                "Renters must pay a deposit of IDR 500,000 to the provider before the rental start, with the available payment methods.",
-                "The deposit will be returned at the latest 7 days after the rental ends."
-            ]
+            "list_1": "Renters must share with the provider a photo of their driver's license (SIM A or International SIM), as well as their ID Card (KTP or Passport).",
+            "list_2": "Renters must pay a deposit of IDR 500,000 to the provider before the rental start, with the available payment methods.",
+            "list_3": "The deposit will be returned at the latest 7 days after the rental ends."
         },
         "saat_pengambilan": {
             "title": "During Pick-Up",
-            "list": [
-                "Renters are required to show a valid driver's license and ID card (KTP or Passport and SIM A or International SIM)",
-                "Renters must be over 17 years old.",
-                "All documents provided must be original, not in the name of another person, and in accordance with the data registered when ordering at Get & Ride Apps.",
-                "Renters must ensure that the rented vehicle is properly used and returned in the same condition as it was originally."
-            ]
+            "list_1": "Renters are required to show a valid driver's license and ID card (KTP or Passport and SIM A or International SIM)",
+            "list_2": "Renters must be over 17 years old.",
+            "list_3": "All documents provided must be original, not in the name of another person, and in accordance with the data registered when ordering at Get & Ride Apps.",
+            "list_4": "Renters must ensure that the rented vehicle is properly used and returned in the same condition as it was originally."
         },
         "penggunaan": {
             "title": "Rental Policies Usage",
-            "list": [
-                "Vehicles are not allowed to be transferred to other parties who are not verified by Get & Ride data. Get & Ride parties can forcefully take the vehicle if the following indications occur.",
-                "Renters will be charged an additional fee, if the pick-up and return outside the available zone",
-                "Renters are allowed to bring pets in certain cars. Make sure pets don't damage or contaminate the vehicle facilities in the car.",
-                "Renters are not allowed to carry passengers or luggage that exceeds the capacity of the car being rented.",
-                "Renters are responsible for replacement or repair costs in the event of loss or damage to Vehicle Registration Cerfticicate (STNK), car keys, accessories, car tools, head units, tools sets, scratches, stains, and other costs arising from the renters.",
-                "Renters are responsible for all parking, traffic and other fines incurred as a result of violations of law during the rental."
-            ]
+            "list_1": "Vehicles are not allowed to be transferred to other parties who are not verified by Get & Ride data. Get & Ride parties can forcefully take the vehicle if the following indications occur.",
+            "list_2": "Renters will be charged an additional fee, if the pick-up and return outside the available zone",
+            "list_3":  "Renters are allowed to bring pets in certain cars. Make sure pets don't damage or contaminate the vehicle facilities in the car.",
+            "list_4": "Renters are not allowed to carry passengers or luggage that exceeds the capacity of the car being rented.",
+            "list_5": "Renters are responsible for replacement or repair costs in the event of loss or damage to Vehicle Registration Cerfticicate (STNK), car keys, accessories, car tools, head units, tools sets, scratches, stains, and other costs arising from the renters.",
+            "list_6": "Renters are responsible for all parking, traffic and other fines incurred as a result of violations of law during the rental."
         },
         "pengembalian": {
             "title": "After Rental Policy",
-            "list": [
-                "The provider has the right not to return the deposit, if the car is damaged or if the tenant violates the law during the rental period.",
-                "The provider is not responsible for items left in the car after the renter returns the car to the rental provider.",
-                "The renter must return the car with the same volume of fuel as the car was received (bar to bar)",
-                "If there is an electronic traffic ticket during the rental period, the rental provider will return the deposit by deducting the fine of the electronic ticket.",
-                "Get & Ride is not responsible for accidents, losses, and treatment caused by the accident."
-            ]
+            "list_1": "The provider has the right not to return the deposit, if the car is damaged or if the tenant violates the law during the rental period.",
+            "list_2": "The provider is not responsible for items left in the car after the renter returns the car to the rental provider.",
+            "list_3": "The renter must return the car with the same volume of fuel as the car was received (bar to bar)",
+            "list_4": "If there is an electronic traffic ticket during the rental period, the rental provider will return the deposit by deducting the fine of the electronic ticket.",
+            "list_5": "Get & Ride is not responsible for accidents, losses, and treatment caused by the accident."
         },
         "overtime": {
             "title": "Overtime",
-            "list": [
-                "An overtime fee will be charged if the rental exceeds 24 hours per day.",
-                "Renters are given an additional 1 (one) hour of compensation time, and if it is exceeded, the tenant will be charged 10% per hour of the rental price, with a maximum limit of 4 (four) hours.",
-                "Overtime of more than 4 hours, will be charged a one-day rental fee."
-            ]
+            "list_1": "An overtime fee will be charged if the rental exceeds 24 hours per day.",
+            "list_2": "Renters are given an additional 1 (one) hour of compensation time, and if it is exceeded, the tenant will be charged 10% per hour of the rental price, with a maximum limit of 4 (four) hours.",
+            "list_3": "Overtime of more than 4 hours, will be charged a one-day rental fee."
         },
         "asuransi": {
             "title": "Asuransi (belum ready)",
-            "list": [
-                "Jika terjadi kecelakaan, penyewa diwajibkan untuk menyerahkan kepada penyedia semua dokumen yang dibutuhkan oleh perusahan asuransi, termasuk namun tidak terbatas pada KTP/paspor dan SIM A mereka.",
-                "Penyewa wajib menanggung beban biaya Risiko Sendiri sebesar Rp350.000 untuk setiap kejadian kecelakan (per panel).",
-                "Penyewa wajib menanggung Biaya Risiko Kehilangan (Total Lost Risk) sebesar Rp500.000 jika mobil hilang.",
-                "Perselisihan antara pihak akan diselesaikan melalui musyawarah mufakat. Jika dalam waktu 30 hari para pihak belum mencapai mufakat, masalah akan diselesaikan di Pengadilan Negeri Jakarta Utara."
-            ]
+            "list_1": "Jika terjadi kecelakaan, penyewa diwajibkan untuk menyerahkan kepada penyedia semua dokumen yang dibutuhkan oleh perusahan asuransi, termasuk namun tidak terbatas pada KTP/paspor dan SIM A mereka.",
+            "list_2": "Penyewa wajib menanggung beban biaya Risiko Sendiri sebesar Rp350.000 untuk setiap kejadian kecelakan (per panel).",
+            "list_3": "Penyewa wajib menanggung Biaya Risiko Kehilangan (Total Lost Risk) sebesar Rp500.000 jika mobil hilang.",
+            "list_4": "Perselisihan antara pihak akan diselesaikan melalui musyawarah mufakat. Jika dalam waktu 30 hari para pihak belum mencapai mufakat, masalah akan diselesaikan di Pengadilan Negeri Jakarta Utara."
         },
         "refund": {
             "title": "Refund & Cancellation Policy",
-            "list": [
-                "Cancellations submitted more than 24 hours prior to pick-up will receive a 100% refund of the total rental fee.",
-                "If the cancellation is submitted within 24 to 6 hours before the pick up time, a 50% refund of the total rental fee will be received",
-                "Cancellation submitted less than 6 hours before the pick-up time will incur a cancellation fee of 100% of the total rental fee.",
-                "The refund process does not apply to promo rental prices and certain types of vehicles.",
-                "Refunds are processed up to 14 working days after the refund process has been approved"
-            ]
+            "list_1": "Cancellations submitted more than 24 hours prior to pick-up will receive a 100% refund of the total rental fee.",
+            "list_2": "If the cancellation is submitted within 24 to 6 hours before the pick up time, a 50% refund of the total rental fee will be received",
+            "list_3": "Cancellation submitted less than 6 hours before the pick-up time will incur a cancellation fee of 100% of the total rental fee.",
+            "list_4": "The refund process does not apply to promo rental prices and certain types of vehicles.",
+            "list_5": "Refunds are processed up to 14 working days after the refund process has been approved"
         }
     },
     "global": {

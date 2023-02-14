@@ -1,8 +1,10 @@
-import {img_hero_background} from 'assets/images';
+import CarouselHero from '../CarouselHero/CarouselHero';
 import {h1} from 'utils/styles';
 import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {useMemo, useState} from 'react';
+import {img_hero_background} from 'assets/images';
+import {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   ic_rent_bicycle,
   ic_rent_bicycle_active,
@@ -11,42 +13,35 @@ import {
   ic_rent_motorcycle,
   ic_rent_motorcycle_active,
 } from 'assets/icons';
-import CarouselHero from '../CarouselHero/CarouselHero';
-import useLangSelector from 'utils/useLangSelector';
-import { useAppSelector } from 'redux/hooks';
-import { appDataState } from 'redux/features/appData/appDataSlice';
 
 type HomeHeroProps = {
   onSelectionChange: (val: string) => void;
 };
 
 const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
-  const lang = useLangSelector();
-  const currentLang = useAppSelector(appDataState).languages
+  const {t} = useTranslation();
   const [selected, setSelected] = useState(1);
 
-  const buttonList = useMemo(() => {
-    return [
-      {
-        id: 1,
-        img: ic_rent_car,
-        imgActive: ic_rent_car_active,
-        title: lang.Home.daily.car_rental,
-      },
-      {
-        id: 2,
-        img: ic_rent_motorcycle,
-        imgActive: ic_rent_motorcycle_active,
-        title: lang.Home.daily.motorcycle_rental,
-      },
-      {
-        id: 3,
-        img: ic_rent_bicycle,
-        imgActive: ic_rent_bicycle_active,
-        title: lang.Home.daily.bike_rental,
-      },
-    ];
-  }, [currentLang]);
+  const buttonList = [
+    {
+      id: 1,
+      img: ic_rent_car,
+      imgActive: ic_rent_car_active,
+      title: t('Home.daily.car_rental'),
+    },
+    {
+      id: 2,
+      img: ic_rent_motorcycle,
+      imgActive: ic_rent_motorcycle_active,
+      title: t('Home.daily.motorcycle_rental'),
+    },
+    {
+      id: 3,
+      img: ic_rent_bicycle,
+      imgActive: ic_rent_bicycle_active,
+      title: t('Home.daily.bike_rental'),
+    },
+  ];
 
   return (
     <View>

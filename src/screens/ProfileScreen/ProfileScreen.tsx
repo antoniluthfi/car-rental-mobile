@@ -1,4 +1,5 @@
 import appBar from 'components/AppBar/AppBar';
+import BSheetPasswordTextInput from 'components/MyProfileComponent/BSheetPasswordTextInput/BSheetPasswordTextInput';
 import Button from 'components/Button';
 import FileExistCard from 'components/MyProfileComponent/FileExistCard/FileExistCard';
 import hoc from 'components/hoc';
@@ -6,7 +7,6 @@ import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/Ima
 import ProfileTextInput from 'components/MyProfileComponent/ProfileTextInput/ProfileTextInput';
 import React, {useCallback, useEffect, useState} from 'react';
 import UploadImageInput from 'components/UploadImageInput/UploadImageInput';
-import useLangSelector from 'utils/useLangSelector';
 import {appDataState} from 'redux/features/appData/appDataSlice';
 import {editUser, uploadFile} from 'redux/features/user/userAPI';
 import {getUser} from 'redux/features/appData/appDataAPI';
@@ -16,9 +16,11 @@ import {ImagePickerResponse} from 'react-native-image-picker';
 import {rowCenter} from 'utils/mixins';
 import {showBSheet} from 'utils/BSheet';
 import {showToast} from 'utils/Toast';
+import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {userState} from 'redux/features/user/userSlice';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Text,
@@ -27,15 +29,13 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import {toggleBSheet} from 'redux/features/utils/utilsSlice';
-import BSheetPasswordTextInput from 'components/MyProfileComponent/BSheetPasswordTextInput/BSheetPasswordTextInput';
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const userProfile = useAppSelector(appDataState).userProfile;
   const user = useAppSelector(userState);
-  const t = useLangSelector().settings;
+  const {t} = useTranslation();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [whatsappChecked, setWhatsappChecked] = useState<boolean>(false);
@@ -223,7 +223,7 @@ const ProfileScreen: React.FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              {t.profile}
+              {t('settings.profile')}
             </Text>
           </TouchableOpacity>
         ),
@@ -277,8 +277,8 @@ const ProfileScreen: React.FC = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={{marginBottom: 20}}>
         <ProfileTextInput
-          label={t.fullName}
-          placeholder={t.fullNamePlaceholder}
+          label={t('settings.fullName')}
+          placeholder={t('settings.fullNamePlaceholder')}
           onChangeText={(v: string) => {
             setForm({...form, name: v});
             setFormError({...formError, name: ''});
@@ -402,7 +402,7 @@ const ProfileScreen: React.FC = () => {
       <Button
         _theme="navy"
         onPress={methods.handleValidate}
-        title={useLangSelector().global.button.save}
+        title={t('global.button.save')}
         isLoading={loading}
         disabled={isDisabled}
       />
@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    marginVertical: 20
+    marginVertical: 20,
   },
   headerTitleContainer: {
     flexDirection: 'column',

@@ -1,16 +1,16 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {ic_getride, ic_get_ride_2} from 'assets/icons';
-import useLangSelector from 'utils/useLangSelector';
-import {h1, h4, h5} from 'utils/styles';
-import {theme} from 'utils';
+import {h1, h5} from 'utils/styles';
+import {ic_getride} from 'assets/icons';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {img_car_4, img_wave} from 'assets/images';
+import {theme} from 'utils';
 import {WINDOW_WIDTH} from 'utils/mixins';
+import {useTranslation} from 'react-i18next';
 
 const GetRideDescription = () => {
-  const t = useLangSelector().Home;
+  const {t} = useTranslation();
+
   return (
-          
     <View style={{backgroundColor: '#fff'}}>
       <View
         style={{
@@ -21,9 +21,11 @@ const GetRideDescription = () => {
           style={{height: 38, width: 94}}
           resizeMode={'contain'}
         />
-        <Text style={[h1, styles.textTitle]}>{t.getrideDescription.title}</Text>
+        <Text style={[h1, styles.textTitle]}>
+          {t('Home.getrideDescription.title')}
+        </Text>
         <Text style={[h5, styles.textDesc]}>
-          {t.getrideDescription.description}
+          {t('Home.getrideDescription.description')}
         </Text>
       </View>
       <View style={{marginBottom: 30}}>

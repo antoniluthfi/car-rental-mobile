@@ -1,16 +1,16 @@
-import useLangSelector from 'utils/useLangSelector';
+import CarCard from 'components/CarCard/CarCard';
+import {getVehicles} from 'redux/features/vehicles/vehiclesAPI';
 import {h1} from 'utils/styles';
 import {StyleSheet, Text, View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {theme} from 'utils';
-import {useEffect} from 'react';
-import {getVehicles} from 'redux/features/vehicles/vehiclesAPI';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
-import CarCard from 'components/CarCard/CarCard';
 
 const FavoriteCar: React.FC = () => {
-  const t = useLangSelector().Home;
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const vehicles = useAppSelector(vehiclesState).vehicles;
@@ -21,7 +21,7 @@ const FavoriteCar: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={[h1, styles.title]}>{t.carFavTitle}</Text>
+      <Text style={[h1, styles.title]}>{t('Home.carFavTitle')}</Text>
       {[...vehicles].splice(0, 4).map((item, i) => (
         <CarCard
           key={`${item.name}-${i}`}

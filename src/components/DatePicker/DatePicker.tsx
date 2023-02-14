@@ -1,5 +1,5 @@
-import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import useLangSelector from 'utils/useLangSelector';
+import React, {ReactNode, useRef, useState} from 'react';
+import {dateFormatter} from 'utils/functions';
 import {h1, h5} from 'utils/styles';
 import {ic_calendar, ic_clock, ic_info_error} from 'assets/icons';
 import {showBSheet} from 'utils/BSheet';
@@ -8,7 +8,6 @@ import {
   Image,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -19,8 +18,6 @@ import {
   iconCustomSize,
   colorSelecting,
 } from 'utils/mixins';
-import moment from 'moment';
-import {dateFormatter} from 'utils/functions';
 
 interface IProps {
   title: string;
@@ -44,18 +41,14 @@ const CustomDatePicker = ({
   inputContainerStyle,
   value,
   content,
-  onChangeTime,
+  // onChangeTime,
   disableTime = false,
   errorMessage,
-  snapPoint
+  snapPoint,
 }: IProps) => {
   // const [showBSheet, setShowSheet] = useState(false);
-  const [hour, setHour] = useState('');
-  const [minutes, setMinutes] = useState('');
   const [alertHour, setAlertHour] = useState('');
-  const ref1 = useRef<any>(null);
   const ref2 = useRef<any>(null);
-  const lang = useLangSelector();
 
   const methods = {
     handleBSheet: () => {
@@ -65,25 +58,6 @@ const CustomDatePicker = ({
       });
     },
   };
-
-  useEffect(() => {
-    if (!onChangeTime) return;
-    if (hour.length === 2) ref2.current?.focus();
-
-    if (hour.length < 2) {
-      onChangeTime(hour);
-    } else {
-      onChangeTime(hour + minutes);
-    }
-  }, [hour, minutes]);
-
-  useEffect(() => {
-    if (parseInt(hour) < 7) {
-      setAlertHour('Rent Time Starts At 7');
-    } else {
-      setAlertHour('');
-    }
-  }, [hour]);
 
   return (
     <View style={containerStyle}>
@@ -103,43 +77,6 @@ const CustomDatePicker = ({
             </Text>
           </TouchableOpacity>
         )}
-        {/* {mode === 'clock' && !disableTime && (
-          <View style={[rowCenter, {marginLeft: 10}]}>
-            <TextInput
-              placeholder="00"
-              ref={ref1}
-              maxLength={2}
-              value={hour}
-              onChangeText={v => {
-                if (Number(v) > 23) {
-                  setHour('23');
-                } else {
-                  setHour(v);
-                }
-              }}
-              editable={!disableTime}
-              keyboardType="numeric"
-              style={{padding: 0, margin: 0}}
-            />
-            <Text style={{marginHorizontal: 5}}>:</Text>
-            <TextInput
-              ref={ref2}
-              placeholder="00"
-              maxLength={2}
-              editable={!disableTime}
-              value={minutes}
-              onChangeText={v => {
-                if (Number(v) > 59) {
-                  setMinutes('59');
-                } else {
-                  setMinutes(v);
-                }
-              }}
-              keyboardType="numeric"
-              style={{padding: 0, margin: 0}}
-            />
-          </View>
-        )} */}
 
         {mode === 'clock' && !disableTime && (
           <TouchableOpacity

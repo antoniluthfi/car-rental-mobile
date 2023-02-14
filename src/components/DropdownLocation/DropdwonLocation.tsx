@@ -1,5 +1,4 @@
 import React, {FC, ReactElement, useRef, useState} from 'react';
-import useLangSelector from 'utils/useLangSelector';
 import {
   colorSelecting,
   iconCustomSize,
@@ -17,6 +16,7 @@ import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch} from 'redux/hooks';
 import {setSearchHistory} from 'redux/features/appData/appDataSlice';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   data:
@@ -41,7 +41,7 @@ const Dropdown: FC<Props> = ({
   const dispatch = useAppDispatch();
   const DropdownButton: any = useRef();
   const [_selected, setSelected] = useState<any>(undefined);
-  const lang = useLangSelector();
+  const {t} = useTranslation();
 
   const renderItem = ({item}: any): ReactElement<any, any> => (
     <TouchableOpacity onPress={() => onItemPress(item)}>
@@ -57,12 +57,12 @@ const Dropdown: FC<Props> = ({
       content: (
         <View style={styles.bsheetWrapper}>
           <Text style={[h1, {fontSize: 18, marginBottom: 17}]}>
-            {lang.Home.daily.your_location}
+            {t('Home.daily.your_location')}
           </Text>
 
           {!!searchHistory && (
             <View>
-              <Text style={[h5]}>{lang.Home.daily.search_history}</Text>
+              <Text style={[h5]}>{t('Home.daily.search_history')}</Text>
               <TouchableOpacity
                 style={[styles.item, {marginBottom: 20}]}
                 onPress={() => {
@@ -74,7 +74,7 @@ const Dropdown: FC<Props> = ({
             </View>
           )}
 
-          <Text style={[h5]}>{lang.Home.daily.available_location}</Text>
+          <Text style={[h5]}>{t('Home.daily.available_location')}</Text>
 
           <BottomSheetFlatList
             data={data}
@@ -96,7 +96,7 @@ const Dropdown: FC<Props> = ({
   return (
     <View>
       <View style={[rowCenter, {justifyContent: 'space-between'}]}>
-        <Text style={[h1]}>{lang.Home.daily.location}</Text>
+        <Text style={[h1]}>{t('Home.daily.location')}</Text>
       </View>
 
       <TouchableOpacity
@@ -113,7 +113,7 @@ const Dropdown: FC<Props> = ({
         onPress={toggleDropdown}>
         <Image source={ic_pinpoin} style={iconSize} />
         <Text style={[h5, colorSelecting(selected?.name), {marginLeft: 10}]}>
-          {selected?.name || lang.Home.daily.placeholder_location}
+          {selected?.name || t('Home.daily.placeholder_location')}
         </Text>
       </TouchableOpacity>
 

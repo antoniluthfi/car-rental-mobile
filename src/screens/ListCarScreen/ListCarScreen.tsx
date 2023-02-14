@@ -1,20 +1,18 @@
 import appBar from 'components/AppBar/AppBar';
+import CarCard from 'components/CarCard/CarCard';
 import DropdownFilter from 'components/DropdownFilter/DropdownFilter';
 import hoc from 'components/hoc';
 import React, {FC, useEffect, useState} from 'react';
-import useLangSelector from 'utils/useLangSelector';
 import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
-import {currencyFormat} from 'utils/currencyFormat';
-import {FONT_SIZE_12} from 'utils/typography';
 import {getBrands, getVehicles} from 'redux/features/vehicles/vehiclesAPI';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
-import {iconSize, rowCenter} from 'utils/mixins';
+import {h1, h5} from 'utils/styles';
+import {rowCenter} from 'utils/mixins';
 import {IFormDaily} from 'types/global.types';
 import {IVehicles} from 'types/vehicles';
 import {theme} from 'utils';
-import {URL_IMAGE} from '@env';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {
   FlatList,
@@ -25,15 +23,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {
-  ic_arrow_left_white,
-  ic_disable,
-  ic_dog,
-  ic_koper,
-  ic_nosmoke,
-  ic_seat,
-} from 'assets/icons';
-import CarCard from 'components/CarCard/CarCard';
+import {ic_arrow_left_white} from 'assets/icons';
 
 const ListCarScreen: FC = () => {
   const navigation = useNavigation();
@@ -47,7 +37,7 @@ const ListCarScreen: FC = () => {
     filter_koper: '',
     brands: '',
   });
-  const lang = useLangSelector().list_car;
+  const {t} = useTranslation();
 
   useEffect(() => {
     navigation.setOptions(
@@ -65,7 +55,7 @@ const ListCarScreen: FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              {lang.header}
+              {t('list_car.header')}
             </Text>
           </TouchableOpacity>
         ),
@@ -73,12 +63,12 @@ const ListCarScreen: FC = () => {
           <Text
             style={[h5, {color: 'white', marginRight: 16}]}
             onPress={() => navigation.goBack()}>
-            {lang.change_search}
+            {t('list_car.change_search')}
           </Text>
         ),
       }),
     );
-  }, [navigation, lang]);
+  }, [navigation]);
 
   useEffect(() => {
     let params: string = '?';
@@ -112,22 +102,16 @@ const ListCarScreen: FC = () => {
       <ScrollView horizontal style={{maxHeight: 50}}>
         <DropdownFilter
           data={brands}
-          label={lang.car_type}
+          label={t('list_car.car_type')}
           onSelect={v => setForm({...form, brands: v.name})}
           selected={form.brands}
         />
         <DropdownFilter
           data={[{name: '4'}, {name: '5'}, {name: '6'}]}
-          label={lang.seat}
+          label={t('list_car.seat')}
           onSelect={v => setForm({...form, filter_seat: parseInt(v.name)})}
           selected={form.filter_seat}
         />
-        {/* <DropdownFilter
-          data={[{name: '1'}, {name: '2'}, {name: '3'}]}
-          label={lang.bag}
-          onSelect={v => setForm({...form, filter_koper: v.name})}
-          selected={form.filter_koper}
-        /> */}
       </ScrollView>
       <View style={{marginTop: 20}} />
       <FlatList data={vehicles} renderItem={renderItem} />

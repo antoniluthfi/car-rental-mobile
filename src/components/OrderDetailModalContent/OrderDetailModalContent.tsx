@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {ic_pinpoin} from 'assets/icons';
-import {img_car_2} from 'assets/images';
-import {View, Text, Image, StyleSheet} from 'react-native';
-import {idrFormatter} from 'utils/functions';
-import {iconSize} from 'utils/mixins';
-import {useAppSelector} from 'redux/hooks';
-import useLangSelector from 'utils/useLangSelector';
-import {isFuture} from 'date-fns';
 import {colors} from 'utils/styles';
+import {ic_pinpoin} from 'assets/icons';
+import {iconSize} from 'utils/mixins';
+import {idrFormatter} from 'utils/functions';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import {img_car_2} from 'assets/images';
+import {isFuture} from 'date-fns';
+import {useAppSelector} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
 
 const OrderDetailModalContent: React.FC = () => {
-  const t = useLangSelector().myBooking;
+  const {t} = useTranslation();
   const bookingDetail = useAppSelector(state => state.myBooking);
   const garages = useAppSelector(state => state.garages.data);
   const vehicle = useAppSelector(state => state.vehicles).vehicleById;
@@ -64,7 +64,7 @@ const OrderDetailModalContent: React.FC = () => {
         </View>
 
         <View style={{flexBasis: '50%'}}>
-          <Text style={styles.text}>{t.paymentMethod}</Text>
+          <Text style={styles.text}>{t('myBooking.paymentMethod')}</Text>
           <Text style={styles.boldText}>{getPaymentLabel()}</Text>
         </View>
       </View>
@@ -81,7 +81,7 @@ const OrderDetailModalContent: React.FC = () => {
           </View>
 
           <View>
-            <Text style={styles.text}>{t.car}</Text>
+            <Text style={styles.text}>{t('myBooking.car')}</Text>
             <Text style={styles.boldText}>
               {vehicle?.brand_name
                 ? `${vehicle?.brand_name}${
@@ -93,7 +93,7 @@ const OrderDetailModalContent: React.FC = () => {
         </View>
 
         <View style={{flexBasis: '50%'}}>
-          <Text style={styles.text}>{t.totalPassenger}</Text>
+          <Text style={styles.text}>{t('myBooking.totalPassenger')}</Text>
           <Text style={styles.boldText}>{vehicle?.max_passanger || '-'}</Text>
         </View>
       </View>
@@ -101,14 +101,14 @@ const OrderDetailModalContent: React.FC = () => {
 
       <View style={styles.descriptionContainer}>
         <View style={{flexBasis: '50%'}}>
-          <Text style={styles.text}>{t.totalPrice}</Text>
+          <Text style={styles.text}>{t('myBooking.totalPrice')}</Text>
           <Text style={styles.boldText}>
             {idrFormatter(selected?.total_payment)}
           </Text>
         </View>
 
         <View style={{flexBasis: '50%'}}>
-          <Text style={styles.text}>{t.paymentStatus}</Text>
+          <Text style={styles.text}>{t('myBooking.paymentStatus')}</Text>
           <Text style={styles.boldText}>{orderState}</Text>
         </View>
       </View>
@@ -117,8 +117,8 @@ const OrderDetailModalContent: React.FC = () => {
       <View style={{padding: '5%'}}>
         <Text style={styles.text}>
           {selected?.order_detail?.is_take_from_rental_office
-            ? t.pickupLocation
-            : t.returnLocation}
+            ? t('myBooking.pickupLocation')
+            : t('myBooking.returnLocation')}
         </Text>
         <View
           style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
@@ -131,7 +131,7 @@ const OrderDetailModalContent: React.FC = () => {
       <View style={styles.solidLine} />
 
       <View style={{padding: '5%'}}>
-        <Text style={styles.text}>{t.returnLocation}</Text>
+        <Text style={styles.text}>{t('myBooking.returnLocation')}</Text>
         <View
           style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
           <Image source={ic_pinpoin} style={[iconSize, {marginRight: 10}]} />

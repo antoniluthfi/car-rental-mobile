@@ -2,11 +2,19 @@ import Button from 'components/Button';
 import DatePickerComponent from 'components/DatePicker/DatePicker';
 import DropdownLocation from 'components/DropdownLocation/DropdwonLocation';
 import moment from 'moment';
-import useLangSelector from 'utils/useLangSelector';
+import TimeWheel from '../TimeWheel/TimeWheel';
 import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
 import {getAllCities} from 'redux/features/appData/appDataAPI';
 import {h1, h2, h5} from 'utils/styles';
+import {ic_clock} from 'assets/icons';
 import {ICities} from 'types/global.types';
+import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
+import {theme} from 'utils';
+import {toggleBSheet} from 'redux/features/utils/utilsSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useEffect, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Platform,
@@ -15,17 +23,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {theme} from 'utils';
-import {toggleBSheet} from 'redux/features/utils/utilsSlice';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import ReactNativeModernDatepicker, {
   getToday,
 } from 'react-native-modern-datepicker';
-import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import {ic_clock} from 'assets/icons';
-import TimeWheel from '../TimeWheel/TimeWheel';
 
 type IForm = {
   location: ICities;
@@ -47,7 +47,7 @@ const WithoutDriverForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const appData = useAppSelector(appDataState);
-  const lang = useLangSelector();
+  const {t} = useTranslation();
 
   const [form, setForm] = useState<IForm>({
     location: {id: 0, name: ''},
@@ -75,20 +75,21 @@ const WithoutDriverForm: React.FC = () => {
       const _errorMessage: any = {};
       let status = true;
       if (!form.location.name) {
-        _errorMessage['error_location'] = lang.Home.daily.error_location;
+        _errorMessage['error_location'] = t('Home.daily.error_location');
         status = false;
       }
       if (!form.tanggal_sewa) {
-        _errorMessage['error_tanggal_sewa'] = lang.Home.daily.error_rent_date;
+        _errorMessage['error_tanggal_sewa'] = t('Home.daily.error_rent_date');
         status = false;
       }
       if (!form.tanggal_pengembalian) {
-        _errorMessage['error_tanggal_pengembalian'] =
-          lang.Home.daily.error_rent_date;
+        _errorMessage['error_tanggal_pengembalian'] = t(
+          'Home.daily.error_rent_date',
+        );
         status = false;
       }
       if (!form.jam_sewa) {
-        _errorMessage['error_jam_sewa'] = lang.Home.daily.error_rent_time;
+        _errorMessage['error_jam_sewa'] = t('Home.daily.error_rent_time');
         status = false;
       }
       setFormError({..._errorMessage});
@@ -144,7 +145,7 @@ const WithoutDriverForm: React.FC = () => {
         );
         const res = tglPengembalian.diff(tglSewa, 'days');
 
-        return `${res} ${res > 1 ? lang.Home.daily.days : lang.Home.daily.day}`;
+        return `${res} ${res > 1 ? t('Home.daily.days') : t('Home.daily.day')}`;
       }
 
       return '';
@@ -173,8 +174,8 @@ const WithoutDriverForm: React.FC = () => {
         ]}>
         <DatePickerComponent
           mode="date"
-          placeholder={lang.Home.daily.select_date}
-          title={lang.Home.daily.rent_start_date}
+          placeholder={t('Home.daily.select_date')}
+          title={t('Home.daily.rent_start_date')}
           containerStyle={{
             width: '49%',
           }}
@@ -183,7 +184,7 @@ const WithoutDriverForm: React.FC = () => {
           content={
             <View>
               <Text style={[h1, {marginLeft: 16, fontSize: 18}]}>
-                {lang.Home.daily.rent_start_date}
+                {t('Home.daily.rent_start_date')}
               </Text>
               <ReactNativeModernDatepicker
                 style={{
@@ -212,8 +213,8 @@ const WithoutDriverForm: React.FC = () => {
 
         <DatePickerComponent
           mode="date"
-          placeholder={lang.Home.daily.select_date}
-          title={lang.Home.daily.rent_end_date}
+          placeholder={t('Home.daily.select_date')}
+          title={t('Home.daily.rent_end_date')}
           containerStyle={{
             width: '49%',
           }}
@@ -222,7 +223,7 @@ const WithoutDriverForm: React.FC = () => {
           content={
             <View>
               <Text style={[h1, {marginLeft: 16, fontSize: 18}]}>
-                {lang.Home.daily.rent_end_date}
+                {t('Home.daily.rent_end_date')}
               </Text>
               <ReactNativeModernDatepicker
                 style={{
@@ -271,7 +272,7 @@ const WithoutDriverForm: React.FC = () => {
           },
         ]}>
         <View style={{width: '48%'}}>
-          <Text style={h1}>{lang.Home.daily.rent_start_time}</Text>
+          <Text style={h1}>{t('Home.daily.rent_start_time')}</Text>
 
           <TouchableOpacity
             onPress={() => {
@@ -293,10 +294,9 @@ const WithoutDriverForm: React.FC = () => {
         </View>
 
         <View style={{width: '48%'}}>
-          <Text style={h1}>{lang.Home.daily.rent_end_time}</Text>
+          <Text style={h1}>{t('Home.daily.rent_end_time')}</Text>
 
-          <View
-            style={[rowCenter, styles.wrapper]}>
+          <View style={[rowCenter, styles.wrapper]}>
             <Image source={ic_clock} style={iconSize} />
 
             <View>
@@ -314,7 +314,7 @@ const WithoutDriverForm: React.FC = () => {
 
       <Button
         _theme="navy"
-        title={lang.Home.daily.btn_search}
+        title={t('Home.daily.btn_search')}
         onPress={methods.handleSearch}
         styleWrapper={{
           marginTop: 40,

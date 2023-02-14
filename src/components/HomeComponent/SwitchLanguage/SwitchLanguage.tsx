@@ -1,21 +1,24 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
-import {iconSize, rowCenter} from 'utils/mixins';
-import {ic_getride} from 'assets/icons';
-import {useAppDispatch} from 'redux/hooks';
-import {toggleLanguages} from 'redux/features/appData/appDataSlice';
-import {h1} from 'utils/styles';
-import {theme} from 'utils';
+import React, { useState } from 'react';
+import { h1 } from 'utils/styles';
+import { ic_getride } from 'assets/icons';
+import { rowCenter } from 'utils/mixins';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+  } from 'react-native';
+import { theme } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 const SwitchLanguage = () => {
+  const {i18n} = useTranslation();
   const [isEnabled, setIsEnabled] = useState(true);
-  const dispatch = useAppDispatch();
-  // const lang = useLangSelector();
 
   const toggleSwitch = (e?: any) => {
-    console.log(e);
     setIsEnabled(previousState => !previousState);
-    dispatch(toggleLanguages(e ? 'en' : 'id'));
+    i18n.changeLanguage(e ? 'en' : 'id');
   };
 
   return (

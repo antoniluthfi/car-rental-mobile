@@ -1,40 +1,36 @@
-import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
-import React, {useEffect, useState, useCallback} from 'react';
-import hoc from 'components/hoc';
-import Button from 'components/Button';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
-import {rowCenter} from 'utils/mixins';
-import {ic_arrow_left_white} from 'assets/icons';
-import {h1, h5} from 'utils/styles';
-import {showToast} from 'utils/Toast';
+import Button from 'components/Button';
 import CustomSwitch from 'components/CustomSwitch/CustomSwitch';
-import {theme} from 'utils';
-import {notificationState} from 'redux/features/notifications/notificationSlice';
+import hoc from 'components/hoc';
+import React, {useCallback, useEffect, useState} from 'react';
+import {h1, h5} from 'utils/styles';
+import {ic_arrow_left_white} from 'assets/icons';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NotificationDataResult} from 'types/notification';
+import {notificationState} from 'redux/features/notifications/notificationSlice';
+import {rowCenter} from 'utils/mixins';
+import {showToast} from 'utils/Toast';
+import {theme} from 'utils';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {
   getNotificationSettings,
   updateNotificationSettings,
 } from 'redux/features/notifications/notificationAPI';
-import useLangSelector from 'utils/useLangSelector';
 
 const NotificationScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const notifications = useAppSelector(notificationState);
-  const t = useLangSelector().settings;
-  const t_global = useLangSelector().global;
+  const {t} = useTranslation();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [activity, setActivity] = useState<NotificationDataResult[]>([]);
   const [reminder, setReminder] = useState<NotificationDataResult[]>([]);
 
   const methods = {
-    compare: (
-      a: NotificationDataResult,
-      b: NotificationDataResult,
-    ) => {
+    compare: (a: NotificationDataResult, b: NotificationDataResult) => {
       if (a.key < b.key) {
         return -1;
       }
@@ -114,7 +110,7 @@ const NotificationScreen: React.FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              {t.notification}
+              {t('settings.notification')}
             </Text>
           </TouchableOpacity>
         ),
@@ -125,10 +121,8 @@ const NotificationScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={h1}>{t.activity}</Text>
-        <Text style={[h5, styles.title]}>
-          {t.activityDesc}
-        </Text>
+        <Text style={h1}>{t('settings.activity')}</Text>
+        <Text style={[h5, styles.title]}>{t('settings.activityDesc')}</Text>
 
         {activity.length > 0 &&
           activity.map((item, i) => (
@@ -148,8 +142,8 @@ const NotificationScreen: React.FC = () => {
 
         <View style={styles.line} />
 
-        <Text style={[h1, {marginTop: 10}]}>{t.reminder}</Text>
-        <Text style={[h5, styles.title]}>{t.reminderDesc}</Text>
+        <Text style={[h1, {marginTop: 10}]}>{t('settings.reminder')}</Text>
+        <Text style={[h5, styles.title]}>{t('settings.reminderDesc')}</Text>
 
         {reminder.length > 0 &&
           reminder.map((item, i) => (
@@ -171,7 +165,7 @@ const NotificationScreen: React.FC = () => {
       <Button
         _theme="navy"
         onPress={methods.handleSubmit}
-        title={t_global.button.save}
+        title={t('global.button.save')}
         isLoading={loading}
       />
     </View>

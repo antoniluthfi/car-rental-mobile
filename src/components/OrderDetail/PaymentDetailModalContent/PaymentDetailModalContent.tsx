@@ -1,5 +1,4 @@
 import moment from 'moment';
-import useLangSelector from 'utils/useLangSelector';
 import {appDataState} from 'redux/features/appData/appDataSlice';
 import {currencyFormat} from 'utils/currencyFormat';
 import {differenceInCalendarDays, parse} from 'date-fns';
@@ -10,9 +9,10 @@ import {StyleSheet, Text, View} from 'react-native';
 import {theme} from 'utils';
 import {useAppSelector} from 'redux/hooks';
 import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
+import {useTranslation} from 'react-i18next';
 
 const PaymentDetailModalContent: React.FC = () => {
-  const t = useLangSelector().detail_order;
+  const {t} = useTranslation();
 
   const formDaily = useAppSelector(appDataState).formDaily;
   const vehicles = useAppSelector(vehiclesState);
@@ -37,7 +37,9 @@ const PaymentDetailModalContent: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={[h1, {fontSize: 20}]}>{t.summary.title}</Text>
+      <Text style={[h1, {fontSize: 20}]}>
+        {t('detail_order.summary.title')}
+      </Text>
 
       <View
         style={[
@@ -48,7 +50,7 @@ const PaymentDetailModalContent: React.FC = () => {
           {vehicles.vehicles?.find(x => x.id === formDaily.vehicle_id)?.name}
         </Text>
         <Text style={h4}>
-          {formDaily.passanger} {t.summary.passanger}
+          {formDaily.passanger} {t('detail_order.summary.passanger')}
         </Text>
       </View>
 
@@ -57,7 +59,7 @@ const PaymentDetailModalContent: React.FC = () => {
           rowCenter,
           {justifyContent: 'space-between', width: '100%', marginTop: 15},
         ]}>
-        <Text style={h4}>{t.summary.startDate}</Text>
+        <Text style={h4}>{t('detail_order.summary.startDate')}</Text>
         <Text style={h4}>
           {moment(formDaily.start_booking_date).format('DD MMMM YYYY')}
         </Text>
@@ -68,7 +70,7 @@ const PaymentDetailModalContent: React.FC = () => {
           rowCenter,
           {justifyContent: 'space-between', width: '100%', marginTop: 15},
         ]}>
-        <Text style={h4}>{t.summary.startTime}</Text>
+        <Text style={h4}>{t('detail_order.summary.startTime')}</Text>
         <Text style={h4}>{formDaily.start_booking_time}</Text>
       </View>
 
@@ -77,7 +79,7 @@ const PaymentDetailModalContent: React.FC = () => {
           rowCenter,
           {justifyContent: 'space-between', width: '100%', marginTop: 20},
         ]}>
-        <Text style={h4}>{t.summary.endDate}</Text>
+        <Text style={h4}>{t('detail_order.summary.endDate')}</Text>
         <Text style={h4}>
           {moment(formDaily.end_booking_date).format('DD MMMM YYYY')}
         </Text>
@@ -88,32 +90,36 @@ const PaymentDetailModalContent: React.FC = () => {
           rowCenter,
           {justifyContent: 'space-between', width: '100%', marginTop: 15},
         ]}>
-        <Text style={h4}>{t.summary.endTime}</Text>
+        <Text style={h4}>{t('detail_order.summary.endTime')}</Text>
         <Text style={h4}>{formDaily.end_booking_time}</Text>
       </View>
       <View style={[styles.lineHorizontal, {width: '100%'}]} />
 
-      <Text style={[h1, {marginTop: 20}]}>{t.summary.rentalFee}</Text>
+      <Text style={[h1, {marginTop: 20}]}>
+        {t('detail_order.summary.rentalFee')}
+      </Text>
       <View
         style={[
           rowCenter,
           {justifyContent: 'space-between', width: '100%', marginTop: 15},
         ]}>
-        <Text style={h4}>{t.summary.price}</Text>
+        <Text style={h4}>{t('detail_order.summary.price')}</Text>
         <Text style={h4}>
           {currencyFormat(summaryOrder.booking_price)} / {dayDifference}{' '}
-          {t.summary.day}
+          {t('detail_order.summary.day')}
         </Text>
       </View>
       <View style={[styles.lineHorizontal, {width: '100%'}]} />
 
-      <Text style={[h1, {marginTop: 20}]}>{t.summary.otherFee}</Text>
+      <Text style={[h1, {marginTop: 20}]}>
+        {t('detail_order.summary.otherFee')}
+      </Text>
       <View
         style={[
           rowCenter,
           {justifyContent: 'space-between', width: '100%', marginTop: 15},
         ]}>
-        <Text style={h4}>{t.summary.serviceFee}</Text>
+        <Text style={h4}>{t('detail_order.summary.serviceFee')}</Text>
         <Text style={h4}>{currencyFormat(summaryOrder.service_fee)}</Text>
       </View>
       <View
@@ -121,7 +127,7 @@ const PaymentDetailModalContent: React.FC = () => {
           rowCenter,
           {justifyContent: 'space-between', width: '100%', marginTop: 15},
         ]}>
-        <Text style={h4}>{t.summary.insuranceFee}</Text>
+        <Text style={h4}>{t('detail_order.summary.insuranceFee')}</Text>
         <Text style={h4}>{currencyFormat(summaryOrder.insurance_fee)}</Text>
       </View>
       <View style={[styles.lineHorizontal, {width: '100%'}]} />
@@ -132,7 +138,7 @@ const PaymentDetailModalContent: React.FC = () => {
           {justifyContent: 'space-between', width: '100%', marginTop: 15},
         ]}>
         <Text style={[h1, {color: theme.colors.navy}]}>
-          {t.summary.totalPayment}
+          {t('detail_order.summary.totalPayment')}
         </Text>
         <Text style={h1}>{currencyFormat(summaryOrder.total_payment)}</Text>
       </View>

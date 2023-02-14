@@ -7,7 +7,6 @@ import PaymentDetailModalContent from 'components/OrderDetail/PaymentDetailModal
 import React, {FC, useEffect, useState} from 'react';
 import ReturnLocationModalContent from 'components/OrderDetail/ReturnLocationModalContent/ReturnLocationModalContent';
 import TakingLocationModalContent from 'components/OrderDetail/TakingLocationModalContent/TakingLocationModalContent';
-import useLangSelector from 'utils/useLangSelector';
 import {appDataState} from 'redux/features/appData/appDataSlice';
 import {createOrder, getSummaryOrder} from 'redux/features/order/orderAPI';
 import {currencyFormat} from 'utils/currencyFormat';
@@ -19,6 +18,7 @@ import {showBSheet} from 'utils/BSheet';
 import {theme} from 'utils';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   ScrollView,
@@ -56,8 +56,7 @@ const OrderDetailScreen: FC = () => {
 
   const formDaily = useAppSelector(appDataState).formDaily;
   const summaryOrder = useAppSelector(orderState).summaryOrder;
-  const t = useLangSelector().detail_order;
-  const t_global = useLangSelector().global;
+  const {t} = useTranslation();
 
   const [form, setForm] = useState<{
     taking_location: IGarages | null;
@@ -87,7 +86,7 @@ const OrderDetailScreen: FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              {t.title}
+              {t('detail_order.title')}
             </Text>
           </TouchableOpacity>
         ),
@@ -201,7 +200,7 @@ const OrderDetailScreen: FC = () => {
       <ScrollView
         contentContainerStyle={{flexGrow: 1, paddingHorizontal: '5%'}}>
         <View style={{marginTop: 20}}>
-          <Text style={[h1]}>{t.formDetail.title}</Text>
+          <Text style={[h1]}>{t('detail_order.formDetail.title')}</Text>
           <View style={styles.infoUserWrapper}>
             <Text style={[h1, {fontSize: 12}]}>{user.name}</Text>
             <Text style={[h3, {fontSize: 12, marginVertical: 5}]}>
@@ -214,7 +213,7 @@ const OrderDetailScreen: FC = () => {
 
         <View>
           <View style={[rowCenter, {justifyContent: 'space-between'}]}>
-            <Text style={h1}>{t.tripDetail.title}</Text>
+            <Text style={h1}>{t('detail_order.tripDetail.title')}</Text>
             <TouchableOpacity
               style={[rowCenter, {marginTop: 20, marginBottom: 20}]}
               onPress={() => setCheckInfo(prev => !prev)}>
@@ -224,15 +223,15 @@ const OrderDetailScreen: FC = () => {
               />
               <Text style={[h5, {fontSize: 12}]}>
                 {' '}
-                {t.tripDetail.pickAtGarage}
+                {t('detail_order.tripDetail.pickAtGarage')}
               </Text>
             </TouchableOpacity>
           </View>
 
           <Text style={[h4, {marginTop: 10}]}>
             {checkInfo
-              ? t.tripDetail.deliveryLocationTaking
-              : t.tripDetail.deliveryLocation}
+              ? t('detail_order.tripDetail.deliveryLocationTaking')
+              : t('detail_order.tripDetail.deliveryLocation')}
           </Text>
           <View style={[rowCenter, styles.borderBottom]}>
             <Image source={ic_pinpoin} style={iconSize} />
@@ -252,14 +251,16 @@ const OrderDetailScreen: FC = () => {
                 ]}>
                 {form.taking_location?.name ||
                   (checkInfo
-                    ? t.tripDetail.deliveryLocationTakingPlaceholder
-                    : t.tripDetail.deliveryLocationPlaceholder)}
+                    ? t(
+                        'detail_order.tripDetail.deliveryLocationTakingPlaceholder',
+                      )
+                    : t('detail_order.tripDetail.deliveryLocationPlaceholder'))}
               </Text>
             </TouchableOpacity>
           </View>
 
           <Text style={[h4, {marginTop: 20}]}>
-            {t.tripDetail.returnLocation}
+            {t('detail_order.tripDetail.returnLocation')}
           </Text>
           <TouchableOpacity
             style={[rowCenter, styles.borderBottom]}
@@ -272,17 +273,17 @@ const OrderDetailScreen: FC = () => {
                 {marginLeft: 5},
               ]}>
               {form.return_location?.name ||
-                t.tripDetail.returnLocationPlaceHolder}
+                t('detail_order.tripDetail.returnLocationPlaceHolder')}
             </Text>
           </TouchableOpacity>
         </View>
 
         <View style={{marginVertical: 20}}>
-          <Text style={h1}>{t.specialReq.title}</Text>
+          <Text style={h1}>{t('detail_order.specialReq.title')}</Text>
           <View style={styles.formWrapper}>
             <TextInput
               multiline={true}
-              placeholder={t.specialReq.placeholder}
+              placeholder={t('detail_order.specialReq.placeholder') as any}
               style={{
                 height: 100,
                 paddingRight: 15,
@@ -309,14 +310,16 @@ const OrderDetailScreen: FC = () => {
           styles.bottomView,
         ]}>
         <TouchableOpacity onPress={methods.handleDetailPayment}>
-          <Text style={h1}>{t.summary.totalPayment}</Text>
+          <Text style={h1}>{t('detail_order.summary.totalPayment')}</Text>
           <View style={rowCenter}>
             <Text
               style={[
                 h1,
                 {color: theme.colors.navy, marginRight: 10, marginBottom: 12},
               ]}>
-              {currencyFormat(summaryOrder.total_payment - (summaryOrder.discount_price || 0))}
+              {currencyFormat(
+                summaryOrder.total_payment - (summaryOrder.discount_price || 0),
+              )}
             </Text>
             <Image
               source={ic_arrow_down}
@@ -331,7 +334,7 @@ const OrderDetailScreen: FC = () => {
         </TouchableOpacity>
         <Button
           _theme="navy"
-          title={t_global.button.nextPayment}
+          title={t('global.button.nextPayment')}
           onPress={methods.handleOrder}
         />
       </View>

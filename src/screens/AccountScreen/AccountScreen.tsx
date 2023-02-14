@@ -1,9 +1,9 @@
 import appBar from 'components/AppBar/AppBar';
+import BSheetPasswordTextInput from 'components/MyProfileComponent/BSheetPasswordTextInput/BSheetPasswordTextInput';
 import Button from 'components/Button';
 import hoc from 'components/hoc';
 import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import useLangSelector from 'utils/useLangSelector';
 import {editUser, uploadFile} from 'redux/features/user/userAPI';
 import {getUser} from 'redux/features/appData/appDataAPI';
 import {h1, h2, h5} from 'utils/styles';
@@ -18,6 +18,7 @@ import {toggleBSheet, toggleLoader} from 'redux/features/utils/utilsSlice';
 import {URL_IMAGE} from '@env';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {
   ic_arrow_left_white,
   ic_camera,
@@ -30,11 +31,7 @@ import {
   notificationState,
   resetNotification,
 } from 'redux/features/notifications/notificationSlice';
-import {
-  appDataState,
-  toggleLanguages,
-} from 'redux/features/appData/appDataSlice';
-import BSheetPasswordTextInput from 'components/MyProfileComponent/BSheetPasswordTextInput/BSheetPasswordTextInput';
+import {appDataState} from 'redux/features/appData/appDataSlice';
 
 const AccountScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -44,15 +41,7 @@ const AccountScreen: React.FC = () => {
   const notificationUpdateStatus =
     useAppSelector(notificationState).isUpdateSuccess;
 
-  const [isEnabled, setIsEnabled] = useState(true);
-
-  const lang = useLangSelector();
-
-  const toggleSwitch = (e?: any) => {
-    console.log(e);
-    setIsEnabled(previousState => !previousState);
-    dispatch(toggleLanguages(e ? 'en' : 'id'));
-  };
+  const {t} = useTranslation();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('12345678abc');
@@ -206,13 +195,13 @@ const AccountScreen: React.FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              {lang.Account.header}
+              {t('Account.header')}
             </Text>
           </TouchableOpacity>
         ),
       }),
     );
-  }, [navigation, lang, isEnabled]);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -241,7 +230,7 @@ const AccountScreen: React.FC = () => {
               navigation.navigate('ChangePassword');
             }}>
             <Image source={ic_password_lock} style={styles.icon} />
-            <Text style={[h5]}>{lang.Account.menu_2}</Text>
+            <Text style={[h5]}>{t('Account.menu_2')}</Text>
           </TouchableOpacity>
           <View style={styles.line} />
 
@@ -324,7 +313,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    marginVertical: 20
+    marginVertical: 20,
   },
   headerTitleContainer: {
     flexDirection: 'column',

@@ -1,20 +1,20 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {URL_IMAGE} from '@env';
-import {ic_seat, ic_koper, ic_transisi} from 'assets/icons';
-import {theme} from 'utils';
 import {currencyFormat} from 'utils/currencyFormat';
-import {rowCenter, iconSize} from 'utils/mixins';
-import {h4, h1, h2, h5} from 'utils/styles';
+import {h1, h2, h4, h5} from 'utils/styles';
+import {ic_koper, ic_seat, ic_transisi} from 'assets/icons';
+import {iconSize, rowCenter} from 'utils/mixins';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {IVehicles} from 'types/vehicles';
-import useLangSelector from 'utils/useLangSelector';
+import {theme} from 'utils';
+import {URL_IMAGE} from '@env';
+import {useTranslation} from 'react-i18next';
 
 interface ICardCar {
   item: IVehicles;
   onPress: () => void;
 }
 const CarCard = ({item, onPress}: ICardCar) => {
-  const lang = useLangSelector().list_car;
+  const {t} = useTranslation();
 
   return (
     <TouchableOpacity style={[rowCenter, styles.cardWrapper]} onPress={onPress}>
@@ -84,10 +84,10 @@ const CarCard = ({item, onPress}: ICardCar) => {
         </View>
 
         <View style={{marginTop: 10}}>
-          <Text style={[h4, {fontSize: 12}]}>{lang.rent_price}</Text>
+          <Text style={[h4, {fontSize: 12}]}>{t('list_car.rent_price')}</Text>
           <Text style={[h1, {color: theme.colors.navy, marginTop: 5}]}>
             {currencyFormat(item.price - (item?.discount_price || 0))}{' '}
-            <Text style={[h4]}>/ {lang.day}</Text>
+            <Text style={[h4]}>/ {t('list_car.day')}</Text>
           </Text>
         </View>
 
