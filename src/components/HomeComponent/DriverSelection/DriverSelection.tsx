@@ -17,7 +17,7 @@ type Props = {
 
 const DriverSelection: React.FC<Props> = ({onChange}) => {
   const lang = useLangSelector();
-  const [selected, setSelected] = useState(1);
+  const [selected, setSelected] = useState(2);
 
   const buttonList = [
     {

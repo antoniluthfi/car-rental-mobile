@@ -50,7 +50,7 @@ useFocusEffect(
         <FavoriteCar />
         <GetRideDescription />
         <WhyChooseUs />
-        <FAQ />
+        {/* <FAQ /> */}
         <Article />
       </ScrollView>
     </View>

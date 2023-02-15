@@ -219,7 +219,7 @@ const DetailCarScreen: FC = () => {
           </View>
         </View>
 
-        <View style={{marginTop: 20, margin: 16}}>
+        {/* <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1]}>{t.car_conditions}</Text>
           <View
             style={[
@@ -248,7 +248,7 @@ const DetailCarScreen: FC = () => {
             )}
           </View>
           <View style={styles.lineHorizontal} />
-        </View>
+        </View> */}
 
         <View style={{marginTop: 20, margin: 16}}>
           <Text style={[h1]}>{t.priceTerm}</Text>
@@ -345,7 +345,7 @@ const DetailCarScreen: FC = () => {
         <View>
           <Text style={[h4]}>{t.carPrice}</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
-            {currencyFormat(vehicle.price - vehicle.discount_price)}{' '}
+            {currencyFormat(vehicle.price - (vehicle.discount_price || 0))}{' '}
             <Text style={[h3, {fontSize: 12}]}>{t.perDay}</Text>
           </Text>
           {vehicle.discount_price > 0 && (

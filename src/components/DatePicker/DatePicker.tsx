@@ -98,7 +98,7 @@ const CustomDatePicker = ({
         {content && (
           <TouchableOpacity onPress={methods.handleBSheet}>
             <Text style={[h5, colorSelecting(value), {marginLeft: 10}]}>
-              {IsoDateTo || placeholder}
+              {IsoDateTo === 'Invalid date' ? placeholder : IsoDateTo}
             </Text>
           </TouchableOpacity>
         )}

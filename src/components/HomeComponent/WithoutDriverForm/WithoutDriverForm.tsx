@@ -304,12 +304,12 @@ const WithoutDriverForm: React.FC = () => {
             <Image source={ic_clock} style={iconSize} />
 
             <View>
-              <Text style={[h2, {marginLeft: 10}]}>
-                {`${
+              <Text style={[h2, {marginLeft: 10, fontWeight: form.jam_sewa ? '800' : '200' }]}>
+              {form.jam_sewa ? `${
                   form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
                   ':' +
                   form.jam_sewa.slice(-form.jam_sewa.length / 2)
-                }` || 'Pilih Jam'}
+                }` : lang.Home.daily.rent_start_time}
               </Text>
             </View>
           </TouchableOpacity>
@@ -323,12 +323,12 @@ const WithoutDriverForm: React.FC = () => {
             <Image source={ic_clock} style={iconSize} />
 
             <View>
-              <Text style={[h2, {marginLeft: 10}]}>
-                {`${
+              <Text style={[h2, {marginLeft: 10, fontWeight: form.jam_sewa ? '800' : '200' }]}>
+                {form.jam_sewa ? `${
                   form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
                   ':' +
                   form.jam_sewa.slice(-form.jam_sewa.length / 2)
-                }` || 'Pilih Jam'}
+                }` : lang.Home.daily.rent_end_time}
               </Text>
             </View>
           </View>

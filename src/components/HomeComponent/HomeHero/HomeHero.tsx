@@ -1,4 +1,4 @@
-import {get_ride_logo, img_hero_background} from 'assets/images';
+import {get_ride_logo, img_bg_hero, img_hero_background} from 'assets/images';
 import {h1} from 'utils/styles';
 import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
@@ -44,7 +44,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
   return (
     <View>
       <Image
-        source={img_hero_background}
+        source={img_bg_hero}
         style={styles.imgCar}
         resizeMode="cover"
       />
