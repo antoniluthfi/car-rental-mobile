@@ -11,7 +11,7 @@ import {theme} from 'utils';
 import {rowCenter} from 'utils/mixins';
 import {h1, h4} from 'utils/styles';
 import Button from 'components/Button';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 const JAM = [
   '7',
@@ -44,7 +44,7 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
   const [menit, setMenit] = useState('00');
 
   const [activeIndex, setActiveIndex] = useState({
-    jam: 0,
+    jam: 1,
     menit: 0,
   });
 
@@ -130,32 +130,25 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
               renderItem={(data: any) => (
                 <View
                   style={{
-                    // height: 50,
+                    height: 60,
                     width: 100,
                     alignSelf: 'center',
-                    // backgroundColor: 'red',
-                    // marginBottom: 10,
                   }}>
                   <Text>{data}</Text>
                 </View>
               )}
               onValueChange={(data: any, selectedIndex: any) => {
-                // console.log(data, selectedIndex);
-                // setForm({...form, jam_sewa: selectedIndex});
                 setJam(data);
                 if (selectedIndex === 17) {
                   setMarginBottom(50);
                 } else {
                   setMarginBottom(0);
                 }
-                //
               }}
               wrapperHeight={180}
-              // wrapperWidth={350}
               wrapperColor="#FFFFFF"
               itemHeight={60}
               highlightColor="#d8d8d8"
-              // activeItemColor={'red'}
               highlightBorderWidth={2}
               activeItemTextStyle={{
                 fontSize: 23,
@@ -172,7 +165,6 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
                 textAlign: 'center',
                 color: '#B4B4B4',
               }}
-              // style={{height: 200}}
             />
           </View>
 
@@ -198,7 +190,6 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
               renderItem={(data: any) => (
                 <View
                   style={{
-                    // alignSelf: 'center',
                     marginLeft: 50,
                     backgroundColor: 'red',
                   }}>
@@ -215,8 +206,6 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
                 }
                 //
               }}
-              // wrapperHeight={180}
-              // wrapperWidth={350}
               wrapperColor="#FFFFFF"
               itemHeight={60}
               highlightColor="#d8d8d8"
@@ -237,8 +226,6 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
                 textAlign: 'center',
                 color: '#B4B4B4',
               }}
-
-              // style={{height: 300, marginLeft: 20}}
             />
           </View>
         </View>

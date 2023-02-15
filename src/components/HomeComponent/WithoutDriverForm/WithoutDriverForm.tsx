@@ -282,12 +282,14 @@ const WithoutDriverForm: React.FC = () => {
             <Image source={ic_clock} style={iconSize} />
 
             <View>
-              <Text style={[h2, {marginLeft: 10}]}>
-                {`${
-                  form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
-                  ':' +
-                  form.jam_sewa.slice(-form.jam_sewa.length / 2)
-                }` || 'Pilih Jam'}
+              <Text style={[h5, {marginLeft: 10, color: theme.colors.grey4}]}>
+                {form.jam_sewa
+                  ? `${
+                      form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
+                      ':' +
+                      form.jam_sewa.slice(-form.jam_sewa.length / 2)
+                    }`
+                  : '00:00'}
               </Text>
             </View>
           </TouchableOpacity>
@@ -300,12 +302,14 @@ const WithoutDriverForm: React.FC = () => {
             <Image source={ic_clock} style={iconSize} />
 
             <View>
-              <Text style={[h2, {marginLeft: 10}]}>
-                {`${
-                  form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
-                  ':' +
-                  form.jam_sewa.slice(-form.jam_sewa.length / 2)
-                }` || 'Pilih Jam'}
+              <Text style={[h5, {marginLeft: 10, color: theme.colors.grey4}]}>
+                {form.jam_sewa
+                  ? `${
+                      form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
+                      ':' +
+                      form.jam_sewa.slice(-form.jam_sewa.length / 2)
+                    }`
+                  : '00:00'}
               </Text>
             </View>
           </View>
