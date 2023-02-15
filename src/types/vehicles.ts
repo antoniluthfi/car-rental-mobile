@@ -13,6 +13,7 @@ export type IVehicles = {
     status: string;
     year: number;
     discount_price: number;
+    old_price: number;
 }
 export type IPaginationVehicle = {
     last_page: number;

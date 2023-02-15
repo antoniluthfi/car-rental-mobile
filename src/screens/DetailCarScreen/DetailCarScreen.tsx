@@ -43,8 +43,6 @@ import {
   View,
 } from 'react-native';
 
-type IDailyRules = {title: string; list: string[]};
-
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'DetailCar'>;
 const DetailCarScreen: FC = () => {
   const navigation = useNavigation();
@@ -77,74 +75,74 @@ const DetailCarScreen: FC = () => {
 
   const dailyRules = [
     {
-      desc: t('dailyRules.sebelum_pengambilan.title'),
+      desc: 'dailyRules.sebelum_pengambilan.title',
       list: [
-        t('dailyRules.sebelum_pengambilan.list_1'),
-        t('dailyRules.sebelum_pengambilan.list_2'),
-        t('dailyRules.sebelum_pengambilan.list_3'),
+        'dailyRules.sebelum_pengambilan.list_1',
+        'dailyRules.sebelum_pengambilan.list_2',
+        'dailyRules.sebelum_pengambilan.list_3',
       ],
     },
     {
-      desc: t('dailyRules.saat_pengambilan.title'),
+      desc: 'dailyRules.saat_pengambilan.title',
       list: [
-        t('dailyRules.saat_pengambilan.list_1'),
-        t('dailyRules.saat_pengambilan.list_2'),
-        t('dailyRules.saat_pengambilan.list_3'),
-        t('dailyRules.saat_pengambilan.list_4'),
+        'dailyRules.saat_pengambilan.list_1',
+        'dailyRules.saat_pengambilan.list_2',
+        'dailyRules.saat_pengambilan.list_3',
+        'dailyRules.saat_pengambilan.list_4',
       ],
     },
     {
-      desc: t('dailyRules.penggunaan.title'),
+      desc: 'dailyRules.penggunaan.title',
       list: [
-        t('dailyRules.penggunaan.list_1'),
-        t('dailyRules.penggunaan.list_2'),
-        t('dailyRules.penggunaan.list_3'),
-        t('dailyRules.penggunaan.list_4'),
-        t('dailyRules.penggunaan.list_5'),
-        t('dailyRules.penggunaan.list_6'),
+        'dailyRules.penggunaan.list_1',
+        'dailyRules.penggunaan.list_2',
+        'dailyRules.penggunaan.list_3',
+        'dailyRules.penggunaan.list_4',
+        'dailyRules.penggunaan.list_5',
+        'dailyRules.penggunaan.list_6',
       ],
     },
     {
-      desc: t('dailyRules.overtime.title'),
+      desc: 'dailyRules.overtime.title',
       list: [
-        t('dailyRules.overtime.list_1'),
-        t('dailyRules.overtime.list_2'),
-        t('dailyRules.overtime.list_3'),
+        'dailyRules.overtime.list_1',
+        'dailyRules.overtime.list_2',
+        'dailyRules.overtime.list_3',
       ],
     },
     {
-      desc: t('dailyRules.asuransi.title'),
+      desc: 'dailyRules.asuransi.title',
       list: [
-        t('dailyRules.asuransi.list_1'),
-        t('dailyRules.asuransi.list_2'),
-        t('dailyRules.asuransi.list_3'),
-        t('dailyRules.asuransi.list_4'),
+        'dailyRules.asuransi.list_1',
+        'dailyRules.asuransi.list_2',
+        'dailyRules.asuransi.list_3',
+        'dailyRules.asuransi.list_4',
       ],
     },
     {
-      desc: t('dailyRules.refund.title'),
+      desc: 'dailyRules.refund.title',
       list: [
-        t('dailyRules.refund.list_1'),
-        t('dailyRules.refund.list_2'),
-        t('dailyRules.refund.list_3'),
-        t('dailyRules.refund.list_4'),
-        t('dailyRules.refund.list_5'),
+        'dailyRules.refund.list_1',
+        'dailyRules.refund.list_2',
+        'dailyRules.refund.list_3',
+        'dailyRules.refund.list_4',
+        'dailyRules.refund.list_5',
       ],
     },
   ];
 
   const policies = [
-    t('carDetail.policies.list_1'),
-    t('carDetail.policies.list_2'),
-    t('carDetail.policies.list_3'),
-    t('carDetail.policies.list_4'),
+    'carDetail.policies.list_1',
+    'carDetail.policies.list_2',
+    'carDetail.policies.list_3',
+    'carDetail.policies.list_4',
   ];
 
   const requirements = [
-    t('carDetail.requirements.list_1'),
-    t('carDetail.requirements.list_2'),
-    t('carDetail.requirements.list_3'),
-    t('carDetail.requirements.list_4'),
+    'carDetail.requirements.list_1',
+    'carDetail.requirements.list_2',
+    'carDetail.requirements.list_3',
+    'carDetail.requirements.list_4',
   ];
 
   const [checkInfo, setCheckInfo] = useState(false);
@@ -182,7 +180,7 @@ const DetailCarScreen: FC = () => {
       showBSheet({
         content: (
           <View style={{flex: 1, alignItems: 'flex-start', width: '95%'}}>
-            <Text style={[h1]}>Rules Penyewaan</Text>
+            <Text style={[h1]}>{t('carDetail.rental_rules')}</Text>
             <View style={[rowCenter, {marginTop: 10}]}>
               <Image source={ic_info_blue} style={iconSize} />
               <Text style={[h1, {color: theme.colors.blue}]}>
@@ -193,19 +191,19 @@ const DetailCarScreen: FC = () => {
             <View style={{width: '100%', flex: 1}}>
               <BottomSheetScrollView>
                 <View style={{paddingHorizontal: '5%'}}>
-                  {dailyRules.map((x, i) => (
+                  {dailyRules.map((data, i) => (
                     <View key={i}>
-                      <Text style={[h1, {marginTop: 10}]}>
-                        {dailyRules[x as any].desc}
-                      </Text>
+                      <Text style={[h1, {marginTop: 10}]}>{t(data.desc)}</Text>
 
                       <View style={{marginTop: 10, marginLeft: 5}}>
-                        {dailyRules[x as any].list.map((desc, j) => (
+                        {data.list.map((child, j) => (
                           <View
                             key={j}
                             style={{flexDirection: 'row', marginBottom: 5}}>
                             <Text>• </Text>
-                            <Text style={[h4, {lineHeight: 24}]}>{desc}</Text>
+                            <Text style={[h4, {lineHeight: 24}]}>
+                              {t(child)}
+                            </Text>
                           </View>
                         ))}
                       </View>
@@ -229,11 +227,11 @@ const DetailCarScreen: FC = () => {
         <CustomCarousel
           data={vehicle.photo}
           paginationSize={7}
-          paginationPosition={-15}
+          paginationPosition={-10}
           progressValueSpace={30}
           renderCarouselTitle={
             <View style={styles.carouselTitleContainer}>
-              <Text style={{fontWeight: 'bold'}}>{vehicle.name}</Text>
+              <Text style={{fontWeight: 'bold'}}>{vehicle.brand_name} {vehicle.name}</Text>
             </View>
           }
           renderItem={({item, index}) => (
@@ -344,10 +342,10 @@ const DetailCarScreen: FC = () => {
             {t('dailyRules.sebelum_pengambilan.title')}
           </Text>
           <View style={{marginLeft: 20, marginTop: 10}}>
-            {dailyRules[0].list.map((x, i) => (
+            {dailyRules[0].list.map((data, i) => (
               <View key={i} style={{flexDirection: 'row', marginBottom: 5}}>
                 <Text>• </Text>
-                <Text style={[h4, {lineHeight: 24}]}>{x}</Text>
+                <Text style={[h4, {lineHeight: 24}]}>{t(data)}</Text>
               </View>
             ))}
           </View>
@@ -367,7 +365,7 @@ const DetailCarScreen: FC = () => {
             {[...policies, ...requirements].map((x, i) => (
               <View key={i} style={{flexDirection: 'row', marginBottom: 5}}>
                 <Text>• </Text>
-                <Text style={[h4, {lineHeight: 24}]}>{x}</Text>
+                <Text style={[h4, {lineHeight: 24}]}>{t(x)}</Text>
               </View>
             ))}
           </View>
@@ -403,7 +401,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View> */}
         <Checkbox
-          label={t('myBooking.agreeState')}
+          label={t('carDetail.agreeState')}
           onChange={val => setCheckInfo(val)}
           checked={checkInfo}
         />
@@ -414,7 +412,7 @@ const DetailCarScreen: FC = () => {
           <Text style={[h4]}>{t('myBooking.carPrice')}</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
             {currencyFormat(vehicle.price - (vehicle.discount_price || 0))}{' '}
-            <Text style={[h3, {fontSize: 12}]}>{t('myBooking.perDay')}</Text>
+            <Text style={[h3, {fontSize: 12}]}>{t('carDetail.perDay')}</Text>
           </Text>
           {vehicle.discount_price > 0 && (
             <Text style={[h5, styles.hargaCoret]}>
@@ -426,7 +424,6 @@ const DetailCarScreen: FC = () => {
           <Button
             title={t('global.button.next')}
             onPress={() => {
-              console.log(auth);
               if (!auth?.access_token) {
                 showToast({
                   message: 'Please Login first to continue!',

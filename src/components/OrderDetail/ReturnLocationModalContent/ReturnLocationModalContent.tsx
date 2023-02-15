@@ -14,12 +14,14 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   onPress: (val: IGarages) => void;
 };
 
 const ReturnLocationModalContent: React.FC<Props> = ({onPress}) => {
+  const {t} = useTranslation();
   const garages = useAppSelector(appDataState).garages;
 
   const renderItem = ({item}: {item: IGarages}) => {
@@ -36,7 +38,7 @@ const ReturnLocationModalContent: React.FC<Props> = ({onPress}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={[h1, {fontSize: 18}]}>Lokasi Pengembalian</Text>
+      <Text style={[h1, {fontSize: 18}]}>{t('detail_order.tripDetail.returnLocation')}</Text>
       <View style={[rowCenter, styles.searchWrapper]}>
         <TextInput
           style={{width: '95%', padding: 0, margin: 0}}

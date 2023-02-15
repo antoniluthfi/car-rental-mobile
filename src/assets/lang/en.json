@@ -138,6 +138,7 @@
         "rentalGas": "Return the fuel as before",
         "rentalTime": "Use up to 24 hours per rental day",
         "agreeState": "I agree to the terms that apply",
+        "rental_rules": "Rental Rules",
         "requirements": {
             "list_1": "SIM A/International SIM",
             "list_2": "KTP/Passport",

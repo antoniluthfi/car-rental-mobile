@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 type DataRender = {
   id: number;
@@ -39,6 +40,8 @@ const data: DataRender[] = [
 ];
 
 const DeliveryLocationModalContent: React.FC<Props> = ({onPress}) => {
+  const {t} = useTranslation();
+
   const renderItem = ({item}: {item: DataRender}) => {
     return (
       <TouchableOpacity
@@ -47,7 +50,7 @@ const DeliveryLocationModalContent: React.FC<Props> = ({onPress}) => {
           onPress(item);
         }}>
         <Image source={ic_pinpoin} style={iconSize} />
-        <View style={{flexBasis: '75%'}}>
+        <View style={{flexBasis: '70%'}}>
           <Text style={[h1, {marginLeft: 5}]}>{item.name}</Text>
           <Text style={[h5, {marginLeft: 5}]}>{item.address}</Text>
           <View
@@ -67,7 +70,7 @@ const DeliveryLocationModalContent: React.FC<Props> = ({onPress}) => {
             )}
           </View>
         </View>
-        <View style={{flexBasis: '25%'}}>
+        <View style={{flexBasis: '30%'}}>
           <Text style={[h1, {color: theme.colors.navy}]}>Lihat Peta</Text>
         </View>
       </TouchableOpacity>
@@ -76,7 +79,7 @@ const DeliveryLocationModalContent: React.FC<Props> = ({onPress}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={[h1, {fontSize: 18}]}>Lokasi Pengantaran</Text>
+      <Text style={[h1, {fontSize: 18}]}>{t('detail_order.tripDetail.deliveryLocation')}</Text>
       <View style={[rowCenter, styles.searchWrapper]}>
         <TextInput style={styles.searchInput} placeholder="Cari" />
         <Image source={ic_glasses} style={iconSize} />
@@ -111,6 +114,7 @@ const styles = StyleSheet.create({
   listContainer: {width: '100%', flex: 1},
   item: {
     flexDirection: 'row',
+    width: '100%',
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.grey5,
     paddingVertical: 10,

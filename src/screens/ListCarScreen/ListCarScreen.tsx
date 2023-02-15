@@ -87,6 +87,7 @@ const ListCarScreen: FC = () => {
   const renderItem = ({item, index}: {item: IVehicles; index: number}) => (
     <CarCard
       item={item}
+      containerWidth="100%"
       onPress={() => {
         navigation.navigate('DetailCar', {vehicle_id: item.id});
         dispatch(saveFormDaily({...formDaily, vehicle_id: item.id}));
@@ -94,12 +95,8 @@ const ListCarScreen: FC = () => {
     />
   );
   return (
-    <View
-      style={{
-        flex: 1,
-        margin: 16,
-      }}>
-      <ScrollView horizontal style={{maxHeight: 50}}>
+    <View style={styles.container}>
+      <ScrollView horizontal style={styles.filterContainer}>
         <DropdownFilter
           data={brands}
           label={t('list_car.car_type')}
@@ -113,8 +110,11 @@ const ListCarScreen: FC = () => {
           selected={form.filter_seat}
         />
       </ScrollView>
-      <View style={{marginTop: 20}} />
-      <FlatList data={vehicles} renderItem={renderItem} />
+      <FlatList
+        contentContainerStyle={styles.listContainer}
+        data={vehicles}
+        renderItem={renderItem}
+      />
     </View>
   );
 };
@@ -122,24 +122,10 @@ const ListCarScreen: FC = () => {
 export default hoc(ListCarScreen);
 
 const styles = StyleSheet.create({
-  cardWrapper: {
-    padding: 10,
-    borderWidth: 1,
-    borderColor: theme.colors.grey4,
-    marginBottom: 20,
-    borderRadius: 8,
-    justifyContent: 'space-between',
+  container: {
+    flex: 1,
+    paddingTop: 10,
   },
-  machineWrapper: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    backgroundColor: theme.colors.grey6,
-    borderRadius: 10,
-  },
-  wrapperLineVertical: {
-    marginLeft: 5,
-    borderRightColor: theme.colors.grey5,
-    borderRightWidth: 1,
-    paddingRight: 10,
-  },
+  filterContainer: {maxHeight: 50, paddingLeft: '5%'},
+  listContainer: {paddingHorizontal: '5%', marginTop: 10},
 });

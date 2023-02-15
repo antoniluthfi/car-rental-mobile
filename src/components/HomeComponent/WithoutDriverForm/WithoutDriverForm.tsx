@@ -192,6 +192,11 @@ const WithoutDriverForm: React.FC = () => {
                   height: WINDOW_HEIGHT,
                 }}
                 minimumDate={getToday()}
+                maximumDate={
+                  form?.tanggal_pengembalian
+                    ? form?.tanggal_pengembalian?.replace(/\//g, '-')
+                    : undefined
+                }
                 onDateChange={v => {
                   setTimeout(() => {
                     dispatch(
@@ -286,10 +291,10 @@ const WithoutDriverForm: React.FC = () => {
                 {form.jam_sewa
                   ? `${
                       form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
-                      ':' +
+                      ' : ' +
                       form.jam_sewa.slice(-form.jam_sewa.length / 2)
                     }`
-                  : '00:00'}
+                  : '00 : 00'}
               </Text>
             </View>
           </TouchableOpacity>
@@ -306,10 +311,10 @@ const WithoutDriverForm: React.FC = () => {
                 {form.jam_sewa
                   ? `${
                       form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
-                      ':' +
+                      ' : ' +
                       form.jam_sewa.slice(-form.jam_sewa.length / 2)
                     }`
-                  : '00:00'}
+                  : '00 : 00'}
               </Text>
             </View>
           </View>

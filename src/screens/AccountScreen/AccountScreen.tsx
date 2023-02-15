@@ -220,7 +220,7 @@ const AccountScreen: React.FC = () => {
             style={styles.button}
             onPress={() => navigation.navigate('Profile')}>
             <Image source={ic_profile_active} style={styles.icon} />
-            <Text style={[h5]}>Profile</Text>
+            <Text style={[h5]}>{t('settings.profile')}</Text>
           </TouchableOpacity>
           <View style={styles.line} />
 

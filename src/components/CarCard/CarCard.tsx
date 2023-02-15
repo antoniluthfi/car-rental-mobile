@@ -12,12 +12,19 @@ import {useTranslation} from 'react-i18next';
 interface ICardCar {
   item: IVehicles;
   onPress: () => void;
+  containerWidth?: number | string;
 }
-const CarCard = ({item, onPress}: ICardCar) => {
+const CarCard = ({
+  item,
+  onPress,
+  containerWidth = WINDOW_WIDTH * (90 / 100),
+}: ICardCar) => {
   const {t} = useTranslation();
 
   return (
-    <TouchableOpacity style={[rowCenter, styles.cardWrapper]} onPress={onPress}>
+    <TouchableOpacity
+      style={[rowCenter, styles.cardWrapper, {width: containerWidth}]}
+      onPress={onPress}>
       <View style={{flexBasis: '35%'}}>
         <View>
           <Image
@@ -86,9 +93,9 @@ const CarCard = ({item, onPress}: ICardCar) => {
             {currencyFormat(item.price - (item?.discount_price || 0))}{' '}
             <Text style={[h4]}>/ {t('list_car.day')}</Text>
           </Text>
-          {item.discount_price > 0 && (
+          {item.old_price > 0 && (
             <Text style={[h5, styles.hargaCoret]}>
-              {currencyFormat(item.price)}
+              {currencyFormat(item.old_price)}
             </Text>
           )}
         </View>
@@ -106,7 +113,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 8,
     justifyContent: 'space-between',
-    width: WINDOW_WIDTH * (90 / 100),
     marginRight: 20,
   },
   machineWrapper: {

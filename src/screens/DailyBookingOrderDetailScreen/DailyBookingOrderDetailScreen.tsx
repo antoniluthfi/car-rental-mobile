@@ -222,6 +222,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
       <ScrollView contentContainerStyle={styles.container}>
         <CustomCarousel
           data={images}
+          progressValueSpace={30}
           renderCarouselTitle={
             vehicle?.brand_name ? (
               <View style={styles.carouselTitleContainer}>

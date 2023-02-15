@@ -1,7 +1,7 @@
 {
     "Account": {
-        "header": "Profile Ku",
-        "menu_1": "Profile",
+        "header": "Profil Ku",
+        "menu_1": "Profil",
         "menu_2": "Ubah Password",
         "menu_3": "Notifikasi"
     },
@@ -139,6 +139,7 @@
         "rentalGas": "Kembalikan bahan bakar seperti semula",
         "rentalTime": "Penggunaan hingga 24 jam per hari rental",
         "agreeState": "Saya menyetujui ketentuan yang berlaku",
+        "rental_rules": "Peraturan Penyewaan",
         "requirements": {
             "list_1": "SIM A/SIM Internasional",
             "list_2": "KTP/paspor",
@@ -167,11 +168,9 @@
     "dailyRules": {
         "sebelum_pengambilan": {
             "title": "Sebelum Pengambilan",
-            "list": [
-                "Penyewa harus membagikan kepada penyedia foto SIM A atau SIM Internasional, serta KTP/Paspor mereka.",
-                "Penyewa harus membayar deposit sebesar Rp500.000 kepada penyedia sebelum rental dimulai melalui metode pembayaran yang tersedia.",
-                "Deposit akan dikembalikan paling lambat 7 hari setelah rental berakhir."
-            ]
+            "list_1": "Penyewa harus membagikan kepada penyedia foto SIM A atau SIM Internasional, serta KTP/Paspor mereka.",
+            "list_2": "Penyewa harus membayar deposit sebesar Rp500.000 kepada penyedia sebelum rental dimulai melalui metode pembayaran yang tersedia.",
+            "list_3": "Deposit akan dikembalikan paling lambat 7 hari setelah rental berakhir."
         },
         "saat_pengambilan": {
             "title": "Saat Pengambilan",

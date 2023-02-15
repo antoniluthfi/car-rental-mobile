@@ -178,8 +178,8 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
               disbursement
                 ? orderState == 'RECONFIRMATION'
                   ? 'Reupload'
-                  : 'Bayar Sekarang'
-                : 'Pilih Pembayaran'
+                  : t('global.button.payNow')
+                : t('global.button.choosePayment')
             }
             onPress={handlePay}
             styleWrapper={{
