@@ -5,7 +5,7 @@ import {
   SCREEN_HEIGHT,
 } from '@gorhom/bottom-sheet';
 // import ScrollPicker from 'react-native-wheel-scrollview-picker';
-import ScrollPicker from 'react-native-wheel-scroll-picker';
+import ScrollPicker from '../../../lib/react-native-wheel-scroll-picker';
 import {theme} from 'utils';
 import {rowCenter} from 'utils/mixins';
 import {h1, h4} from 'utils/styles';
