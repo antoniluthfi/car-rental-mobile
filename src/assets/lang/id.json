@@ -117,7 +117,9 @@
         "day": "Hari",
         "car_type": "Merek Mobil",
         "seat": "Kursi",
-        "bag": "Koper"
+        "bag": "Koper",
+        "available": "Tersedia",
+        "booked": "Sedang Disewa"
     },
     "carDetail": {
         "carDetail": "Detail Mobil",

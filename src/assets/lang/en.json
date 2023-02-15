@@ -117,7 +117,9 @@
         "day": "Day",
         "car_type": "Car Type",
         "seat": "Seat",
-        "bag": "Case"
+        "bag": "Case",
+        "available": "Available",
+        "booked": "Booked"
     },
     "carDetail": {
         "carDetail": "Car Detail",

@@ -60,7 +60,9 @@ const CarCard = ({
                 alignSelf: 'center',
               },
             ]}>
-            {item.status.toLowerCase() === 'locked' ? 'Booked' : 'Available'}
+            {item.status.toLowerCase() === 'locked'
+              ? t('list_car.booked')
+              : t('list_car.available')}
           </Text>
         </View>
       </View>
