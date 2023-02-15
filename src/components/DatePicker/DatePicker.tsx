@@ -1,9 +1,9 @@
-import React, {ReactNode, useRef, useState} from 'react';
-import {dateFormatter} from 'utils/functions';
-import {h1, h5} from 'utils/styles';
-import {ic_calendar, ic_clock, ic_info_error} from 'assets/icons';
-import {showBSheet} from 'utils/BSheet';
-import {theme} from 'utils';
+import React, { ReactNode, useRef, useState } from 'react';
+import { dateFormatter } from 'utils/functions';
+import { h1, h5 } from 'utils/styles';
+import { ic_calendar, ic_clock, ic_info_error } from 'assets/icons';
+import { showBSheet } from 'utils/BSheet';
+import { theme } from 'utils';
 import {
   Image,
   StyleSheet,

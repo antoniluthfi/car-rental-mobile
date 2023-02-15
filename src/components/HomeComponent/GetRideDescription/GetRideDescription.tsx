@@ -2,7 +2,7 @@ import React from 'react';
 import {h1, h5} from 'utils/styles';
 import {ic_getride} from 'assets/icons';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {img_car_4, img_wave} from 'assets/images';
+import {img_car_4, img_getride} from 'assets/images';
 import {theme} from 'utils';
 import {WINDOW_WIDTH} from 'utils/mixins';
 import {useTranslation} from 'react-i18next';
@@ -30,7 +30,7 @@ const GetRideDescription = () => {
       </View>
       <View style={{marginBottom: 30}}>
         <Image
-          source={img_wave}
+          source={img_getride}
           style={{height: 281, width: WINDOW_WIDTH, flex: 1}}
         />
         <Image

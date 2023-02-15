@@ -5,7 +5,7 @@ import moment from 'moment';
 import TimeWheel from '../TimeWheel/TimeWheel';
 import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
 import {getAllCities} from 'redux/features/appData/appDataAPI';
-import {h1, h2, h5} from 'utils/styles';
+import {h1, h5} from 'utils/styles';
 import {ic_clock} from 'assets/icons';
 import {ICities} from 'types/global.types';
 import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';

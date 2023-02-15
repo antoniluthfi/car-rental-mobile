@@ -23,5 +23,5 @@ export const img_competitive_price = require('./img_competitive_price.png');
 export const img_key = require('./img_key.png');
 export const img_maps = require('./img_maps.png');
 export const img_prasasti = require('./img_prasasti.png');
-// export const ArticleImage3 = require('./ArticleImage3.png');
-// export const ArticleImage4 = require('./ArticleImage4.png');
+export const img_bg_hero = require('./img_bg_hero.png');
+export const img_getride = require('./img_getride.png');

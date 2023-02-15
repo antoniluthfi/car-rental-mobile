@@ -2,7 +2,7 @@ import CarouselHero from '../CarouselHero/CarouselHero';
 import {h1} from 'utils/styles';
 import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {img_hero_background} from 'assets/images';
+import {img_bg_hero} from 'assets/images';
 import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
@@ -45,11 +45,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
 
   return (
     <View>
-      <Image
-        source={img_hero_background}
-        style={styles.imgCar}
-        resizeMode="cover"
-      />
+      <Image source={img_bg_hero} style={styles.imgCar} resizeMode="cover" />
       <CarouselHero />
 
       <View style={styles.buttonMenu}>

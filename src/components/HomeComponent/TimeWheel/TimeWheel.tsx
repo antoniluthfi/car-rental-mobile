@@ -2,7 +2,6 @@ import {StyleSheet, Text, View} from 'react-native';
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   BottomSheetModal,
-  BottomSheetScrollView,
   SCREEN_HEIGHT,
 } from '@gorhom/bottom-sheet';
 // import ScrollPicker from 'react-native-wheel-scrollview-picker';
@@ -32,8 +31,9 @@ const JAM = [
   '22',
   '23',
   '24',
+  '-',
 ];
-const MENIT = ['00', '30'];
+const MENIT = ['00', '30', '-'];
 const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
   const sheetRef = useRef<BottomSheetModal>(null);
   const [marginBottom, setMarginBottom] = useState(0);
@@ -44,7 +44,7 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
   const [menit, setMenit] = useState('00');
 
   const [activeIndex, setActiveIndex] = useState({
-    jam: 1,
+    jam: 0,
     menit: 0,
   });
 
@@ -118,53 +118,64 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
         />
 
         <Text style={[h4, {textAlign: 'center'}]}>
-          {t('Home.daily.headerStartDate')}
+        {t('Home.daily.headerStartDate')}
         </Text>
         <View
           style={[rowCenter, {alignItems: 'center', justifyContent: 'center'}]}>
-          <View style={{height: 200}}>
+          <View style={{height: 200, zIndex: 99}}>
             <ScrollPicker
               dataSource={JAM}
               selectedIndex={activeIndex.jam || 0}
-              scrollViewComponent={BottomSheetScrollView}
+              // scrollViewComponent={ScrollView}
               renderItem={(data: any) => (
                 <View
-                  style={{
-                    height: 60,
-                    width: 100,
-                    alignSelf: 'center',
-                  }}>
-                  <Text>{data}</Text>
+                  style={
+                    {
+                      // height: 50,
+                      // width: 100,
+                      // alignSelf: 'center',
+                      // backgroundColor: 'red',
+                      // marginBottom: 10,
+                    }
+                  }>
+                  {/* {data!== '-' && <Text>{data}</Text>} */}
                 </View>
               )}
               onValueChange={(data: any, selectedIndex: any) => {
+                // console.log(data, selectedIndex);
+                // setForm({...form, jam_sewa: selectedIndex});
                 setJam(data);
                 if (selectedIndex === 17) {
                   setMarginBottom(50);
                 } else {
                   setMarginBottom(0);
                 }
+                //
               }}
               wrapperHeight={180}
+              // wrapperWidth={350}
               wrapperColor="#FFFFFF"
               itemHeight={60}
               highlightColor="#d8d8d8"
+              // activeItemColor={'red'}
               highlightBorderWidth={2}
               activeItemTextStyle={{
                 fontSize: 23,
-                lineHeight: 26,
+                // lineHeight: 26,
                 marginLeft: 20,
-                paddingBottom: marginBottom,
+                // paddingBottom: marginBottom,
+                // backgroundColor: 'red',
                 color: theme.colors.navy,
               }}
               itemTextStyle={{
                 fontSize: 20,
                 marginLeft: 20,
                 lineHeight: 26,
-                paddingBottom: marginBottom,
+                // paddingBottom: marginBottom,
                 textAlign: 'center',
                 color: '#B4B4B4',
               }}
+              // style={{height: 200}}
             />
           </View>
 
@@ -186,10 +197,11 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
             <ScrollPicker
               dataSource={MENIT}
               selectedIndex={activeIndex.menit || 0}
-              scrollViewComponent={BottomSheetScrollView}
+              // scrollViewComponent={BottomSheetScrollView}
               renderItem={(data: any) => (
                 <View
                   style={{
+                    // alignSelf: 'center',
                     marginLeft: 50,
                     backgroundColor: 'red',
                   }}>
@@ -215,17 +227,19 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
                 fontSize: 23,
                 lineHeight: 26,
                 marginRight: 20,
-                paddingBottom: marginBottom2,
+                // paddingBottom: marginBottom2,
                 color: theme.colors.navy,
               }}
               itemTextStyle={{
                 fontSize: 20,
                 marginRight: 20,
                 lineHeight: 26,
-                paddingBottom: marginBottom2,
+                // paddingBottom: marginBottom2,
                 textAlign: 'center',
                 color: '#B4B4B4',
               }}
+
+              // style={{height: 300, marginLeft: 20}}
             />
           </View>
         </View>
@@ -239,8 +253,13 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
           _theme="navy"
           styleWrapper={{marginTop: 20}}
           onPress={() => {
-            let _jam = jam.length === 1 ? `0${jam}` : jam;
-            setForm({...form, jam_sewa: `${_jam}${menit}`});
+            console.log(jam, menit);
+            let __jam = jam === '-' ? '24' : jam;
+            let _jam = __jam.length === 1 ? `0${__jam}` : __jam;
+            setForm({
+              ...form,
+              jam_sewa: `${_jam}${menit === '-' ? '30' : menit}`,
+            });
             sheetRef.current?.close();
           }}
         />

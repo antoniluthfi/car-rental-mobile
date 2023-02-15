@@ -1,33 +1,39 @@
-import {URL_IMAGE} from '@env';
-import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {
-  ic_arrow_left_white,
-  ic_blue_check,
-  ic_care,
-  ic_disable,
-  ic_dog,
-  ic_driver,
-  ic_gas,
-  ic_info_blue,
-  ic_insurance,
-  ic_koper,
-  ic_nosmoke,
-  ic_park,
-  ic_seat,
-  ic_snack,
-  ic_time,
-  ic_toll,
-  ic_transisi,
-  ic_uncheck,
-} from 'assets/icons';
 import appBar from 'components/AppBar/AppBar';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox/Checkbox';
 import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 import hoc from 'components/hoc';
 import React, {FC, useEffect, useState} from 'react';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {authState, logout} from 'redux/features/auth/authSlice';
+import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
+import {currencyFormat} from 'utils/currencyFormat';
+import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
+import {h1, h3, h4, h5} from 'utils/styles';
+import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
+import {RootStackParamList} from 'types/navigator';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {showBSheet} from 'utils/BSheet';
+import {showToast} from 'utils/Toast';
+import {theme} from 'utils';
+import {URL_IMAGE} from '@env';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useTranslation} from 'react-i18next';
+import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
+import {
+  ic_arrow_left_white,
+  ic_care,
+  ic_disable,
+  ic_dog,
+  ic_driver,
+  ic_gas,
+  ic_info_blue,
+  ic_koper,
+  ic_nosmoke,
+  ic_park,
+  ic_seat,
+  ic_transisi,
+} from 'assets/icons';
 import {
   Image,
   ScrollView,
@@ -36,18 +42,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {appDataState} from 'redux/features/appData/appDataSlice';
-import {authState, logout} from 'redux/features/auth/authSlice';
-import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
-import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {RootStackParamList} from 'types/navigator';
-import {theme} from 'utils';
-import {showBSheet} from 'utils/BSheet';
-import {currencyFormat} from 'utils/currencyFormat';
-import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
-import {h1, h3, h4, h5} from 'utils/styles';
-import {showToast} from 'utils/Toast';
 
 type IDailyRules = {title: string; list: string[]};
 
@@ -80,7 +74,7 @@ const DetailCarScreen: FC = () => {
       icon: ic_gas,
     },
   ];
-  
+
   const dailyRules = [
     {
       desc: t('dailyRules.sebelum_pengambilan.title'),
@@ -419,7 +413,7 @@ const DetailCarScreen: FC = () => {
         <View>
           <Text style={[h4]}>{t('myBooking.carPrice')}</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
-            {currencyFormat(vehicle.price - vehicle.discount_price)}{' '}
+            {currencyFormat(vehicle.price - (vehicle.discount_price || 0))}{' '}
             <Text style={[h3, {fontSize: 12}]}>{t('myBooking.perDay')}</Text>
           </Text>
           {vehicle.discount_price > 0 && (
