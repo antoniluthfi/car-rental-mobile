@@ -5,7 +5,7 @@ import RentMotorCycleNavigation from '../RentMotorCycleNavigation/RentMotorCycle
 import {FC} from 'react';
 import {View} from 'react-native';
 
-type HeroState = 'Sewa Mobil' | 'Sewa Motor' | 'Sewa Sepeda';
+type HeroState = 'sewa_mobil' | 'sewa_motor' | 'sewa_sepeda';
 type HomeTopNavigationProps = {
   state: HeroState;
 };
@@ -13,9 +13,9 @@ type HomeTopNavigationProps = {
 const HomeTopNavigation: FC<HomeTopNavigationProps> = ({state}) => {
   return (
     <View style={{flex: 1}}>
-      {state === 'Sewa Mobil' ? (
+      {state === 'sewa_mobil' ? (
         <RentCarNavigation />
-      ) : state === 'Sewa Motor' ? (
+      ) : state === 'sewa_motor' ? (
         <RentMotorCycleNavigation />
       ) : (
         <RentBicycleNavigation />

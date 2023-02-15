@@ -11,20 +11,15 @@ import WhyChooseUs from 'components/HomeComponent/WhyChooseUs/WhyChooseUs';
 import {getUser} from 'redux/features/appData/appDataAPI';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useAppDispatch} from 'redux/hooks';
-import {
-  useFocusEffect,
-  useNavigation,
-  useScrollToTop,
-} from '@react-navigation/native';
 import {WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
-type HeroState = 'Sewa Mobil' | 'Sewa Motor' | 'Sewa Sepeda';
+type HeroState = 'sewa_mobil' | 'sewa_motor' | 'sewa_sepeda';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const [heroState, setHeroState] = useState<HeroState>('Sewa Mobil');
+  const [heroState, setHeroState] = useState<HeroState>('sewa_mobil');
   const scrollViewRef = React.useRef<ScrollView>(null);
 
   function scrollViewSizeChanged() {

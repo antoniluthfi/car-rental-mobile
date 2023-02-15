@@ -6,7 +6,9 @@
         "menu_3": "Notifikasi"
     },
     "Home": {
+        "tabBarLabel": "Beranda",
         "daily": {
+            "title": "Harian",
             "location": "Pilih Lokasi Anda",
             "placeholder_location": "Pilih Lokasi Anda",
             "your_location": "Lokasi Anda",
@@ -32,7 +34,6 @@
             "startTime": "Jam Mulai Sewa",
             "headerStartDate": "Waktu yang dipilih sesaui dengan waktu tempat sewa Mobil (WITA)",
             "footerStartDate": "Waktu pilih jam sewa akan sama dengan jam Pengembalian"
-
         },
         "getrideDescription": {
             "title": "Apa itu Get & Ride?",
@@ -101,6 +102,12 @@
             "description_1": "Jika anda memilih sewa mobil \"Dengan Supir\" maka anda akan dialihkan ke Whatsapp",
             "description_2": "Setelah anda memilih waktu dan tanggal, anda akan memilih mobil yang tersedia beserta driver",
             "description_3": "Setelah anda memilih mobil, anda akan menerima invoice untuk sewa mobil anda"
+        },
+        "airportTransfer": {
+            "title": "Antar-jemput Bandara"
+        },
+        "tour": {
+            "title": "Wisata"
         }
     },
     "list_car": {
@@ -289,6 +296,7 @@
         "header": "Pilih Metode Pembayaran"
     },
     "settings": {
+        "tabBarLabel": "Profil Saya",
         "profile": "Profil",
         "changePassword": "Ubah Password",
         "notification": "Notifikasi",
@@ -306,6 +314,7 @@
         "reminderDesc": "Notifikasi untuk penyewaan kamu"
     },
     "myBooking": {
+        "tabBarLabel": "Pemesanan Saya",
         "noOrder": "Belum ada pesanan",
         "noRental": "Belum ada riwayat penyewaan",
         "paymentMethod": "Metode Pembayaran",
@@ -324,5 +333,8 @@
         "startDate": "Tanggal Mulai Sewa",
         "endDate": "Tanggal Selesai Sewa",
         "totalPassenger": "Jumlah Penumpang"
+    },
+    "myInbox": {
+        "tabBarLabel": "Kotak Masuk Saya"
     }
 }

@@ -9,6 +9,7 @@ import {
   ic_profile_inactive,
 } from 'assets/icons';
 import React, {useEffect, useRef} from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Dimensions,
   Image,
@@ -22,18 +23,19 @@ import theme from 'utils/theme';
 import { showToast } from 'utils/Toast';
 
 const TabItem = ({title, active, onPress, onLongPress}) => {
+  const {t} = useTranslation();
   const dispatch = useAppDispatch();
   const auth = useAppSelector(authState).auth;
 
   const Icon = () => {
-    if (title === 'Home') {
+    if (title === t('Home.tabBarLabel')) {
       return active ? (
         <Image source={ic_home_active} style={styles.icon} />
       ) : (
         <Image source={ic_home_inactive} style={styles.icon} />
       );
     }
-    if (title === 'My Booking') {
+    if (title === t('myBooking.tabBarLabel')) {
       return active ? (
         <Image
           source={ic_document_active}
@@ -44,7 +46,7 @@ const TabItem = ({title, active, onPress, onLongPress}) => {
         <Image source={ic_document_inactive} style={styles.icon} />
       );
     }
-    if (title === 'My Inbox') {
+    if (title === t('myInbox.tabBarLabel')) {
       return active ? (
         <Image
           source={ic_message_active}
@@ -55,7 +57,7 @@ const TabItem = ({title, active, onPress, onLongPress}) => {
         <Image source={ic_message_inactive} style={styles.icon} />
       );
     }
-    if (title === 'My Profile') {
+    if (title === t('settings.tabBarLabel')) {
       return active ? (
         <Image
           source={ic_profile_active}

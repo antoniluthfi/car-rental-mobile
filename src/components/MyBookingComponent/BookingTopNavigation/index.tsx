@@ -9,6 +9,7 @@ import {ITopTabs} from 'types/top-tab.types';
 import DailyLayout from '../DailyLayout';
 import AirportLayout from '../AirportLayout';
 import TourLayout from '../TourLayout';
+import {useTranslation} from 'react-i18next';
 
 interface IDataTab {
   title: string;
@@ -17,31 +18,34 @@ interface IDataTab {
   id: ITopTabs;
   comp: ReactElement;
 }
-const DataTab: IDataTab[] = [
-  {
-    title: 'Daily',
-    active_icon: ic_daily_car_active,
-    inactive_icon: ic_daily_car_active,
-    id: 'daily',
-    comp: <DailyLayout/>,
-  },
-  {
-    title: 'Airport Transfer',
-    active_icon: ic_daily_car_active,
-    inactive_icon: ic_daily_car_active,
-    id: 'airport',
-    comp: <AirportLayout/>,
-  },
-  {
-    title: 'tour',
-    active_icon: ic_daily_car_active,
-    inactive_icon: ic_daily_car_active,
-    id: 'tour',
-    comp: <TourLayout/>,
-  },
-];
+
 const BookingTopNavigation: FC = () => {
+  const {t} = useTranslation();
   const [activeTab, setActiveTab] = useState<ITopTabs>('daily');
+
+  const DataTab: IDataTab[] = [
+    {
+      title: t('Home.daily.title'),
+      active_icon: ic_daily_car_active,
+      inactive_icon: ic_daily_car_active,
+      id: 'daily',
+      comp: <DailyLayout />,
+    },
+    {
+      title: t('Home.airportTransfer.title'),
+      active_icon: ic_daily_car_active,
+      inactive_icon: ic_daily_car_active,
+      id: 'airport',
+      comp: <AirportLayout />,
+    },
+    {
+      title: t('Home.tour.title'),
+      active_icon: ic_daily_car_active,
+      inactive_icon: ic_daily_car_active,
+      id: 'tour',
+      comp: <TourLayout />,
+    },
+  ];
 
   const methods = {
     topTabTextStyle: (active: boolean) =>
@@ -74,7 +78,7 @@ const BookingTopNavigation: FC = () => {
         ))}
       </View>
 
-      {DataTab.find(x=> x.id === activeTab)?.comp}
+      {DataTab.find(x => x.id === activeTab)?.comp}
     </View>
   );
 };

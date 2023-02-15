@@ -11,6 +11,7 @@ import BottomNavigator from './BottomNavigator';
 import {useFocusEffect} from '@react-navigation/native';
 import {Animated} from 'react-native';
 import {theme} from 'utils';
+import {useTranslation} from 'react-i18next';
 
 const RootTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -68,6 +69,8 @@ const FadeAccountScreen = (props: any) => (
 );
 
 const MainTab: React.FC = () => {
+  const {t} = useTranslation();
+
   return (
     <RootTab.Navigator
       screenOptions={{
@@ -75,12 +78,20 @@ const MainTab: React.FC = () => {
       }}
       initialRouteName={'Home'}
       tabBar={(props: any) => <BottomNavigator {...props} />}>
-      <RootTab.Screen name="Home" component={FadeHomeScreen} />
+      <RootTab.Screen
+        name="Home"
+        component={FadeHomeScreen}
+        options={{
+          tabBarLabel: t('Home.tabBarLabel') as any,
+          tabBarShowLabel: true,
+        }}
+      />
       <RootTab.Screen
         name="Booking"
         component={FadeBookingScreen}
         options={{
-          tabBarLabel: 'My Booking',
+          tabBarLabel: t('myBooking.tabBarLabel') as any,
+          tabBarShowLabel: true,
           headerStyle: {
             backgroundColor: theme.colors.navy,
           },
@@ -90,7 +101,8 @@ const MainTab: React.FC = () => {
         name="Inbox"
         component={FadeInboxScreen}
         options={{
-          tabBarLabel: 'My Inbox',
+          tabBarLabel: t('myInbox.tabBarLabel') as any,
+          tabBarShowLabel: true,
           headerStyle: {
             backgroundColor: theme.colors.navy,
           },
@@ -100,7 +112,8 @@ const MainTab: React.FC = () => {
         name="Account"
         component={FadeAccountScreen}
         options={{
-          tabBarLabel: 'My Profile',
+          tabBarLabel: t('settings.tabBarLabel') as any,
+          tabBarShowLabel: true,
           headerStyle: {
             backgroundColor: theme.colors.navy,
           },

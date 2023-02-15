@@ -28,18 +28,21 @@ const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
       img: ic_rent_car,
       imgActive: ic_rent_car_active,
       title: t('Home.daily.car_rental'),
+      key: "sewa_mobil"
     },
     {
       id: 2,
       img: ic_rent_motorcycle,
       imgActive: ic_rent_motorcycle_active,
       title: t('Home.daily.motorcycle_rental'),
+      key: "sewa_motor"
     },
     {
       id: 3,
       img: ic_rent_bicycle,
       imgActive: ic_rent_bicycle_active,
       title: t('Home.daily.bike_rental'),
+      key: "sewa_sepeda"
     },
   ];
 
@@ -62,7 +65,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
             ]}
             onPress={() => {
               setSelected(button.id);
-              onSelectionChange(button.title);
+              onSelectionChange(button.key);
             }}
             key={i}>
             <View style={rowCenter}>

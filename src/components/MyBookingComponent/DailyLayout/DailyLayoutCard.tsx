@@ -119,7 +119,7 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
 
         <View>
           <View style={styles.title}>
-            <Text style={styles.daily}>Daily</Text>
+            <Text style={styles.daily}>{t('Home.daily.title')}</Text>
             <Text style={[styles.status, paymentStatusStyle(orderState)]}>
               {orderState}
             </Text>

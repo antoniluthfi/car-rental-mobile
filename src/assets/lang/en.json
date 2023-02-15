@@ -6,7 +6,9 @@
         "menu_3": "Notification"
     },
     "Home": {
+        "tabBarLabel": "Home",
         "daily": {
+            "title": "Daily",
             "location": "Choose your location",
             "placeholder_location": "Choose your location",
             "your_location": "Your Location",
@@ -100,6 +102,12 @@
             "description_1": "If you select the car rental \"With Driver\" then you will be redirected to Whatsapp",
             "description_2": "Once you have selected the time and date, you will select an available car and driver.",
             "description_3": "Once you have selected a car, you will receive an invoice for your car rental."
+        },
+        "airportTransfer": {
+            "title": "Airport Transfer"
+        },
+        "tour": {
+            "title": "Tour"
         }
     },
     "list_car": {
@@ -288,6 +296,7 @@
         "header": "Select Payment Method"
     },
     "settings": {
+        "tabBarLabel": "My Profile",
         "profile": "Profile",
         "changePassword": "Change Password",
         "notification": "Notification",
@@ -305,6 +314,7 @@
         "reminderDesc": "Notifications for your order"
     },
     "myBooking": {
+        "tabBarLabel": "My Booking",
         "noOrder": "No orders yet",
         "noRental": "No rental history yet",
         "paymentMethod": "Payment Method",
@@ -323,6 +333,8 @@
         "startDate": "Rental Start Date",
         "endDate": "Rental End Date",
         "totalPassenger": "Total Passenger"
+    },
+    "myInbox": {
+        "tabBarLabel": "My Inbox"
     }
-
 }
