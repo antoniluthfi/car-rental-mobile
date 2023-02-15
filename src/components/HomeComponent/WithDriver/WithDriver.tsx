@@ -11,6 +11,7 @@ import {
   ImageSourcePropType,
   StyleSheet,
   Text,
+  Linking,
 } from 'react-native';
 
 type GuideItem = {
@@ -59,7 +60,10 @@ const WithDriver: React.FC = () => {
       <Button
         _theme="navy"
         title={t('Home.daily.continue_to_whatsapp')}
-        onPress={() => {}}
+        onPress={() => {
+          const url = 'whatsapp://send?phone=6281262511511';
+          Linking.openURL(url);
+        }}
         styleWrapper={{
           marginTop: 40,
         }}
