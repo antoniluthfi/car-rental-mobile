@@ -25,7 +25,11 @@
             "error_rent_time": "Pilih Jam Anda",
             "day": "Hari",
             "days": "Hari",
-            "continue_to_whatsapp": "Lanjutkan ke Whatsapp"
+            "continue_to_whatsapp": "Lanjutkan ke Whatsapp",
+            "startTime": "Jam Mulai Sewa",
+            "headerStartDate": "Waktu yang dipilih sesaui dengan waktu tempat sewa Mobil (WITA)",
+            "footerStartDate": "Waktu pilih jam sewa akan sama dengan jam Pengembalian"
+
         },
         "getrideDescription": {
             "title": "Apa itu Get & Ride?",

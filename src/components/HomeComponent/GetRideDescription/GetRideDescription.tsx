@@ -4,7 +4,7 @@ import {ic_getride, ic_get_ride_2} from 'assets/icons';
 import useLangSelector from 'utils/useLangSelector';
 import {h1, h4, h5} from 'utils/styles';
 import {theme} from 'utils';
-import {img_car_4, img_wave} from 'assets/images';
+import {img_car_4, img_getride, img_wave} from 'assets/images';
 import {WINDOW_WIDTH} from 'utils/mixins';
 
 const GetRideDescription = () => {
@@ -28,7 +28,7 @@ const GetRideDescription = () => {
       </View>
       <View style={{marginBottom: 30}}>
         <Image
-          source={img_wave}
+          source={img_getride}
           style={{height: 281, width: WINDOW_WIDTH, flex: 1}}
         />
         <Image

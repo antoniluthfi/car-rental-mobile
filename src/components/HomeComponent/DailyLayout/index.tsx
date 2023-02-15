@@ -5,7 +5,7 @@ import WithoutDriverForm from '../WithoutDriverForm/WithoutDriverForm';
 import WithDriver from '../WithDriver/WithDriver';
 
 const DailyLayout: FC = () => {
-  const [withDriverState, setWithDriverState] = useState<boolean>(false);
+  const [withDriverState, setWithDriverState] = useState<boolean>(true);
 
   return (
     <View style={{flex: 1, marginHorizontal: 16, marginTop: 16}}>
