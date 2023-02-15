@@ -1,25 +1,25 @@
-import React, {FC, useCallback, useState, useEffect} from 'react';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import DailyLayoutCard from './DailyLayoutCard';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {h1, h4} from 'utils/styles';
+import {img_register_bg} from 'assets/images';
+import {setPage} from 'redux/features/myBooking/myBookingSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {
   getOrders,
   getVehicleOrder,
 } from 'redux/features/myBooking/myBookingAPI';
-import {setPage} from 'redux/features/myBooking/myBookingSlice';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import DailyLayoutCard from './DailyLayoutCard';
-import useLangSelector from 'utils/useLangSelector';
-import {img_register_bg} from 'assets/images';
-import { h1, h4 } from 'utils/styles';
 
 const DailyLayout: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  
+
   const myBooking = useAppSelector(state => state.myBooking);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [vehicleIds, setVehicleIds] = useState<any[]>([]);
-  const t = useLangSelector().myBooking;
+  const {t} = useTranslation();
 
   const handleRefresh = () => {
     setRefresh(true);
@@ -90,12 +90,13 @@ const DailyLayout: FC = () => {
         maxToRenderPerBatch={5}
         updateCellsBatchingPeriod={30}
         ListEmptyComponent={() => (
-          <View style={{
-            alignItems: 'center',
-            marginTop: 20
-          }}>
-            <Text style={[h1]}>{t.noOrder}</Text>
-            <Text style={[h4]}>{t.noRental}</Text>
+          <View
+            style={{
+              alignItems: 'center',
+              marginTop: 20,
+            }}>
+            <Text style={[h1]}>{t('myBooking.noOrder')}</Text>
+            <Text style={[h4]}>{t('myBooking.noRental')}</Text>
             <Image
               source={img_register_bg}
               style={{

@@ -1,35 +1,34 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { FC } from 'react';
-import { img_register_bg } from 'assets/images';
-import { h1, h4 } from 'utils/styles';
-import useLangSelector from 'utils/useLangSelector';
+import React from 'react';
+import {FC} from 'react';
+import {h1, h4} from 'utils/styles';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import {img_register_bg} from 'assets/images';
+import {useTranslation} from 'react-i18next';
 
 const AirportLayout: FC = () => {
-  const t = useLangSelector().myBooking;
+  const {t} = useTranslation();
+
   return (
-    <View>
-      <View style={{
-            alignItems: 'center',
-            marginTop: 20
-          }}>
-            <Text style={[h1]}>{t.noOrder}</Text>
-            <Text style={[h4]}>{t.noRental}</Text>
-            <Image
-              source={img_register_bg}
-              style={{
-                width: '90%',
-                height: 200,
-                resizeMode: 'contain',
-                alignSelf: 'center',
-                marginTop: 20,
-              }}
-            />
-          </View>
+    <View style={styles.container}>
+      <Text style={[h1]}>{t('myBooking.noOrder')}</Text>
+      <Text style={[h4]}>{t('myBooking.noRental')}</Text>
+      <Image source={img_register_bg} style={styles.image} />
     </View>
-  )
-}
+  );
+};
 
 export default AirportLayout;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  image: {
+    width: '90%',
+    height: 200,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+});

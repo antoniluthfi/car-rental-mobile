@@ -1,3 +1,25 @@
+import appBar from 'components/AppBar/AppBar';
+import Button from 'components/Button';
+import hoc from 'components/hoc';
+import moment from 'moment';
+import OrderDetailModalContent from 'components/OrderDetailModalContent/OrderDetailModalContent';
+import QRCode from 'react-native-qrcode-svg';
+import React, {useEffect, useState} from 'react';
+import {bookingState} from 'redux/features/myBooking/myBookingSlice';
+import {currencyFormat} from 'utils/currencyFormat';
+import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
+import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
+import {h1, h4, h5} from 'utils/styles';
+import {ic_arrow_left_white, ic_arrow_right, ic_gopay} from 'assets/icons';
+import {iconCustomSize, rowCenter} from 'utils/mixins';
+import {orderState} from 'redux/features/order/orderSlice';
+import {RootStackParamList} from 'types/navigator';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {showBSheet} from 'utils/BSheet';
+import {theme} from 'utils';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
+import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {
   Image,
   Linking,
@@ -6,27 +28,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import hoc from 'components/hoc';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, rowCenter} from 'utils/mixins';
-import {ic_arrow_left_white, ic_arrow_right, ic_gopay} from 'assets/icons';
-import {h1, h4, h5} from 'utils/styles';
-import {theme} from 'utils';
-import Button from 'components/Button';
-import {showBSheet} from 'utils/BSheet';
-import {RootStackParamList} from 'types/navigator';
-import {currencyFormat} from 'utils/currencyFormat';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {orderState} from 'redux/features/order/orderSlice';
-import moment from 'moment';
-import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
-import QRCode from 'react-native-qrcode-svg';
-import OrderDetailModalContent from 'components/OrderDetailModalContent/OrderDetailModalContent';
-import {bookingState} from 'redux/features/myBooking/myBookingSlice';
-import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
-import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
@@ -38,6 +39,7 @@ const TIMER = 299;
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, any>;
 
 const InstantPaymentScreen = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation<any>();
   const route = useRoute<ProfileScreenRouteProp>();
   const dispatch = useAppDispatch();
@@ -169,7 +171,7 @@ const InstantPaymentScreen = () => {
           ]}>
           <View>
             <Text style={[h1, {color: theme.colors.navy, fontSize: 12}]}>
-              Daily
+              {t('Home.daily.title')}
             </Text>
             <Text style={[h5, {fontSize: 12}]}>
               {`${vehicle.brand_name} ${vehicle.name}`}

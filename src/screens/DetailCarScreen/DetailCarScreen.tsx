@@ -1,32 +1,39 @@
-import {URL_IMAGE} from '@env';
-import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {
-  ic_arrow_left_white,
-  ic_blue_check,
-  ic_care,
-  ic_disable,
-  ic_dog,
-  ic_driver,
-  ic_gas,
-  ic_info_blue,
-  ic_insurance,
-  ic_koper,
-  ic_nosmoke,
-  ic_park,
-  ic_seat,
-  ic_snack,
-  ic_time,
-  ic_toll,
-  ic_transisi,
-  ic_uncheck,
-} from 'assets/icons';
 import appBar from 'components/AppBar/AppBar';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox/Checkbox';
 import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 import hoc from 'components/hoc';
 import React, {FC, useEffect, useState} from 'react';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {authState, logout} from 'redux/features/auth/authSlice';
+import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
+import {currencyFormat} from 'utils/currencyFormat';
+import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
+import {h1, h3, h4, h5} from 'utils/styles';
+import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
+import {RootStackParamList} from 'types/navigator';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {showBSheet} from 'utils/BSheet';
+import {showToast} from 'utils/Toast';
+import {theme} from 'utils';
+import {URL_IMAGE} from '@env';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
+import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
+import {
+  ic_arrow_left_white,
+  ic_care,
+  ic_disable,
+  ic_dog,
+  ic_driver,
+  ic_gas,
+  ic_info_blue,
+  ic_koper,
+  ic_nosmoke,
+  ic_park,
+  ic_seat,
+  ic_transisi,
+} from 'assets/icons';
 import {
   Image,
   ScrollView,
@@ -35,49 +42,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { appDataState } from 'redux/features/appData/appDataSlice';
-import {authState, logout} from 'redux/features/auth/authSlice';
-import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
-import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {RootStackParamList} from 'types/navigator';
-import {theme} from 'utils';
-import {showBSheet} from 'utils/BSheet';
-import {currencyFormat} from 'utils/currencyFormat';
-import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
-import {h1, h3, h4, h5} from 'utils/styles';
-import {showToast} from 'utils/Toast';
-import useLangSelector from 'utils/useLangSelector';
-const t_priceTerm = useLangSelector().priceTerm;
-
-type IDailyRules = {title: string; list: string[]};
-
-const DATA_INCLUDE_PRICES = [
-  {
-    desc: t_priceTerm.handSanitizer,
-    icon: ic_driver,
-  },
-  {
-    desc: t_priceTerm.mask,
-    icon: ic_care,
-  },
-  {
-    desc: t_priceTerm.tissue,
-    icon: ic_park,
-  },
-  {
-    desc: t_priceTerm.mineralWater,
-    icon: ic_gas,
-  },
-  // {
-  //   desc: t_priceTerm.snacks,
-  //   icon: ic_snack,
-  // },
-  // {
-  //   desc: t_priceTerm.toll,
-  //   icon: ic_toll,
-  // },
-];
 
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'DetailCar'>;
 const DetailCarScreen: FC = () => {
@@ -88,9 +52,98 @@ const DetailCarScreen: FC = () => {
   const auth = useAppSelector(authState).auth;
   const formDaily = useAppSelector(appDataState).formDaily;
 
-  const t = useLangSelector().carDetail;
-  const t_dailyRules = useLangSelector().dailyRules;
-  const t_global = useLangSelector().global;
+  const {t} = useTranslation();
+
+  const DATA_INCLUDE_PRICES = [
+    {
+      desc: t('priceTerm.handSanitizer'),
+      icon: ic_driver,
+    },
+    {
+      desc: t('priceTerm.mask'),
+      icon: ic_care,
+    },
+    {
+      desc: t('priceTerm.tissue'),
+      icon: ic_park,
+    },
+    {
+      desc: t('priceTerm.mineralWater'),
+      icon: ic_gas,
+    },
+  ];
+
+  const dailyRules = [
+    {
+      desc: 'dailyRules.sebelum_pengambilan.title',
+      list: [
+        'dailyRules.sebelum_pengambilan.list_1',
+        'dailyRules.sebelum_pengambilan.list_2',
+        'dailyRules.sebelum_pengambilan.list_3',
+      ],
+    },
+    {
+      desc: 'dailyRules.saat_pengambilan.title',
+      list: [
+        'dailyRules.saat_pengambilan.list_1',
+        'dailyRules.saat_pengambilan.list_2',
+        'dailyRules.saat_pengambilan.list_3',
+        'dailyRules.saat_pengambilan.list_4',
+      ],
+    },
+    {
+      desc: 'dailyRules.penggunaan.title',
+      list: [
+        'dailyRules.penggunaan.list_1',
+        'dailyRules.penggunaan.list_2',
+        'dailyRules.penggunaan.list_3',
+        'dailyRules.penggunaan.list_4',
+        'dailyRules.penggunaan.list_5',
+        'dailyRules.penggunaan.list_6',
+      ],
+    },
+    {
+      desc: 'dailyRules.overtime.title',
+      list: [
+        'dailyRules.overtime.list_1',
+        'dailyRules.overtime.list_2',
+        'dailyRules.overtime.list_3',
+      ],
+    },
+    {
+      desc: 'dailyRules.asuransi.title',
+      list: [
+        'dailyRules.asuransi.list_1',
+        'dailyRules.asuransi.list_2',
+        'dailyRules.asuransi.list_3',
+        'dailyRules.asuransi.list_4',
+      ],
+    },
+    {
+      desc: 'dailyRules.refund.title',
+      list: [
+        'dailyRules.refund.list_1',
+        'dailyRules.refund.list_2',
+        'dailyRules.refund.list_3',
+        'dailyRules.refund.list_4',
+        'dailyRules.refund.list_5',
+      ],
+    },
+  ];
+
+  const policies = [
+    'carDetail.policies.list_1',
+    'carDetail.policies.list_2',
+    'carDetail.policies.list_3',
+    'carDetail.policies.list_4',
+  ];
+
+  const requirements = [
+    'carDetail.requirements.list_1',
+    'carDetail.requirements.list_2',
+    'carDetail.requirements.list_3',
+    'carDetail.requirements.list_4',
+  ];
 
   const [checkInfo, setCheckInfo] = useState(false);
 
@@ -110,7 +163,7 @@ const DetailCarScreen: FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              {t.carDetail}
+              {t('carDetail.carDetail')}
             </Text>
           </TouchableOpacity>
         ),
@@ -127,34 +180,32 @@ const DetailCarScreen: FC = () => {
       showBSheet({
         content: (
           <View style={{flex: 1, alignItems: 'flex-start', width: '95%'}}>
-            <Text style={[h1]}>Rules Penyewaan</Text>
+            <Text style={[h1]}>{t('carDetail.rental_rules')}</Text>
             <View style={[rowCenter, {marginTop: 10}]}>
               <Image source={ic_info_blue} style={iconSize} />
               <Text style={[h1, {color: theme.colors.blue}]}>
                 {' '}
-                {t.important}
+                {t('carDetail.important')}
               </Text>
             </View>
             <View style={{width: '100%', flex: 1}}>
               <BottomSheetScrollView>
                 <View style={{paddingHorizontal: '5%'}}>
-                  {Object.keys(t_dailyRules).map((x, i) => (
+                  {dailyRules.map((data, i) => (
                     <View key={i}>
-                      <Text style={[h1, {marginTop: 10}]}>
-                        {t_dailyRules[x as keyof typeof t_dailyRules].title}
-                      </Text>
+                      <Text style={[h1, {marginTop: 10}]}>{t(data.desc)}</Text>
 
                       <View style={{marginTop: 10, marginLeft: 5}}>
-                        {t_dailyRules[x as keyof typeof t_dailyRules].list.map(
-                          (x, i) => (
-                            <View
-                              key={i}
-                              style={{flexDirection: 'row', marginBottom: 5}}>
-                              <Text>• </Text>
-                              <Text style={[h4, {lineHeight: 24}]}>{x}</Text>
-                            </View>
-                          ),
-                        )}
+                        {data.list.map((child, j) => (
+                          <View
+                            key={j}
+                            style={{flexDirection: 'row', marginBottom: 5}}>
+                            <Text>• </Text>
+                            <Text style={[h4, {lineHeight: 24}]}>
+                              {t(child)}
+                            </Text>
+                          </View>
+                        ))}
                       </View>
                     </View>
                   ))}
@@ -176,11 +227,11 @@ const DetailCarScreen: FC = () => {
         <CustomCarousel
           data={vehicle.photo}
           paginationSize={7}
-          paginationPosition={-15}
+          paginationPosition={-10}
           progressValueSpace={30}
           renderCarouselTitle={
             <View style={styles.carouselTitleContainer}>
-              <Text style={{fontWeight: 'bold'}}>{vehicle.name}</Text>
+              <Text style={{fontWeight: 'bold'}}>{vehicle.brand_name} {vehicle.name}</Text>
             </View>
           }
           renderItem={({item, index}) => (
@@ -200,27 +251,33 @@ const DetailCarScreen: FC = () => {
         <View style={[rowCenter, styles.info1Wrapper]}>
           <View style={{alignItems: 'center'}}>
             <Image source={ic_seat} style={iconSize} />
-            <Text style={[h1, {paddingVertical: 5}]}>{t.seatCapacity}</Text>
+            <Text style={[h1, {paddingVertical: 5}]}>
+              {t('carDetail.seatCapacity')}
+            </Text>
             <Text style={h3}>
-              {vehicle.max_passanger} {t.seat}
+              {vehicle.max_passanger} {t('carDetail.seat')}
             </Text>
           </View>
           <View style={{alignItems: 'center'}}>
             <Image source={ic_koper} style={iconSize} />
-            <Text style={[h1, {paddingVertical: 5}]}>{t.bagDetail}</Text>
+            <Text style={[h1, {paddingVertical: 5}]}>
+              {t('carDetail.bagDetail')}
+            </Text>
             <Text style={h3}>
-              {vehicle.max_suitcase} {t.bag}
+              {vehicle.max_suitcase} {t('carDetail.bag')}
             </Text>
           </View>
           <View style={{alignItems: 'center'}}>
             <Image source={ic_transisi} style={iconSize} />
-            <Text style={[h1, {paddingVertical: 5}]}>{t.transmision}</Text>
+            <Text style={[h1, {paddingVertical: 5}]}>
+              {t('carDetail.transmision')}
+            </Text>
             <Text style={h3}>Manual</Text>
           </View>
         </View>
 
-        {/* <View style={{marginTop: 20, margin: 16}}>
-          <Text style={[h1]}>{t.car_conditions}</Text>
+        <View style={{marginTop: 20, margin: 16}}>
+          <Text style={[h1]}>{t('carDetail.car_conditions')}</Text>
           <View
             style={[
               rowCenter,
@@ -229,29 +286,33 @@ const DetailCarScreen: FC = () => {
             {vehicle.smoke_allowed && (
               <View style={[rowCenter, {marginBottom: 17}]}>
                 <Image source={ic_nosmoke} style={iconSize} />
-                <Text style={[h4, {marginLeft: 10}]}>{t.smoking}</Text>
+                <Text style={[h4, {marginLeft: 10}]}>
+                  {t('carDetail.smoking')}
+                </Text>
               </View>
             )}
 
             {vehicle.disablility_allowed && (
               <View style={[rowCenter, {marginBottom: 17}]}>
                 <Image source={ic_disable} style={iconSize} />
-                <Text style={[h4, {marginLeft: 10}]}>{t.disability}</Text>
+                <Text style={[h4, {marginLeft: 10}]}>
+                  {t('carDetail.disability')}
+                </Text>
               </View>
             )}
 
             {vehicle.pet_allowed && (
               <View style={[rowCenter, {marginBottom: 17}]}>
                 <Image source={ic_dog} style={iconSize} />
-                <Text style={[h4, {marginLeft: 10}]}>{t.pet}</Text>
+                <Text style={[h4, {marginLeft: 10}]}>{t('carDetail.pet')}</Text>
               </View>
             )}
           </View>
           <View style={styles.lineHorizontal} />
-        </View> */}
+        </View>
 
         <View style={{marginTop: 20, margin: 16}}>
-          <Text style={[h1]}>{t.priceTerm}</Text>
+          <Text style={[h1]}>{t('carDetail.priceTerm')}</Text>
           <View
             style={[
               rowCenter,
@@ -272,34 +333,39 @@ const DetailCarScreen: FC = () => {
         <View style={{marginTop: 20, margin: 16}}>
           <View style={rowCenter}>
             <Image source={ic_info_blue} style={iconSize} />
-            <Text style={[h1, {color: theme.colors.blue}]}> {t.important}</Text>
+            <Text style={[h1, {color: theme.colors.blue}]}>
+              {' '}
+              {t('carDetail.important')}
+            </Text>
           </View>
           <Text style={[h1, {marginTop: 10}]}>
-            {t_dailyRules.sebelum_pengambilan.title}
+            {t('dailyRules.sebelum_pengambilan.title')}
           </Text>
           <View style={{marginLeft: 20, marginTop: 10}}>
-            {t_dailyRules.sebelum_pengambilan.list.map((x, i) => (
+            {dailyRules[0].list.map((data, i) => (
               <View key={i} style={{flexDirection: 'row', marginBottom: 5}}>
                 <Text>• </Text>
-                <Text style={[h4, {lineHeight: 24}]}>{x}</Text>
+                <Text style={[h4, {lineHeight: 24}]}>{t(data)}</Text>
               </View>
             ))}
           </View>
           <Text
             style={[h4, {color: theme.colors.blue, alignSelf: 'flex-end'}]}
             onPress={methods.showRules}>
-            {t.learnMore}
+            {t('carDetail.learnMore')}
           </Text>
           <View style={styles.lineHorizontal} />
         </View>
 
         <View style={{marginTop: 20, margin: 16}}>
-          <Text style={[h1, {marginTop: 10}]}>{t.rentalRequirement}</Text>
+          <Text style={[h1, {marginTop: 10}]}>
+            {t('carDetail.rentalRequirement')}
+          </Text>
           <View style={{marginLeft: 20, marginTop: 10}}>
-            {[...t.policies, ...t.requirements].map((x, i) => (
+            {[...policies, ...requirements].map((x, i) => (
               <View key={i} style={{flexDirection: 'row', marginBottom: 5}}>
                 <Text>• </Text>
-                <Text style={[h4, {lineHeight: 24}]}>{x}</Text>
+                <Text style={[h4, {lineHeight: 24}]}>{t(x)}</Text>
               </View>
             ))}
           </View>
@@ -335,7 +401,7 @@ const DetailCarScreen: FC = () => {
           <View style={styles.lineHorizontal} />
         </View> */}
         <Checkbox
-          label={t.agreeState}
+          label={t('carDetail.agreeState')}
           onChange={val => setCheckInfo(val)}
           checked={checkInfo}
         />
@@ -343,10 +409,10 @@ const DetailCarScreen: FC = () => {
 
       <View style={styles.bottomWrapper}>
         <View>
-          <Text style={[h4]}>{t.carPrice}</Text>
+          <Text style={[h4]}>{t('myBooking.carPrice')}</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
             {currencyFormat(vehicle.price - (vehicle.discount_price || 0))}{' '}
-            <Text style={[h3, {fontSize: 12}]}>{t.perDay}</Text>
+            <Text style={[h3, {fontSize: 12}]}>{t('carDetail.perDay')}</Text>
           </Text>
           {vehicle.discount_price > 0 && (
             <Text style={[h5, styles.hargaCoret]}>
@@ -356,9 +422,8 @@ const DetailCarScreen: FC = () => {
         </View>
         <View style={{flexBasis: '50%', alignSelf: 'flex-end'}}>
           <Button
-            title={t_global.button.next}
+            title={t('global.button.next')}
             onPress={() => {
-              console.log(auth);
               if (!auth?.access_token) {
                 showToast({
                   message: 'Please Login first to continue!',
@@ -368,7 +433,7 @@ const DetailCarScreen: FC = () => {
                 dispatch(logout());
                 return;
               }
-              if(!formDaily.start_booking_date) {
+              if (!formDaily.start_booking_date) {
                 navigation.goBack();
                 return;
               }

@@ -8,6 +8,7 @@ import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
 import { iconSize, rowCenter } from 'utils/mixins';
 import { h1 } from 'utils/styles';
 import { theme } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 type IDataTab = {
   title: string;
@@ -16,32 +17,35 @@ type IDataTab = {
   id: ITopTabs;
   comp: ReactElement;
 }
-const DataTab: IDataTab[] = [
-  {
-    title: 'Daily',
-    active_icon: ic_daily_car_active,
-    inactive_icon: ic_daily_car_active,
-    id: 'daily',
-    comp: <DailyLayout/>,
-  },
-  {
-    title: 'Airport Transfer',
-    active_icon: ic_daily_car_active,
-    inactive_icon: ic_daily_car_active,
-    id: 'airport',
-    comp: <AirportLayout/>,
-  },
-  {
-    title: 'tour',
-    active_icon: ic_daily_car_active,
-    inactive_icon: ic_daily_car_active,
-    id: 'tour',
-    comp: <TourLayout/>,
-  },
-];
 
 const RentCarNavigation: React.FC = () => {
+  const {t} = useTranslation();
   const [activeTab, setActiveTab] = useState<ITopTabs>('daily');
+
+  const DataTab: IDataTab[] = [
+    {
+      title: t('Home.daily.title'),
+      active_icon: ic_daily_car_active,
+      inactive_icon: ic_daily_car_active,
+      id: 'daily',
+      comp: <DailyLayout/>,
+    },
+    {
+      title: t('Home.airportTransfer.title'),
+      active_icon: ic_daily_car_active,
+      inactive_icon: ic_daily_car_active,
+      id: 'airport',
+      comp: <AirportLayout/>,
+    },
+    {
+      title: t('Home.tour.title'),
+      active_icon: ic_daily_car_active,
+      inactive_icon: ic_daily_car_active,
+      id: 'tour',
+      comp: <TourLayout/>,
+    },
+  ];
+  
   const methods = {
     topTabTextStyle: (active: boolean) =>
       active ? styles.activeTabText : styles.inActiveTabText,

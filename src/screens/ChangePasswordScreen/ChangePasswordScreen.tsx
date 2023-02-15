@@ -1,19 +1,19 @@
-import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import hoc from 'components/hoc';
+import appBar from 'components/AppBar/AppBar';
 import Button from 'components/Button';
+import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
+import hoc from 'components/hoc';
+import React, {useEffect, useState} from 'react';
+import {changePassword} from 'redux/features/user/userAPI';
+import {h1} from 'utils/styles';
+import {ic_arrow_left_white} from 'assets/icons';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {passwordValidation} from 'utils/functions';
+import {rowCenter} from 'utils/mixins';
+import {showToast} from 'utils/Toast';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useNavigation} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
-import {rowCenter} from 'utils/mixins';
-import {ic_arrow_left_white} from 'assets/icons';
-import {h1} from 'utils/styles';
-import ChangePasswordTextInput from 'components/MyProfileComponent/ChangePasswordTextInput/ChangePasswordTextInput';
-import {passwordValidation} from 'utils/functions';
-import {showToast} from 'utils/Toast';
-import {changePassword} from 'redux/features/user/userAPI';
 import {userState} from 'redux/features/user/userSlice';
-import useLangSelector from 'utils/useLangSelector';
+import {useTranslation} from 'react-i18next';
 
 type ChangePasswordForm = {
   old_password: string;
@@ -25,9 +25,8 @@ const ChangePasswordScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const userUpdateStatus = useAppSelector(userState).isChangePasswordSuccess;
-  const t = useLangSelector().settings;
-  const t_global = useLangSelector().global;
-  
+  const {t} = useTranslation();
+
   const [loading, setLoading] = useState<boolean>(false);
   const [form, setForm] = useState<ChangePasswordForm>({
     old_password: '12345678abc',
@@ -126,7 +125,7 @@ const ChangePasswordScreen: React.FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              {t.changePassword}
+              {t('settings.changePassword')}
             </Text>
           </TouchableOpacity>
         ),
@@ -138,8 +137,8 @@ const ChangePasswordScreen: React.FC = () => {
     <View style={styles.container}>
       <View>
         <ChangePasswordTextInput
-          label={t.oldPassword}
-          placeholder={t.oldPasswordPlaceholder}
+          label={t('settings.oldPassword')}
+          placeholder={t('settings.oldPasswordPlaceholder')}
           onChangeText={v => {
             setForm({...form, old_password: v});
             setFormError({...formError, old_password: ''});
@@ -149,8 +148,8 @@ const ChangePasswordScreen: React.FC = () => {
         />
 
         <ChangePasswordTextInput
-          label={t.newPassword}
-          placeholder={t.newPasswordPlaceholder}
+          label={t('settings.newPassword')}
+          placeholder={t('settings.newPasswordPlaceholder')}
           onChangeText={v => {
             setForm({...form, new_password: v});
             setFormError({...formError, new_password: ''});
@@ -160,8 +159,8 @@ const ChangePasswordScreen: React.FC = () => {
         />
 
         <ChangePasswordTextInput
-          label={t.confirmPassword}
-          placeholder={t.confirmPasswordPlaceholder}
+          label={t('settings.confirmPassword')}
+          placeholder={t('settings.confirmPasswordPlaceholder')}
           onChangeText={v => {
             setForm({...form, pass_confirmation: v});
             setFormError({...formError, pass_confirmation: ''});
@@ -174,7 +173,7 @@ const ChangePasswordScreen: React.FC = () => {
       <Button
         _theme="navy"
         onPress={methods.handleSubmit}
-        title={t_global.button.save}
+        title={t('global.button.save')}
         isLoading={loading}
       />
     </View>

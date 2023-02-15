@@ -1,8 +1,7 @@
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   BottomSheetModal,
-  BottomSheetScrollView,
   SCREEN_HEIGHT,
 } from '@gorhom/bottom-sheet';
 // import ScrollPicker from 'react-native-wheel-scrollview-picker';
@@ -11,8 +10,7 @@ import {theme} from 'utils';
 import {rowCenter} from 'utils/mixins';
 import {h1, h4} from 'utils/styles';
 import Button from 'components/Button';
-import useLangSelector from 'utils/useLangSelector';
-// import { ScrollView } from 'react-native-gesture-handler';
+import {useTranslation} from 'react-i18next';
 
 const JAM = [
   '7',
@@ -40,7 +38,7 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
   const sheetRef = useRef<BottomSheetModal>(null);
   const [marginBottom, setMarginBottom] = useState(0);
   const [marginBottom2, setMarginBottom2] = useState(0);
-  const t = useLangSelector();
+  const {t} = useTranslation();
 
   const [jam, setJam] = useState('07');
   const [menit, setMenit] = useState('00');
@@ -110,9 +108,8 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
 
         elevation: 24,
       }}>
-      {/* <ScrollView nestedScrollEnabled={true}> */}
       <View style={{flex: 1, backgroundColor: '#fff', padding: 16}}>
-        <Text style={[h1, {fontSize: 20}]}>{t.Home.daily.startTime}</Text>
+        <Text style={[h1, {fontSize: 20}]}>{t('Home.daily.startTime')}</Text>
         <View
           style={{
             borderBottomColor: theme.colors.grey5,
@@ -122,7 +119,7 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
         />
 
         <Text style={[h4, {textAlign: 'center'}]}>
-          {t.Home.daily.headerStartDate}
+        {t('Home.daily.headerStartDate')}
         </Text>
         <View
           style={[rowCenter, {alignItems: 'center', justifyContent: 'center'}]}>
@@ -222,8 +219,6 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
                 }
                 //
               }}
-              // wrapperHeight={180}
-              // wrapperWidth={350}
               wrapperColor="#FFFFFF"
               itemHeight={60}
               highlightColor="#d8d8d8"
@@ -251,7 +246,7 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
         </View>
 
         <Text style={[h4, {textAlign: 'center'}]}>
-          {t.Home.daily.footerStartDate}
+          {t('Home.daily.footerStartDate')}
         </Text>
 
         <Button
@@ -270,7 +265,6 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
           }}
         />
       </View>
-      {/* </ScrollView> */}
     </BottomSheetModal>
   );
 };

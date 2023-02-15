@@ -1,14 +1,15 @@
+import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 import {h1, h5} from 'utils/styles';
+import {iconCustomSize, WINDOW_WIDTH} from 'utils/mixins';
+import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
+import {theme} from 'utils';
+import {useTranslation} from 'react-i18next';
 import {
   img_clock,
   img_competitive_price,
   img_key,
   img_maps,
 } from 'assets/images';
-import {theme} from 'utils';
-import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
-import {iconCustomSize, WINDOW_WIDTH} from 'utils/mixins';
-import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
 
 type DataRender = {
   id: number;
@@ -17,38 +18,36 @@ type DataRender = {
   img: ImageSourcePropType;
 };
 
-const data: DataRender[] = [
-  {
-    id: 1,
-    title: 'Hemat Waktu',
-    description:
-      'Sewa mobil online anti ribet, dimana saja dan kapan saja. Pilih jadwal serta jenis mobil dengan mudah dan terpercaya di Get & Ride.',
-    img: img_clock,
-  },
-  {
-    id: 2,
-    title: 'Harga Kompetitif',
-    description:
-      'Jangan khawatir! Harga sewa di Get & Ride terjangkau dan dijamin kompetitif.',
-    img: img_competitive_price,
-  },
-  {
-    id: 3,
-    title: 'Mobil Terbaik',
-    description:
-      'Get & Ride menyediakan mobil dengan kualitas terbaik dan terjaga kebersihannya. Semua mobil di service secara berkala demi kenyamanan.',
-    img: img_key,
-  },
-  {
-    id: 4,
-    title: 'Layanan Terbaik',
-    description:
-      'Menyediakan Driver professional, penerapan protokol kesehatan, dan proteksi kendaraan. Semua mobil di Get & Ride sudah terjamin dengan jaminan asuransi.',
-    img: img_maps,
-  },
-];
-
 const WhyChooseUs = () => {
+  const {t} = useTranslation();
+
+  const data: DataRender[] = [
+    {
+      id: 1,
+      title: t('Home.whyChooseUs.list_1.subtitle'),
+      description: t('Home.whyChooseUs.list_1.description'),
+      img: img_clock,
+    },
+    {
+      id: 2,
+      title: t('Home.whyChooseUs.list_2.subtitle'),
+      description: t('Home.whyChooseUs.list_2.description'),
+      img: img_competitive_price,
+    },
+    {
+      id: 3,
+      title: t('Home.whyChooseUs.list_3.subtitle'),
+      description: t('Home.whyChooseUs.list_3.description'),
+      img: img_key,
+    },
+    {
+      id: 4,
+      title: t('Home.whyChooseUs.list_4.subtitle'),
+      description: t('Home.whyChooseUs.list_4.description'),
+      img: img_maps,
+    },
+  ];
+
   const renderItem = ({item}: {item: DataRender}) => {
     return (
       <View style={styles.itemContainer}>
@@ -64,7 +63,7 @@ const WhyChooseUs = () => {
       data={data}
       renderCarouselTitle={
         <Text style={[h1, styles.mainTitle]}>
-          Mengapa Sewa Mobil di Get&Ride
+          {t('Home.whyChooseUs.title')}
         </Text>
       }
       renderItem={renderItem}
@@ -85,10 +84,10 @@ export default WhyChooseUs;
 const styles = StyleSheet.create({
   itemContainer: {
     height: 360,
-    width: WINDOW_WIDTH-60,
+    width: WINDOW_WIDTH - 60,
     // padding: '10%',
     alignSelf: 'center',
-    marginTop: 80
+    marginTop: 80,
   },
   mainTitle: {
     fontSize: 21,

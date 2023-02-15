@@ -2,42 +2,30 @@ import Button from 'components/Button';
 import DatePickerComponent from 'components/DatePicker/DatePicker';
 import DropdownLocation from 'components/DropdownLocation/DropdwonLocation';
 import moment from 'moment';
-import ReactNativeModernDatepicker from 'react-native-modern-datepicker';
-import useLangSelector from 'utils/useLangSelector';
+import TimeWheel from '../TimeWheel/TimeWheel';
 import {appDataState, saveFormDaily} from 'redux/features/appData/appDataSlice';
 import {getAllCities} from 'redux/features/appData/appDataAPI';
-import {h1, h2, h4, h5} from 'utils/styles';
-import {ICities, IPayments} from 'types/global.types';
+import {h1, h5} from 'utils/styles';
+import {ic_clock} from 'assets/icons';
+import {ICities} from 'types/global.types';
+import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
+import {theme} from 'utils';
+import {toggleBSheet} from 'redux/features/utils/utilsSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useEffect, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Platform,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {theme} from 'utils';
-import {toggleBSheet} from 'redux/features/utils/utilsSlice';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import BottomSheet, {
-  BottomSheetFlatList,
-  BottomSheetModal,
-  BottomSheetScrollView,
-  SCREEN_HEIGHT,
-} from '@gorhom/bottom-sheet';
-import CustomTextInput from 'components/TextInput';
-import DropdownBank from 'components/UploadBankTransferComponent/DropdownBank/DropdwonBank';
-import {cancelOrder} from 'redux/features/order/orderAPI';
-import {showToast} from 'utils/Toast';
-import {ic_calendar, ic_clock} from 'assets/icons';
-// import ScrollPicker from 'react-native-wheel-scrollview-picker';
-// import ScrollPicker from 'react-native-wheel-scroll-picker';
-import TimeWheel from '../TimeWheel/TimeWheel';
-// import ScrollWheel from 'components/ScrollWheel/ScrollSheel';
+import ReactNativeModernDatepicker, {
+  getToday,
+} from 'react-native-modern-datepicker';
 
 type IForm = {
   location: ICities;
@@ -59,7 +47,7 @@ const WithoutDriverForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const appData = useAppSelector(appDataState);
-  const lang = useLangSelector();
+  const {t} = useTranslation();
 
   const [form, setForm] = useState<IForm>({
     location: {id: 0, name: ''},
@@ -68,10 +56,7 @@ const WithoutDriverForm: React.FC = () => {
     jam_sewa: '',
     jam_pengembalian: '',
   });
-  const [jamSewa, setJamSewa] = useState([]);
   const [showWheel, setShowWheel] = useState(false);
-  const [marginBottom, setMarginBottom] = useState(0);
-  const [marginBottom2, setMarginBottom2] = useState(0);
 
   const [formError, setFormError] = useState<IFormError>({
     error_location: '',
@@ -85,35 +70,26 @@ const WithoutDriverForm: React.FC = () => {
     dispatch(getAllCities());
   }, []);
 
-  const sheetRef = useRef<BottomSheetModal>(null);
-
-  // variables
-  const snapPoints = useMemo(() => ['70%', '70%'], []);
-
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
-
   const methods = {
     handleSearch: () => {
       const _errorMessage: any = {};
       let status = true;
       if (!form.location.name) {
-        _errorMessage['error_location'] = lang.Home.daily.error_location;
+        _errorMessage['error_location'] = t('Home.daily.error_location');
         status = false;
       }
       if (!form.tanggal_sewa) {
-        _errorMessage['error_tanggal_sewa'] = lang.Home.daily.error_rent_date;
+        _errorMessage['error_tanggal_sewa'] = t('Home.daily.error_rent_date');
         status = false;
       }
       if (!form.tanggal_pengembalian) {
-        _errorMessage['error_tanggal_pengembalian'] =
-          lang.Home.daily.error_rent_date;
+        _errorMessage['error_tanggal_pengembalian'] = t(
+          'Home.daily.error_rent_date',
+        );
         status = false;
       }
       if (!form.jam_sewa) {
-        _errorMessage['error_jam_sewa'] = lang.Home.daily.error_rent_time;
+        _errorMessage['error_jam_sewa'] = t('Home.daily.error_rent_time');
         status = false;
       }
       setFormError({..._errorMessage});
@@ -169,7 +145,7 @@ const WithoutDriverForm: React.FC = () => {
         );
         const res = tglPengembalian.diff(tglSewa, 'days');
 
-        return `${res} ${res > 1 ? lang.Home.daily.days : lang.Home.daily.day}`;
+        return `${res} ${res > 1 ? t('Home.daily.days') : t('Home.daily.day')}`;
       }
 
       return '';
@@ -198,23 +174,29 @@ const WithoutDriverForm: React.FC = () => {
         ]}>
         <DatePickerComponent
           mode="date"
-          placeholder={lang.Home.daily.select_date}
-          title={lang.Home.daily.rent_start_date}
+          placeholder={t('Home.daily.select_date')}
+          title={t('Home.daily.rent_start_date')}
           containerStyle={{
             width: '49%',
           }}
           value={form.tanggal_sewa ?? ''}
+          snapPoint={['75%', '75%']}
           content={
             <View>
-              <Text style={[h1, {marginLeft: 16}]}>
-                {lang.Home.daily.rent_start_date}
+              <Text style={[h1, {marginLeft: 16, fontSize: 18}]}>
+                {t('Home.daily.rent_start_date')}
               </Text>
               <ReactNativeModernDatepicker
                 style={{
                   width: WINDOW_WIDTH,
                   height: WINDOW_HEIGHT,
                 }}
-                minimumDate={moment(new Date()).format('YYYY-MM-DD')}
+                minimumDate={getToday()}
+                maximumDate={
+                  form?.tanggal_pengembalian
+                    ? form?.tanggal_pengembalian?.replace(/\//g, '-')
+                    : undefined
+                }
                 onDateChange={v => {
                   setTimeout(() => {
                     dispatch(
@@ -236,16 +218,17 @@ const WithoutDriverForm: React.FC = () => {
 
         <DatePickerComponent
           mode="date"
-          placeholder={lang.Home.daily.select_date}
-          title={lang.Home.daily.rent_end_date}
+          placeholder={t('Home.daily.select_date')}
+          title={t('Home.daily.rent_end_date')}
           containerStyle={{
             width: '49%',
           }}
           value={form.tanggal_pengembalian ?? ''}
+          snapPoint={['75%', '75%']}
           content={
             <View>
-              <Text style={[h1, {marginLeft: 16}]}>
-                {lang.Home.daily.rent_end_date}
+              <Text style={[h1, {marginLeft: 16, fontSize: 18}]}>
+                {t('Home.daily.rent_end_date')}
               </Text>
               <ReactNativeModernDatepicker
                 style={{
@@ -294,7 +277,7 @@ const WithoutDriverForm: React.FC = () => {
           },
         ]}>
         <View style={{width: '48%'}}>
-          <Text style={h1}>{lang.Home.daily.rent_start_time}</Text>
+          <Text style={h1}>{t('Home.daily.rent_start_time')}</Text>
 
           <TouchableOpacity
             onPress={() => {
@@ -304,52 +287,43 @@ const WithoutDriverForm: React.FC = () => {
             <Image source={ic_clock} style={iconSize} />
 
             <View>
-              <Text style={[h2, {marginLeft: 10, fontWeight: form.jam_sewa ? '800' : '200' }]}>
-              {form.jam_sewa ? `${
-                  form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
-                  ':' +
-                  form.jam_sewa.slice(-form.jam_sewa.length / 2)
-                }` : lang.Home.daily.rent_start_time}
+              <Text style={[h5, {marginLeft: 10, color: theme.colors.grey4}]}>
+                {form.jam_sewa
+                  ? `${
+                      form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
+                      ' : ' +
+                      form.jam_sewa.slice(-form.jam_sewa.length / 2)
+                    }`
+                  : '00 : 00'}
               </Text>
             </View>
           </TouchableOpacity>
         </View>
 
         <View style={{width: '48%'}}>
-          <Text style={h1}>{lang.Home.daily.rent_end_time}</Text>
+          <Text style={h1}>{t('Home.daily.rent_end_time')}</Text>
 
-          <View
-            style={[rowCenter, styles.wrapper]}>
+          <View style={[rowCenter, styles.wrapper]}>
             <Image source={ic_clock} style={iconSize} />
 
             <View>
-              <Text style={[h2, {marginLeft: 10, fontWeight: form.jam_sewa ? '800' : '200' }]}>
-                {form.jam_sewa ? `${
-                  form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
-                  ':' +
-                  form.jam_sewa.slice(-form.jam_sewa.length / 2)
-                }` : lang.Home.daily.rent_end_time}
+              <Text style={[h5, {marginLeft: 10, color: theme.colors.grey4}]}>
+                {form.jam_sewa
+                  ? `${
+                      form.jam_sewa.slice(0, form.jam_sewa.length / 2) +
+                      ' : ' +
+                      form.jam_sewa.slice(-form.jam_sewa.length / 2)
+                    }`
+                  : '00 : 00'}
               </Text>
             </View>
           </View>
         </View>
-
-        {/* <DatePickerComponent
-          mode="clock"
-          placeholder={lang.Home.daily.rent_end_time}
-          title={lang.Home.daily.rent_end_time}
-          containerStyle={{
-            width: '49%',
-          }}
-          value={form.jam_sewa}
-          disableTime
-          errorMessage={formError.error_jam_sewa}
-        /> */}
       </View>
 
       <Button
         _theme="navy"
-        title={lang.Home.daily.btn_search}
+        title={t('Home.daily.btn_search')}
         onPress={methods.handleSearch}
         styleWrapper={{
           marginTop: 40,
@@ -361,195 +335,6 @@ const WithoutDriverForm: React.FC = () => {
         showWheel={showWheel}
         setShowWheel={setShowWheel}
       />
-
-      {/* <BottomSheetModal
-        ref={sheetRef}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-        enablePanDownToClose={true}
-        backgroundStyle={{backgroundColor: theme.colors.white}}
-        handleStyle={{marginBottom: 8, marginTop: 4}}
-        style={{
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 7,
-          },
-          shadowOpacity: 0.75,
-          shadowRadius: 24,
-
-          elevation: 24,
-        }}>
-        <View style={{flex: 1, backgroundColor: '#fff', padding: 16}}>
-          <Text style={[h1, {fontSize: 20}]}>Jam Mulai Sewa</Text>
-          <View
-            style={{
-              borderBottomColor: theme.colors.grey5,
-              borderBottomWidth: 1,
-              marginVertical: 30,
-            }}
-          />
-
-          <Text style={[h4, {textAlign: 'center'}]}>
-            Waktu yang dipilih sesaui dengan waktu tempat sewa Mobil (WITA)
-          </Text>
-          <View
-            style={[
-              rowCenter,
-              {alignItems: 'center', justifyContent: 'center'},
-            ]}>
-            <View style={{height: 200}}>
-              <ScrollPicker
-                dataSource={[
-                  '7',
-                  '8',
-                  '9',
-                  '10',
-                  '11',
-                  '12',
-                  '13',
-                  '14',
-                  '15',
-                  '16',
-                  '17',
-                  '18',
-                  '19',
-                  '20',
-                  '21',
-                  '22',
-                  '23',
-                  '24',
-                ]}
-                selectedIndex={0}
-                scrollViewComponent={BottomSheetScrollView}
-                renderItem={(data: any) => (
-                  <View
-                    style={{
-                      // height: 50,
-                      width: 100,
-                      alignSelf: 'center',
-                      // backgroundColor: 'red',
-                      // marginBottom: 10,
-                    }}>
-                    <Text>{data}</Text>
-                  </View>
-                )}
-                onValueChange={(data, selectedIndex) => {
-                  console.log(data, selectedIndex);
-                  if(selectedIndex === 17) {
-                    setMarginBottom(50);
-                  } else {
-                    setMarginBottom(0);
-                  }
-                  //
-                }}
-                wrapperHeight={180}
-                // wrapperWidth={350}
-                wrapperColor="#FFFFFF"
-                itemHeight={60}
-                highlightColor="#d8d8d8"
-                // activeItemColor={'red'}
-                highlightBorderWidth={2}
-                activeItemTextStyle={{
-                  fontSize: 23,
-                  lineHeight: 26,
-                  marginLeft: 20,
-                  paddingBottom: marginBottom,
-                  color: theme.colors.navy,
-                }}
-                itemTextStyle={{
-                  fontSize: 20,
-                  marginLeft: 20,
-                  lineHeight: 26,
-                  paddingBottom: marginBottom,
-                  textAlign: 'center',
-                  color: '#B4B4B4',
-                }}
-                // style={{height: 200}}
-              />
-            </View>
-
-            <Text
-              style={[
-                h1,
-                {
-                  position: 'absolute',
-                  alignSelf: 'center',
-                  // left: '36%',
-                  bottom: SCREEN_HEIGHT / 8.4,
-                },
-              ]}>
-              {' '}
-              :{' '}
-            </Text>
-
-            <View style={{}}>
-              <ScrollPicker
-                dataSource={['00', '30']}
-                selectedIndex={0}
-                scrollViewComponent={BottomSheetScrollView}
-                renderItem={(data, index) => (
-                  <View
-                    style={{
-                      // alignSelf: 'center',
-                      marginLeft: 50,
-                      backgroundColor: 'red',
-                    }}>
-                    <Text style={{backgroundColor: 'red'}}>{data}</Text>
-                  </View>
-                )}
-                onValueChange={(data, selectedIndex) => {
-                  console.log(data, selectedIndex);
-                  setJamSewa([...jamSewa, data]);
-                  if(selectedIndex === 1) {
-                    setMarginBottom2(50);
-                  } else {
-                    setMarginBottom2(0);
-                  }
-                  //
-                }}
-                // wrapperHeight={180}
-                // wrapperWidth={350}
-                wrapperColor="#FFFFFF"
-                itemHeight={60}
-                highlightColor="#d8d8d8"
-                activeItemColor={'red'}
-                highlightBorderWidth={2}
-                activeItemTextStyle={{
-                  fontSize: 23,
-                  lineHeight: 26,
-                  marginRight: 20,
-                  paddingBottom: marginBottom2,
-                  color: theme.colors.navy,
-                }}
-                itemTextStyle={{
-                  fontSize: 20,
-                  marginRight: 20,
-                  lineHeight: 26,
-                  paddingBottom: marginBottom2,
-                  textAlign: 'center',
-                  color: '#B4B4B4',
-                }}
-
-                // style={{height: 300, marginLeft: 20}}
-              />
-            </View>
-
-            
-          </View>
-
-
-          <Text style={[h4, {textAlign: 'center'}]}>
-            Waktu pilih jam sewa akan sama dengan jam Pengembalian
-          </Text>
-
-          <Button
-            title="Selesai"
-            _theme="navy"
-            styleWrapper={{marginTop: 20}}
-          />
-        </View>
-      </BottomSheetModal> */}
     </View>
   );
 };

@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const slugify = (str: string) => {
   if (str) {
     return str
@@ -28,3 +30,12 @@ export const idrFormatter = (price?: number) => {
 
 export const passwordValidation = (p1: string, p2: string) =>
   p1 === p2 && /^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,}$/.test(p1);
+
+// format expected YYYY/MM/DD
+export const dateFormatter = (date: string) => {
+  if (date) {
+    return moment(date.replace(/\//g, '-')).format('DD-MM-YY');
+  }
+
+  return '';
+}

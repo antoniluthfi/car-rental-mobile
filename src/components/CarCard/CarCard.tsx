@@ -1,33 +1,39 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {URL_IMAGE} from '@env';
-import {ic_seat, ic_koper, ic_transisi} from 'assets/icons';
-import {lang} from 'moment';
-import {theme} from 'utils';
 import {currencyFormat} from 'utils/currencyFormat';
-import {rowCenter, iconSize} from 'utils/mixins';
-import {h4, h1, h2, h5} from 'utils/styles';
+import {h1, h2, h4, h5} from 'utils/styles';
+import {ic_koper, ic_seat, ic_transisi} from 'assets/icons';
+import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {IVehicles} from 'types/vehicles';
-import useLangSelector from 'utils/useLangSelector';
+import {theme} from 'utils';
+import {URL_IMAGE} from '@env';
+import {useTranslation} from 'react-i18next';
 
 interface ICardCar {
   item: IVehicles;
   onPress: () => void;
+  containerWidth?: number | string;
 }
-const CarCard = ({item, onPress}: ICardCar) => {
-  const lang = useLangSelector().list_car;
-  // console.log('item = ', item);
+const CarCard = ({
+  item,
+  onPress,
+  containerWidth = WINDOW_WIDTH * (90 / 100),
+}: ICardCar) => {
+  const {t} = useTranslation();
+
   return (
-    <TouchableOpacity style={[rowCenter, styles.cardWrapper]} onPress={onPress}>
-      <View>
+    <TouchableOpacity
+      style={[rowCenter, styles.cardWrapper, {width: containerWidth}]}
+      onPress={onPress}>
+      <View style={{flexBasis: '35%'}}>
         <View>
           <Image
             // source={{uri: URL_IMAGE + item?.photo?.[0]?.name}}
             source={{uri: URL_IMAGE + item?.photo?.[0]?.name}}
             style={{
-              height: 86,
-              width: 120,
-              borderRadius: 10
+              height: 75,
+              width: '100%',
+              borderRadius: 10,
             }}
           />
         </View>
@@ -39,7 +45,7 @@ const CarCard = ({item, onPress}: ICardCar) => {
                 : theme.colors.low_red,
             padding: 5,
             borderRadius: 20,
-            width: '50%',
+            width: '70%',
             marginTop: 10,
           }}>
           <Text
@@ -54,22 +60,20 @@ const CarCard = ({item, onPress}: ICardCar) => {
                 alignSelf: 'center',
               },
             ]}>
-            {item.status.toLowerCase() === 'locked' ? 'Booked': 'Available'}
+            {item.status.toLowerCase() === 'locked' ? 'Booked' : 'Available'}
           </Text>
         </View>
       </View>
-      <View style={{marginLeft: 20}}>
-        <View style={[rowCenter, {justifyContent: 'space-between'}]}>
-          <Text style={[h1]}>{item?.name}</Text>
-        </View>
 
-        <View
-          style={[rowCenter, {justifyContent: 'space-between', marginTop: 10}]}>
-          <View style={[rowCenter]}>
-            <View style={[rowCenter]}>
-              <Image source={ic_seat} style={iconSize} />
-              <Text style={[h2, {marginLeft: 5}]}>{item?.max_passanger}</Text>
-            </View>
+      <View style={{flexBasis: '65%', marginLeft: 10}}>
+        <Text style={[h1]}>
+          {item?.brand_name} {item?.name}
+        </Text>
+
+        <View style={[rowCenter, {justifyContent: 'space-between'}]}>
+          <View style={rowCenter}>
+            <Image source={ic_seat} style={iconSize} />
+            <Text style={[h2, {marginLeft: 5}]}>{item?.max_passanger}</Text>
           </View>
 
           <View style={[rowCenter, styles.wrapperLineVertical]}>
@@ -83,23 +87,18 @@ const CarCard = ({item, onPress}: ICardCar) => {
           </View>
         </View>
 
-        <View style={{marginTop: 10}}>
-          <Text style={[h4, {fontSize: 12}]}>{lang.rent_price}</Text>
-          <Text style={[h1, {color: theme.colors.navy, marginTop: 5}]}>
-            {currencyFormat(item.price - (item?.discount_price || 0))} <Text style={[h4]}>/ {lang.day}</Text>
+        <View style={{marginTop: 5}}>
+          <Text style={[h4, {fontSize: 12}]}>{t('list_car.rent_price')}</Text>
+          <Text style={[h1, {color: theme.colors.navy}]}>
+            {currencyFormat(item.price - (item?.discount_price || 0))}{' '}
+            <Text style={[h4]}>/ {t('list_car.day')}</Text>
           </Text>
+          {item.old_price > 0 && (
+            <Text style={[h5, styles.hargaCoret]}>
+              {currencyFormat(item.old_price)}
+            </Text>
+          )}
         </View>
-
-        {
-          item.discount_price > 0 &&
-          <Text
-            style={[
-              h5,
-              styles.hargaCoret
-            ]}>
-            {currencyFormat(item.price)}
-          </Text>
-        }
       </View>
     </TouchableOpacity>
   );
@@ -108,25 +107,13 @@ const CarCard = ({item, onPress}: ICardCar) => {
 export default CarCard;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#F5F6FA',
-    paddingHorizontal: '5%',
-    paddingVertical: 20,
-  },
-  title: {marginBottom: 10, fontSize: 18},
-  boxWrapper: {
-    marginRight: 12,
-    backgroundColor: '#fff',
-    marginBottom: 10,
-    borderRadius: 10,
-  },
   cardWrapper: {
     padding: 10,
     backgroundColor: theme.colors.white,
     marginBottom: 10,
     borderRadius: 8,
     justifyContent: 'space-between',
-    width: '100%',
+    marginRight: 20,
   },
   machineWrapper: {
     paddingHorizontal: 10,
@@ -142,6 +129,6 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
     textDecorationColor: 'orange',
     color: theme.colors.grey4,
-    marginTop: 6
+    marginTop: 6,
   },
 });

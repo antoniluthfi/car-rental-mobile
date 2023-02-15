@@ -1,6 +1,9 @@
 import Button from 'components/Button';
-import useLangSelector from 'utils/useLangSelector';
+import {h5} from 'utils/styles';
 import {ic_wa_2} from 'assets/icons';
+import {img_with_driver_guide_1, img_with_driver_guide_2} from 'assets/images';
+import {theme} from 'utils';
+import {useTranslation} from 'react-i18next';
 import {
   View,
   FlatList,
@@ -9,9 +12,6 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-import {img_with_driver_guide_1, img_with_driver_guide_2} from 'assets/images';
-import {theme} from 'utils';
-import {h5} from 'utils/styles';
 
 type GuideItem = {
   id: number;
@@ -20,25 +20,22 @@ type GuideItem = {
 };
 
 const WithDriver: React.FC = () => {
-  const lang = useLangSelector();
+  const {t} = useTranslation();
 
   const guideList = [
     {
       id: 1,
-      description:
-        'Jika anda memilih sewa mobil “Dengan Supir” maka anda akan dialihkan ke Whatsapp',
+      description: t('Home.withDriver.description_1'),
       img: img_with_driver_guide_1,
     },
     {
       id: 2,
-      description:
-        'Setelah anda memilih waktu dan tanggal, anda akan memilih mobil yang tersedia beserta driver',
+      description: t('Home.withDriver.description_2'),
       img: img_with_driver_guide_2,
     },
     {
       id: 3,
-      description:
-        'Setelah anda memilih mobil, anda akan menerima invoice untuk sewa mobil anda',
+      description: t('Home.withDriver.description_3'),
       img: img_with_driver_guide_1,
     },
   ];
@@ -61,7 +58,7 @@ const WithDriver: React.FC = () => {
 
       <Button
         _theme="navy"
-        title={lang.Home.daily.continue_to_whatsapp}
+        title={t('Home.daily.continue_to_whatsapp')}
         onPress={() => {}}
         styleWrapper={{
           marginTop: 40,
@@ -76,7 +73,7 @@ export default WithDriver;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30
+    marginTop: 30,
   },
   imageContainer: {
     width: 170,
@@ -93,7 +90,7 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     width: 170,
-    marginRight: 10
+    marginRight: 10,
   },
   description: {marginVertical: 10, fontSize: 14},
 });

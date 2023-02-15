@@ -1,5 +1,4 @@
 import Accordion from 'react-native-collapsible/Accordion';
-import useLangSelector from 'utils/useLangSelector';
 import {h1} from 'utils/styles';
 import {ic_arrow_down} from 'assets/icons';
 import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
@@ -9,49 +8,39 @@ import {useState} from 'react';
 const SECTIONS = [
   {
     title: 'Mengapa harus rental dan sewa mobil di Get & Ride?',
-    content: 'Semua produk bisa dilihat di website dan Aplikasi kami.',
+    content:
+      'Dengan rental dan sewa mobil di Get & Ride, kamu nggak perlu repot lagi. Semua serba mudah, cepat, dan pastinya terpercaya. Kamu bisa menghemat waktu dan biaya. Selain itu juga bisa memilih mobil untuk liburan keliling kota Bali sesuai dengan kebutuhan dengan harga terbaik.',
   },
   {
     title: 'Bagimana cara rental dan sewa mobil di Get & Ride?',
     content:
-      'Aroma Medan terletak di Golf Island, Jalan Pantai Indah Kapuk No.27, Jakarta Utara.',
+      'Kamu dapat melakukan rental dan sewa mobil melaui website maupun aplikasi Get&Ride. Berikut langkah yang bisa kamu ikuti:\n\n● Masuk atau Daftar untuk bisa melakukan reservasi di aplikasi.\n\n● Pilih sewa mobil lepas kunci atau dengan supir.\n\n● Isi lokasi, waktu, dan durasi sewa yang diinginkan.\n\n● Pilih jenis mobil.Pastikan kamu membaca dan setuju dengan Rental Terms & Conditions serta Policy Conditions.\n\n● Pilih detail pengambilan mobil.Kamu bisa mengambil langsung ke tempat rental atau memilih untuk diantarkan ke tempatmu.\n\n● Pastikan kamu sudah mengisi dan mengupload data diri seperti seperti foto KTP dan SIM.\n\n● Periksa kembali pesananmu\n\n● Lakukan pembayaran',
   },
   {
     title: 'Apakah saya harus memiliki SIM untuk menyewa mobil di Get & Ride?',
     content:
-      'Kamu bisa beli produk Aroma Medan dengan cara : datang langsung ke outlet kami di Golf Island, melalui apps atau website kami di www.aromamedan.com, melalui Direct Message Instagram / Facebook kami, atau bisa juga melalui WhatsApp kami di nomor : +62 822 1198 9898.',
+      'Untuk rental dan sewa mobil di Get & Ride, penyewa lepas kunci wajib untuk memiliki dan menunjukkan KTP/SIM A untuk wisatawan domestik dan SIM Internasional/Paspor untuk wisatawan non domestik. Pastikan juga seluruh dokumen asli, tidak mengatasnamakan orang lain, dan masih aktif.',
   },
   {
     title: 'Apakah ada batasan usia untuk menyewa mobil di Get & Ride?',
     content:
-      'Untuk saat ini, Aroma Medan belum memiliki cabang. Silahkan pesan produk Aroma Medan melalui berbagai cara yang telah tersedia.',
+      'Penyewa wajib berusia diatas 17 tahun dan harus menunjukkan Identification Card (KTP)/SIM A atau SIM Internasional/Paspor yang masih aktif.',
   },
   {
     title:
       'Apakah ada biaya tambahan yang harus dibayar saat mengambil atau mengembalikan mobil?',
     content:
-      'Silahkan lihat menu kami pada halaman utama aplikasi ini. Jika ada produk kami yang ingin kamu beli, silahkan tambahkan ke keranjang dan lakukan pembayaran. Semua pesanan yang kamu buat, akan segera kami proses dan antar ke tempat kamu.',
+      'Jika mengambil dan mengembalikan mobil sewa langsung di rental place, maka tidak dikenakan biaya apapun (gratis). Jika mobil sewa ingin dikirim dan dikembalikan di tempat penyewa (diluar rental place) maka akan dikenakan biaya tambahan tergantung jarak yang ditentukan.',
   },
   {
     title: 'Bagaimana cara mengubah / membatalkan booking mobil rental?',
     content:
-      'Untuk memastikan produk yang kami buat masih dalam keadaan fresh ketika sampai di tempat kamu, kami hanya melayani pengantaran ke Jakarta, Depok, Tangerang, dan Bekasi saja. Namun, kamu juga dapat melakukan pengambilan langsung ke outlet kami.',
+      'Untuk pengajuan reschedule sewa mobil dapat menghubungi whatsapp kami di +62 81262511511. Pastikan kamu sudah memahami ketentuan refund dan reschedule yang sudah diinfokan. Jika kamu ingin mengetahui status reschedule tiket Sewa Mobil kamu, kamu dapat menghubungi Whatsapp kami untuk info yang lebih detail.',
   },
 ];
 
 export default function FAQ() {
   const [activeSections, setActiveSections] = useState([]);
-  const t = useLangSelector().Home;
-
-  const _renderSectionTitle = (section: any) => {
-    return (
-      <View style={styles.content}>
-        <Text allowFontScaling={false} style={styles.textContent}>
-          {section.content}
-        </Text>
-      </View>
-    );
-  };
 
   const _renderHeader = (section: any, i: any, isActive: any) => {
     return (
@@ -94,7 +83,7 @@ export default function FAQ() {
   const _renderContent = (section: any) => {
     return (
       <View style={styles.content}>
-        <Text allowFontScaling={false} style={{fontSize: 12, lineHeight: 20 }}>
+        <Text allowFontScaling={false} style={{fontSize: 12, lineHeight: 20}}>
           {section.content}
         </Text>
       </View>
@@ -114,7 +103,7 @@ export default function FAQ() {
       <Text style={[h1, styles.title]}>FAQ</Text>
       <Accordion
         underlayColor={'#FFF'}
-        sections={t.faq}
+        sections={SECTIONS}
         activeSections={activeSections}
         renderHeader={_renderHeader}
         renderContent={_renderContent}
@@ -154,7 +143,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingBottom: 16,
-    marginHorizontal: 16
+    marginHorizontal: 16,
   },
   textContent: {},
 });

@@ -1,8 +1,10 @@
-import {get_ride_logo, img_bg_hero, img_hero_background} from 'assets/images';
+import CarouselHero from '../CarouselHero/CarouselHero';
 import {h1} from 'utils/styles';
 import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {img_bg_hero} from 'assets/images';
 import {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   ic_rent_bicycle,
   ic_rent_bicycle_active,
@@ -11,43 +13,42 @@ import {
   ic_rent_motorcycle,
   ic_rent_motorcycle_active,
 } from 'assets/icons';
-import CarouselHero from '../CarouselHero/CarouselHero';
 
 type HomeHeroProps = {
   onSelectionChange: (val: string) => void;
 };
 
-const buttonList = [
-  {
-    id: 1,
-    img: ic_rent_car,
-    imgActive: ic_rent_car_active,
-    title: 'Sewa Mobil',
-  },
-  {
-    id: 2,
-    img: ic_rent_motorcycle,
-    imgActive: ic_rent_motorcycle_active,
-    title: 'Sewa Motor',
-  },
-  {
-    id: 3,
-    img: ic_rent_bicycle,
-    imgActive: ic_rent_bicycle_active,
-    title: 'Sewa Sepeda',
-  },
-];
-
 const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
+  const {t} = useTranslation();
   const [selected, setSelected] = useState(1);
+
+  const buttonList = [
+    {
+      id: 1,
+      img: ic_rent_car,
+      imgActive: ic_rent_car_active,
+      title: t('Home.daily.car_rental'),
+      key: "sewa_mobil"
+    },
+    {
+      id: 2,
+      img: ic_rent_motorcycle,
+      imgActive: ic_rent_motorcycle_active,
+      title: t('Home.daily.motorcycle_rental'),
+      key: "sewa_motor"
+    },
+    {
+      id: 3,
+      img: ic_rent_bicycle,
+      imgActive: ic_rent_bicycle_active,
+      title: t('Home.daily.bike_rental'),
+      key: "sewa_sepeda"
+    },
+  ];
 
   return (
     <View>
-      <Image
-        source={img_bg_hero}
-        style={styles.imgCar}
-        resizeMode="cover"
-      />
+      <Image source={img_bg_hero} style={styles.imgCar} resizeMode="cover" />
       <CarouselHero />
 
       <View style={styles.buttonMenu}>
@@ -64,7 +65,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({onSelectionChange}) => {
             ]}
             onPress={() => {
               setSelected(button.id);
-              onSelectionChange(button.title);
+              onSelectionChange(button.key);
             }}
             key={i}>
             <View style={rowCenter}>

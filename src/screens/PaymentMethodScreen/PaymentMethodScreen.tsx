@@ -1,4 +1,20 @@
-import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
+import appBar from 'components/AppBar/AppBar';
+import Button from 'components/Button';
+import hoc from 'components/hoc';
+import React, {FC, useEffect} from 'react';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {createDisbursements} from 'redux/features/order/orderAPI';
+import {getPayments} from 'redux/features/appData/appDataAPI';
+import {h1, h4} from 'utils/styles';
+import {iconCustomSize, iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
+import {IPayments, METHOD_PAYMENT} from 'types/global.types';
+import {orderState} from 'redux/features/order/orderSlice';
+import {RootStackParamList} from 'types/navigator';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {showBSheet} from 'utils/BSheet';
+import {theme} from 'utils';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
 import {
   ic_american_express,
   ic_arrow_left_white,
@@ -11,10 +27,6 @@ import {
   ic_master_card,
   ic_visa,
 } from 'assets/icons';
-import appBar from 'components/AppBar/AppBar';
-import Button from 'components/Button';
-import hoc from 'components/hoc';
-import React, {FC, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -23,18 +35,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {getPayments} from 'redux/features/appData/appDataAPI';
-import {appDataState} from 'redux/features/appData/appDataSlice';
-import {createDisbursements} from 'redux/features/order/orderAPI';
-import {orderState} from 'redux/features/order/orderSlice';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {IPayments, METHOD_PAYMENT} from 'types/global.types';
-import {RootStackParamList} from 'types/navigator';
-import {theme} from 'utils';
-import {showBSheet} from 'utils/BSheet';
-import {iconCustomSize, iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
-import {h1, h4} from 'utils/styles';
-import useLangSelector from 'utils/useLangSelector';
 
 const DATA_METHOD_PAYMENT: {
   title: string;
@@ -71,15 +71,7 @@ const PaymentMethodScreen: FC = () => {
   const dispatch = useAppDispatch();
   const paymentMethods = useAppSelector(appDataState).payments;
   const order = useAppSelector(orderState).order;
-  const t = useLangSelector().payment_method;
-  const t_global = useLangSelector().global;
-  // const [form, setForm] = useState({
-  //   filter_car_type: '',
-  //   filter_shit: '',
-  //   filter_koper: '',
-  // });
-  // const [checkInfo, setCheckInfo] = useState(false);
-  // console.log(paymentMethods);
+  const {t} = useTranslation();
 
   useEffect(() => {
     navigation.setOptions(
@@ -97,7 +89,7 @@ const PaymentMethodScreen: FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              {t.header}
+              {t('payment_method.header')}
             </Text>
           </TouchableOpacity>
         ),
@@ -124,12 +116,12 @@ const PaymentMethodScreen: FC = () => {
               resizeMode={'contain'}
             />
             <Text style={[h1, {marginVertical: 20}]}>
-              {t_global.alert.payment_confirm}
+              {t('global.alert.payment_confirm')}
             </Text>
             <View style={{width: '95%', margin: 16}}>
               <Button
                 _theme="navy"
-                title={t_global.button.yesNext}
+                title={t('global.button.yesNext')}
                 onPress={() => {
                   if (data.method === 'Credit Card') {
                     navigation.navigate('CardPayment', {
@@ -153,7 +145,7 @@ const PaymentMethodScreen: FC = () => {
               />
               <Button
                 _theme="white"
-                title={t_global.button.back}
+                title={t('global.button.back')}
                 onPress={() => methods.handleConfirmation(data)}
               />
             </View>

@@ -1,32 +1,32 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import hoc from 'components/hoc';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
+import Button from 'components/Button';
+import Clipboard from '@react-native-clipboard/clipboard';
+import hoc from 'components/hoc';
+import moment from 'moment';
+import OrderDetailModalContent from 'components/OrderDetailModalContent/OrderDetailModalContent';
+import React, {useEffect, useState} from 'react';
+import {bookingState} from 'redux/features/myBooking/myBookingSlice';
+import {currencyFormat} from 'utils/currencyFormat';
+import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
+import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
+import {h1, h4, h5} from 'utils/styles';
 import {iconCustomSize, rowCenter} from 'utils/mixins';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {RootStackParamList} from 'types/navigator';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {showBSheet} from 'utils/BSheet';
+import {showToast} from 'utils/Toast';
+import {theme} from 'utils';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
+import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
 import {
   ic_arrow_left_white,
   ic_arrow_right,
   ic_bca,
   ic_copy,
 } from 'assets/icons';
-import {h1, h4, h5} from 'utils/styles';
-import {theme} from 'utils';
-import Button from 'components/Button';
-import {showBSheet} from 'utils/BSheet';
-import {RootStackParamList} from 'types/navigator';
-import {currencyFormat} from 'utils/currencyFormat';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {vehiclesState} from 'redux/features/vehicles/vehiclesSlice';
-import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
-import {bookingState} from 'redux/features/myBooking/myBookingSlice';
-import {getVehiclesById} from 'redux/features/vehicles/vehiclesAPI';
-import OrderDetailModalContent from 'components/OrderDetailModalContent/OrderDetailModalContent';
-import moment from 'moment';
-import Clipboard from '@react-native-clipboard/clipboard';
-import { showToast } from 'utils/Toast';
 
-const TIMER = 15000;
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
   'Lalu verifikasi Debit Card anda dengan menekan button “Verifikasi”. Setelah Debit Card terverifikasi maka anda bisa melanjutkan pembayaran.',
@@ -36,6 +36,7 @@ const FAQ = [
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'VirtualAccount'>;
 
 const VirtualAccountScreen = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const bookingDetail = useAppSelector(bookingState).selected;
@@ -90,11 +91,11 @@ const VirtualAccountScreen = () => {
     },
     getPaymentLabel: () => {
       if (bookingDetail?.disbursement?.payment?.code === 'Permata') {
-        return bookingDetail?.disbursement?.permata_va_number
+        return bookingDetail?.disbursement?.permata_va_number;
       }
 
-      return bookingDetail?.disbursement?.va_number
-    }
+      return bookingDetail?.disbursement?.va_number;
+    },
   };
 
   useEffect(() => {
@@ -128,17 +129,22 @@ const VirtualAccountScreen = () => {
       }),
     );
     console.log(bookingDetail?.created_at);
-    let newDate = moment(bookingDetail?.created_at).subtract(7, 'hours').format();
+    let newDate = moment(bookingDetail?.created_at)
+      .subtract(7, 'hours')
+      .format();
     console.log(newDate);
 
     const time = new Date(newDate);
     const fifteenMinutesInSeconds = 15 * 60;
-    const totalSeconds = (time.getHours() * 60 * 60) + (time.getMinutes() * 60) + time.getSeconds() + (time.getMilliseconds() / 1000);
+    const totalSeconds =
+      time.getHours() * 60 * 60 +
+      time.getMinutes() * 60 +
+      time.getSeconds() +
+      time.getMilliseconds() / 1000;
     const remainingSeconds = totalSeconds - fifteenMinutesInSeconds;
 
-    console.log('time scnd = ', (remainingSeconds)?.toFixed());
-    setTimeLeft(remainingSeconds.toFixed())
-
+    console.log('time scnd = ', remainingSeconds?.toFixed());
+    setTimeLeft(remainingSeconds.toFixed());
   }, [navigation]);
 
   useEffect(() => {
@@ -189,13 +195,14 @@ const VirtualAccountScreen = () => {
         <View>
           <Text style={[h1]}>Selesaikan Sebelum</Text>
           <Text style={[h4, {marginTop: 10, fontSize: 12}]}>
-            {moment(bookingDetail?.expired_time).format('ddd, DD MMMM YYYY: HH:mm')}
+            {moment(bookingDetail?.expired_time).format(
+              'ddd, DD MMMM YYYY: HH:mm',
+            )}
           </Text>
         </View>
         <Text style={[h1, {color: theme.colors.blue}]}>
           {/* {methods.secondsToHms(seconds)} */}
           {minutes}:{seconds2 < 10 ? `0${seconds2}` : seconds2}
-
         </Text>
       </View>
 
@@ -215,7 +222,7 @@ const VirtualAccountScreen = () => {
           ]}>
           <View>
             <Text style={[h1, {color: theme.colors.navy, fontSize: 12}]}>
-              Daily
+              {t('Home.daily.title')}
             </Text>
             <Text style={[h5, {fontSize: 12}]}>
               {`${vehicle.brand_name} ${vehicle.name}`}

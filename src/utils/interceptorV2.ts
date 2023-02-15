@@ -50,8 +50,7 @@ export const apiWithInterceptor = async (config: ApiConfig) => {
           } else if(!refresh_token && isLogin) {
 
           } else {
-            console.log('masuk sini lgotu')
-            // store.dispatch(logout());
+            store.dispatch(logout());
           }
         }
         return Promise.reject(error);

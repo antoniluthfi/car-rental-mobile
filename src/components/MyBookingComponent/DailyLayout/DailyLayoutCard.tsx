@@ -1,14 +1,14 @@
-import {useNavigation} from '@react-navigation/native';
-import {img_car_2} from 'assets/images';
 import Button from 'components/Button';
-import {isFuture} from 'date-fns';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {Image, Linking, StyleSheet, Text, View} from 'react-native';
-import {useAppSelector} from 'redux/hooks';
-import {slugify} from 'utils/functions';
+import {img_car_2} from 'assets/images';
+import {isFuture} from 'date-fns';
 import {rowCenter} from 'utils/mixins';
-import useLangSelector from 'utils/useLangSelector';
+import {slugify} from 'utils/functions';
+import {useAppSelector} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 interface IProps {
   item: any;
@@ -51,8 +51,7 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
 
   const navigation = useNavigation();
   const myBooking = useAppSelector(state => state.myBooking);
-  const t = useLangSelector().myBooking;
-  const t_global = useLangSelector().global;
+  const {t} = useTranslation();
 
   const [orderState, setOrderState] = useState<string>('');
 
@@ -120,7 +119,7 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
 
         <View>
           <View style={styles.title}>
-            <Text style={styles.daily}>Daily</Text>
+            <Text style={styles.daily}>{t('Home.daily.title')}</Text>
             <Text style={[styles.status, paymentStatusStyle(orderState)]}>
               {orderState}
             </Text>
@@ -144,8 +143,8 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
           </Text>
           <Text>
             {order_detail?.is_take_from_rental_office
-              ? t.pickupLocation
-              : t.returnLocation}{' '}
+              ? t('myBooking.pickupLocation')
+              : t('myBooking.returnLocation')}{' '}
             :{' '}
             <Text style={styles.pickupLocation}>
               {order_detail?.rental_delivery_location}
@@ -158,7 +157,7 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
         {orderState !== 'expired' && (
           <Button
             _theme="navy"
-            title={t_global.button.orderDetail}
+            title={t('global.button.orderDetail')}
             onPress={() =>
               navigation.navigate('DailyBookingOrderDetailScreen', {
                 transaction_key,
@@ -179,8 +178,8 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
               disbursement
                 ? orderState == 'RECONFIRMATION'
                   ? 'Reupload'
-                  : 'Bayar Sekarang'
-                : 'Pilih Pembayaran'
+                  : t('global.button.payNow')
+                : t('global.button.choosePayment')
             }
             onPress={handlePay}
             styleWrapper={{

@@ -1,14 +1,13 @@
-import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import useLangSelector from 'utils/useLangSelector';
-import {h1, h5} from 'utils/styles';
-import {ic_calendar, ic_clock, ic_info_error} from 'assets/icons';
-import {showBSheet} from 'utils/BSheet';
-import {theme} from 'utils';
+import React, { ReactNode, useRef, useState } from 'react';
+import { dateFormatter } from 'utils/functions';
+import { h1, h5 } from 'utils/styles';
+import { ic_calendar, ic_clock, ic_info_error } from 'assets/icons';
+import { showBSheet } from 'utils/BSheet';
+import { theme } from 'utils';
 import {
   Image,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -19,7 +18,6 @@ import {
   iconCustomSize,
   colorSelecting,
 } from 'utils/mixins';
-import moment from 'moment';
 
 interface IProps {
   title: string;
@@ -32,6 +30,7 @@ interface IProps {
   onChangeTime?: any;
   disableTime?: boolean;
   errorMessage?: string;
+  snapPoint?: string[];
 }
 
 const CustomDatePicker = ({
@@ -42,47 +41,23 @@ const CustomDatePicker = ({
   inputContainerStyle,
   value,
   content,
-  onChangeTime,
+  // onChangeTime,
   disableTime = false,
   errorMessage,
+  snapPoint,
 }: IProps) => {
   // const [showBSheet, setShowSheet] = useState(false);
-  const [hour, setHour] = useState('');
-  const [minutes, setMinutes] = useState('');
   const [alertHour, setAlertHour] = useState('');
-  const ref1 = useRef<any>(null);
   const ref2 = useRef<any>(null);
-  const lang = useLangSelector();
 
   const methods = {
     handleBSheet: () => {
       showBSheet({
+        snapPoint,
         content,
       });
     },
   };
-
-  useEffect(() => {
-    if (!onChangeTime) return;
-    if (hour.length === 2) ref2.current?.focus();
-
-    if (hour.length < 2) {
-      onChangeTime(hour);
-    } else {
-      onChangeTime(hour + minutes);
-    }
-  }, [hour, minutes]);
-
-  useEffect(() => {
-    if (parseInt(hour) < 7) {
-      setAlertHour('Rent Time Starts At 7');
-    } else {
-      setAlertHour('');
-    }
-  }, [hour]);
-  console.log('value = ', value);
-  const IsoDateTo = moment(value, 'YYYY/MM/DD').format('DD-MM-YYYY');
-
 
   return (
     <View style={containerStyle}>
@@ -95,52 +70,27 @@ const CustomDatePicker = ({
           source={mode === 'clock' ? ic_clock : ic_calendar}
           style={iconSize}
         />
-        {content && (
+        {mode === 'date' && (
           <TouchableOpacity onPress={methods.handleBSheet}>
             <Text style={[h5, colorSelecting(value), {marginLeft: 10}]}>
-              {IsoDateTo === 'Invalid date' ? placeholder : IsoDateTo}
+              {dateFormatter(value) || placeholder}
             </Text>
           </TouchableOpacity>
         )}
-        {!content && !disableTime && (
-          <View style={[rowCenter, {marginLeft: 10}]}>
-            <TextInput
-              placeholder="00"
-              ref={ref1}
-              maxLength={2}
-              value={hour}
-              onChangeText={v => {
-                if (Number(v) > 23) {
-                  setHour('23');
-                } else {
-                  setHour(v);
-                }
-              }}
-              editable={!disableTime}
-              keyboardType="numeric"
-              style={{padding: 0, margin: 0}}
-            />
-            <Text style={{marginHorizontal: 5}}>:</Text>
-            <TextInput
-              ref={ref2}
-              placeholder="00"
-              maxLength={2}
-              editable={!disableTime}
-              value={minutes}
-              onChangeText={v => {
-                if (Number(v) > 59) {
-                  setMinutes('59');
-                } else {
-                  setMinutes(v);
-                }
-              }}
-              keyboardType="numeric"
-              style={{padding: 0, margin: 0}}
-            />
-          </View>
+
+        {mode === 'clock' && !disableTime && (
+          <TouchableOpacity
+            style={styles.inputContainer}
+            onPress={methods.handleBSheet}>
+            <Text>
+              {value?.slice(0, 2) || '00'} :{' '}
+              {value?.length > 2 ? value.slice(-2) : '00'}
+            </Text>
+          </TouchableOpacity>
         )}
-        {disableTime && (
-          <Text style={{marginLeft: 10, marginVertical: 4}}>
+
+        {mode === 'clock' && disableTime && (
+          <Text style={styles.inputContainer}>
             {value?.slice(0, 2) || '00'} :{' '}
             {value?.length > 2 ? value.slice(-2) : '00'}
           </Text>
@@ -182,6 +132,6 @@ const styles = StyleSheet.create({
   textAlertClock: {
     fontSize: 10,
     color: '#f79616',
-    // alignSelf: 'flex-end',
   },
+  inputContainer: {marginLeft: 10, marginVertical: 4},
 });

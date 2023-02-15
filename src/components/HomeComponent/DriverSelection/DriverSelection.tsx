@@ -1,42 +1,41 @@
-import useLangSelector from 'utils/useLangSelector';
 import {h1} from 'utils/styles';
+import {iconSize, rowCenter} from 'utils/mixins';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {theme} from 'utils';
+import {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   ic_with_driver,
   ic_without_driver_active,
   ic_without_driver,
   ic_with_driver_active,
 } from 'assets/icons';
-import {iconSize, rowCenter} from 'utils/mixins';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {theme} from 'utils';
-import {useState} from 'react';
 
 type Props = {
   onChange: ({withDriver}: {withDriver: boolean}) => void;
 };
 
 const DriverSelection: React.FC<Props> = ({onChange}) => {
-  const lang = useLangSelector();
-  const [selected, setSelected] = useState(2);
+  const {t} = useTranslation();
+  const [selected, setSelected] = useState(1);
 
   const buttonList = [
     {
-      id: 2,
+      id: 1,
       img: ic_with_driver,
       imgActive: ic_with_driver_active,
-      name: lang.Home.daily.with_driver,
+      name: t('Home.daily.with_driver'),
       withDriver: true,
       disabled: false,
     },
     {
-      id: 1,
+      id: 2,
       img: ic_without_driver,
       imgActive: ic_without_driver_active,
-      name: lang.Home.daily.without_driver,
+      name: t('Home.daily.without_driver'),
       withDriver: false,
       disabled: false,
     },
-    
   ];
 
   return (
@@ -50,8 +49,8 @@ const DriverSelection: React.FC<Props> = ({onChange}) => {
               backgroundColor:
                 selected === button.id ? theme.colors.navy : theme.colors.white,
               ...(selected === 2
-                ? styles.buttonBorderLeft
-                : styles.buttonBorderRight),
+                ? styles.buttonBorderRight
+                : styles.buttonBorderLeft),
             },
           ]}
           onPress={() => {

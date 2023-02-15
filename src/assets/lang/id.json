@@ -1,12 +1,14 @@
 {
     "Account": {
-        "header": "Profile Ku",
-        "menu_1": "Profile",
+        "header": "Profil Ku",
+        "menu_1": "Profil",
         "menu_2": "Ubah Password",
         "menu_3": "Notifikasi"
     },
     "Home": {
+        "tabBarLabel": "Beranda",
         "daily": {
+            "title": "Harian",
             "location": "Pilih Lokasi Anda",
             "placeholder_location": "Pilih Lokasi Anda",
             "your_location": "Lokasi Anda",
@@ -26,10 +28,12 @@
             "day": "Hari",
             "days": "Hari",
             "continue_to_whatsapp": "Lanjutkan ke Whatsapp",
+            "car_rental": "Sewa Mobil",
+            "motorcycle_rental": "Sewa Motor",
+            "bike_rental": "Sewa Sepeda",
             "startTime": "Jam Mulai Sewa",
             "headerStartDate": "Waktu yang dipilih sesaui dengan waktu tempat sewa Mobil (WITA)",
             "footerStartDate": "Waktu pilih jam sewa akan sama dengan jam Pengembalian"
-
         },
         "getrideDescription": {
             "title": "Apa itu Get & Ride?",
@@ -75,50 +79,36 @@
             }
         ],
         "articleTitle": "Artikel",
-        "articleList": [{
-                "title": "Destinasi Favorit Rental Mobil di Bali",
-                "description": "Beberapa tempat wisata Bali yang paling sering dikunjungi, yaitu Pantai Kuta, Pura Tanah Lot, Garuda Wisnu Kencana (GWK), dan Pulau Uluwatu. Selain strategis dan mudah dijangkau, keindahan alam dan budayanya juga menarik. Seperti di kawasan GWK, wisatawan asing dapat menikmati beberapa jenis tarian seni Bali setiap harinya. Yang menjadi favorit selanjutnya yaitu Pura Tanah Lot yang lokasinya unik dan cantik, karena berada di atas batu karang besar di pinggir laut. Selain menikmati panorama, kamu juga bisa sambil kulineran di beberapa resto atau cafe yang ada di sekitaran Pantai Uluwatu sambil nunggu sunset. Memang terbukti ya bahwa Bali mempunyai daya tarik yang sangat kuat untuk berlibur, dan gak akan pernah bosan."
+        "whyChooseUs": {
+            "title": "Mengapa Sewa Mobil di Get&Ride",
+            "list_1": {
+                "subtitle": "Hemat Waktu",
+                "description": "Sewa mobil online anti ribet, dimana saja dan kapan saja. Pilih jadwal serta jenis mobil dengan mudah dan terpercaya di Get & Ride."
             },
-            {
-                "title": "Tips Bekendara Hemat BBM",
-                "description": "Nah buat kalian nantinya yang sewa mobil sendiri saat jalan-jalan, pastinya mau hemat di penggunaan bahan bakarnya juga kan? Coba ubah dulu kebiasaan kamu saat menyetir, seperti menginjak pedal terlalu dalam, karena hal ini salah satu pemicu bensin kamu jadi lebih boros lho! Kalian bisa sesuaikan dengan indikator ECO supaya lebih hemat ya."
+            "list_2": {
+                "subtitle": "Harga Kompetitif",
+                "description": "Jangan khawatir! Harga sewa di Get & Ride terjangkau dan dijamin kompetitif."
             },
-            {
-                "title": "Liburan Bersama Keluarga di Bali Safari and Marine Park",
-                "description": "Tempat wisata yang pas untuk kamu kunjungi bersama anak-anak! Disini terdapat sekitar 120 spesies hewan, dan kamu juga ditawarkan sejumlah wahana yang seru buat pengunjung yang datang, sambil petualang sekaligus belajar. Bali Safari and Marine Park juga merupakan salah satu tempat konservasi satwa liar di Indonesia lho."
+            "list_3": {
+                "subtitle": "Mobil Terbaik",
+                "description": "Get & Ride menyediakan mobil dengan kualitas terbaik dan terjaga kebersihannya. Semua mobil di service secara berkala demi kenyamanan."
             },
-            {
-                "title": "Sewa Mobil Terpercaya & Instan di Bali",
-                "description": "Sewa mobil jadi pilihan tepat buat solusi perjalanan mudah, murah tanpa harus punya mobil. Banyak keuntungannya, apalagi kalau sewanya di Get&Ride! Banyak pilihan mobil, boleh bawa hewan peliharaan, bisa antar jemput juga! Praktis banget pokoknya! Yuk langsung booking via Get&Ride sekarang!"
+            "list_4": {
+                "subtitle": "Layanan Terbaik",
+                "description": "Menyediakan Driver professional, penerapan protokol kesehatan, dan proteksi kendaraan. Semua mobil di Get & Ride sudah terjamin dengan jaminan asuransi."
             }
-        ],
-        "faq": [{
-                "title": "Mengapa harus rental dan sewa mobil di Get & Ride?",
-                "content": "Dengan rental dan sewa mobil di Get & Ride, kamu nggak perlu repot lagi. Semua serba mudah, cepat, dan pastinya terpercaya. Kamu bisa menghemat waktu dan biaya. Selain itu juga bisa memilih mobil untuk liburan keliling kota Bali sesuai dengan kebutuhan dengan harga terbaik."
-            },
-            {
-                "title": "Bagimana cara rental dan sewa mobil di Get & Ride?",
-                "content": "Kamu dapat melakukan rental dan sewa mobil melaui website maupun aplikasi Get&Ride. Berikut langkah yang bisa kamu ikuti:\n\n● Masuk atau Daftar untuk bisa melakukan reservasi di aplikasi.\n\n● Pilih sewa mobil lepas kunci atau dengan supir.\n\n● Isi lokasi, waktu, dan durasi sewa yang diinginkan.\n\n● Pilih jenis mobil.Pastikan kamu membaca dan setuju dengan Rental Terms & Conditions serta Policy Conditions.\n\n● Pilih detail pengambilan mobil.Kamu bisa mengambil langsung ke tempat rental atau memilih untuk diantarkan ke tempatmu.\n\n● Pastikan kamu sudah mengisi dan mengupload data diri seperti seperti foto KTP dan SIM.\n\n● Periksa kembali pesananmu\n\n● Lakukan pembayaran"
-
-            },
-            {
-                "title": "Apakah saya harus memiliki SIM untuk menyewa mobil di Get & Ride?",
-                "content": "Untuk rental dan sewa mobil di Get & Ride, penyewa lepas kunci wajib untuk memiliki dan menunjukkan KTP/SIM A untuk wisatawan domestik dan SIM Internasional/Paspor untuk wisatawan non domestik. Pastikan juga seluruh dokumen asli, tidak mengatasnamakan orang lain, dan masih aktif."
-            },
-            {
-                "title": "Apakah ada batasan usia untuk menyewa mobil di Get & Ride?",
-                "content": "Penyewa wajib berusia diatas 17 tahun dan harus menunjukkan Identification Card (KTP)/SIM A atau SIM Internasional/Paspor yang masih aktif."
-            },
-            {
-                "title": "Apakah ada biaya tambahan yang harus dibayar saat mengambil atau mengembalikan mobil?",
-                "content": "Jika mengambil dan mengembalikan mobil sewa langsung di rental place, maka tidak dikenakan biaya apapun (gratis). Jika mobil sewa ingin dikirim dan dikembalikan di tempat penyewa (diluar rental place) maka akan dikenakan biaya tambahan tergantung jarak yang ditentukan."
-            },
-            {
-                "title": "Bagaimana cara mengubah / membatalkan booking mobil rental?",
-                "content": "Untuk pengajuan reschedule sewa mobil dapat menghubungi whatsapp kami di +62 81262511511. Pastikan kamu sudah memahami ketentuan refund dan reschedule yang sudah diinfokan. Jika kamu ingin mengetahui status reschedule tiket Sewa Mobil kamu, kamu dapat menghubungi Whatsapp kami untuk info yang lebih detail."
-            }
-        ]
-
+        },
+        "withDriver": {
+            "description_1": "Jika anda memilih sewa mobil \"Dengan Supir\" maka anda akan dialihkan ke Whatsapp",
+            "description_2": "Setelah anda memilih waktu dan tanggal, anda akan memilih mobil yang tersedia beserta driver",
+            "description_3": "Setelah anda memilih mobil, anda akan menerima invoice untuk sewa mobil anda"
+        },
+        "airportTransfer": {
+            "title": "Antar-jemput Bandara"
+        },
+        "tour": {
+            "title": "Wisata"
+        }
     },
     "list_car": {
         "header": "Pilih Tipe Mobil",
@@ -156,18 +146,19 @@
         "rentalGas": "Kembalikan bahan bakar seperti semula",
         "rentalTime": "Penggunaan hingga 24 jam per hari rental",
         "agreeState": "Saya menyetujui ketentuan yang berlaku",
-        "requirements": [
-            "SIM A/SIM Internasional",
-            "KTP/paspor",
-            "Nama Akun Media Sosial",
-            "Deposit Rp500.000"
-        ],
-        "policies": [
-            "Durasi penyewaan mobil per hari adalah 24 jam",
-            "Biaya overtime per jam 15% dari harga sewa",
-            "Harga sudah termasuk PPN",
-            "Belum termasuk BBM, Parkir, Tol dan Sopir"
-        ]
+        "rental_rules": "Peraturan Penyewaan",
+        "requirements": {
+            "list_1": "SIM A/SIM Internasional",
+            "list_2": "KTP/paspor",
+            "list_3": "Nama Akun Media Sosial",
+            "list_4": "Deposit Rp500.000"
+        },
+        "policies": {
+            "list_1": "Durasi penyewaan mobil per hari adalah 24 jam",
+            "list_2": "Biaya overtime per jam 15% dari harga sewa",
+            "list_3": "Harga sudah termasuk PPN",
+            "list_4": "Belum termasuk BBM, Parkir, Tol dan Sopir"
+        }
     },
     "priceTerm": {
         "handSanitizer": "Hand Sanitizer",
@@ -184,68 +175,54 @@
     "dailyRules": {
         "sebelum_pengambilan": {
             "title": "Sebelum Pengambilan",
-            "list": [
-                "Penyewa harus membagikan kepada penyedia foto SIM A atau SIM Internasional, serta KTP/Paspor mereka.",
-                "Penyewa harus membayar deposit sebesar Rp500.000 kepada penyedia sebelum rental dimulai melalui metode pembayaran yang tersedia.",
-                "Deposit akan dikembalikan paling lambat 7 hari setelah rental berakhir."
-            ]
+            "list_1": "Penyewa harus membagikan kepada penyedia foto SIM A atau SIM Internasional, serta KTP/Paspor mereka.",
+            "list_2": "Penyewa harus membayar deposit sebesar Rp500.000 kepada penyedia sebelum rental dimulai melalui metode pembayaran yang tersedia.",
+            "list_3": "Deposit akan dikembalikan paling lambat 7 hari setelah rental berakhir."
         },
         "saat_pengambilan": {
             "title": "Saat Pengambilan",
-            "list": [
-                "Penyewa harus menunjukkan KTP/SIM A atau SIM Internasional/Paspor yang berlaku.",
-                "Penyewa wajib berusia diatas 17 tahun.",
-                "Seluruh dokumen yang diberikan harus asli, tidak mengatasnamakan orang lain, dan sesuai dengan data yang terdaftar saat pemesanan di Get & Ride.",
-                "Penyewa harus memastikan kendaraan yang disewa digunakan dengan baik dan dikembalikkan dalam kondisi yang sama seperti semula."
-            ]
+            "list_1": "Penyewa harus menunjukkan KTP/SIM A atau SIM Internasional/Paspor yang berlaku.",
+            "list_2": "Penyewa wajib berusia diatas 17 tahun.",
+            "list_3": "Seluruh dokumen yang diberikan harus asli, tidak mengatasnamakan orang lain, dan sesuai dengan data yang terdaftar saat pemesanan di Get & Ride.",
+            "list_4": "Penyewa harus memastikan kendaraan yang disewa digunakan dengan baik dan dikembalikkan dalam kondisi yang sama seperti semula."
         },
         "penggunaan": {
             "title": "Kebijakan Rental Saat Sewa Mobil",
-            "list": [
-                "Kendaraan tidak diperbolehkan untuk dipindah tangankan ke pihak lain yang bukan terverifikasi oleh data Get & Ride. Pihak Get & Ride dapat mengambil paksa kendaraan apabila terjadi indikasi berikut.",
-                "Penyewa akan dikenakan biaya tambahan, apabila penjemputan dan pengembalian di luar zona yang tersedia",
-                "Penyewa diijinkan untuk membawa hewan peliharaan di dalam mobil tertentu. Pastikan hewan peliharaan tidak merusak atau mengotori fasilitas kendaraan di dalam mobil.",
-                "Penyewa tidak diperbolehkan membawa penumpang atau koper melebihi kapasitas ketentuan mobil yang disewa.",
-                "Penyewa bertanggung jawab untuk biaya penggantian atau perbaikkan jika terjadinya kehilangan atau kerusakkan terhadap STNK, kunci mobil, aksesoris, alat mobil, head unit, tools set, kursi mobil, aksesoris, alat mobil, goresan, noda, dan biaya lain yang timbul akibut kelalaian penyewa.",
-                "Penyewa bertanggung jawab atas semua denda parkir, lalu lintas, dan lainnya yang terjadi akibat pelanggaran hukum selama rental."
-            ]
+            "list_1": "Kendaraan tidak diperbolehkan untuk dipindah tangankan ke pihak lain yang bukan terverifikasi oleh data Get & Ride. Pihak Get & Ride dapat mengambil paksa kendaraan apabila terjadi indikasi berikut.",
+            "list_2": "Penyewa akan dikenakan biaya tambahan, apabila penjemputan dan pengembalian di luar zona yang tersedia",
+            "list_3": "Penyewa diijinkan untuk membawa hewan peliharaan di dalam mobil tertentu. Pastikan hewan peliharaan tidak merusak atau mengotori fasilitas kendaraan di dalam mobil.",
+            "list_4": "Penyewa tidak diperbolehkan membawa penumpang atau koper melebihi kapasitas ketentuan mobil yang disewa.",
+            "list_5": "Penyewa bertanggung jawab untuk biaya penggantian atau perbaikkan jika terjadinya kehilangan atau kerusakkan terhadap STNK, kunci mobil, aksesoris, alat mobil, head unit, tools set, kursi mobil, aksesoris, alat mobil, goresan, noda, dan biaya lain yang timbul akibut kelalaian penyewa.",
+            "list_6": "Penyewa bertanggung jawab atas semua denda parkir, lalu lintas, dan lainnya yang terjadi akibat pelanggaran hukum selama rental."
         },
         "pengembalian": {
             "title": "Kebijakkan Rental Setelah Selesai Sewa",
-            "list": [
-                "Penyedia berhak untuk tidak mengembalikkan deposit, jika mobil rusak atau jika penyewa melanggar hukum selama periode rental.",
-                "Penyedia tidak bertanggung jawab atas barang yang tertinggal di mobil setelah penyewa mengembaliikan mobil kepada penyedia rental.",
-                "Penyewa harus mengembalikan mobil dengan volume BBM yang sama saat mobil diterima (bar to bar).",
-                "Jika ada tilang elektronik pada saat masa sewa, penyedia rental akan mengembalikkan deposit dengan memotong senilai denda tilang elektronik tersebut.",
-                "Get & Ride tidak bertanggung jawab jika terjadinya kecelakaan, kerugian, dan pengobatan yang disebabkan dari kecelakaan tersebut."
-            ]
+            "list_1": "Penyedia berhak untuk tidak mengembalikkan deposit, jika mobil rusak atau jika penyewa melanggar hukum selama periode rental.",
+            "list_2": "Penyedia tidak bertanggung jawab atas barang yang tertinggal di mobil setelah penyewa mengembaliikan mobil kepada penyedia rental.",
+            "list_3": "Penyewa harus mengembalikan mobil dengan volume BBM yang sama saat mobil diterima (bar to bar).",
+            "list_4": "Jika ada tilang elektronik pada saat masa sewa, penyedia rental akan mengembalikkan deposit dengan memotong senilai denda tilang elektronik tersebut.",
+            "list_5": "Get & Ride tidak bertanggung jawab jika terjadinya kecelakaan, kerugian, dan pengobatan yang disebabkan dari kecelakaan tersebut."
         },
         "overtime": {
             "title": "Overtime",
-            "list": [
-                "Penggunaan lebih dari 24 jam per hari rental akan dikenakan biaya overtime.",
-                "Penyewa diberikan tambahan waktu kompensasi 1 (satu) jam, dan jika melebihi, penyewa akan dikenakan denda sebesar 10% per jam dari harga sewa, dengan batas maksimal 4 (empat) jam",
-                "Overtime yang melebihi 4 jam, akan dikenakan biaya satu hari rental"
-            ]
+            "list_1": "Penggunaan lebih dari 24 jam per hari rental akan dikenakan biaya overtime.",
+            "list_2": "Penyewa diberikan tambahan waktu kompensasi 1 (satu) jam, dan jika melebihi, penyewa akan dikenakan denda sebesar 10% per jam dari harga sewa, dengan batas maksimal 4 (empat) jam",
+            "list_3": "Overtime yang melebihi 4 jam, akan dikenakan biaya satu hari rental"
         },
         "asuransi": {
             "title": "Asuransi (belum ready)",
-            "list": [
-                "Jika terjadi kecelakaan, penyewa diwajibkan untuk menyerahkan kepada penyedia semua dokumen yang dibutuhkan oleh perusahan asuransi, termasuk namun tidak terbatas pada KTP/paspor dan SIM A mereka.",
-                "Penyewa wajib menanggung beban biaya Risiko Sendiri sebesar Rp350.000 untuk setiap kejadian kecelakan (per panel).",
-                "Penyewa wajib menanggung Biaya Risiko Kehilangan (Total Lost Risk) sebesar Rp500.000 jika mobil hilang.",
-                "Perselisihan antara pihak akan diselesaikan melalui musyawarah mufakat. Jika dalam waktu 30 hari para pihak belum mencapai mufakat, masalah akan diselesaikan di Pengadilan Negeri Jakarta Utara."
-            ]
+            "list_1": "Jika terjadi kecelakaan, penyewa diwajibkan untuk menyerahkan kepada penyedia semua dokumen yang dibutuhkan oleh perusahan asuransi, termasuk namun tidak terbatas pada KTP/paspor dan SIM A mereka.",
+            "list_2": "Penyewa wajib menanggung beban biaya Risiko Sendiri sebesar Rp350.000 untuk setiap kejadian kecelakan (per panel).",
+            "list_3": "Penyewa wajib menanggung Biaya Risiko Kehilangan (Total Lost Risk) sebesar Rp500.000 jika mobil hilang.",
+            "list_4": "Perselisihan antara pihak akan diselesaikan melalui musyawarah mufakat. Jika dalam waktu 30 hari para pihak belum mencapai mufakat, masalah akan diselesaikan di Pengadilan Negeri Jakarta Utara."
         },
         "refund": {
             "title": "Kebijakan Pembatalan & Pengembalian",
-            "list": [
-                "Pembatalan yang diajukan dalam waktu lebih dari 24 jam sebelum penjemputan akan mendapatkan pengembalian dana 100% dari total biaya rental.",
-                "Jika pembatalan diajukan dalam waktu 24 hingga 6 jam sebelum waktu jemput akan mendapatkan pengembalian dana 50% dari total biaya rental.",
-                "Pembatalan yang diajukan kurang dari 6 jam sebelum waktu penjemputan akan dikenakan biaya pembatalan 100% dari total biaya rental.",
-                "Proses refund/pengembalian dana tidak berlaku untuk harga sewa promo dan tipe kendaraan tertentu.",
-                "Pengembalian dana diproses maksimal 14 hari kerja setelah proses refund disetujui."
-            ]
+            "list_1": "Pembatalan yang diajukan dalam waktu lebih dari 24 jam sebelum penjemputan akan mendapatkan pengembalian dana 100% dari total biaya rental.",
+            "list_2": "Jika pembatalan diajukan dalam waktu 24 hingga 6 jam sebelum waktu jemput akan mendapatkan pengembalian dana 50% dari total biaya rental.",
+            "list_3": "Pembatalan yang diajukan kurang dari 6 jam sebelum waktu penjemputan akan dikenakan biaya pembatalan 100% dari total biaya rental.",
+            "list_4": "Proses refund/pengembalian dana tidak berlaku untuk harga sewa promo dan tipe kendaraan tertentu.",
+            "list_5": "Pengembalian dana diproses maksimal 14 hari kerja setelah proses refund disetujui."
         }
     },
     "global": {
@@ -319,6 +296,7 @@
         "header": "Pilih Metode Pembayaran"
     },
     "settings": {
+        "tabBarLabel": "Profil Saya",
         "profile": "Profil",
         "changePassword": "Ubah Password",
         "notification": "Notifikasi",
@@ -336,6 +314,7 @@
         "reminderDesc": "Notifikasi untuk penyewaan kamu"
     },
     "myBooking": {
+        "tabBarLabel": "Pemesanan Saya",
         "noOrder": "Belum ada pesanan",
         "noRental": "Belum ada riwayat penyewaan",
         "paymentMethod": "Metode Pembayaran",
@@ -354,5 +333,8 @@
         "startDate": "Tanggal Mulai Sewa",
         "endDate": "Tanggal Selesai Sewa",
         "totalPassenger": "Jumlah Penumpang"
+    },
+    "myInbox": {
+        "tabBarLabel": "Kotak Masuk Saya"
     }
 }
