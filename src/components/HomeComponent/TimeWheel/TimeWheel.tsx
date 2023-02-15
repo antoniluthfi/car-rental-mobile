@@ -66,7 +66,8 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
       sheetRef.current?.present();
       let _jam = form?.jam_sewa.slice(0, form.jam_sewa.length / 2);
       let _menit = form.jam_sewa.slice(-form.jam_sewa.length / 2);
-      const findIdxJam = JAM.findIndex(x => x === _jam);
+      console.log('real time = ', _jam, _menit);
+      const findIdxJam = JAM.findIndex(x => (parseInt(x) < 10 ? `0${x}` : x) === _jam);
       const findIdxMenit = MENIT.findIndex(x => x === _menit);
       console.log(findIdxJam, findIdxMenit);
       setActiveIndex({

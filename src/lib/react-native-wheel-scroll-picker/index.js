@@ -98,7 +98,24 @@ export default class ScrollPicker extends React.Component {
 
   renderItem(data, index) {
     const isSelected = index === this.state.selectedIndex;
-    const item = <Text style={isSelected ? this.props.activeItemTextStyle : this.props.itemTextStyle}>{data!=='-' ?data : ''}</Text>;
+    const item = <Text onPress={()=>{
+      
+
+      const h = this.props.itemHeight;
+      const verticalElem = index * h;
+      if (Platform.OS === 'ios') {
+        this.isScrollTo = true;
+      }
+      this.sview.scrollTo({y: this.props.dataSource[index] === '-' ? verticalElem - 60 : verticalElem});
+
+      // setTimeout(()=> {
+        this.props.onValueChange(data, index);
+        this.setState({
+          selectedIndex: this.props.dataSource[index] === '-' ? index - 1 : index,
+        });
+      // },10);
+
+    }} style={isSelected ? this.props.activeItemTextStyle : this.props.itemTextStyle}>{data!=='-' ?data : ''}</Text>;
 
     return (
       <SelectedItem key={index} itemHeight={this.props.itemHeight}>
@@ -152,6 +169,7 @@ export default class ScrollPicker extends React.Component {
   onScrollEndDrag(e) {
     this.props.onScrollEndDrag();
     this.dragStarted = false;
+    console.log('e.nativeEvent.contentOffset.y, = ', e.nativeEvent.contentOffset.y,);
     // if not used, event will be garbaged
     const element = {
       nativeEvent: {
@@ -169,7 +187,7 @@ export default class ScrollPicker extends React.Component {
           this.scrollFix(element, 'timeout');
         }
       },
-      10,
+      // 10,
     );
   }
 
@@ -197,7 +215,7 @@ export default class ScrollPicker extends React.Component {
       if (this.sview) {
         this.sview.scrollTo({y});
       }
-    }, 0);
+    }, 10);
   }
 }
 ScrollPicker.propTypes = {
