@@ -1,14 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  View,
-  Text,
-  ScrollView,
-  Dimensions,
-  Platform,
-} from 'react-native';
+import {View, Text, ScrollView, Dimensions, Platform} from 'react-native';
 import PropTypes from 'prop-types';
-import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
+import { debounce } from 'lodash';
 
 const Container = styled.View`
   height: ${props => props.wrapperHeight};
@@ -44,7 +39,7 @@ export default class ScrollPicker extends React.Component {
     this.onScrollEndDrag = this.onScrollEndDrag.bind(this);
     this.state = {
       selectedIndex: 0,
-    }
+    };
   }
 
   componentDidMount() {
@@ -62,15 +57,19 @@ export default class ScrollPicker extends React.Component {
   render() {
     const {header, footer} = this.renderPlaceHolder();
     return (
-      <Container wrapperHeight={this.props.wrapperHeight} wrapperWidth={this.props.wrapperWidth}
-                 wrapperBackground={this.props.wrapperBackground}>
-        <HighLightView highlightColor={this.props.highlightColor}
-                       highlightWidth={this.props.highlightWidth}
-                       wrapperHeight={this.props.wrapperHeight}
-                       itemHeight={this.props.itemHeight}
-                       highlightBorderWidth={this.props.highlightBorderWidth}/>
+      <Container
+        wrapperHeight={this.props.wrapperHeight}
+        wrapperWidth={this.props.wrapperWidth}
+        wrapperBackground={this.props.wrapperBackground}>
+        <HighLightView
+          highlightColor={this.props.highlightColor}
+          highlightWidth={this.props.highlightWidth}
+          wrapperHeight={this.props.wrapperHeight}
+          itemHeight={this.props.itemHeight}
+          highlightBorderWidth={this.props.highlightBorderWidth}
+        />
         <BottomSheetScrollView
-          ref={(sview) => {
+          ref={sview => {
             this.sview = sview;
           }}
           bounces={false}
@@ -79,7 +78,10 @@ export default class ScrollPicker extends React.Component {
           onMomentumScrollBegin={this.onMomentumScrollBegin}
           onMomentumScrollEnd={this.onMomentumScrollEnd}
           onScrollBeginDrag={this.onScrollBeginDrag}
-          onScrollEndDrag={this.onScrollEndDrag}
+          // scrollEventThrottle={26}
+          onScroll={this.handleScroll}
+          // onScrollEndDrag={this.onScrollEndDrag}
+          // onScrollAnimationEnd={(ev)=>}
         >
           {header}
           {this.props.dataSource.map(this.renderItem.bind(this))}
@@ -98,24 +100,35 @@ export default class ScrollPicker extends React.Component {
 
   renderItem(data, index) {
     const isSelected = index === this.state.selectedIndex;
-    const item = <Text onPress={()=>{
-      
+    const item = (
+      <Text
+        onPress={() => {
+          const h = this.props.itemHeight;
+          const verticalElem = index * h;
+          if (Platform.OS === 'ios') {
+            this.isScrollTo = true;
+          }
+          this.sview.scrollTo({
+            y:
+              this.props.dataSource[index] === '-'
+                ? verticalElem - 60
+                : verticalElem,
+          });
 
-      const h = this.props.itemHeight;
-      const verticalElem = index * h;
-      if (Platform.OS === 'ios') {
-        this.isScrollTo = true;
-      }
-      this.sview.scrollTo({y: this.props.dataSource[index] === '-' ? verticalElem - 60 : verticalElem});
-
-      // setTimeout(()=> {
-        this.props.onValueChange(data, index);
-        this.setState({
-          selectedIndex: this.props.dataSource[index] === '-' ? index - 1 : index,
-        });
-      // },10);
-
-    }} style={isSelected ? this.props.activeItemTextStyle : this.props.itemTextStyle}>{data!=='-' ?data : ''}</Text>;
+          // setTimeout(()=> {
+          this.props.onValueChange(data, index);
+          this.setState({
+            selectedIndex:
+              this.props.dataSource[index] === '-' ? index - 1 : index,
+          });
+          // },10);
+        }}
+        style={
+          isSelected ? this.props.activeItemTextStyle : this.props.itemTextStyle
+        }>
+        {data !== '-' ? data : ''}
+      </Text>
+    );
 
     return (
       <SelectedItem key={index} itemHeight={this.props.itemHeight}>
@@ -138,16 +151,23 @@ export default class ScrollPicker extends React.Component {
         this.isScrollTo = true;
       }
       if (this.sview) {
-        console.log('verticalElem = ', verticalElem);
+        // 
         this.sview.scrollTo({y: this.props.dataSource[selectedIndex] === '-' ? verticalElem - 60 : verticalElem});
       }
     }
     if (this.state.selectedIndex === selectedIndex) {
       return;
     }
-    console.log('selectedIndex = ', selectedIndex, this.props.dataSource[selectedIndex]);
+    // console.log(
+    //   'selectedIndex = ',
+    //   selectedIndex,
+    //   this.props.dataSource[selectedIndex],
+    // );
     this.setState({
-      selectedIndex: this.props.dataSource[selectedIndex] === '-' ? selectedIndex - 1 : selectedIndex,
+      selectedIndex:
+        this.props.dataSource[selectedIndex] === '-'
+          ? selectedIndex - 1
+          : selectedIndex,
     });
     // onValueChange
     if (this.props.onValueChange) {
@@ -169,7 +189,10 @@ export default class ScrollPicker extends React.Component {
   onScrollEndDrag(e) {
     this.props.onScrollEndDrag();
     this.dragStarted = false;
-    console.log('e.nativeEvent.contentOffset.y, = ', e.nativeEvent.contentOffset.y,);
+    // console.log(
+    //   'e.nativeEvent.contentOffset.y, = ',
+    //   e.nativeEvent.contentOffset.y,
+    // );
     // if not used, event will be garbaged
     const element = {
       nativeEvent: {
@@ -181,15 +204,44 @@ export default class ScrollPicker extends React.Component {
     if (this.timer) {
       clearTimeout(this.timer);
     }
-    this.timer = setTimeout(
-      () => {
-        if (!this.momentumStarted && !this.dragStarted) {
-          this.scrollFix(element, 'timeout');
-        }
-      },
-      // 10,
-    );
+    this.timer = setTimeout(() => {
+      if (!this.momentumStarted && !this.dragStarted) {
+        this.scrollFix(element, 'timeout');
+      }
+    }, 500);
   }
+
+  handleScroll = debounce(({ nativeEvent }) => {
+    const { contentOffset } = nativeEvent;
+    const { y: newScrollY } = contentOffset;
+    // setScrollY(newScrollY);
+    
+
+    this.props.onScrollEndDrag();
+    this.dragStarted = false;
+    console.log(
+      'e.nativeEvent.contentOffset.y, = ',
+      newScrollY,
+    );
+    // if not used, event will be garbaged
+    const element = {
+      nativeEvent: {
+        contentOffset: {
+          y: newScrollY,
+        },
+      },
+    };
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    this.timer = setTimeout(() => {
+      if (!this.momentumStarted && !this.dragStarted) {
+        this.scrollFix(element, 'timeout');
+      }
+    }, 50);
+
+  }, 100); // Debounce selama 16 milidetik
+
 
   onMomentumScrollBegin() {
     this.momentumStarted = true;
@@ -199,10 +251,15 @@ export default class ScrollPicker extends React.Component {
   }
 
   onMomentumScrollEnd(e) {
-    this.props.onMomentumScrollEnd();
-    this.momentumStarted = false;
-    if (!this.isScrollTo && !this.momentumStarted && !this.dragStarted) {
-      this.scrollFix(e);
+    try {
+      this.props.onMomentumScrollEnd();
+      this.momentumStarted = false;
+      
+      if (!this.isScrollTo && !this.momentumStarted && !this.dragStarted) {
+        this.scrollFix(e);
+      }
+    } catch (error) {
+      
     }
   }
 
@@ -245,10 +302,18 @@ ScrollPicker.defaultProps = {
   highlightWidth: deviceWidth,
   highlightBorderWidth: 2,
   highlightColor: '#333',
-  onMomentumScrollEnd: () => {
+  onMomentumScrollEnd: () => {},
+  onScrollEndDrag: () => {},
+  itemTextStyle: {
+    fontSize: 20,
+    lineHeight: 26,
+    textAlign: 'center',
+    color: '#B4B4B4',
   },
-  onScrollEndDrag: () => {
+  activeItemTextStyle: {
+    fontSize: 20,
+    lineHeight: 26,
+    textAlign: 'center',
+    color: '#222121',
   },
-  itemTextStyle: {fontSize: 20, lineHeight: 26, textAlign: 'center', color: '#B4B4B4'},
-  activeItemTextStyle: {fontSize: 20, lineHeight: 26, textAlign: 'center', color: '#222121'}
 };

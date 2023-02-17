@@ -26,6 +26,7 @@ import {
 import ReactNativeModernDatepicker, {
   getToday,
 } from 'react-native-modern-datepicker';
+import Wheel from './Wheel';
 
 type IForm = {
   location: ICities;
@@ -48,6 +49,7 @@ const WithoutDriverForm: React.FC = () => {
   const navigation = useNavigation();
   const appData = useAppSelector(appDataState);
   const {t} = useTranslation();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const [form, setForm] = useState<IForm>({
     location: {id: 0, name: ''},
@@ -338,6 +340,10 @@ const WithoutDriverForm: React.FC = () => {
     </View>
   );
 };
+
+const data = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9', 'Item 10'];
+const itemHeight = 50;
+const visibleItems = 3;
 
 export default WithoutDriverForm;
 

@@ -59,7 +59,7 @@ const CustomCarousel: React.FC<IProps> = ({
         autoPlay={autoPlay}
         data={data}
         scrollAnimationDuration={scrollAnimationDuration}
-        onSnapToItem={index => console.log('current index:', index)}
+        // onSnapToItem={index => console.log('current index:', index)}
         onProgressChange={(_, absoluteProgress) =>
           (progressValue.value = absoluteProgress)
         }
