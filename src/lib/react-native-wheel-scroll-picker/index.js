@@ -3,7 +3,20 @@ import styled from 'styled-components';
 import {View, Text, ScrollView, Dimensions, Platform} from 'react-native';
 import PropTypes from 'prop-types';
 import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
-import { debounce } from 'lodash';
+
+function customDebounce(func, wait) {
+  let timeout;
+
+  return function executedFunction(...args) {
+    const later = () => {
+      timeout = null;
+      func(...args);
+    };
+
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
 
 const Container = styled.View`
   height: ${props => props.wrapperHeight};
@@ -211,7 +224,7 @@ export default class ScrollPicker extends React.Component {
     }, 500);
   }
 
-  handleScroll = debounce(({ nativeEvent }) => {
+  handleScroll = customDebounce(({ nativeEvent }) => {
     const { contentOffset } = nativeEvent;
     const { y: newScrollY } = contentOffset;
     // setScrollY(newScrollY);

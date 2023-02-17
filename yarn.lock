@@ -9406,26 +9406,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-wheel-scroll-picker@npm:^0.2.4":
-  version: 0.2.4
-  resolution: "react-native-wheel-scroll-picker@npm:0.2.4"
-  checksum: 54f4d7b61d2fc3accdfabdc5560d20567e24de995800b846ea9c57beb391f3c5bd46147b284f6e33f023286df9e5fd3db2658150a47d71f441eb6922b948c3bc
-  languageName: node
-  linkType: hard
-
-"react-native-wheel-scrollview-picker@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "react-native-wheel-scrollview-picker@npm:2.0.1"
-  peerDependencies:
-    "@types/react": "*"
-    "@types/react-native": "*"
-    react: "*"
-    react-native: "*"
-    typescript: "*"
-  checksum: 778cf8463cf552fd7d4473850455546a91d8455ffc1c78b0631dad353275dd39020429a8a18dbea971c699526f3af7984f6a7ec84e200814c1e349f57e9659c0
-  languageName: node
-  linkType: hard
-
 "react-native@npm:0.70.3":
   version: 0.70.3
   resolution: "react-native@npm:0.70.3"
@@ -9783,7 +9763,6 @@ __metadata:
     eslint: ^7.32.0
     i18next: ^22.4.9
     jest: ^26.6.3
-    lodash: ^4.17.21
     metro-react-native-babel-preset: 0.72.3
     moment: ^2.29.4
     react: 18.1.0
@@ -9808,8 +9787,6 @@ __metadata:
     react-native-screens: ^3.18.2
     react-native-svg: ^13.6.0
     react-native-vector-icons: ^9.2.0
-    react-native-wheel-scroll-picker: ^0.2.4
-    react-native-wheel-scrollview-picker: ^2.0.1
     react-redux: ^8.0.4
     react-test-renderer: 18.1.0
     redux-persist: ^6.0.0
