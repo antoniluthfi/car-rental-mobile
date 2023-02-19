@@ -22,6 +22,7 @@ import {RootStackParamList} from 'types/navigator';
 import {currencyFormat} from 'utils/currencyFormat';
 import { showToast } from 'utils/Toast';
 import { Clipboard } from '@react-native-clipboard/clipboard/dist/Clipboard';
+import { useTranslation } from 'react-i18next';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
@@ -35,6 +36,7 @@ type BankTransferScreenRouteProp = RouteProp<
 >;
 
 const BankTransferScreen = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const route = useRoute<BankTransferScreenRouteProp>();
 
@@ -88,9 +90,9 @@ const BankTransferScreen = () => {
     copyText: (text: string) => {
       Clipboard.setString(text);
       showToast({
-        title: 'Berhasil',
+        title: t('global.alert.success'),
         type: 'success',
-        message: 'berhasil menyalin teks',
+        message: t('global.alert.success_copy_text'),
       });
     },
   };

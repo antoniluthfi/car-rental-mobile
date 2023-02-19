@@ -1,9 +1,10 @@
-import {apiWithInterceptor} from '../../../utils/interceptorV2';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {IResponApi} from 'types/global.types';
-import {showToast} from 'utils/Toast';
-import {IResponVehicles} from 'types/vehicles';
-import {IParamOrder} from 'types/order';
+import i18n from 'i18next';
+import { apiWithInterceptor } from '../../../utils/interceptorV2';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IParamOrder } from 'types/order';
+import { IResponApi } from 'types/global.types';
+import { IResponVehicles } from 'types/vehicles';
+import { showToast } from 'utils/Toast';
 
 export const getSummaryOrder = createAsyncThunk(
   'appData/getSummaryOrder',
@@ -20,8 +21,9 @@ export const getSummaryOrder = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message:
+          error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -46,8 +48,9 @@ export const createOrder = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message:
+          error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -68,8 +71,9 @@ export const postDisbursements = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message:
+          error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -98,8 +102,9 @@ export const createDisbursements = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message:
+          error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -135,8 +140,9 @@ export const cancelOrder = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message:
+          error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);

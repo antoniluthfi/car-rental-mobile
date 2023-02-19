@@ -3,6 +3,7 @@ import {h2, h5} from 'utils/styles';
 import {showToast} from 'utils/Toast';
 import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
 import {
   View,
   Text,
@@ -26,6 +27,7 @@ const ImagePickerModal: React.FC<IProps> = ({
   onCameraChange,
   onImageLibraryChange,
 }) => {
+  const {t} = useTranslation();
   const dispatch = useAppDispatch();
 
   const onOpenCamera = async () => {
@@ -59,9 +61,9 @@ const ImagePickerModal: React.FC<IProps> = ({
       }
     } catch (error: any) {
       showToast({
-        title: 'Gagal',
+        title: t('global.alert.failed'),
         type: 'error',
-        message: error?.message || 'Terjadi kesalahan',
+        message: error?.message || t('global.alert.error_occurred'),
       });
     }
   };
@@ -82,9 +84,9 @@ const ImagePickerModal: React.FC<IProps> = ({
       }
     } catch (error: any) {
       showToast({
-        title: 'Gagal',
+        title: t('global.alert.failed'),
         type: 'error',
-        message: error?.message || 'Terjadi kesalahan',
+        message: error?.message || t('global.alert.error_occurred'),
       });
     }
   };

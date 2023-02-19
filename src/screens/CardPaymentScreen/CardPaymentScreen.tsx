@@ -1,3 +1,25 @@
+import appBar from 'components/AppBar/AppBar';
+import axios from 'axios';
+import Button from 'components/Button';
+import hoc from 'components/hoc';
+import React, {useEffect, useRef, useState} from 'react';
+import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
+import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
+import TextInputName from 'components/TextInputName/TextInputName';
+import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
+import {API_MIDTRANS, MIDTRANS_CLIENT} from '@env';
+import {createDisbursements} from 'redux/features/order/orderAPI';
+import {h1, h2, h3, h4, h5} from 'utils/styles';
+import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import {orderState} from 'redux/features/order/orderSlice';
+import {RootStackParamList} from 'types/navigator';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {showBSheet} from 'utils/BSheet';
+import {showToast} from 'utils/Toast';
+import {theme} from 'utils';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
+import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {
   Image,
   Linking,
@@ -7,11 +29,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import hoc from 'components/hoc';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
 import {
   ic_american_express,
   ic_arrow_left_white,
@@ -21,22 +38,6 @@ import {
   ic_shield,
   ic_visa,
 } from 'assets/icons';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
-import {theme} from 'utils';
-import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
-import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
-import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
-import Button from 'components/Button';
-import {showToast} from 'utils/Toast';
-import {showBSheet} from 'utils/BSheet';
-import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
-import axios from 'axios';
-import {API_MIDTRANS, MIDTRANS_CLIENT} from '@env';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {createDisbursements} from 'redux/features/order/orderAPI';
-import {orderState} from 'redux/features/order/orderSlice';
-import {RootStackParamList} from 'types/navigator';
-import TextInputName from 'components/TextInputName/TextInputName';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
@@ -52,6 +53,7 @@ interface IForm {
 }
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'CardPayment'>;
 const CardPaymentScreen = () => {
+  const {t} = useTranslation();
   const route = useRoute<ProfileScreenRouteProp>();
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
@@ -143,7 +145,7 @@ const CardPaymentScreen = () => {
             message:
               data.data.validation_messages?.toString() ||
               data.data.status_message,
-            title: 'Error',
+            title: t('global.alert.error'),
             type: 'error',
           });
           return;

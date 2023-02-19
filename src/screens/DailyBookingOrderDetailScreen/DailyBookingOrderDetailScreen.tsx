@@ -461,14 +461,11 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
                   console.log('res = ', res);
                   if (res?.type.includes('fulfilled')) {
                     setShowModalSuccess(true);
-                    // navigation.goBack();
-                    // bottomSheetRef.current?.close();
-                    // dispatch(getOrders());
                     return;
                   }
                   showToast({
-                    message: 'Pembatalan gagal',
-                    title: 'Terjadi Kesalahan',
+                    message: t('global.alert.cancellation_failed'),
+                    title: t('global.alert.error_occurred'),
                     type: 'warning',
                   });
                 }}

@@ -1,6 +1,6 @@
 {
     "Account": {
-        "header": "Profil Ku",
+        "header": "Profil Saya",
         "menu_1": "Profil",
         "menu_2": "Ubah Password",
         "menu_3": "Notifikasi"
@@ -247,7 +247,23 @@
             "orderDetail": "Detail Pesanan"
         },
         "alert": {
-            "payment_confirm": "Apakah anda yakin melanjutkan Pembayaran ini?"
+            "payment_confirm": "Apakah anda yakin melanjutkan Pembayaran ini?",
+            "success": "Berhasil",
+            "failed": "Gagal",
+            "error": "Kesalahan",
+            "warning": "Peringatan",
+            "success_change_profile_picture": "Berhasil mengubah foto profil",
+            "success_change_profile_data": "Berhasil mengubah data profil",
+            "error_occurred": "Terjadi kesalahan",
+            "success_copy_text": "Berhasil menyalin teks",
+            "success_change_password": "Berhasil mengubah kata sandi",
+            "success_change_notification": "Berhasil mengubah notifikasi",
+            "success_change_password_login_again": "Berhasil mengubah kata sandi, silakan login kembali",
+            "success_upload_proof_payment": "Berhasil mengunggah bukti pembayaran",
+            "cancellation_failed": "Pembatalan gagal",
+            "password_and_confirmation_password_do_not_match": "Kata sandi baru dan Konfirmasi kata sandi tidak sesuai",
+            "password_length": "Kata sandi minimal 8 karakter dan terdiri dari angka dan juga huruf",
+            "please_login_to_continue": "Silakan login terlebih dahulu untuk melanjutkan!"
         }
     },
     "detail_order": {

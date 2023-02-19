@@ -85,9 +85,9 @@ const AccountScreen: React.FC = () => {
       dispatch(editUser(formData)).then(() => {
         dispatch(toggleBSheet(false));
         showToast({
-          title: 'Berhasil',
+          title: t('global.alert.success'),
           type: 'success',
-          message: 'Berhasil mengubah foto profil',
+          message: t('global.alert.success_change_profile_picture'),
         });
         dispatch(getUser());
       });

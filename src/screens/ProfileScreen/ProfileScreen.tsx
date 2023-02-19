@@ -195,9 +195,9 @@ const ProfileScreen: React.FC = () => {
   useEffect(() => {
     if (user.isUpdateSuccess) {
       showToast({
-        title: 'Berhasil',
+        title: t('global.alert.success'),
         type: 'success',
-        message: 'Berhasil Mengedit Data Profil',
+        message: t('global.alert.success_change_profile_data'),
       });
 
       dispatch(toggleBSheet(false));

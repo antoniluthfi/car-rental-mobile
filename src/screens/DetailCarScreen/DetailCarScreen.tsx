@@ -426,9 +426,9 @@ const DetailCarScreen: FC = () => {
             onPress={() => {
               if (!auth?.access_token) {
                 showToast({
-                  message: 'Please Login first to continue!',
+                  message: t('global.alert.please_login_to_continue'),
                   type: 'error',
-                  title: 'Error',
+                  title: t('global.alert.error'),
                 });
                 dispatch(logout());
                 return;

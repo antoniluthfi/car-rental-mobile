@@ -1,13 +1,14 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import i18n from 'i18next';
+import { apiWithInterceptor } from 'utils/interceptorV2';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IResponApi } from 'types/global.types';
+import { showToast } from 'utils/Toast';
 import {
   IParamForgotPasswordRequest,
   IParamsResetPassword,
   IResultForgotPasswordRequest,
   IResultResetPassword,
 } from 'types/forgot-password.types';
-import {IResponApi} from 'types/global.types';
-import {apiWithInterceptor} from 'utils/interceptorV2';
-import {showToast} from 'utils/Toast';
 
 export const forgotPasswordRequest = createAsyncThunk(
   'forgotPassword/forgotPasswordRequest',
@@ -25,8 +26,8 @@ export const forgotPasswordRequest = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data.slug) as any;
@@ -54,8 +55,8 @@ export const forgotPasswordConfirmation = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data.slug);
@@ -87,8 +88,8 @@ export const forgotPasswordReset = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data.slug) as any;

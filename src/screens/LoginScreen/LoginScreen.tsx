@@ -22,6 +22,7 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {authLogin} from 'redux/features/auth/authAPI';
 import {toggleLoader} from 'redux/features/utils/utilsSlice';
 import {showToast} from 'utils/Toast';
+import { useTranslation } from 'react-i18next';
 // import {toggleLoader} from 'redux/features/loader/loaderSlice';
 
 interface IErrorMessage {
@@ -30,15 +31,13 @@ interface IErrorMessage {
 }
 
 const LoginScreen: FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  //   const auth = useAppSelector(authSlice);
 
   const [form, setForm] = useState<IParamLogin>({
     email: 'sumaalbaroh1892@gmail.com',
     password: '12345678abc',
-    // email: '',
-    // password: '',
   });
   const [formError, setFormError] = useState<IErrorMessage>({
     error_email: '',
@@ -71,18 +70,13 @@ const LoginScreen: FC = () => {
           setTimeout(async () => {
             await dispatch(authLogin(form));
             dispatch(toggleLoader(false));
-            // showToast({
-            //   message: 'Login Berhasil',
-            //   title: 'Sukses',
-            //   type: 'success',
-            // });
           }, 1500);
         }
       } catch (error) {
         dispatch(toggleLoader(false));
         showToast({
-          message: 'Terjadi kesalahan',
-          title: 'Warning',
+          message: t("global.alert.error_occurred"),
+          title: t("global.alert.warning"),
           type: 'error',
         });
       }

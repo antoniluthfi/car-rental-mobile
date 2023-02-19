@@ -84,9 +84,9 @@ const VirtualAccountScreen = () => {
     copyText: () => {
       Clipboard.setString(bookingDetail?.disbursement?.va_number as any);
       showToast({
-        title: 'Berhasil',
+        title: t('global.alert.success'),
         type: 'success',
-        message: 'berhasil menyalin teks',
+        message: t('global.alert.success_copy_text'),
       });
     },
     getPaymentLabel: () => {
@@ -144,7 +144,7 @@ const VirtualAccountScreen = () => {
     const remainingSeconds = totalSeconds - fifteenMinutesInSeconds;
 
     console.log('time scnd = ', remainingSeconds?.toFixed());
-    setTimeLeft(remainingSeconds.toFixed());
+    setTimeLeft(remainingSeconds.toFixed() as any);
   }, [navigation]);
 
   useEffect(() => {

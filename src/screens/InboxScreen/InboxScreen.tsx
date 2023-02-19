@@ -1,3 +1,16 @@
+import appBar from 'components/AppBar/AppBar';
+import DataNotFound from 'components/DataNotFound/DataNotFound';
+import hoc from 'components/hoc';
+import MyInboxCard from 'components/MyInboxComponent/MyInboxCard/MyInboxCard';
+import React, {useEffect, useState} from 'react';
+import {getInboxes} from 'redux/features/inbox/myInboxAPI';
+import {h1} from 'utils/styles';
+import {ic_arrow_left_white} from 'assets/icons';
+import {inboxState, setPage} from 'redux/features/inbox/myInboxSlice';
+import {rowCenter} from 'utils/mixins';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Text,
@@ -6,18 +19,6 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import hoc from 'components/hoc';
-import {useNavigation} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
-import {rowCenter} from 'utils/mixins';
-import {ic_arrow_left_white} from 'assets/icons';
-import {h1} from 'utils/styles';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {inboxState, setPage} from 'redux/features/inbox/myInboxSlice';
-import {getInboxes} from 'redux/features/inbox/myInboxAPI';
-import MyInboxCard from 'components/MyInboxComponent/MyInboxCard/MyInboxCard';
-import DataNotFound from 'components/DataNotFound/DataNotFound';
 
 const NOTIFICATION_LIST = [
   {
@@ -52,6 +53,7 @@ const NOTIFICATION_LIST = [
 ];
 
 const MyBooking: React.FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const inbox = useAppSelector(inboxState);
@@ -94,7 +96,9 @@ const MyBooking: React.FC = () => {
                 marginLeft: 16,
               }}
             />
-            <Text style={[h1, {color: 'white', marginLeft: 10}]}>My Inbox</Text>
+            <Text style={[h1, {color: 'white', marginLeft: 10}]}>
+              {t('myInbox.tabBarLabel')}
+            </Text>
           </TouchableOpacity>
         ),
       }),

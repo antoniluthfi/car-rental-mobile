@@ -247,7 +247,23 @@
             "orderDetail": "Order Detail"
         },
         "alert": {
-            "payment_confirm": "Are you sure to proceed with this Payment?"
+            "payment_confirm": "Are you sure to proceed with this Payment?",
+            "success": "Success",
+            "failed": "Failed",
+            "error": "Error",
+            "warning": "Warning",
+            "success_change_profile_picture": "Successfully change profile picture",
+            "success_change_profile_data": "Successfully change profile data",
+            "error_occurred": "Error occurred",
+            "success_copy_text": "Successfully copy the text",
+            "success_change_password": "Successfully changed the password",
+            "success_change_notification": "Successfully changed the notification",
+            "success_change_password_login_again": "Successfully changed the password, please login again",
+            "success_upload_proof_payment": "Successfully upload proof of payment",
+            "cancellation_failed": "Cancellation failed",
+            "password_and_confirmation_password_do_not_match": "New password and Confirm password do not match",
+            "password_length": "The password must be at least 8 characters long and consist of both numbers and letters.",
+            "please_login_to_continue": "Please login first to continue!"
         }
     },
     "detail_order": {
