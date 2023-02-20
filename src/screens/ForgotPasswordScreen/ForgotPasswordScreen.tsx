@@ -1,21 +1,22 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {FC, useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
-import hoc from 'components/hoc';
-import {container} from 'utils/mixins';
-import {h1, h3} from 'utils/styles';
-import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
-import {theme} from 'utils';
-import CustomTextInput from 'components/TextInput';
 import Button from 'components/Button';
-import {useAppDispatch} from 'redux/hooks';
-import {toggleLoader} from 'redux/features/utils/utilsSlice';
-import {showToast} from 'utils/Toast';
-import {IParamForgotPasswordRequest} from 'types/forgot-password.types';
+import CustomTextInput from 'components/TextInput';
+import hoc from 'components/hoc';
+import React, {FC, useEffect, useState} from 'react';
+import {container} from 'utils/mixins';
+import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
 import {forgotPasswordRequest} from 'redux/features/forgotPassword/forgotPasswordAPI';
-import {useSelector} from 'react-redux';
+import {h1, h3} from 'utils/styles';
+import {IParamForgotPasswordRequest} from 'types/forgot-password.types';
 import {RootState} from 'redux/store';
+import {showToast} from 'utils/Toast';
+import {StyleSheet, Text, View} from 'react-native';
+import {theme} from 'utils';
+import {toggleLoader} from 'redux/features/utils/utilsSlice';
+import {useAppDispatch} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 // import {toggleLoader} from 'redux/features/loader/loaderSlice';
 
 interface IErrorMessage {
@@ -23,6 +24,7 @@ interface IErrorMessage {
 }
 
 const ForgotPasswordScreen: FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const forgotPasswordState = useSelector(
@@ -65,8 +67,8 @@ const ForgotPasswordScreen: FC = () => {
       } catch (error) {
         dispatch(toggleLoader(false));
         showToast({
-          message: 'Terjadi kesalahan',
-          title: 'Warning',
+          message: t('global.alert.error_occurred'),
+          title: t('global.alert.warning'),
           type: 'error',
         });
       }
@@ -75,13 +77,15 @@ const ForgotPasswordScreen: FC = () => {
 
   return (
     <View style={[container]}>
-      <Text style={[h1, styles.textHeader]}>Lupa Password</Text>
+      <Text style={[h1, styles.textHeader]}>
+        {t('forgot_password.forgot_password')}
+      </Text>
       <Text style={[h3, styles.textDesc]}>
-        Masukan email anda untuk reset password
+        {t('forgot_password.enter_email_to_reset_password')}
       </Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
-          placeholder="Masukan Email"
+          placeholder={t('forgot_password.enter_email')}
           title="Email"
           onChangeText={v => {
             setForm({...form, email: v});
@@ -95,7 +99,7 @@ const ForgotPasswordScreen: FC = () => {
       </View>
       <Button
         _theme="navy"
-        title="Kirim Email"
+        title={t('global.button.send_email')}
         styleWrapper={{marginTop: 40}}
         onPress={methods.handleSendEmail}
       />

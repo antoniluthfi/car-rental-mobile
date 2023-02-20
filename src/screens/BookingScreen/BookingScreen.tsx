@@ -1,17 +1,19 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, { useEffect } from 'react';
-import hoc from 'components/hoc';
-import BookingTopNavigation from 'components/MyBookingComponent/BookingTopNavigation';
 import appBar from 'components/AppBar/AppBar';
-import { useNavigation } from '@react-navigation/native';
-import { rowCenter } from 'utils/mixins';
-import { ic_arrow_left_white } from 'assets/icons';
-import { h1 } from 'utils/styles';
-import { useAppDispatch } from 'redux/hooks';
-import { getAllGarages } from 'redux/features/garages/garagesAPI';
-import { resetDisbursementStatus } from 'redux/features/order/orderSlice';
+import BookingTopNavigation from 'components/MyBookingComponent/BookingTopNavigation';
+import hoc from 'components/hoc';
+import React, {useEffect} from 'react';
+import {getAllGarages} from 'redux/features/garages/garagesAPI';
+import {h1} from 'utils/styles';
+import {ic_arrow_left_white} from 'assets/icons';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {resetDisbursementStatus} from 'redux/features/order/orderSlice';
+import {rowCenter} from 'utils/mixins';
+import {useAppDispatch} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 const MyBooking: React.FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -31,7 +33,7 @@ const MyBooking: React.FC = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              My Booking
+              {t('myBooking.tabBarLabel')}
             </Text>
           </TouchableOpacity>
         ),
@@ -57,5 +59,5 @@ export default hoc(MyBooking);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  }
-})
+  },
+});

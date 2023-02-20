@@ -1,17 +1,21 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {FC, useEffect, useState} from 'react';
-import OtpInputs from 'react-native-otp-inputs';
-import {theme} from 'utils';
-import {h1, h5} from 'utils/styles';
 import Button from 'components/Button';
+import OtpInputs from 'react-native-otp-inputs';
+import React, {FC, useEffect, useState} from 'react';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {
+  authRegister,
+  authRegisterConfirmation,
+} from 'redux/features/auth/authAPI';
+import {authState} from 'redux/features/auth/authSlice';
+import {h1, h5} from 'utils/styles';
+import {StyleSheet, Text, View} from 'react-native';
+import {theme} from 'utils';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {authRegister, authRegisterConfirmation} from 'redux/features/auth/authAPI';
-import { authState } from 'redux/features/auth/authSlice';
-import { appDataState } from 'redux/features/appData/appDataSlice';
+import {useTranslation} from 'react-i18next';
 const TIMER = 299;
-// const TIMER = 5;
 
 const inputOtp: FC = () => {
+  const {t} = useTranslation();
   const [seconds, setSeconds] = useState(TIMER);
   const userData = useAppSelector(appDataState).userData;
   const dispatch = useAppDispatch();
@@ -30,22 +34,24 @@ const inputOtp: FC = () => {
       setSeconds(TIMER);
       dispatch(authRegister(userData));
     },
-    secondsToHms:(d: any)=> {
+    secondsToHms: (d: any) => {
       d = Number(d);
       const m = Math.floor((d % 3600) / 60);
       const s = Math.floor((d % 3600) % 60);
-  
+
       const mDisplay = m > 0 ? m : '0';
       const sDisplay = s > 0 ? s : '0';
       return '0' + mDisplay + ':' + (sDisplay > 9 ? sDisplay : '0' + sDisplay);
     },
-    handleConfirmationOTp:async()=> {
+    handleConfirmationOTp: async () => {
       // console.log(token)
-      await dispatch(authRegisterConfirmation({
-        session: token.session,
-        token: token.token,
-      }));
-    }
+      await dispatch(
+        authRegisterConfirmation({
+          session: token.session,
+          token: token.token,
+        }),
+      );
+    },
   };
 
   return (
@@ -59,13 +65,15 @@ const inputOtp: FC = () => {
         inputContainerStyles={styles.inputContainerStyles}
       />
       {seconds !== 0 && (
-        <Text style={[h1, styles.textTime]}>({methods.secondsToHms(seconds)})</Text>
+        <Text style={[h1, styles.textTime]}>
+          ({methods.secondsToHms(seconds)})
+        </Text>
       )}
       {seconds === 0 && (
         <Text style={[h5, styles.textResend2]}>
-          Belum menerima OTP?{' '}
+          {t('register.have_not_received_otp')}{' '}
           <Text style={styles.textResend} onPress={methods.resendOtp}>
-            Kirim Ulang
+            {t('register.resend')}
           </Text>
         </Text>
       )}

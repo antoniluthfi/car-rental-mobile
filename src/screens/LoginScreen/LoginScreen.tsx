@@ -22,6 +22,7 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {authLogin} from 'redux/features/auth/authAPI';
 import {toggleLoader} from 'redux/features/utils/utilsSlice';
 import {showToast} from 'utils/Toast';
+import {useTranslation} from 'react-i18next';
 // import {toggleLoader} from 'redux/features/loader/loaderSlice';
 
 interface IErrorMessage {
@@ -30,15 +31,13 @@ interface IErrorMessage {
 }
 
 const LoginScreen: FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  //   const auth = useAppSelector(authSlice);
 
   const [form, setForm] = useState<IParamLogin>({
     email: 'sumaalbaroh1892@gmail.com',
     password: '12345678abc',
-    // email: '',
-    // password: '',
   });
   const [formError, setFormError] = useState<IErrorMessage>({
     error_email: '',
@@ -71,18 +70,13 @@ const LoginScreen: FC = () => {
           setTimeout(async () => {
             await dispatch(authLogin(form));
             dispatch(toggleLoader(false));
-            // showToast({
-            //   message: 'Login Berhasil',
-            //   title: 'Sukses',
-            //   type: 'success',
-            // });
           }, 1500);
         }
       } catch (error) {
         dispatch(toggleLoader(false));
         showToast({
-          message: 'Terjadi kesalahan',
-          title: 'Warning',
+          message: t('global.alert.error_occurred'),
+          title: t('global.alert.warning'),
           type: 'error',
         });
       }
@@ -91,13 +85,13 @@ const LoginScreen: FC = () => {
 
   return (
     <View style={[container]}>
-      <Text style={[h1, styles.textHeader]}>Masuk</Text>
+      <Text style={[h1, styles.textHeader]}>{t('auth.sign_in')}</Text>
       <Text style={[h3, styles.textDesc]}>
-        Masukan Email untuk login ke Get & Ride
+        {t('auth.enter_email_to_login')}
       </Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
-          placeholder="Masukan Email"
+          placeholder={t('forgot_password.enter_email')}
           title="Email"
           onChangeText={v => {
             setForm({...form, email: v});
@@ -110,8 +104,8 @@ const LoginScreen: FC = () => {
         <View style={{marginTop: 18}} />
 
         <CustomTextInput
-          placeholder="Masukan Password anda"
-          title="Password"
+          placeholder={t('auth.enter_your_password')}
+          title={t('Account.password') as any}
           secureTextEntry
           onChangeText={v => {
             setForm({...form, password: v});
@@ -121,17 +115,19 @@ const LoginScreen: FC = () => {
           errorMessage={formError.error_password}
         />
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={[h2, styles.textFPass]}>Lupa Password?</Text>
+          <Text style={[h2, styles.textFPass]}>
+            {t('forgot_password.forgot_password')}?
+          </Text>
         </TouchableOpacity>
       </View>
       <Button
         _theme="navy"
-        title="Login"
+        title={t('global.button.login')}
         styleWrapper={{marginTop: 40}}
         onPress={methods.handleLogin}
       />
       <Text style={[h3, styles.textDesc, styles.textOpsiLogin]}>
-        Atau login menggunakan
+        {t('auth.or_login_using')}
       </Text>
       <View style={[rowCenter, styles.iconWrapper]}>
         <Image source={ic_google} style={iconSize} />
@@ -139,11 +135,11 @@ const LoginScreen: FC = () => {
         <Image source={ic_apple} style={iconSize} />
       </View>
       <Text style={[h2, styles.textRegister]}>
-        Belum punya akun?{' '}
+        {t('auth.do_not_have_an_account')}?{' '}
         <Text
           style={styles.textRegister2}
           onPress={() => navigation.navigate('Register')}>
-          Daftar Sekarang
+          {t('auth.sign_up_now')}
         </Text>
       </Text>
     </View>

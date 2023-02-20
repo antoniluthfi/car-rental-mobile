@@ -1,5 +1,20 @@
+import React, {
+  FC,
+  Fragment,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {getPayments} from 'redux/features/appData/appDataAPI';
+import {h1, h5} from 'utils/styles';
 import {ic_arrow_down, ic_info_error} from 'assets/icons';
-import React, {FC, ReactElement, useRef, useState, Fragment, useEffect} from 'react';
+import {iconCustomSize, rowCenter} from 'utils/mixins';
+import {IPayments} from 'types/global.types';
+import {theme} from 'utils';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
 import {
   FlatList,
   StyleSheet,
@@ -10,13 +25,6 @@ import {
   Image,
   ViewStyle,
 } from 'react-native';
-import { getPayments } from 'redux/features/appData/appDataAPI';
-import {appDataState} from 'redux/features/appData/appDataSlice';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import { IPayments } from 'types/global.types';
-import {theme} from 'utils';
-import {iconCustomSize, rowCenter} from 'utils/mixins';
-import {h1, h5} from 'utils/styles';
 
 interface IProps {
   onSelect: (item: IPayments) => void;
@@ -25,7 +33,13 @@ interface IProps {
   styleDropdown?: ViewStyle;
 }
 
-const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage, styleDropdown}) => {
+const DropdownBank: FC<IProps> = ({
+  onSelect,
+  selected,
+  errorMessage,
+  styleDropdown,
+}) => {
+  const {t} = useTranslation();
   const dispatch = useAppDispatch();
   const paymentMethods = useAppSelector(appDataState).payments;
   const DropdownButton: any = useRef();
@@ -67,12 +81,12 @@ const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage, styleDropdo
   );
 
   useEffect(() => {
-    dispatch(getPayments())
+    dispatch(getPayments());
   }, []);
 
   return (
     <Fragment>
-      <Text style={[h1, {fontSize: 12}]}>Nama Bank</Text>
+      <Text style={[h1, {fontSize: 12}]}>{t('global.bank_name')}</Text>
       <View style={[styles.wrapper, styleDropdown]}>
         <TouchableOpacity
           ref={DropdownButton}
@@ -85,7 +99,6 @@ const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage, styleDropdo
               paddingVertical: 5,
               justifyContent: 'space-between',
             },
-            
           ]}
           onPress={toggleDropdown}>
           <Text
@@ -93,7 +106,7 @@ const DropdownBank: FC<IProps> = ({onSelect, selected, errorMessage, styleDropdo
               h5,
               {fontSize: 14, marginLeft: 10, color: theme.colors.grey3},
             ]}>
-            {selected || 'Pilih Bank Anda'}
+            {selected || t('global.choose_your_bank')}
           </Text>
           <Image source={ic_arrow_down} style={styles.arrowImage} />
         </TouchableOpacity>

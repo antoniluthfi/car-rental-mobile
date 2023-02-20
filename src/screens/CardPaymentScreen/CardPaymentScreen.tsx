@@ -1,3 +1,25 @@
+import appBar from 'components/AppBar/AppBar';
+import axios from 'axios';
+import Button from 'components/Button';
+import hoc from 'components/hoc';
+import React, {useEffect, useRef, useState} from 'react';
+import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
+import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
+import TextInputName from 'components/TextInputName/TextInputName';
+import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
+import {API_MIDTRANS, MIDTRANS_CLIENT} from '@env';
+import {createDisbursements} from 'redux/features/order/orderAPI';
+import {h1, h2, h3, h4, h5} from 'utils/styles';
+import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
+import {orderState} from 'redux/features/order/orderSlice';
+import {RootStackParamList} from 'types/navigator';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {showBSheet} from 'utils/BSheet';
+import {showToast} from 'utils/Toast';
+import {theme} from 'utils';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
+import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {
   Image,
   Linking,
@@ -7,11 +29,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import hoc from 'components/hoc';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
 import {
   ic_american_express,
   ic_arrow_left_white,
@@ -21,22 +38,6 @@ import {
   ic_shield,
   ic_visa,
 } from 'assets/icons';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
-import {theme} from 'utils';
-import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
-import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
-import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
-import Button from 'components/Button';
-import {showToast} from 'utils/Toast';
-import {showBSheet} from 'utils/BSheet';
-import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
-import axios from 'axios';
-import {API_MIDTRANS, MIDTRANS_CLIENT} from '@env';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {createDisbursements} from 'redux/features/order/orderAPI';
-import {orderState} from 'redux/features/order/orderSlice';
-import {RootStackParamList} from 'types/navigator';
-import TextInputName from 'components/TextInputName/TextInputName';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
@@ -52,6 +53,7 @@ interface IForm {
 }
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'CardPayment'>;
 const CardPaymentScreen = () => {
+  const {t} = useTranslation();
   const route = useRoute<ProfileScreenRouteProp>();
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
@@ -80,7 +82,7 @@ const CardPaymentScreen = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Card Payment
+              {t('card_payment.tabBarLabel')}
             </Text>
           </TouchableOpacity>
         ),
@@ -99,7 +101,7 @@ const CardPaymentScreen = () => {
               margin: 16,
             }}>
             <Text style={[h1, {margin: 16, fontSize: 18}]}>
-              Cara Pembayaran
+              {t('bank_transfer.payment_method')}
             </Text>
             {FAQ.map((x, i) => (
               <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
@@ -143,7 +145,7 @@ const CardPaymentScreen = () => {
             message:
               data.data.validation_messages?.toString() ||
               data.data.status_message,
-            title: 'Error',
+            title: t('global.alert.error'),
             type: 'error',
           });
           return;
@@ -166,8 +168,8 @@ const CardPaymentScreen = () => {
             }, 1000);
           } catch (error) {
             showToast({
-              message: 'Pembayaran tidak dapat dilakukan',
-              title: 'Error',
+              message: t('global.alert.payment_can_not_be_made'),
+              title: t('global.alert.error'),
               type: 'error',
             });
           }
@@ -185,7 +187,7 @@ const CardPaymentScreen = () => {
         flex: 1,
         margin: 16,
       }}>
-      <Text style={[h1]}>Masukkan Info Kartu</Text>
+      <Text style={[h1]}>{t('card_payment.insert_card_info')}</Text>
 
       <TextInputName
         onChangeText={(c: string) => setForm({...form, card_owner_name: c})}
@@ -213,7 +215,7 @@ const CardPaymentScreen = () => {
           style={iconCustomSize(25)}
           resizeMode={'contain'}
         />
-        <Text style={h3}> Data anda akan terlindungi</Text>
+        <Text style={h3}> {t('card_payment.your_data_will_be_protected')}</Text>
       </View>
       <Button
         _theme="navy"
@@ -236,7 +238,7 @@ const CardPaymentScreen = () => {
           {justifyContent: 'space-between'},
         ]}
         onPress={methods.handleFAQ}>
-        <Text style={h4}>Cara Pembayaran</Text>
+        <Text style={h4}>{t('bank_transfer.payment_method')}</Text>
         <Image
           source={ic_arrow_right}
           style={iconCustomSize(10)}

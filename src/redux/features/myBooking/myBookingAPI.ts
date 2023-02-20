@@ -1,8 +1,9 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {IResponApi} from 'types/global.types';
-import {IMyBookingResult, IParamVehicleOrder} from 'types/my-booking.types';
-import {apiWithInterceptor} from 'utils/interceptorV2';
-import {showToast} from 'utils/Toast';
+import i18n from 'i18next';
+import { apiWithInterceptor } from 'utils/interceptorV2';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IMyBookingResult, IParamVehicleOrder } from 'types/my-booking.types';
+import { IResponApi } from 'types/global.types';
+import { showToast } from 'utils/Toast';
 
 export const getOrders = createAsyncThunk(
   'booking/getOrders',
@@ -26,8 +27,8 @@ export const getOrders = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -47,8 +48,8 @@ export const getOrderById = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -62,7 +63,7 @@ export const getVehicleOrder = createAsyncThunk(
     payload: IParamVehicleOrder,
     thunkAPI: any,
   ): Promise<IResponApi<any>> => {
-    const {id} = payload;
+    const { id } = payload;
 
     try {
       const response: any = await apiWithInterceptor({

@@ -1,8 +1,9 @@
-import {ic_info_error} from 'assets/icons';
-import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
-import {theme} from 'utils';
-import {iconCustomSize, rowCenter} from 'utils/mixins';
 import {h1} from 'utils/styles';
+import {ic_info_error} from 'assets/icons';
+import {iconCustomSize, rowCenter} from 'utils/mixins';
+import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
+import {theme} from 'utils';
+import {useTranslation} from 'react-i18next';
 
 interface IProps {
   onChangeText: (text: string) => void;
@@ -10,18 +11,20 @@ interface IProps {
 }
 
 const SenderTextInput: React.FC<IProps> = ({onChangeText, errorMessage}) => {
+  const {t} = useTranslation();
+
   return (
     <View style={{marginBottom: 20}}>
       <View style={[rowCenter, {marginTop: 10}]}>
         <Text style={[h1, {fontSize: 12, marginBottom: 10, marginTop: 15}]}>
-          Nama Pengirim
+          {t('upload_bank_transfer.sender_name')}
         </Text>
       </View>
 
       <View style={[rowCenter, styles.inputContainer]}>
         <TextInput
           onChangeText={onChangeText}
-          placeholder="Nama Pengirim"
+          placeholder={t('upload_bank_transfer.sender_name') as any}
           style={{padding: 0, margin: 0}}
           // value={inputs.input1}
         />

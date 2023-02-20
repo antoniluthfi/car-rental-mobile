@@ -76,16 +76,17 @@ const ChangePasswordScreen: React.FC = () => {
       if (!validated) {
         if (form.new_password !== form.pass_confirmation) {
           showToast({
-            title: 'Gagal',
+            title: t('global.alert.failed'),
             type: 'error',
-            message: 'Password Baru dan Konfirmasi Password Baru Tidak Sesuai',
+            message: t(
+              'global.alert.password_and_confirmation_password_do_not_match',
+            ),
           });
         } else {
           showToast({
-            title: 'Gagal',
+            title: t('global.alert.failed'),
             type: 'warning',
-            message:
-              'Password Minimal 8 Karakter dan Terdiri Dari Angka dan Juga Huruf',
+            message: t('global.alert.password_length'),
           });
         }
 
@@ -101,9 +102,9 @@ const ChangePasswordScreen: React.FC = () => {
   useEffect(() => {
     if (userUpdateStatus) {
       showToast({
-        title: 'Berhasil',
+        title: t('global.alert.success'),
         type: 'success',
-        message: 'Berhasil merubah password',
+        message: t('global.alert.success_change_password'),
       });
       navigation.goBack();
     }

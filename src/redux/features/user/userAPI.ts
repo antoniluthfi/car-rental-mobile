@@ -1,8 +1,9 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {IResponApi} from 'types/global.types';
-import {ParamChangePassword, ParamEditUser, ParamUploadFile} from 'types/user';
-import {apiWithInterceptor} from 'utils/interceptorV2';
-import {showToast} from 'utils/Toast';
+import i18n from 'i18next';
+import { apiWithInterceptor } from 'utils/interceptorV2';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IResponApi } from 'types/global.types';
+import { ParamChangePassword, ParamEditUser, ParamUploadFile } from 'types/user';
+import { showToast } from 'utils/Toast';
 
 export const editUser = createAsyncThunk(
   'user/editUser',
@@ -14,14 +15,15 @@ export const editUser = createAsyncThunk(
       const response: any = await apiWithInterceptor({
         method: 'put',
         url: '/api/profile',
-        data: payload
+        data: payload,
       });
 
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message:
+          error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -35,7 +37,7 @@ export const uploadFile = createAsyncThunk(
     payload: ParamUploadFile,
     thunkAPI: any,
   ): Promise<IResponApi<any> | any> => {
-    const {file, name} = payload;
+    const { file, name } = payload;
 
     try {
       const form = new FormData();
@@ -48,7 +50,7 @@ export const uploadFile = createAsyncThunk(
       const response: any = await apiWithInterceptor({
         method: 'post',
         url: '/api/profile/document',
-        data: form
+        data: form,
       });
 
       return {
@@ -71,14 +73,15 @@ export const changePassword = createAsyncThunk(
       const response: any = await apiWithInterceptor({
         method: 'put',
         url: '/api/authorization/change-password',
-        data: payload
+        data: payload,
       });
 
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message:
+          error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);

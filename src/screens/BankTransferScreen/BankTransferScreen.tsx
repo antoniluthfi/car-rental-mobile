@@ -20,8 +20,9 @@ import Button from 'components/Button';
 import {showBSheet} from 'utils/BSheet';
 import {RootStackParamList} from 'types/navigator';
 import {currencyFormat} from 'utils/currencyFormat';
-import { showToast } from 'utils/Toast';
-import { Clipboard } from '@react-native-clipboard/clipboard/dist/Clipboard';
+import {showToast} from 'utils/Toast';
+import {Clipboard} from '@react-native-clipboard/clipboard/dist/Clipboard';
+import {useTranslation} from 'react-i18next';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
@@ -35,6 +36,7 @@ type BankTransferScreenRouteProp = RouteProp<
 >;
 
 const BankTransferScreen = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const route = useRoute<BankTransferScreenRouteProp>();
 
@@ -54,7 +56,7 @@ const BankTransferScreen = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Bank Transfer
+              {t('bank_transfer.bank_transfer')}
             </Text>
           </TouchableOpacity>
         ),
@@ -73,7 +75,7 @@ const BankTransferScreen = () => {
               margin: 16,
             }}>
             <Text style={[h1, {margin: 16, fontSize: 18}]}>
-              Cara Pembayaran
+              {t('bank_transfer.payment_method')}
             </Text>
             {FAQ.map((x, i) => (
               <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
@@ -88,9 +90,9 @@ const BankTransferScreen = () => {
     copyText: (text: string) => {
       Clipboard.setString(text);
       showToast({
-        title: 'Berhasil',
+        title: t('global.alert.success'),
         type: 'success',
-        message: 'berhasil menyalin teks',
+        message: t('global.alert.success_copy_text'),
       });
     },
   };
@@ -101,12 +103,14 @@ const BankTransferScreen = () => {
         flex: 1,
         margin: 16,
       }}>
-      <Text style={[h1, {marginTop: 20}]}>Lakukan Pembayaran</Text>
+      <Text style={[h1, {marginTop: 20}]}>
+        {t('bank_transfer.make_payment')}
+      </Text>
 
       <View style={[rowCenter, {marginTop: 10}]}>
         <Image source={ic_mandiri} style={iconCustomSize(30)} />
         <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
-          Mandiri Transfer
+          {t('bank_transfer.mandiri_transfer')}
         </Text>
       </View>
 
@@ -131,7 +135,9 @@ const BankTransferScreen = () => {
 
       <View style={[rowCenter, {marginTop: 10}]}>
         <Image source={ic_bca} style={iconCustomSize(30)} />
-        <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>BCA Transfer</Text>
+        <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
+          {t('bank_transfer.bca_transfer')}
+        </Text>
       </View>
 
       <View
@@ -154,7 +160,7 @@ const BankTransferScreen = () => {
       </View>
       <View style={styles.lineHorizontal} />
       <Text style={[h1, {marginTop: 20, marginBottom: 10}]}>
-        Total Pembayaran
+        {t('bank_transfer.total_payment')}
       </Text>
 
       <View
@@ -169,7 +175,9 @@ const BankTransferScreen = () => {
 
       <View style={styles.lineHorizontal} />
 
-      <Text style={[h1, {marginTop: 20}]}>Cara Pembayaran</Text>
+      <Text style={[h1, {marginTop: 20}]}>
+        {t('bank_transfer.payment_method')}
+      </Text>
 
       <TouchableOpacity
         style={[
@@ -178,7 +186,7 @@ const BankTransferScreen = () => {
           {justifyContent: 'space-between'},
         ]}
         onPress={methods.handleFAQ}>
-        <Text style={h4}>Transfer melalui Bank Mandiri</Text>
+        <Text style={h4}>{t('bank_transfer.transfer_via')} Bank Mandiri</Text>
         <Image
           source={ic_arrow_right}
           style={iconCustomSize(10)}
@@ -193,7 +201,7 @@ const BankTransferScreen = () => {
           {justifyContent: 'space-between'},
         ]}
         onPress={methods.handleFAQ}>
-        <Text style={h4}>Transfer melalui Bank BCA</Text>
+        <Text style={h4}>{t('bank_transfer.transfer_via')} Bank BCA</Text>
         <Image
           source={ic_arrow_right}
           style={iconCustomSize(10)}
@@ -206,7 +214,7 @@ const BankTransferScreen = () => {
         onPress={() => {
           navigation.navigate('UploadBankTransfer', route.params);
         }}
-        title={'Upload Bukti Pembayaran'}
+        title={t('bank_transfer.upload_proof_payment')}
         styleWrapper={{
           marginTop: 26,
         }}

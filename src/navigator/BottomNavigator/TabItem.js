@@ -8,19 +8,18 @@ import {
   ic_profile_active,
   ic_profile_inactive,
 } from 'assets/icons';
-import React, {useEffect, useRef} from 'react';
-import { useTranslation } from 'react-i18next';
+import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {
-  Dimensions,
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
 } from 'react-native';
-import { authState, logout } from 'redux/features/auth/authSlice';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import {authState, logout} from 'redux/features/auth/authSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import theme from 'utils/theme';
-import { showToast } from 'utils/Toast';
+import {showToast} from 'utils/Toast';
 
 const TabItem = ({title, active, onPress, onLongPress}) => {
   const {t} = useTranslation();
@@ -76,14 +75,14 @@ const TabItem = ({title, active, onPress, onLongPress}) => {
       style={styles.container}
       onPress={() => {
         if (!auth?.access_token) {
-                showToast({
-                  message: 'Please Login first to continue!',
-                  type: 'error',
-                  title: 'Error',
-                });
-                dispatch(logout());
-                return;
-              }
+          showToast({
+            message: t('global.alert.please_login_to_continue'),
+            type: 'error',
+            title: t('global.alert.error'),
+          });
+          dispatch(logout());
+          return;
+        }
         onPress();
       }}
       onLongPress={onLongPress}>

@@ -60,7 +60,7 @@ const InstantPaymentScreen = () => {
               margin: 16,
             }}>
             <Text style={[h1, {margin: 16, fontSize: 18}]}>
-              Cara Pembayaran
+              {t('bank_transfer.payment_method')}
             </Text>
             {FAQ.map((x, i) => (
               <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
@@ -145,7 +145,7 @@ const InstantPaymentScreen = () => {
           justifyContent: 'space-between',
         }}>
         <View>
-          <Text style={[h1]}>Selesaikan Sebelum</Text>
+          <Text style={[h1]}>{t('bank_transfer.finish_before')}</Text>
           <Text style={[h4, {marginTop: 10, fontSize: 12}]}>
             {moment(bookingDetail?.expired_time).format('ddd, DD MMMM YYYY')}
           </Text>
@@ -196,7 +196,7 @@ const InstantPaymentScreen = () => {
         <View style={styles.lineHorizontal} />
 
         <Text style={[h1, {marginTop: 20, marginBottom: 10}]}>
-          Total Pembayaran
+          {t('bank_transfer.total_payment')}
         </Text>
 
         <View
@@ -210,7 +210,7 @@ const InstantPaymentScreen = () => {
         </View>
         <View style={styles.lineHorizontal} />
 
-        <Text style={[h1, {marginTop: 20}]}>Lakukan Pembayaran</Text>
+        <Text style={[h1, {marginTop: 20}]}>{t('bank_transfer.make_payment')}</Text>
 
         <View style={[rowCenter, {marginTop: 10}]}>
           <Image source={ic_gopay} style={iconCustomSize(30)} />

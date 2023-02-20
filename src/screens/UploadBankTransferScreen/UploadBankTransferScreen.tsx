@@ -1,32 +1,34 @@
-import {Image, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import appBar from 'components/AppBar/AppBar';
+import Button from 'components/Button';
+import DropdownBank from 'components/UploadBankTransferComponent/DropdownBank/DropdwonBank';
 import hoc from 'components/hoc';
+import React, {useEffect, useState} from 'react';
+import SenderTextInput from 'components/UploadBankTransferComponent/SenderTextInput/SenderTextInput';
+import UploadImageInput from 'components/UploadImageInput/UploadImageInput';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {h1, h5} from 'utils/styles';
+import {ic_arrow_left_white, ic_bca, ic_mandiri} from 'assets/icons';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {IPayments} from 'types/global.types';
+import {orderState} from 'redux/features/order/orderSlice';
+import {postDisbursements} from 'redux/features/order/orderAPI';
+import {rowCenter} from 'utils/mixins';
+import {showToast} from 'utils/Toast';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {
   launchImageLibrary,
   ImagePickerResponse,
 } from 'react-native-image-picker';
-import appBar from 'components/AppBar/AppBar';
-import {rowCenter} from 'utils/mixins';
-import {ic_arrow_left_white, ic_bca, ic_mandiri} from 'assets/icons';
-import {h1, h5} from 'utils/styles';
-import Button from 'components/Button';
-import DropdownBank from 'components/UploadBankTransferComponent/DropdownBank/DropdwonBank';
-import UploadImageInput from 'components/UploadImageInput/UploadImageInput';
 import {
   UploadBankTransferFormData,
   UploadBankTransferFormError,
   UploadBankTransferScreenRouteProp,
 } from './types';
-import {IPayments} from 'types/global.types';
-import SenderTextInput from 'components/UploadBankTransferComponent/SenderTextInput/SenderTextInput';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {postDisbursements} from 'redux/features/order/orderAPI';
-import {appDataState} from 'redux/features/appData/appDataSlice';
-import {orderState} from 'redux/features/order/orderSlice';
-import { showToast } from 'utils/Toast';
 
 const UploadBankTransferScreen = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const route = useRoute<UploadBankTransferScreenRouteProp>();
   const dispatch = useAppDispatch();
@@ -112,10 +114,10 @@ const UploadBankTransferScreen = () => {
   useEffect(() => {
     if (isDisbursementSuccess) {
       showToast({
-        message: 'Berhasil mengunggah bukti pembayaran',
-        title: 'Success',
+        message: t('global.alert.success_upload_proof_payment'),
+        title: t('global.alert.success'),
         type: 'success',
-      })
+      });
 
       navigation.navigate('MainTab', {
         screen: 'Booking',
@@ -139,7 +141,7 @@ const UploadBankTransferScreen = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Upload Bukti Pembayaran
+              {t('bank_transfer.upload_proof_payment')}
             </Text>
           </TouchableOpacity>
         ),
@@ -165,7 +167,7 @@ const UploadBankTransferScreen = () => {
             style={{marginRight: 10, width: 60, height: 32}}
           />
           <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
-            Upload Bukti Pembayaran
+            {t('bank_transfer.upload_proof_payment')}
           </Text>
         </View>
 
@@ -187,8 +189,8 @@ const UploadBankTransferScreen = () => {
         />
 
         <UploadImageInput
-          label="Upload Foto :"
-          selectedImageLabel="Bukti Pembayaran.jpg"
+          label={`${t('upload_bank_transfer.upload_photo')} :`}
+          selectedImageLabel={t('upload_bank_transfer.proof_of_payment_image')}
           selected={form.disbursement_confirmation_image}
           onPress={openImagePicker}
           onDelete={() => {
@@ -203,7 +205,11 @@ const UploadBankTransferScreen = () => {
         />
       </View>
 
-      <Button _theme="navy" onPress={handleSubmit} title={'Selesai'} />
+      <Button
+        _theme="navy"
+        onPress={handleSubmit}
+        title={t('global.button.done')}
+      />
     </View>
   );
 };

@@ -1,38 +1,22 @@
-import {
-  Alert,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import React, {FC, useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
-import hoc from 'components/hoc';
-import {container, iconSize, rowCenter} from 'utils/mixins';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
-import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
-import {theme} from 'utils';
-import CustomTextInput from 'components/TextInput';
 import Button from 'components/Button';
-import {
-  ic_apple,
-  ic_blue_check,
-  ic_facebook,
-  ic_google,
-  ic_uncheck,
-  ic_wa,
-} from 'assets/icons';
-import {IParamLogin, IParamRegister} from 'types/auth.types';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {authLogin} from 'redux/features/auth/authAPI';
-import Toast from 'components/Toast/Toast';
-import {toggleLoader} from 'redux/features/utils/utilsSlice';
-import DropdownFlag from 'components/Dropdown/Dropdown';
 import countryCodes from 'utils/country-codes.json';
-import { authState } from 'redux/features/auth/authSlice';
-import { saveFormRegister } from 'redux/features/appData/appDataSlice';
+import CustomTextInput from 'components/TextInput';
+import DropdownFlag from 'components/Dropdown/Dropdown';
+import hoc from 'components/hoc';
+import React, {FC, useEffect, useState} from 'react';
+import {authState} from 'redux/features/auth/authSlice';
+import {container, iconSize, rowCenter} from 'utils/mixins';
+import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
+import {h1, h3, h4} from 'utils/styles';
+import {IParamRegister} from 'types/auth.types';
+import {saveFormRegister} from 'redux/features/appData/appDataSlice';
+import {theme} from 'utils';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ic_blue_check, ic_uncheck, ic_wa} from 'assets/icons';
 
 interface IErrorMessage {
   error_fullname: '';
@@ -42,12 +26,12 @@ interface IErrorMessage {
 }
 
 const RegisterScreen: FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const errorRegister = useAppSelector(authState).errors;
   const [selected, setSelected] = useState(countryCodes[0]);
   const [selectWa, setSelectWa] = useState<boolean>(false);
-  //   const auth = useAppSelector(authSlice);
 
   const [form, setForm] = useState<IParamRegister>({
     fullname: '',
@@ -79,12 +63,11 @@ const RegisterScreen: FC = () => {
   useEffect(() => {
     console.log('errorRegister = ', errorRegister);
     const _errorMessage: any = {};
-    errorRegister?.detail?.map((x: {field: string; message: string;})=> {
+    errorRegister?.detail?.map((x: {field: string; message: string}) => {
       _errorMessage[`error_${x.field}`] = x?.message;
-    })
+    });
     setFormError(_errorMessage);
   }, [errorRegister]);
-  
 
   const methods = {
     handleRegister: async () => {
@@ -110,14 +93,14 @@ const RegisterScreen: FC = () => {
 
   return (
     <View style={[container]}>
-      <Text style={[h1, styles.textHeader]}>Daftar</Text>
+      <Text style={[h1, styles.textHeader]}>{t('auth.sign_up')}</Text>
       <Text style={[h3, styles.textDesc]}>
         Buat akun untuk masuk ke aplikasi
       </Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
-          placeholder="Nama Lengkap"
-          title="Nama Lengkap"
+          placeholder={t('settings.fullName')}
+          title={t('settings.fullName') as any}
           onChangeText={v => {
             setForm({...form, fullname: v});
             setFormError({...formError, [`error_fullname`]: ''});
@@ -129,7 +112,7 @@ const RegisterScreen: FC = () => {
         <View style={{marginTop: 18}} />
 
         <CustomTextInput
-          placeholder="Masukan Email anda"
+          placeholder={t('forgot_password.enter_your_email')}
           title="Email"
           onChangeText={v => {
             setForm({...form, email: v});
@@ -138,8 +121,11 @@ const RegisterScreen: FC = () => {
           value={form.email}
           errorMessage={formError.error_email}
         />
-        <Text style={[styles.title, h1]}>No. Handphone*</Text>
-        <View style={[{justifyContent: 'space-between', flexDirection: 'row', height: 60}]}>
+        <Text style={[styles.title, h1]}>{t('register.phone_number')}*</Text>
+        <View
+          style={[
+            {justifyContent: 'space-between', flexDirection: 'row', height: 60},
+          ]}>
           <View style={{width: '30%', marginTop: 10}}>
             <DropdownFlag
               data={countryCodes}
@@ -153,8 +139,7 @@ const RegisterScreen: FC = () => {
           </View>
           <View style={{width: '65%'}}>
             <CustomTextInput
-              placeholder="Masukan No. Handphone anda"
-              // title="Email"
+              placeholder={t('register.enter_phone_number')}
               onChangeText={v => {
                 setForm({...form, phone: v});
                 setFormError({...formError, [`error_phone`]: ''});
@@ -175,12 +160,13 @@ const RegisterScreen: FC = () => {
               source={selectWa ? ic_blue_check : ic_uncheck}
               style={iconSize}
             />
-            <Text style={[h4, {marginLeft: 5}]}>Sama dengan No. Handphone</Text>
+            <Text style={[h4, {marginLeft: 5}]}>
+              {t('register.same_as_phone_number')}
+            </Text>
           </TouchableOpacity>
         </View>
         <CustomTextInput
-          placeholder="Masukan No. Whatsapp"
-          // title="Email"
+          placeholder={t('register.enter_whatsapp_number')}
           disabled={selectWa}
           onChangeText={v => {
             setForm({...form, wa: v});
@@ -193,7 +179,7 @@ const RegisterScreen: FC = () => {
       </View>
       <Button
         _theme="navy"
-        title="Daftar"
+        title={t('global.button.signup')}
         styleWrapper={{marginTop: 40}}
         onPress={methods.handleRegister}
       />
