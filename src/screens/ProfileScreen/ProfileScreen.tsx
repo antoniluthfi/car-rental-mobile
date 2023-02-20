@@ -164,8 +164,8 @@ const ProfileScreen: React.FC = () => {
             </View>
 
             <BSheetPasswordTextInput
-              label="Masukan Kata Sandi untuk melakukan perubahan"
-              placeholder="Kata sandi anda"
+              label={t('Account.insert_password_to_update')}
+              placeholder={t('Account.your_password')}
               onChangeText={v => {
                 setForm({...form, password: v});
                 setFormError({...formError, password: ''});
@@ -289,7 +289,7 @@ const ProfileScreen: React.FC = () => {
 
         <ProfileTextInput
           label="Email"
-          placeholder="Masukan Email"
+          placeholder={t('forgot_password.enter_email')}
           keyboardType="email-address"
           onChangeText={(v: string) => {
             setForm({...form, email: v});
@@ -301,8 +301,8 @@ const ProfileScreen: React.FC = () => {
         />
 
         <ProfileTextInput
-          label="No. Handphone"
-          placeholder="Masukan No. Handphone"
+          label={t('register.phone_number')}
+          placeholder={t('register.enter_phone_number')}
           type="phone_number"
           onChangeText={(code: string, v: string) => {
             setForm({...form, phone_code: code, phone: v});
@@ -316,7 +316,7 @@ const ProfileScreen: React.FC = () => {
 
         <ProfileTextInput
           label="Whatsapp"
-          placeholder="Masukan No. Whatsapp"
+          placeholder={t('register.enter_whatsapp_number')}
           rightImageSource={ic_wa}
           onChangeText={(v: string) => {
             setForm({...form, wa_number: v});
@@ -327,7 +327,7 @@ const ProfileScreen: React.FC = () => {
           editable={false}
           // includeCheckbox={
           //   <Checkbox
-          //     label="Sama dengan No. Handphone"
+          //     label={t('register.same_as_phone_number')}
           //     customContainerStyle={{margin: 0}}
           //     customLabelStyle={{fontSize: 12}}
           //     customCheckboxStyle={iconCustomSize(15)}

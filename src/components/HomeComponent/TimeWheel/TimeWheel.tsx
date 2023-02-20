@@ -250,7 +250,7 @@ const TimeWheel = ({form, setForm, showWheel, setShowWheel}: any) => {
         </Text>
 
         <Button
-          title="Selesai"
+          title={t('global.button.done')}
           _theme="navy"
           styleWrapper={{marginTop: 20}}
           onPress={() => {

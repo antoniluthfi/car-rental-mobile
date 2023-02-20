@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 type DataRender = {
   id: number;
@@ -79,9 +79,14 @@ const DeliveryLocationModalContent: React.FC<Props> = ({onPress}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={[h1, {fontSize: 18}]}>{t('detail_order.tripDetail.deliveryLocation')}</Text>
+      <Text style={[h1, {fontSize: 18}]}>
+        {t('detail_order.tripDetail.deliveryLocation')}
+      </Text>
       <View style={[rowCenter, styles.searchWrapper]}>
-        <TextInput style={styles.searchInput} placeholder="Cari" />
+        <TextInput
+          style={styles.searchInput}
+          placeholder={t('global.search') as any}
+        />
         <Image source={ic_glasses} style={iconSize} />
       </View>
       <View style={styles.listContainer}>

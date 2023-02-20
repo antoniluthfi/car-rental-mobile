@@ -91,7 +91,7 @@ const LoginScreen: FC = () => {
       </Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
-          placeholder="Masukan Email"
+          placeholder={t('forgot_password.enter_email')}
           title="Email"
           onChangeText={v => {
             setForm({...form, email: v});
@@ -104,8 +104,8 @@ const LoginScreen: FC = () => {
         <View style={{marginTop: 18}} />
 
         <CustomTextInput
-          placeholder="Masukan Password anda"
-          title="Password"
+          placeholder={t('auth.enter_your_password')}
+          title={t('Account.password') as any}
           secureTextEntry
           onChangeText={v => {
             setForm({...form, password: v});
@@ -122,7 +122,7 @@ const LoginScreen: FC = () => {
       </View>
       <Button
         _theme="navy"
-        title="Login"
+        title={t('global.button.login')}
         styleWrapper={{marginTop: 40}}
         onPress={methods.handleLogin}
       />

@@ -33,7 +33,7 @@ const ModalSuccessCancelOrder = ({visible, setVisible, onFinish}: any) => {
           />
           <Button
             _theme="navy"
-            title="Selesai"
+            title={t('global.button.done')}
             onPress={() => {
               setVisible(!visible);
               onFinish();

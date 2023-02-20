@@ -89,12 +89,12 @@ const ResetPasswordScreen: FC = () => {
 
   return (
     <View style={[container]}>
-      <Text style={[h1, styles.textHeader]}>Reset Password</Text>
-      <Text style={[h3, styles.textDesc]}>Reset Password Anda</Text>
+      <Text style={[h1, styles.textHeader]}>{t('reset_password.reset_password')}</Text>
+      <Text style={[h3, styles.textDesc]}>{t('reset_password.reset_your_password')}</Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
-          placeholder="Masukan Password anda"
-          title="Password"
+          placeholder={t('reset_password.enter_your_password')}
+          title={t('Account.password') as any}
           secureTextEntry
           onChangeText={v => {
             setForm({...form, password: v});
@@ -107,8 +107,8 @@ const ResetPasswordScreen: FC = () => {
         <View style={{marginTop: 18}} />
 
         <CustomTextInput
-          placeholder="Konfirmasi Password anda"
-          title="Konfirmasi Password"
+          placeholder={t('auth.confirm_your_password')}
+          title={t('auth.password_confirmation') as any}
           secureTextEntry
           onChangeText={v => {
             setForm({...form, password_confirmation: v});
@@ -122,7 +122,7 @@ const ResetPasswordScreen: FC = () => {
       </View>
       <Button
         _theme="navy"
-        title="Simpan"
+        title={t('global.button.save')}
         styleWrapper={{marginTop: 40}}
         onPress={methods.handleConfirmPassword}
       />

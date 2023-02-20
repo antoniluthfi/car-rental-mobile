@@ -143,7 +143,7 @@ class CodepushUpdateManager extends Component<any, UpdateVersionState> {
         <View style={styles.buttonContainer}>
           <Button
             _theme="navy"
-            title="Unduh Pembaruan"
+            title={i18next.t('global.button.download_update')}
             onPress={this.sync.bind(this)}
             styleWrapper={{
               width: '95%',

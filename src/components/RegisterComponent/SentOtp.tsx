@@ -55,7 +55,11 @@ const sentOtp: FC = () => {
           ? userData.phone
           : userData.wa}
       </Text>
-      <Button _theme="navy" title="Kirim OTP" onPress={methods.handleSentOtp} />
+      <Button
+        _theme="navy"
+        title={t('global.button.send_otp')}
+        onPress={methods.handleSentOtp}
+      />
     </View>
   );
 };

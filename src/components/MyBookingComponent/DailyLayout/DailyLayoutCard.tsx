@@ -197,7 +197,7 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
           disbursement?.payment?.method === 'Credit Card' && (
             <Button
               _theme="navy"
-              title="Verifikasi"
+              title={t('global.button.verification')}
               onPress={() => handlePay()}
               styleWrapper={{
                 marginTop: 21,

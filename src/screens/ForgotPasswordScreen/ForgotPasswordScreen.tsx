@@ -85,7 +85,7 @@ const ForgotPasswordScreen: FC = () => {
       </Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
-          placeholder="Masukan Email"
+          placeholder={t('forgot_password.enter_email')}
           title="Email"
           onChangeText={v => {
             setForm({...form, email: v});
@@ -99,7 +99,7 @@ const ForgotPasswordScreen: FC = () => {
       </View>
       <Button
         _theme="navy"
-        title="Kirim Email"
+        title={t('global.button.send_email')}
         styleWrapper={{marginTop: 40}}
         onPress={methods.handleSendEmail}
       />

@@ -189,8 +189,8 @@ const UploadBankTransferScreen = () => {
         />
 
         <UploadImageInput
-          label="Upload Foto :"
-          selectedImageLabel="Bukti Pembayaran.jpg"
+          label={`${t('upload_bank_transfer.upload_photo')} :`}
+          selectedImageLabel={t('upload_bank_transfer.proof_of_payment_image')}
           selected={form.disbursement_confirmation_image}
           onPress={openImagePicker}
           onDelete={() => {
@@ -205,7 +205,11 @@ const UploadBankTransferScreen = () => {
         />
       </View>
 
-      <Button _theme="navy" onPress={handleSubmit} title={'Selesai'} />
+      <Button
+        _theme="navy"
+        onPress={handleSubmit}
+        title={t('global.button.done')}
+      />
     </View>
   );
 };

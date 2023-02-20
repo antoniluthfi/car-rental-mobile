@@ -9,7 +9,9 @@
         "your_password": "Kata sandi anda",
         "logout": "Keluar",
         "id_card_photo": "Foto KTP",
-        "license_photo": "Foto SIM"
+        "license_photo": "Foto SIM",
+        "select_country_code": "Pilih Kode Negara",
+        "search_country_code": "Cari Kode Negara"
     },
     "Home": {
         "tabBarLabel": "Beranda",
@@ -251,7 +253,11 @@
             "cancelOrder": "Batalkan Pesanan",
             "extendOrder": "Perpanjang Sewa",
             "yesNext": "Iya, Lanjutkan",
-            "orderDetail": "Detail Pesanan"
+            "orderDetail": "Detail Pesanan",
+            "done": "Selesai",
+            "send_otp": "Kirim OTP",
+            "download_update": "Unduh Pembaruan",
+            "send_email": "Kirim Email"
         },
         "alert": {
             "payment_confirm": "Apakah anda yakin melanjutkan Pembayaran ini?",
@@ -283,7 +289,8 @@
         "bank_name": "Nama Bank",
         "choose_your_bank": "Pilih Bank Anda",
         "upload_your_image_here": "Unggah gambar Anda di sini, atau",
-        "browse": "browse"
+        "browse": "telusuri",
+        "search": "Cari"
     },
     "detail_order": {
         "title": "Detail Pesanan",
@@ -332,7 +339,11 @@
         "refunds_will_be_made_in_7_days": "Pengembalian dana akan dilakukan 7 hari kerja",
         "order_no": "No. Order",
         "order_cancellation": "Pembatalan Pesanan",
-        "write_reason_cancellation": "Tulis alasan pembatalan"
+        "write_reason_cancellation": "Tulis alasan pembatalan",
+        "name": "Nama",
+        "account_number": "Nomor Rekening",
+        "enter_account_number": "Masukan Nomor Rekening",
+        "write_description": "Tulis Keterangan"
     },
     "payment_method": {
         "header": "Pilih Metode Pembayaran"
@@ -391,10 +402,14 @@
         "create_account": "Buat akun untuk masuk ke aplikasi",
         "same_as_phone_number": "Sama dengan No. Handphone",
         "verification": "Verifikasi",
-        "choose_verification_method": "Pilih metode verifikasi anda untuk kemanan dan melanjutkan pembayaran pemesanan anda"
+        "choose_verification_method": "Pilih metode verifikasi anda untuk kemanan dan melanjutkan pembayaran pemesanan anda",
+        "enter_phone_number": "Masukan No. Handphone anda",
+        "enter_whatsapp_number": "Masukan No. Whatsapp"
     },
     "upload_bank_transfer": {
-        "sender_name": "Nama Pengirim"
+        "sender_name": "Nama Pengirim",
+        "proof_of_payment_image": "Bukti Pembayaran.jpg",
+        "upload_photo": "Unggah Foto"
     },
     "auth": {
         "try_now": "Coba Sekarang",
@@ -403,7 +418,10 @@
         "enter_email_to_login": "Masukan Email untuk login ke Get & Ride",
         "or_login_using": "Atau login menggunakan",
         "do_not_have_an_account": "Belum punya akun",
-        "sign_up_now": "Daftar Sekarang"
+        "sign_up_now": "Daftar Sekarang",
+        "enter_your_password": "Masukan Kata Sandi anda",
+        "confirm_your_password": "Konfirmasi Kata Sandi anda",
+        "password_confirmation": "Konfirmasi Kata Sandi"
     },
     "bank_transfer": {
         "bank_transfer": "Transfer Bank",
@@ -426,6 +444,13 @@
     },
     "forgot_password": {
         "forgot_password": "Lupa Kata Sandi",
-        "enter_email_to_reset_password": "Masukan email anda untuk mengatur ulang kata sandi"
+        "enter_email_to_reset_password": "Masukan email anda untuk mengatur ulang kata sandi",
+        "enter_email": "Masukan Email",
+        "enter_your_email": "Masukan Email Anda"
+    },
+    "reset_password": {
+        "reset_password": "Atur Ulang Kata Sandi",
+        "reset_your_password": "Atur Ulang Kata Sandi Anda",
+        "enter_your_password": "Masukan Kata Sandi Anda"
     }
 }

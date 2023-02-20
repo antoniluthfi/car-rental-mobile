@@ -344,7 +344,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
             slugify(orderState) !== 'cancelled' && (
               <Button
                 _theme="red"
-                title="Batalkan Pesanan"
+                title={t('global.button.cancelOrder')}
                 onPress={() => {
                   methods.handleConfirmation('cancel_order');
                 }}
@@ -358,7 +358,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
           {slugify(orderState) == 'completed' && (
             <Button
               _theme="navy"
-              title="Perpanjang Pesanan"
+              title={t('global.button.extendOrder')}
               onPress={() => methods.handleConfirmation('extend_order')}
             />
           )}
@@ -379,8 +379,8 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
             <Text style={h1}>{t('detail_order.order_cancellation')}</Text>
             <View style={{marginTop: 20}} />
             <CustomTextInput
-              title="Nama"
-              placeholder="Masukkan Nama Anda"
+              title={t('detail_order.name') as any}
+              placeholder={t('settings.fullNamePlaceholder')}
               errorMessage=""
               onChangeText={v => setFormCancel({...formCancel, name: v})}
               value={formCancel.name}
@@ -402,8 +402,8 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
             />
             <View style={{marginTop: 15}} />
             <CustomTextInput
-              title="Nomor Rekening"
-              placeholder="Masukan Nomor Rekening"
+              title={t('detail_order.account_number') as any}
+              placeholder={t('detail_order.enter_account_number')}
               errorMessage=""
               onChangeText={v =>
                 setFormCancel({...formCancel, bank_account_number: v})
@@ -421,7 +421,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
               <View style={styles.formWrapper}>
                 <TextInput
                   multiline={true}
-                  placeholder="Tulis Keterangan"
+                  placeholder={t('detail_order.write_description') as any}
                   style={{
                     height: 100,
                     paddingRight: 15,
@@ -443,7 +443,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
               ]}>
               <Button
                 _theme="white"
-                title="Kembali"
+                title={t('global.button.back')}
                 onPress={() => {
                   bottomSheetRef.current?.close();
                 }}
@@ -452,7 +452,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
 
               <Button
                 _theme="navy"
-                title="Iya, Lanjutkan"
+                title={t('global.button.yesNext')}
                 onPress={async () => {
                   const res = await dispatch(
                     cancelOrder({

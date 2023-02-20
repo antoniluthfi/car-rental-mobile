@@ -99,8 +99,8 @@ const RegisterScreen: FC = () => {
       </Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
-          placeholder="Nama Lengkap"
-          title="Nama Lengkap"
+          placeholder={t('settings.fullName')}
+          title={t('settings.fullName') as any}
           onChangeText={v => {
             setForm({...form, fullname: v});
             setFormError({...formError, [`error_fullname`]: ''});
@@ -112,7 +112,7 @@ const RegisterScreen: FC = () => {
         <View style={{marginTop: 18}} />
 
         <CustomTextInput
-          placeholder="Masukan Email anda"
+          placeholder={t('forgot_password.enter_your_email')}
           title="Email"
           onChangeText={v => {
             setForm({...form, email: v});
@@ -139,8 +139,7 @@ const RegisterScreen: FC = () => {
           </View>
           <View style={{width: '65%'}}>
             <CustomTextInput
-              placeholder="Masukan No. Handphone anda"
-              // title="Email"
+              placeholder={t('register.enter_phone_number')}
               onChangeText={v => {
                 setForm({...form, phone: v});
                 setFormError({...formError, [`error_phone`]: ''});
@@ -167,8 +166,7 @@ const RegisterScreen: FC = () => {
           </TouchableOpacity>
         </View>
         <CustomTextInput
-          placeholder="Masukan No. Whatsapp"
-          // title="Email"
+          placeholder={t('register.enter_whatsapp_number')}
           disabled={selectWa}
           onChangeText={v => {
             setForm({...form, wa: v});
@@ -181,7 +179,7 @@ const RegisterScreen: FC = () => {
       </View>
       <Button
         _theme="navy"
-        title="Daftar"
+        title={t('global.button.signup')}
         styleWrapper={{marginTop: 40}}
         onPress={methods.handleRegister}
       />

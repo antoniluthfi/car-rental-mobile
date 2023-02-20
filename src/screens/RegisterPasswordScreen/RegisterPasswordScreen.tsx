@@ -100,8 +100,8 @@ const RegisterPasswordScreen: FC = () => {
       <Text style={[h3, styles.textDesc]}>{t('register.create_account')}</Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
-          placeholder="Masukan Password anda"
-          title="Password"
+          placeholder={t('auth.enter_your_password')}
+          title={t('Account.password') as any}
           secureTextEntry
           onChangeText={v => {
             setForm({...form, password: v});
@@ -114,8 +114,8 @@ const RegisterPasswordScreen: FC = () => {
         <View style={{marginTop: 18}} />
 
         <CustomTextInput
-          placeholder="Konfirmasi Password anda"
-          title="Konfirmasi Password*"
+          placeholder={t('auth.confirm_your_password')}
+          title={`${t('auth.password_confirmation')}*`}
           secureTextEntry
           onChangeText={v => {
             setForm({...form, password_confirmation: v});
@@ -127,7 +127,7 @@ const RegisterPasswordScreen: FC = () => {
       </View>
       <Button
         _theme="navy"
-        title="Lanjutkan"
+        title={t('global.button.next')}
         styleWrapper={{marginTop: 40}}
         onPress={methods.handleRegister}
       />
