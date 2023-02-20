@@ -10,7 +10,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   PermissionsAndroid,
-  // Image,
 } from 'react-native';
 import {
   ImagePickerResponse,
@@ -96,20 +95,20 @@ const ImagePickerModal: React.FC<IProps> = ({
       <View style={styles.header}>
         <View style={styles.headerTitleContainer}>
           <Text textBreakStrategy="simple" style={h2}>
-            Pilih Opsi
+            {t('global.select_options')}
           </Text>
         </View>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={onOpenCamera}>
         {/* <Image source={ic_profile_active} style={styles.icon} /> */}
-        <Text style={[h5]}>Kamera</Text>
+        <Text style={[h5]}>{t('global.camera')}</Text>
       </TouchableOpacity>
       <View style={styles.line} />
 
       <TouchableOpacity style={styles.button} onPress={onOpenImageLibrary}>
         {/* <Image source={ic_password_lock} style={styles.icon} /> */}
-        <Text style={[h5]}>Galeri</Text>
+        <Text style={[h5]}>{t('global.gallery')}</Text>
       </TouchableOpacity>
     </View>
   );

@@ -77,9 +77,11 @@ const ForgotPasswordScreen: FC = () => {
 
   return (
     <View style={[container]}>
-      <Text style={[h1, styles.textHeader]}>Lupa Password</Text>
+      <Text style={[h1, styles.textHeader]}>
+        {t('forgot_password.forgot_password')}
+      </Text>
       <Text style={[h3, styles.textDesc]}>
-        Masukan email anda untuk reset password
+        {t('forgot_password.enter_email_to_reset_password')}
       </Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput

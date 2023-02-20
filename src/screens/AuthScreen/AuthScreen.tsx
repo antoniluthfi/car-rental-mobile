@@ -1,9 +1,20 @@
-import {useNavigation} from '@react-navigation/native';
-import {ic_arrow_right_2, ic_getride, ic_getride_white, ic_get_ride} from 'assets/icons';
-import {img_bg_auth} from 'assets/images';
 import Button from 'components/Button';
-import Splash from 'components/Splash/Splash';
 import React, {FC, useEffect, useState} from 'react';
+import Splash from 'components/Splash/Splash';
+import {FONT_SIZE_14} from 'utils/typography';
+import {
+  ic_arrow_right_2,
+  ic_get_ride,
+  ic_getride,
+  ic_getride_white,
+} from 'assets/icons';
+import {iconSize, rowCenter, WINDOW_HEIGHT} from 'utils/mixins';
+import {img_bg_auth} from 'assets/images';
+import {loginNoAuth} from 'redux/features/auth/authSlice';
+import {theme} from 'utils';
+import {useAppDispatch} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   ImageBackground,
@@ -17,20 +28,15 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { loginNoAuth } from 'redux/features/auth/authSlice';
-import { useAppDispatch } from 'redux/hooks';
-import {theme} from 'utils';
-import {iconSize, rowCenter, WINDOW_HEIGHT, WINDOW_WIDTH} from 'utils/mixins';
-import {FONT_SIZE_14} from 'utils/typography';
 
 const AuthScreen: FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [changeicon, setChangeicon] = useState(false);
 
   const heightValue = useSharedValue(123);
   const widthValue = useSharedValue(123);
-  const positionValue: any = useSharedValue('absolute');
   const zIndexImgValue = useSharedValue(99);
   const imgLeftValue = useSharedValue(20);
 
@@ -81,10 +87,8 @@ const AuthScreen: FC = () => {
       };
       heightValue.value = withTiming(200, option);
       widthValue.value = withTiming(200, option);
-      // positionValue.value = withTiming('relative', option);
       bgValue.value = withTiming('transparent', option);
       opacityTextValue.value = withTiming(1, option);
-      // marginLeftValue.value = withTiming(50, option);
       imgLeftValue.value = withTiming(0, option);
       opacityBtnValue.value = 1;
       setChangeicon(true);
@@ -95,8 +99,10 @@ const AuthScreen: FC = () => {
     <View style={styles.container}>
       <Animated.View style={[styles.cBg, rBg]}>
         <Animated.View style={rBtn}>
-          <TouchableOpacity style={styles.testWrapper} onPress={()=> dispatch(loginNoAuth())}>
-            <Text style={styles.textTest}>Coba Sekarang</Text>
+          <TouchableOpacity
+            style={styles.testWrapper}
+            onPress={() => dispatch(loginNoAuth())}>
+            <Text style={styles.textTest}>{t('auth.try_now')}</Text>
             <Image source={ic_arrow_right_2} style={iconSize} />
           </TouchableOpacity>
         </Animated.View>
@@ -112,12 +118,12 @@ const AuthScreen: FC = () => {
         <Animated.View style={[styles.buttonWrapper, rBtn]}>
           <Button
             _theme="white"
-            title="Daftar"
+            title={t('auth.sign_up')}
             onPress={() => navigation.navigate('Register')}
           />
           <Button
             _theme="transparent"
-            title="Masuk"
+            title={t('auth.sign_in')}
             onPress={() => navigation.navigate('Login')}
             styleWrapper={{marginTop: 10}}
           />

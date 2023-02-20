@@ -112,14 +112,14 @@ const AccountScreen: React.FC = () => {
             <View style={styles.header}>
               <View style={styles.headerTitleContainer}>
                 <Text textBreakStrategy="simple" style={h2}>
-                  Kata Sandi
+                  {t('Account.password')}
                 </Text>
               </View>
             </View>
 
             <BSheetPasswordTextInput
-              label="Masukan Kata Sandi untuk melakukan perubahan"
-              placeholder="Kata sandi anda"
+              label={t('Account.insert_password_to_update')}
+              placeholder={t('Account.your_password')}
               onChangeText={v => {
                 setPassword(v);
                 setErrorPassword('');
@@ -238,12 +238,16 @@ const AccountScreen: React.FC = () => {
             style={styles.button}
             onPress={() => navigation.navigate('Notification')}>
             <Image source={ic_notification_bell} style={styles.icon} />
-            <Text style={[h5]}>Notifikasi</Text>
+            <Text style={[h5]}>{t('Account.menu_3')}</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      <Button _theme="navy" onPress={methods.handleLogout} title={'LOGOUT'} />
+      <Button
+        _theme="navy"
+        onPress={methods.handleLogout}
+        title={t('Account.logout').toUpperCase()}
+      />
     </View>
   );
 };

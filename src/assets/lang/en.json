@@ -3,7 +3,13 @@
         "header": "My Profile",
         "menu_1": "Profile",
         "menu_2": "Change Password",
-        "menu_3": "Notification"
+        "menu_3": "Notification",
+        "password": "Password",
+        "insert_password_to_update": "Enter Password to make changes",
+        "your_password": "Kata sandi anda",
+        "logout": "Logout",
+        "id_card_photo": "ID Card Photo",
+        "license_photo": "Driver's License Photo"
     },
     "Home": {
         "tabBarLabel": "Home",
@@ -33,7 +39,8 @@
             "bike_rental": "Bike Rental",
             "startTime": "Rental Start Time",
             "headerStartDate": "The time chosen is in accordance with the car rental time (WITA)",
-            "footerStartDate": "When selecting rental hours will be the same as Return hours"
+            "footerStartDate": "When selecting rental hours will be the same as Return hours",
+            "format_time_24_hours": "24 Hours Format Time - WITA"
         },
         "getrideDescription": {
             "title": "What is Get & Ride?",
@@ -263,8 +270,20 @@
             "cancellation_failed": "Cancellation failed",
             "password_and_confirmation_password_do_not_match": "New password and Confirm password do not match",
             "password_length": "The password must be at least 8 characters long and consist of both numbers and letters.",
-            "please_login_to_continue": "Please login first to continue!"
-        }
+            "please_login_to_continue": "Please login first to continue!",
+            "payment_can_not_be_made": "Payment cannot be made"
+        },
+        "data_not_found": "Data Not Found",
+        "select_options": "Select Options",
+        "camera": "Camera",
+        "gallery": "Gallery",
+        "credit_debit_card_no": "Credit/Debit Card No.",
+        "cardholder_name": "Cardholder Name",
+        "validity_period": "Validity Period",
+        "bank_name": "Bank Name",
+        "choose_your_bank": "Choose your Bank",
+        "upload_your_image_here": "Upload your image here, or",
+        "browse": "telusuri"
     },
     "detail_order": {
         "title": "Order Detail",
@@ -308,7 +327,12 @@
             "serviceFee": "Service Fee",
             "insuranceFee": "Insurance Fee",
             "totalPayment": "Total Payment"
-        }
+        },
+        "cancel_request_in_process": "Cancellation request in process",
+        "refunds_will_be_made_in_7_days": "Refunds will be made within 7 business days",
+        "order_no": "Order No.",
+        "order_cancellation": "Pembatalan Pesanan",
+        "write_reason_cancellation": "Write the reason for cancellation"
     },
     "payment_method": {
         "header": "Select Payment Method"
@@ -350,9 +374,58 @@
         "orderDetail": "Order Detail",
         "startDate": "Rental Start Date",
         "endDate": "Rental End Date",
-        "totalPassenger": "Total Passenger"
+        "totalPassenger": "Total Passenger",
+        "are_you_sure_want_to_continue": "Are you sure want to continue",
+        "this_payment": "this payment",
+        "cancel_this_order": "cancel this order"
     },
     "myInbox": {
         "tabBarLabel": "My Inbox"
+    },
+    "register": {
+        "have_not_received_otp": "Haven't received your OTP yet?",
+        "resend": "Resend",
+        "phone_number": "Phone Number",
+        "send_otp_code_to": "Send OTP Code to",
+        "create_password": "Create a Password",
+        "create_account": "Create an account to log in to the app",
+        "same_as_phone_number": "Same as phone number",
+        "verification": "Verification",
+        "choose_verification_method": "Choose your verification method for security and proceed with the payment of your order."
+    },
+    "upload_bank_transfer": {
+        "sender_name": "Sender Name"
+    },
+    "auth": {
+        "try_now": "Try Now",
+        "sign_up": "Sign Up",
+        "sign_in": "Sign In",
+        "enter_email_to_login": "Enter Email to login to Get & Ride",
+        "or_login_using": "Or login using",
+        "do_not_have_an_account": "Don't have an account yet",
+        "sign_up_now": "Sign Up Now"
+    },
+    "bank_transfer": {
+        "bank_transfer": "Bank Transfer",
+        "payment_method": "Payment Method",
+        "make_payment": "Make Payment",
+        "mandiri_transfer": "Mandiri Transfer",
+        "bca_transfer": "BCA Transfer",
+        "total_payment": "Total Payment",
+        "transfer_via": "Transfer via",
+        "upload_proof_payment": "Upload Bukti Pembayaran",
+        "finish_before": "Finish Before"
+    },
+    "card_payment": {
+        "tabBarLabel": "Card Payment",
+        "insert_card_info": "Insert Card Info",
+        "your_data_will_be_protected": "Your data will be protected"
+    },
+    "codepush": {
+        "updates_available": "Updates Available"
+    },
+    "forgot_password": {
+        "forgot_password": "Forgot Password",
+        "enter_email_to_reset_password": "Enter your email to reset your password"
     }
 }

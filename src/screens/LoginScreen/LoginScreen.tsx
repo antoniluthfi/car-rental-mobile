@@ -22,7 +22,7 @@ import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {authLogin} from 'redux/features/auth/authAPI';
 import {toggleLoader} from 'redux/features/utils/utilsSlice';
 import {showToast} from 'utils/Toast';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 // import {toggleLoader} from 'redux/features/loader/loaderSlice';
 
 interface IErrorMessage {
@@ -75,8 +75,8 @@ const LoginScreen: FC = () => {
       } catch (error) {
         dispatch(toggleLoader(false));
         showToast({
-          message: t("global.alert.error_occurred"),
-          title: t("global.alert.warning"),
+          message: t('global.alert.error_occurred'),
+          title: t('global.alert.warning'),
           type: 'error',
         });
       }
@@ -85,9 +85,9 @@ const LoginScreen: FC = () => {
 
   return (
     <View style={[container]}>
-      <Text style={[h1, styles.textHeader]}>Masuk</Text>
+      <Text style={[h1, styles.textHeader]}>{t('auth.sign_in')}</Text>
       <Text style={[h3, styles.textDesc]}>
-        Masukan Email untuk login ke Get & Ride
+        {t('auth.enter_email_to_login')}
       </Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
@@ -115,7 +115,9 @@ const LoginScreen: FC = () => {
           errorMessage={formError.error_password}
         />
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={[h2, styles.textFPass]}>Lupa Password?</Text>
+          <Text style={[h2, styles.textFPass]}>
+            {t('forgot_password.forgot_password')}?
+          </Text>
         </TouchableOpacity>
       </View>
       <Button
@@ -125,7 +127,7 @@ const LoginScreen: FC = () => {
         onPress={methods.handleLogin}
       />
       <Text style={[h3, styles.textDesc, styles.textOpsiLogin]}>
-        Atau login menggunakan
+        {t('auth.or_login_using')}
       </Text>
       <View style={[rowCenter, styles.iconWrapper]}>
         <Image source={ic_google} style={iconSize} />
@@ -133,11 +135,11 @@ const LoginScreen: FC = () => {
         <Image source={ic_apple} style={iconSize} />
       </View>
       <Text style={[h2, styles.textRegister]}>
-        Belum punya akun?{' '}
+        {t('auth.do_not_have_an_account')}?{' '}
         <Text
           style={styles.textRegister2}
           onPress={() => navigation.navigate('Register')}>
-          Daftar Sekarang
+          {t('auth.sign_up_now')}
         </Text>
       </Text>
     </View>

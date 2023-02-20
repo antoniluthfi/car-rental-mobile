@@ -141,7 +141,7 @@ const UploadBankTransferScreen = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Upload Bukti Pembayaran
+              {t('bank_transfer.upload_proof_payment')}
             </Text>
           </TouchableOpacity>
         ),
@@ -167,7 +167,7 @@ const UploadBankTransferScreen = () => {
             style={{marginRight: 10, width: 60, height: 32}}
           />
           <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
-            Upload Bukti Pembayaran
+            {t('bank_transfer.upload_proof_payment')}
           </Text>
         </View>
 

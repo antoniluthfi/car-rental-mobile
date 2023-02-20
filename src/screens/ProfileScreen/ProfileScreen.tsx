@@ -158,7 +158,7 @@ const ProfileScreen: React.FC = () => {
             <View style={styles.header}>
               <View style={styles.headerTitleContainer}>
                 <Text textBreakStrategy="simple" style={h2}>
-                  Kata Sandi
+                  {t('Account.password')}
                 </Text>
               </View>
             </View>
@@ -346,7 +346,9 @@ const ProfileScreen: React.FC = () => {
         />
 
         <View style={[rowCenter]}>
-          <Text style={[h1, {fontSize: 12, marginTop: 15}]}>Foto KTP</Text>
+          <Text style={[h1, {fontSize: 12, marginTop: 15}]}>
+            {t('Account.id_card_photo')}
+          </Text>
         </View>
         {form.photo_ktp ? (
           <FileExistCard
@@ -371,7 +373,9 @@ const ProfileScreen: React.FC = () => {
         )}
 
         <View style={[rowCenter]}>
-          <Text style={[h1, {fontSize: 12, marginTop: 15}]}>Foto SIM</Text>
+          <Text style={[h1, {fontSize: 12, marginTop: 15}]}>
+            {t('Account.license_photo')}
+          </Text>
         </View>
         {form.photo_license ? (
           <FileExistCard

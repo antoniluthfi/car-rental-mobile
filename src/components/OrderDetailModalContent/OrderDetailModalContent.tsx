@@ -59,7 +59,7 @@ const OrderDetailModalContent: React.FC = () => {
     <View style={{paddingHorizontal: '5%'}}>
       <View style={styles.descriptionContainer}>
         <View style={{flexBasis: '50%'}}>
-          <Text style={styles.text}>No. Order</Text>
+          <Text style={styles.text}>{t('detail_order.order_no')}</Text>
           <Text style={styles.boldText}>{selected?.id}</Text>
         </View>
 

@@ -1,20 +1,14 @@
-import {ic_tick_success} from 'assets/icons';
 import Button from 'components/Button';
-import React, {useState} from 'react';
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  Pressable,
-  View,
-  Image,
-} from 'react-native';
-import {theme} from 'utils';
-import {iconCustomSize} from 'utils/mixins';
+import React from 'react';
+import {Alert, Image, Modal, StyleSheet, Text, View} from 'react-native';
 import {h1} from 'utils/styles';
+import {ic_tick_success} from 'assets/icons';
+import {iconCustomSize} from 'utils/mixins';
+import {useTranslation} from 'react-i18next';
 
-const App = ({visible, setVisible, onFinish}: any) => {
+const ModalSuccessCancelOrder = ({visible, setVisible, onFinish}: any) => {
+  const {t} = useTranslation();
+
   return (
     <Modal
       animationType="slide"
@@ -27,10 +21,10 @@ const App = ({visible, setVisible, onFinish}: any) => {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={[styles.modalText, h1]}>
-            Pengajuan Pembatalan Sedang diproses
+            {t('detail_order.cancel_request_in_process')}
           </Text>
           <Text style={{fontSize: 12}}>
-            Pengembalian dana akan dilakukan 7 Hari Kerja
+            {t('detail_order.refunds_will_be_made_in_7_days')}
           </Text>
 
           <Image
@@ -101,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default ModalSuccessCancelOrder;

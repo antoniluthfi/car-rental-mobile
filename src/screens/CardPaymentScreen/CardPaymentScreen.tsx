@@ -82,7 +82,7 @@ const CardPaymentScreen = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Card Payment
+              {t('card_payment.tabBarLabel')}
             </Text>
           </TouchableOpacity>
         ),
@@ -101,7 +101,7 @@ const CardPaymentScreen = () => {
               margin: 16,
             }}>
             <Text style={[h1, {margin: 16, fontSize: 18}]}>
-              Cara Pembayaran
+              {t('bank_transfer.payment_method')}
             </Text>
             {FAQ.map((x, i) => (
               <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
@@ -168,8 +168,8 @@ const CardPaymentScreen = () => {
             }, 1000);
           } catch (error) {
             showToast({
-              message: 'Pembayaran tidak dapat dilakukan',
-              title: 'Error',
+              message: t('global.alert.payment_can_not_be_made'),
+              title: t('global.alert.error'),
               type: 'error',
             });
           }
@@ -187,7 +187,7 @@ const CardPaymentScreen = () => {
         flex: 1,
         margin: 16,
       }}>
-      <Text style={[h1]}>Masukkan Info Kartu</Text>
+      <Text style={[h1]}>{t('card_payment.insert_card_info')}</Text>
 
       <TextInputName
         onChangeText={(c: string) => setForm({...form, card_owner_name: c})}
@@ -215,7 +215,7 @@ const CardPaymentScreen = () => {
           style={iconCustomSize(25)}
           resizeMode={'contain'}
         />
-        <Text style={h3}> Data anda akan terlindungi</Text>
+        <Text style={h3}> {t('card_payment.your_data_will_be_protected')}</Text>
       </View>
       <Button
         _theme="navy"
@@ -238,7 +238,7 @@ const CardPaymentScreen = () => {
           {justifyContent: 'space-between'},
         ]}
         onPress={methods.handleFAQ}>
-        <Text style={h4}>Cara Pembayaran</Text>
+        <Text style={h4}>{t('bank_transfer.payment_method')}</Text>
         <Image
           source={ic_arrow_right}
           style={iconCustomSize(10)}

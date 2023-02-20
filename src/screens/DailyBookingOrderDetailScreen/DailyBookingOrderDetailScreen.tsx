@@ -180,15 +180,15 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
               resizeMode={'contain'}
             />
             <Text>
-              Apakah anda yakin melanjutkan{' '}
+              {t('myBooking.are_you_sure_want_to_continue')}{' '}
               {status === 'extend_order'
-                ? 'Pembayaran ini?'
-                : 'membatalkan pesanan ini?'}
+                ? `${t('myBooking.this_paymenr')}?`
+                : `${t('myBooking.cancel_this_order')}?`}
             </Text>
             <View style={{width: '95%', margin: 16}}>
               <Button
                 _theme="navy"
-                title="Iya, Lanjutkan"
+                title={t('global.button.yesNext')}
                 onPress={() => {
                   methods.handleConfirmation('close');
                   if (status === 'extend_order') {
@@ -202,7 +202,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
               />
               <Button
                 _theme="white"
-                title="Kembali"
+                title={t('global.button.back')}
                 onPress={() => methods.handleConfirmation('close')}
               />
             </View>
@@ -248,7 +248,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
 
         <View style={styles.descriptionContainer}>
           <View style={{flexBasis: '50%'}}>
-            <Text style={styles.text}>No. Order</Text>
+            <Text style={styles.text}>{t('detail_order.order_no')}</Text>
             <Text style={styles.boldText}>{selected?.id}</Text>
           </View>
 
@@ -376,7 +376,7 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
               styles.bsheetWrapper,
               {alignItems: 'flex-start', paddingLeft: 16, width: '100%'},
             ]}>
-            <Text style={h1}>Pembatalan Pesanan</Text>
+            <Text style={h1}>{t('detail_order.order_cancellation')}</Text>
             <View style={{marginTop: 20}} />
             <CustomTextInput
               title="Nama"
@@ -415,7 +415,9 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
             />
             {/* <View style={{marginTop: 20}} /> */}
             <View style={{marginVertical: 20, width: '95%'}}>
-              <Text style={[h1, {fontSize: 12}]}>Tulis alasan pembatalan</Text>
+              <Text style={[h1, {fontSize: 12}]}>
+                {t('detail_order.write_reason_cancellation')}
+              </Text>
               <View style={styles.formWrapper}>
                 <TextInput
                   multiline={true}

@@ -3,7 +3,13 @@
         "header": "Profil Saya",
         "menu_1": "Profil",
         "menu_2": "Ubah Password",
-        "menu_3": "Notifikasi"
+        "menu_3": "Notifikasi",
+        "password": "Kata Sandi",
+        "insert_password_to_update": "Masukan Kata Sandi untuk melakukan perubahan",
+        "your_password": "Kata sandi anda",
+        "logout": "Keluar",
+        "id_card_photo": "Foto KTP",
+        "license_photo": "Foto SIM"
     },
     "Home": {
         "tabBarLabel": "Beranda",
@@ -33,7 +39,8 @@
             "bike_rental": "Sewa Sepeda",
             "startTime": "Jam Mulai Sewa",
             "headerStartDate": "Waktu yang dipilih sesaui dengan waktu tempat sewa Mobil (WITA)",
-            "footerStartDate": "Waktu pilih jam sewa akan sama dengan jam Pengembalian"
+            "footerStartDate": "Waktu pilih jam sewa akan sama dengan jam Pengembalian",
+            "format_time_24_hours": "Format Waktu 24 Jam - WITA"
         },
         "getrideDescription": {
             "title": "Apa itu Get & Ride?",
@@ -263,8 +270,20 @@
             "cancellation_failed": "Pembatalan gagal",
             "password_and_confirmation_password_do_not_match": "Kata sandi baru dan Konfirmasi kata sandi tidak sesuai",
             "password_length": "Kata sandi minimal 8 karakter dan terdiri dari angka dan juga huruf",
-            "please_login_to_continue": "Silakan login terlebih dahulu untuk melanjutkan!"
-        }
+            "please_login_to_continue": "Silakan login terlebih dahulu untuk melanjutkan!",
+            "payment_can_not_be_made": "Pembayaran tidak dapat dilakukan"
+        },
+        "data_not_found": "Data Tidak Ditemukan",
+        "select_options": "Pilih Opsi",
+        "camera": "Kamera",
+        "gallery": "Galeri",
+        "credit_debit_card_no": "No. Kartu Kredit / Debit",
+        "cardholder_name": "Nama Pemegang Kartu",
+        "validity_period": "Masa Berlaku",
+        "bank_name": "Nama Bank",
+        "choose_your_bank": "Pilih Bank Anda",
+        "upload_your_image_here": "Unggah gambar Anda di sini, atau",
+        "browse": "browse"
     },
     "detail_order": {
         "title": "Detail Pesanan",
@@ -308,7 +327,12 @@
             "serviceFee": "Biaya Layanan",
             "insuranceFee": "Biaya Asuransi",
             "totalPayment": "Total Pembayaran"
-        }
+        },
+        "cancel_request_in_process": "Pengajuan pembatalan sedang diproses",
+        "refunds_will_be_made_in_7_days": "Pengembalian dana akan dilakukan 7 hari kerja",
+        "order_no": "No. Order",
+        "order_cancellation": "Pembatalan Pesanan",
+        "write_reason_cancellation": "Tulis alasan pembatalan"
     },
     "payment_method": {
         "header": "Pilih Metode Pembayaran"
@@ -350,9 +374,58 @@
         "orderDetail": "Detail Pesanan",
         "startDate": "Tanggal Mulai Sewa",
         "endDate": "Tanggal Selesai Sewa",
-        "totalPassenger": "Jumlah Penumpang"
+        "totalPassenger": "Jumlah Penumpang",
+        "are_you_sure_want_to_continue": "Apakah anda yakin melanjutkan",
+        "this_payment": "pembayaran ini",
+        "cancel_this_order": "membatalkan pesanan ini"
     },
     "myInbox": {
         "tabBarLabel": "Kotak Masuk Saya"
+    },
+    "register": {
+        "have_not_received_otp": "Belum menerima OTP?",
+        "resend": "Kirim Ulang",
+        "phone_number": "No. Handphone",
+        "send_otp_code_to": "Kirim Kode OTP ke",
+        "create_password": "Buat Kata Sandi",
+        "create_account": "Buat akun untuk masuk ke aplikasi",
+        "same_as_phone_number": "Sama dengan No. Handphone",
+        "verification": "Verifikasi",
+        "choose_verification_method": "Pilih metode verifikasi anda untuk kemanan dan melanjutkan pembayaran pemesanan anda"
+    },
+    "upload_bank_transfer": {
+        "sender_name": "Nama Pengirim"
+    },
+    "auth": {
+        "try_now": "Coba Sekarang",
+        "sign_up": "Daftar",
+        "sign_in": "Masuk",
+        "enter_email_to_login": "Masukan Email untuk login ke Get & Ride",
+        "or_login_using": "Atau login menggunakan",
+        "do_not_have_an_account": "Belum punya akun",
+        "sign_up_now": "Daftar Sekarang"
+    },
+    "bank_transfer": {
+        "bank_transfer": "Transfer Bank",
+        "payment_method": "Cara Pembayaran",
+        "make_payment": "Lakukan Pembayaran",
+        "mandiri_transfer": "Transfer Mandiri",
+        "bca_transfer": "Transfer BCA",
+        "total_payment": "Total Pembayaran",
+        "transfer_via": "Transfer melalui",
+        "upload_proof_payment": "Upload Bukti Pembayaran",
+        "finish_before": "Selesaikan Sebelum"
+    },
+    "card_payment": {
+        "tabBarLabel": "Pembayaran dengan Kartu",
+        "insert_card_info": "Masukkan Info Kartu",
+        "your_data_will_be_protected": "Data anda akan terlindungi"
+    },
+    "codepush": {
+        "updates_available": "Update Tersedia"
+    },
+    "forgot_password": {
+        "forgot_password": "Lupa Kata Sandi",
+        "enter_email_to_reset_password": "Masukan email anda untuk mengatur ulang kata sandi"
     }
 }

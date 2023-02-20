@@ -1,41 +1,25 @@
+import appBar from 'components/AppBar/AppBar';
+import Button from 'components/Button';
+import CustomTextInput from 'components/TextInput';
+import hoc from 'components/hoc';
+import React, {FC, useEffect, useState} from 'react';
+import {authState} from 'redux/features/auth/authSlice';
+import {container} from 'utils/mixins';
+import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
+import {h1, h3} from 'utils/styles';
+import {theme} from 'utils';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import {
-  Alert,
-  Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import React, {FC, useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
-import hoc from 'components/hoc';
-import {container, iconSize, rowCenter} from 'utils/mixins';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
-import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
-import {theme} from 'utils';
-import CustomTextInput from 'components/TextInput';
-import Button from 'components/Button';
 import {
-  ic_apple,
-  ic_blue_check,
-  ic_facebook,
-  ic_google,
-  ic_uncheck,
-  ic_wa,
-} from 'assets/icons';
-import {IParamLogin, IParamRegister} from 'types/auth.types';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {authLogin} from 'redux/features/auth/authAPI';
-import Toast from 'components/Toast/Toast';
-import {
-  toggleLoader,
-  utilsState,
-} from 'redux/features/utils/utilsSlice';
-import DropdownFlag from 'components/Dropdown/Dropdown';
-import countryCodes from 'utils/country-codes.json';
-import { authState } from 'redux/features/auth/authSlice';
-import { appDataState, saveFormRegister } from 'redux/features/appData/appDataSlice';
+  appDataState,
+  saveFormRegister,
+} from 'redux/features/appData/appDataSlice';
 
 interface IErrorMessage {
   error_password: string;
@@ -48,13 +32,11 @@ interface IPasswordForm {
 }
 
 const RegisterPasswordScreen: FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const [selected, setSelected] = useState(countryCodes[0]);
-  const [selectWa, setSelectWa] = useState<boolean>(false);
   const userData = useAppSelector(appDataState).userData;
   const errorRegister = useAppSelector(authState).errors;
-  //   const auth = useAppSelector(authSlice);
 
   const [form, setForm] = useState<IPasswordForm>({
     password: '',
@@ -75,12 +57,11 @@ const RegisterPasswordScreen: FC = () => {
 
   useEffect(() => {
     const _errorMessage: any = {};
-    errorRegister?.detail?.map((x: {field: string; message: string;})=> {
+    errorRegister?.detail?.map((x: {field: string; message: string}) => {
       _errorMessage[`error_${x.field}`] = x?.message;
-    })
+    });
     setFormError(_errorMessage);
   }, [errorRegister]);
-
 
   const methods = {
     handleRegister: async () => {
@@ -94,13 +75,16 @@ const RegisterPasswordScreen: FC = () => {
           }
         });
         setFormError(_errorMessage);
-        if(form.password !== form.password_confirmation) {
-          setFormError({...formError, error_password_confirmation: 'Konfirmasi Password tidak sama'});
-          return
+        if (form.password !== form.password_confirmation) {
+          setFormError({
+            ...formError,
+            error_password_confirmation: 'Konfirmasi Password tidak sama',
+          });
+          return;
         }
         if (status) {
           dispatch(saveFormRegister({...userData, ...form}));
-          navigation.navigate('RegisterVerification', {page: 'selectMethod'})
+          navigation.navigate('RegisterVerification', {page: 'selectMethod'});
         }
       } catch (error) {
         console.log(error);
@@ -110,10 +94,10 @@ const RegisterPasswordScreen: FC = () => {
 
   return (
     <View style={[container]}>
-      <Text style={[h1, styles.textHeader]}>Buat Password</Text>
-      <Text style={[h3, styles.textDesc]}>
-        Buat akun untuk masuk ke aplikasi
+      <Text style={[h1, styles.textHeader]}>
+        {t('register.create_password')}
       </Text>
+      <Text style={[h3, styles.textDesc]}>{t('register.create_account')}</Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
           placeholder="Masukan Password anda"
