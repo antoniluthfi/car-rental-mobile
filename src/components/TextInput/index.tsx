@@ -1,3 +1,9 @@
+import React, {useEffect, useState} from 'react';
+import {deepClone, theme} from 'utils';
+import {FONT_SIZE_12} from 'utils/typography';
+import {h1, radius} from 'utils/styles';
+import {ic_eye_close} from 'assets/icons';
+import {iconSize} from 'utils/mixins';
 import {
   Image,
   StyleSheet,
@@ -7,12 +13,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {deepClone, theme} from 'utils';
-import {ic_eye_close} from 'assets/icons';
-import {FONT_SIZE_12} from 'utils/typography';
-import {h1, radius} from 'utils/styles';
-import {iconSize} from 'utils/mixins';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -20,17 +20,16 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
+import {TextInputProps} from 'react-native';
 
-interface ITextInput {
+interface ITextInput extends TextInputProps {
   title?: string;
   placeholder: string;
-  secureTextEntry?: boolean;
-  onChangeText: (v: string) => void;
-  value: string;
   errorMessage: string;
   leftIcon?: any;
   disabled?: boolean;
-  styleTitle?: TextStyle
+  styleTitle?: TextStyle;
+  outline?: boolean;
 }
 
 const CustomTextInput = ({
@@ -42,7 +41,9 @@ const CustomTextInput = ({
   errorMessage,
   leftIcon,
   disabled,
-  styleTitle
+  styleTitle,
+  outline,
+  keyboardType
 }: ITextInput) => {
   const [showText, setShowText] = useState<boolean>(deepClone(secureTextEntry));
   const shake = useSharedValue(0);
@@ -66,14 +67,24 @@ const CustomTextInput = ({
     );
   }, [_err]);
 
+  const inputStyles = outline
+    ? [
+        styles.outlineInputWrapper,
+        {
+          borderBottomColor: errorMessage
+            ? theme.colors.red
+            : theme.colors.grey5,
+        },
+      ]
+    : [
+        styles.inputWrapper,
+        {borderColor: errorMessage ? theme.colors.red : theme.colors.grey5},
+      ];
+
   return (
     <View>
       {title && <Text style={[styles.title, h1, styleTitle]}>{title}</Text>}
-      <View
-        style={[
-          styles.inputWrapper,
-          {borderColor: errorMessage ? theme.colors.red : theme.colors.grey5},
-        ]}>
+      <View style={inputStyles as any}>
         {leftIcon && (
           <Image source={leftIcon} style={[iconSize, {marginRight: 10}]} />
         )}
@@ -81,9 +92,10 @@ const CustomTextInput = ({
           placeholder={placeholder}
           style={[styles.input]}
           secureTextEntry={showText}
-          onChangeText={v => onChangeText(v)}
+          onChangeText={onChangeText}
           value={value}
           editable={!disabled}
+          keyboardType={keyboardType}
         />
 
         {secureTextEntry && (
@@ -104,6 +116,12 @@ const CustomTextInput = ({
 export default CustomTextInput;
 
 const styles = StyleSheet.create({
+  outlineInputWrapper: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    paddingVertical: 10,
+    marginTop: 5,
+  },
   inputWrapper: {
     borderWidth: 1,
     padding: 10,
@@ -116,7 +134,7 @@ const styles = StyleSheet.create({
     width: '95%',
     margin: 0,
     padding: 0,
-    color: '#000'
+    color: '#000',
   },
   eye: {
     height: 20,

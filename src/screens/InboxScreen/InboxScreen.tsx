@@ -6,9 +6,9 @@ import React, {useEffect, useState} from 'react';
 import {getInboxes} from 'redux/features/inbox/myInboxAPI';
 import {h1} from 'utils/styles';
 import {ic_arrow_left_white} from 'assets/icons';
-import {inboxState, setPage} from 'redux/features/inbox/myInboxSlice';
 import {rowCenter} from 'utils/mixins';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {setPage} from 'redux/features/inbox/myInboxSlice';
+import {useAppDispatch} from 'redux/hooks';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {
@@ -56,7 +56,6 @@ const MyBooking: React.FC = () => {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const inbox = useAppSelector(inboxState);
   const [refresh, setRefresh] = useState<boolean>(false);
 
   const handleRefresh = () => {
@@ -126,7 +125,12 @@ const MyBooking: React.FC = () => {
         windowSize={5}
         maxToRenderPerBatch={5}
         updateCellsBatchingPeriod={30}
-        ListEmptyComponent={DataNotFound}
+        ListEmptyComponent={
+          <DataNotFound
+            title={t('notification.not_found_title') as any}
+            description={t('notification.not_found_description') as any}
+          />
+        }
       />
     </View>
   );

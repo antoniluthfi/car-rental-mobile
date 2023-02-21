@@ -9,7 +9,6 @@ import {theme} from 'utils';
 import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch} from 'redux/hooks';
 import {useTranslation} from 'react-i18next';
-import {WINDOW_WIDTH} from 'utils/mixins';
 
 type Form = {
   name: string;
@@ -36,11 +35,7 @@ const CancelOrderModalContent: React.FC<CancelOrderModalContentProps> = ({
   });
 
   return (
-    <View
-      style={[
-        styles.bsheetWrapper,
-        {alignItems: 'flex-start', paddingLeft: 16, width: '100%'},
-      ]}>
+    <View style={styles.bsheetWrapper}>
       <Text style={h1}>{t('detail_order.order_cancellation')}</Text>
       <View style={{marginTop: 20}} />
       <CustomTextInput
@@ -125,10 +120,11 @@ export default CancelOrderModalContent;
 
 const styles = StyleSheet.create({
   bsheetWrapper: {
-    width: WINDOW_WIDTH,
     flex: 1,
-    alignItems: 'center',
     margin: 16,
+    alignItems: 'flex-start',
+    paddingLeft: 16,
+    width: '100%',
   },
   formWrapper: {
     borderWidth: 1,

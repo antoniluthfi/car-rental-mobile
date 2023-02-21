@@ -335,6 +335,12 @@
             "insuranceFee": "Biaya Asuransi",
             "totalPayment": "Total Pembayaran"
         },
+        "extendOrder": {
+            "numberOfDays": "Jumlah Hari",
+            "numberOfDaysPlaceholder": "Masukkan Jumlah Hari",
+            "rentalHours": "Jam Sewa",
+            "returnTime": "Jam Pengembalian"
+        },
         "cancel_request_in_process": "Pengajuan pembatalan sedang diproses",
         "refunds_will_be_made_in_7_days": "Pengembalian dana akan dilakukan 7 hari kerja",
         "order_no": "No. Order",
@@ -452,5 +458,9 @@
         "reset_password": "Atur Ulang Kata Sandi",
         "reset_your_password": "Atur Ulang Kata Sandi Anda",
         "enter_your_password": "Masukan Kata Sandi Anda"
+    },
+    "notification": {
+        "not_found_title": "Belum ada notifikasi",
+        "not_found_description": "Belum ada notifikasi saat ini"
     }
 }

@@ -1,8 +1,8 @@
+import Button from 'components/Button';
 import DailyLayoutCard from './DailyLayoutCard';
+import DataNotFound from 'components/DataNotFound/DataNotFound';
 import React, {FC, useCallback, useEffect, useState} from 'react';
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
-import {h1, h4} from 'utils/styles';
-import {img_register_bg} from 'assets/images';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {setPage} from 'redux/features/myBooking/myBookingSlice';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
@@ -89,26 +89,22 @@ const DailyLayout: FC = () => {
         windowSize={5}
         maxToRenderPerBatch={5}
         updateCellsBatchingPeriod={30}
-        ListEmptyComponent={() => (
-          <View
-            style={{
-              alignItems: 'center',
-              marginTop: 20,
-            }}>
-            <Text style={[h1]}>{t('myBooking.noOrder')}</Text>
-            <Text style={[h4]}>{t('myBooking.noRental')}</Text>
-            <Image
-              source={img_register_bg}
-              style={{
-                width: '90%',
-                height: 200,
-                resizeMode: 'contain',
-                alignSelf: 'center',
-                marginTop: 20,
-              }}
-            />
-          </View>
-        )}
+        ListEmptyComponent={
+          <DataNotFound
+            buttonComponent={
+              <Button
+                _theme="navy"
+                title={t('global.button.orderNow')}
+                onPress={() => {
+                  navigation.goBack();
+                }}
+                styleWrapper={{
+                  marginBottom: 10,
+                }}
+              />
+            }
+          />
+        }
       />
     </View>
   );
