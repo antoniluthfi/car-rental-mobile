@@ -3,7 +3,9 @@ import BSheetPasswordTextInput from 'components/MyProfileComponent/BSheetPasswor
 import Button from 'components/Button';
 import hoc from 'components/hoc';
 import ImagePickerModal from 'components/MyProfileComponent/ImagePickerModal/ImagePickerModal';
+import PasswordConfirmationModalContent from 'components/MyProfileComponent/PasswordConfirmationModalContent/PasswordConfirmationModalContent';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {appDataState} from 'redux/features/appData/appDataSlice';
 import {editUser, uploadFile} from 'redux/features/user/userAPI';
 import {getUser} from 'redux/features/appData/appDataAPI';
 import {h1, h2, h5} from 'utils/styles';
@@ -31,7 +33,6 @@ import {
   notificationState,
   resetNotification,
 } from 'redux/features/notifications/notificationSlice';
-import {appDataState} from 'redux/features/appData/appDataSlice';
 
 const AccountScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -44,8 +45,6 @@ const AccountScreen: React.FC = () => {
   const {t} = useTranslation();
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [password, setPassword] = useState<string>('12345678abc');
-  const [errorPassword, setErrorPassword] = useState<string>('');
 
   const methods = {
     handleLogout: () => {
@@ -61,11 +60,10 @@ const AccountScreen: React.FC = () => {
     openImageLibrary: async (val: ImagePickerResponse['assets']) => {
       dispatch(uploadFile({file: val?.[0], name: 'photo_profile'}));
     },
-    handleSubmit: () => {
+    handleSubmit: (password: string) => {
       setLoading(true);
 
       if (!password) {
-        setErrorPassword('Masukkan Kata Sandi');
         setLoading(false);
         return;
       }
@@ -108,33 +106,10 @@ const AccountScreen: React.FC = () => {
       showBSheet({
         snapPoint: ['35%', '35%'],
         content: (
-          <View style={styles.passwordModalContainer}>
-            <View style={styles.header}>
-              <View style={styles.headerTitleContainer}>
-                <Text textBreakStrategy="simple" style={h2}>
-                  {t('Account.password')}
-                </Text>
-              </View>
-            </View>
-
-            <BSheetPasswordTextInput
-              label={t('Account.insert_password_to_update')}
-              placeholder={t('Account.your_password')}
-              onChangeText={v => {
-                setPassword(v);
-                setErrorPassword('');
-              }}
-              value={password}
-              errorMessage={errorPassword}
-            />
-
-            <Button
-              _theme="navy"
-              onPress={methods.handleSubmit}
-              title={'Konfirmasi'}
-              isLoading={loading}
-            />
-          </View>
+          <PasswordConfirmationModalContent
+            loading={loading}
+            onSubmit={val => methods.handleSubmit(val)}
+          />
         ),
       });
     },
