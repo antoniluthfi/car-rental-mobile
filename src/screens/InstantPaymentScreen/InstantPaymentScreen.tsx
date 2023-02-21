@@ -50,7 +50,7 @@ const InstantPaymentScreen = () => {
   const [seconds, setSeconds] = useState(TIMER);
 
   const methods = {
-    handleFAQ: () => {
+    handleFAQ: (index: number) => {
       showBSheet({
         content: (
           <View
@@ -60,12 +60,22 @@ const InstantPaymentScreen = () => {
               margin: 16,
             }}>
             <Text style={[h1, {margin: 16, fontSize: 18}]}>
-              Cara Pembayaran
+              {t('instant_payment.payment_instruction')}
             </Text>
-            {FAQ.map((x, i) => (
+            {[
+              ...Array(
+                t(
+                  `instant_payment.${route.params?.selectedPayment.code.toLowerCase()}.${index}.step_length`,
+                ),
+              ).fill(''),
+            ].map((x, i) => (
               <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
                 <Text>{i + 1}. </Text>
-                <Text>{x}</Text>
+                <Text>
+                  {t(
+                    `instant_payment.${route.params?.selectedPayment.code.toLowerCase()}.${index}.steps.${i}`,
+                  )}
+                </Text>
               </View>
             ))}
           </View>
@@ -248,6 +258,38 @@ const InstantPaymentScreen = () => {
             marginTop: 26,
           }}
         />
+
+        <Text style={[h1, {marginTop: 20}]}>
+          {t('virtual_account.payment_Instruction')}
+        </Text>
+
+        {[
+          ...Array(
+            t(
+              `instant_payment.${route.params?.selectedPayment.code.toLowerCase()}_length`,
+            ),
+          ).fill(''),
+        ].map((x, i) => (
+          <TouchableOpacity
+            style={[
+              styles.HowToWrapper,
+              rowCenter,
+              {justifyContent: 'space-between'},
+            ]}
+            key={i.toString()}
+            onPress={() => methods.handleFAQ(i)}>
+            <Text style={h4}>
+              {t(
+                `instant_payment.${route.params?.selectedPayment.code.toLowerCase()}.${i}.title`,
+              )}
+            </Text>
+            <Image
+              source={ic_arrow_right}
+              style={iconCustomSize(10)}
+              resizeMode={'contain'}
+            />
+          </TouchableOpacity>
+        ))}
 
         <Button
           _theme="white"

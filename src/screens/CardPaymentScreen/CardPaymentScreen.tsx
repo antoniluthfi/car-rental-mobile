@@ -37,6 +37,7 @@ import {createDisbursements} from 'redux/features/order/orderAPI';
 import {orderState} from 'redux/features/order/orderSlice';
 import {RootStackParamList} from 'types/navigator';
 import TextInputName from 'components/TextInputName/TextInputName';
+import { useTranslation } from 'react-i18next';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
@@ -53,6 +54,7 @@ interface IForm {
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'CardPayment'>;
 const CardPaymentScreen = () => {
   const route = useRoute<ProfileScreenRouteProp>();
+  const {t} = useTranslation();
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const order = useAppSelector(orderState).order;
@@ -99,12 +101,24 @@ const CardPaymentScreen = () => {
               margin: 16,
             }}>
             <Text style={[h1, {margin: 16, fontSize: 18}]}>
-              Cara Pembayaran
+            {t(
+                    `card_payment.payment_Instruction`,
+                  )}
             </Text>
-            {FAQ.map((x, i) => (
+            {[
+              ...Array(
+                t(
+                  `card_payment.card_payment_length`,
+                ),
+              ).fill(''),
+            ].map((x, i) => (
               <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
                 <Text>{i + 1}. </Text>
-                <Text>{x}</Text>
+                <Text>
+                  {t(
+                    `card_payment.steps.${i}`,
+                  )}
+                </Text>
               </View>
             ))}
           </View>
@@ -227,7 +241,7 @@ const CardPaymentScreen = () => {
       />
       <View style={styles.lineHorizontal} />
 
-      <Text style={[h1, {marginTop: 20}]}>FAQ</Text>
+      <Text style={[h1, {marginTop: 20}]}>{t('virtual_account.payment_Instruction')}</Text>
 
       <TouchableOpacity
         style={[
@@ -236,7 +250,7 @@ const CardPaymentScreen = () => {
           {justifyContent: 'space-between'},
         ]}
         onPress={methods.handleFAQ}>
-        <Text style={h4}>Cara Pembayaran</Text>
+        <Text style={h4}>{t('virtual_account.payment_Instruction')}</Text>
         <Image
           source={ic_arrow_right}
           style={iconCustomSize(10)}

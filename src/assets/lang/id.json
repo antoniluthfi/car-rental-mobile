@@ -338,5 +338,297 @@
     },
     "myInbox": {
         "tabBarLabel": "Kotak Masuk Saya"
+    },
+    "virtual_account": {
+        "payment_Instruction": "Panduan Pembayaran",
+        "bca_length": 3,
+        "bca": [{
+                "title": "Transfer Melalui ATM",
+                "step_length": 8,
+                "steps": [
+                    "Masukkan Kartu ATM dan PIN ATM BCA",
+                    "Pilih menu Penarikan Tunai/Transaksi Lainnya",
+                    "Pilih menu Transaksi Lainnya",
+                    "Pilih menu Transfer",
+                    "Pilih menu Ke Rek BCA Virtual Account",
+                    "Masukkan nomor BCA Virtual Account, yaitu 78749222178 dan klik Benar",
+                    "Cek detail transaksi dan pilih Ya",
+                    "Transaksi selesai"
+                ]
+            },
+            {
+                "title": "Transfer Melalui Mobile Banking",
+                "step_length": 6,
+                "steps": [
+                    "Buka BCA mobile, pilih menu m-Transfer",
+                    "Pilih menu BCA Virtual Account",
+                    "Masukkan nomor BCA Virtual Account 78749222178 dan klik Send",
+                    "Cek nominal yang muncul",
+                    "Masukkan PIN m-BCA",
+                    "Transaksi Berhasil"
+
+                ]
+            },
+            {
+                "title": "Transfer Melalui Klik BCA",
+                "step_length": 5,
+                "steps": [
+                    "Login ke KlikBCA dan pilih menu Transfer Dana",
+                    "Pilih menu Transfer ke BCA Virtual Account",
+                    "Masukkan nomor BCA Virtual Account, 78749222178 dan klik Lanjutkan",
+                    "Masukkan respon KeyBCA Appli 1 dan klik Kirim",
+                    "Transaksi Berhasil"
+
+                ]
+            }
+        ],
+        "mandiri_length": 2,
+        "mandiri": [{
+                "title": "Transfer Melalui ATM",
+                "step_length": 6,
+                "steps": [
+                    "Masukkan PIN ATM Anda.",
+                    "Pada menu utama, pilih “Bayar / Beli”.",
+                    "Pilih “Lainnya” sampai menemukan menu “Multipayment”.",
+                    "Masukkan kode perusahaan dengan nomor: “70012” (tanpa kutip) a / n Midtrans. Setelah itu pilih “Benar”.",
+                    "Masukkan kode bayar Anda , setelah itu pilih “Benar”.",
+                    "Cek kembali transaksi Anda setelah itu selesaikan proses pembayarannya "
+
+                ]
+            },
+            {
+                "title": "Transfer Melalui Mobile Banking",
+                "step_length": 7,
+                "steps": [
+                    "Lakukan login ke Mandiri Livin‘ atau Mandiri Internet Banking.",
+                    "Pada menu utama, pilih “Bayar”.",
+                    "Pilih “Buat Pembayaran Baru”.",
+                    "Setelah itu, pilih menu “Multipayment”.",
+                    "Masukkan kode perusahaan dengan nomor: “70012” (tanpa kutip) a / n Midtrans. Setelah itu pilih “Benar”.",
+                    "Masukkan kode bayar Anda , setelah itu pilih “Benar”.",
+                    "Cek kembali transaksi Anda setelah itu selesaikan proses pembayarannya."
+
+
+                ]
+            }
+        ],
+        "permata_length": 2,
+        "permata": [{
+                "title": "Transfer Melalui ATM",
+                "step_length": 7,
+                "steps": [
+                    "Masukkan PIN.",
+                    "Pilih menu “Transaksi Lainnya”.",
+                    "Pilih menu “Pembayaran”.",
+                    "Pilih menu “Pembayaran Lainnya”.",
+                    "Pilih menu “Virtual Account”.",
+                    "Masukkan nomor Virtual Account: “8778009851089056” (tanpa kutip). Setelah itu, tekan “Benar”.",
+                    "Pilih rekening yang menjadi sumber dana yang akan didebet, lalu tekan “Ya” untuk konfirmasi transaksi."
+                ]
+            },
+            {
+                "title": "Transfer Melalui Mobile Banking",
+                "step_length": 9,
+                "steps": [
+                    "Buka aplikasi Permata Mobile Internet.",
+                    "Masukkan User ID & Password.",
+                    "Pilih Pembayaran Tagihan.",
+                    "Pilih Virtual Account.",
+                    "Masukkan 16 digit nomor Virtual Account yang tertera pada halaman konfirmasi yaitu 8778009851089056.",
+                    "Masukkan nominal pembayaran sesuai dengan yang ditagihkan.",
+                    "Muncul Konfirmasi pembayaran.",
+                    "Masukkan otentikasi transaksi/token.",
+                    "Transaksi selesai"
+
+
+                ]
+            }
+        ],
+        "bni_length": 2,
+        "bni": [{
+                "title": "Transfer Melalui ATM",
+                "step_length": 8,
+                "steps": [
+                    "Masukkan Kartu ATM dan PIN BNI Anda.",
+                    "Pada menu utama, pilih “Menu Lainnya”.",
+                    "Pilih “Transfer”.",
+                    "Setelah itu, pilih “Rekening Tabungan”.",
+                    "Pilih “Rekening BNI”.",
+                    "Masukkan nomor Virtual Account  9887874930099369",
+                    "Masukkan jumlah pembayaran sesuai tagihan.",
+                    "Cek kembali transaksi Anda, setelah itu pilih “Ya”."
+                ]
+            },
+            {
+                "title": "Transfer Melalui Mobile Banking",
+                "step_length": 8,
+                "steps": [
+                    "Masuk ke aplikasi Mobile Banking BNI.",
+                    "Masukkan User ID dan Password.",
+                    "Pilih menu “Transfer”.",
+                    "Setelah itu, pilih “Antar Rekening BNI”.",
+                    "Pilih “Input Rekening Baru”.",
+                    "Masukkan nomor Virtual Account 9887874930099369",
+                    "Cek kembali transaksi Anda, setelah itu pilih “Ya”.",
+                    "Masukkan password untuk konfirmasi pembayaran."
+                ]
+            }
+        ],
+        "bri_length": 2,
+        "bri": [{
+                "title": "Transfer Melalui ATM",
+                "step_length": 8,
+                "steps": [
+                    "Masukkan Kartu ATM dan PIN BRI Anda.",
+                    "Pada menu utama, pilih menu “Transaksi Lain”",
+                    "Pilih menu “Pembayaran”",
+                    "Pilih menu “Lainnya”",
+                    "Pilih menu “BRIVA”",
+                    "Masukkan nomor BRIVA (Virtual Account)  “9887874930099369” dan klik Benar",
+                    "Di halaman konfirmasi, pastikan data transaksi sudah benar kemudian pilih “Ya“",
+                    "Transaksi selesai"
+
+                ]
+            },
+            {
+                "title": "Transfer Melalui Mobile Banking",
+                "step_length": 8,
+                "steps": [
+                    "Masuk ke aplikasi BRI Mobile Banking",
+                    "Pilih “Mobile Banking BRI”",
+                    "Pilih menu “Info“",
+                    "Pilih menu “BRIVA”",
+                    "Masukkan nomor BRIVA 9887874930099369 dan klik benar",
+                    "Masukkan jumlah pembayaran sesuai tagihan",
+                    "Masukkan PIN kamu",
+                    "Transaksi berhasil"
+
+                ]
+            }
+        ]
+    },
+    "card_payment": {
+        "payment_Instruction": "Panduan Pembayaran",
+        "card_payment_length": 3,
+        "steps": [
+            "Masukan Nama Pemegang Kartu, No. kartu, Masa berlaku dan juga kode CVV Anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan.",
+            "Lalu verifikasi Debit Card anda dengan menekan tombol “Lanjutkan Pembayaran”. Setelah Debit Card terverifikasi maka Anda bisa melanjutkan pembayaran.",
+            "Setelah pembayaran berhasil dan terverifikasi maka status pesanan Anda akan sukses serta transaksi anda akan nyaman dan aman."
+        ]
+    },
+    "instant_payment": {
+        "payment_instruction": "Panduan Pembayaran",
+        "gopay_length": 2,
+        "gopay": [{
+                "title": "Instruksi pembayaran via QR Code",
+                "step_length": 7,
+                "steps": [
+                    "Klik bayar menggunakan GoPay.",
+                    "Pilih Lanjutkan Pembayaran. Lalu QR code akan tampil.",
+                    "Atau buka Aplikasi yang bisa menggunakan QRIS, yang terpasang di ponsel anda, seperti Gojek",
+                    "Klik Bayar dan Scan QR code.",
+                    "Cek Detail pembayaran lalu klik Bayar",
+                    "Masukkan PIN Gopay",
+                    "Transaksi selesai"
+                ]
+            },
+            {
+                "title": "Instruksi pembayaran Aplikasi Gojek",
+                "step_length": 7,
+                "steps": [
+                    "Pastikan Anda memiliki akun Gojek pada ponsel Anda",
+                    "Pilih pembayaran menggunakan GoPay",
+                    "Klik Lanjutkan Pembayaran, lalu pilih Lanjutkan",
+                    "Klik Lanjut ke Aplikasi Gojek, Anda akan diarahkan ke aplikasi Gojek",
+                    "Cek Detail pembayaran lalu klik Bayar",
+                    "Masukkan PIN Gopay",
+                    "Transaksi selesai"
+
+                ]
+            }
+        ]
+    },
+    "manual_transfer": {
+        "payment_instruction": "Panduan Pembayaran",
+        "bca_length": 2,
+        "bca": [{
+                "title": "Transfer melalui ATM",
+                "step_length": 11,
+                "steps": [
+                    "Masukkan Kartu ATM dan PIN ATM",
+                    "Pilih menu Penarikan Tunai/Transaksi Lainnya",
+                    "Pilih menu Transaksi Lainnya",
+                    "Pilih menu Transfer",
+                    "Masukkan no rekening BCA Get & Ride, yaitu 5205979988 a/n. PT ITC dan klik Benar",
+                    "Masukkan jumlah uang yang harus di transfer melalui ATM BCA",
+                    "Jika semua proses telah selesai dan benar, pilih “Ya” (Jangan lupa screenshot bukti transfer)",
+                    "Setelah Transfer berhasil, buka Konfirmasi Pembayaran di website / aplikasi",
+                    "Masukkan Nama pengirim dan upload Bukti Transfer",
+                    "Klik Konfirmasi Transfer",
+                    "Pembayaran akan diperiksa"
+
+
+                ]
+            },
+            {
+                "title": "Transfer melalui Mobile Banking",
+                "step_length": 11,
+                "steps": [
+                    "Buka Aplikasi Mobile Banking, pilih menu m-Transfer",
+                    "Klik menu Daftar Transfer",
+                    "Pilih menu Antar Rekening (untuk pengguna BCA) dan Antar Bank (untuk pengguna selain BCA)",
+                    "Masukkan no rekening BCA Get & Ride, yaitu 5205979988 a/n. PT Indo Teknologi Cemerlang dan klik Benar",
+                    "Masukkan jumlah uang yang harus di transfer melalui ATM BCA",
+                    "Masukkan PIN",
+                    "Jika semua proses telah selesai dan benar, pilih “Ya” (Jangan lupa screenshot bukti transfer)",
+                    "Setelah Transfer berhasil, buka Konfirmasi Pembayaran di website / aplikasi",
+                    "Masukkan Nama pengirim dan upload Bukti Transfer",
+                    "Klik Konfirmasi Transfer",
+                    "Pembayaran akan diperiksa"
+
+
+                ]
+            }
+        ],
+        "mandiri_length": 2,
+        "mandiri": [{
+                "title": "Transfer melalui ATM",
+                "step_length": 11,
+                "steps": [
+                    "Masukkan Kartu ATM dan PIN ATM",
+                    "Pilih menu Penarikan Tunai/Transaksi Lainnya",
+                    "Pilih menu Transaksi Lainnya",
+                    "Pilih menu Transfer",
+                    "Masukkan no rekening MANDIRI Get & Ride, yaitu 5205979988 a/n. PT ITC dan klik Benar",
+                    "Masukkan jumlah uang yang harus di transfer melalui ATM MANDIRI",
+                    "Jika semua proses telah selesai dan benar, pilih “Ya” (Jangan lupa screenshot bukti transfer)",
+                    "Setelah Transfer berhasil, buka Konfirmasi Pembayaran di website / aplikasi",
+                    "Masukkan Nama pengirim dan upload Bukti Transfer",
+                    "Klik Konfirmasi Transfer",
+                    "Pembayaran akan diperiksa"
+
+
+                ]
+            },
+            {
+                "title": "Transfer melalui Mobile Banking",
+                "step_length": 11,
+                "steps": [
+                    "Buka Aplikasi Mobile Banking, pilih menu m-Transfer",
+                    "Klik menu Daftar Transfer",
+                    "Pilih menu Antar Rekening (untuk pengguna MANDIRI) dan Antar Bank (untuk pengguna selain MANDIRI)",
+                    "Masukkan no rekening MANDIRI Get & Ride, yaitu 5205979988 a/n. PT Indo Teknologi Cemerlang dan klik Benar",
+                    "Masukkan jumlah uang yang harus di transfer melalui ATM MANDIRI",
+                    "Masukkan PIN",
+                    "Jika semua proses telah selesai dan benar, pilih “Ya” (Jangan lupa screenshot bukti transfer)",
+                    "Setelah Transfer berhasil, buka Konfirmasi Pembayaran di website / aplikasi",
+                    "Masukkan Nama pengirim dan upload Bukti Transfer",
+                    "Klik Konfirmasi Transfer",
+                    "Pembayaran akan diperiksa"
+
+
+                ]
+            }
+        ]
     }
 }

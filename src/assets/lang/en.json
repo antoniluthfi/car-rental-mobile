@@ -192,7 +192,7 @@
             "title": "Rental Policies Usage",
             "list_1": "Vehicles are not allowed to be transferred to other parties who are not verified by Get & Ride data. Get & Ride parties can forcefully take the vehicle if the following indications occur.",
             "list_2": "Renters will be charged an additional fee, if the pick-up and return outside the available zone",
-            "list_3":  "Renters are allowed to bring pets in certain cars. Make sure pets don't damage or contaminate the vehicle facilities in the car.",
+            "list_3": "Renters are allowed to bring pets in certain cars. Make sure pets don't damage or contaminate the vehicle facilities in the car.",
             "list_4": "Renters are not allowed to carry passengers or luggage that exceeds the capacity of the car being rented.",
             "list_5": "Renters are responsible for replacement or repair costs in the event of loss or damage to Vehicle Registration Cerfticicate (STNK), car keys, accessories, car tools, head units, tools sets, scratches, stains, and other costs arising from the renters.",
             "list_6": "Renters are responsible for all parking, traffic and other fines incurred as a result of violations of law during the rental."
@@ -216,7 +216,7 @@
             "list_1": "Jika terjadi kecelakaan, penyewa diwajibkan untuk menyerahkan kepada penyedia semua dokumen yang dibutuhkan oleh perusahan asuransi, termasuk namun tidak terbatas pada KTP/paspor dan SIM A mereka.",
             "list_2": "Penyewa wajib menanggung beban biaya Risiko Sendiri sebesar Rp350.000 untuk setiap kejadian kecelakan (per panel).",
             "list_3": "Penyewa wajib menanggung Biaya Risiko Kehilangan (Total Lost Risk) sebesar Rp500.000 jika mobil hilang.",
-            "list_4": "Perselisihan antara pihak akan diselesaikan melalui musyawarah mufakat. Jika dalam waktu 30 hari para pihak belum mencapai mufakat, masalah akan diselesaikan di Pengadilan Negeri Jakarta Utara."
+            "list_4": "Perselisihan antara pihak akan diselesaikan via musyawarah mufakat. Jika dalam waktu 30 hari para pihak belum mencapai mufakat, masalah akan diselesaikan di Pengadilan Negeri Jakarta Utara."
         },
         "refund": {
             "title": "Refund & Cancellation Policy",
@@ -338,5 +338,290 @@
     },
     "myInbox": {
         "tabBarLabel": "My Inbox"
+    },
+    "virtual_account": {
+        "payment_Instruction": "Payment Instruction",
+        "bca_length": 3,
+        "bca": [{
+                "title": "Transfer via ATM",
+                "step_length": 8,
+                "steps": [
+                    "Insert the ATM card and enter ATM BCA PIN",
+                    "Select Cash Withdrawal/Other Transactions",
+                    "Select Other Transactions",
+                    "Select Transfer",
+                    "Select To BCA Virtual Account",
+                    "Enter the BCA Virtual Account number,  78749222178 and click Correct",
+                    "Check the transaction details and select Yes",
+                    "Transaction is successful"
+                ]
+            },
+            {
+                "title": "Transfer via Mobile Banking",
+                "step_length": 6,
+                "steps": [
+                    "Open BCA mobile, select m-Transfer",
+                    "Select BCA Virtual Account",
+                    "Enter the BCA Virtual Account number, 78749222178 and click Send",
+                    "Check the amount that shows",
+                    "Enter m-BCA PIN",
+                    "Transaction is successful"
+                ]
+            },
+            {
+                "title": "Transfer via Klik BCA",
+                "step_length": 5,
+                "steps": [
+                    "Login to KlikBCA and select Fund Transfer",
+                    "Select Transfer to BCA Virtual Account",
+                    "Enter the BCA Virtual Account number, 78749222178 and click Continue",
+                    "Enter the KeyBCA Appli 1 response and click Send",
+                    "Transaction is successful"
+
+                ]
+            }
+        ],
+        "mandiri_length": 2,
+        "mandiri": [{
+                "title": "Transfer via ATM",
+                "step_length": 6,
+                "steps": [
+                    "Enter your ATM PIN.",
+                    "On the main menu, select “Pay / Buy”.",
+                    "Select \"Other\" until you find the \"Multipayment\" menu.",
+                    "Enter the company code with the number: “70012” (without quotes) a / n Midtrans. After that, select \"Correct\".",
+                    "Enter your payment code, then select \"Correct\".",
+                    "Re-check your transaction after that complete the payment process."
+                ]
+            },
+            {
+                "title": "Transfer via Mobile Banking",
+                "step_length": 7,
+                "steps": [
+                    "Log in to Mandiri Livin' or Mandiri Internet Banking.",
+                    "On the main menu, select “Pay”.",
+                    "Select “Make New Payment”.",
+                    "After that, select the “Multipayment” menu.",
+                    "Enter the company code with the number: “70012” (without quotes) a / n Midtrans. After that select \"True\".",
+                    "Enter your payment code, then select \"Correct\".",
+                    "Re-check your transaction after that complete the payment process."
+
+                ]
+            }
+        ],
+        "permata_length": 2,
+        "permata": [{
+                "title": "Transfer via ATM",
+                "step_length": 7,
+                "steps": [
+                    "Enter your ATM PIN.",
+                    "On the main menu, select Other Transactions.",
+                    "Select the Payment menu.",
+                    "Choose Other Payment.",
+                    "Select Virtual Account.",
+                    "Enter the Virtual Account number: 787007381079144.",
+                    "The amount to be paid and the account number will appear on the payment confirmation page. If the information is correct, select True."
+                ]
+            },
+            {
+                "title": "Transfer via Mobile Banking",
+                "step_length": 9,
+                "steps": [
+                    "Open the Permata Mobile app.",
+                    "Enter User ID & Password.",
+                    "Choose Pay Bill.",
+                    "Select Virtual Account.",
+                    "Enter the Virtual Account Number: 787007381079144.",
+                    "Enter the payment amount.",
+                    "Payment confirmation appears.",
+                    "Enter Mobile PIN.",
+                    "Transaction complete."
+                ]
+            }
+        ],
+        "bni_length": 2,
+        "bni": [{
+                "title": "Transfer via ATM",
+                "step_length": 8,
+                "steps": [
+                    "Enter your ATM and BNI PIN.",
+                    "On the main menu, select “Other Menu”.",
+                    "Select \"Transfer\"",
+                    "After that, select \"Savings Account\".",
+                    "Select \"BNI Account\".",
+                    "Enter the Virtual Account number 9887874930099369",
+                    "Enter the payment amount according to the invoice.",
+                    "Check your transaction again, then select \"Yes\"."
+
+                ]
+            },
+            {
+                "title": "Transfer via Mobile Banking",
+                "step_length": 8,
+                "steps": [
+                    "Enter the BNI Mobile Banking application.",
+                    "Enter User ID and Password.",
+                    "Select the \"Transfer\" menu.",
+                    "After that, select “Between BNI Accounts”.",
+                    "Select \"Input New Account\".",
+                    "Enter the Virtual Account number 9887874930099369",
+                    "Check your transaction again, then select \"Yes\".",
+                    "Enter the password to confirm payment."
+
+                ]
+            }
+        ],
+        "bri_length": 2,
+        "bri": [{
+                "title": "Transfer via ATM",
+                "step_length": 8,
+                "steps": [
+                    "Enter your ATM Card and BRI PIN.",
+                    "On the main menu, select the menu \"Other Transactions\"",
+                    "Select the \"Payment\" menu",
+                    "Select the \"More\" menu",
+                    "Select the “BRIVA” menu",
+                    "Enter the BRIVA (Virtual Account) number “9887874930099369” and click Correct",
+                    "On the confirmation page, make sure the transaction data is correct then select \"Yes\"",
+                    "Transaction completed"
+                ]
+            },
+            {
+                "title": "Transfer via Mobile Banking",
+                "step_length": 8,
+                "steps": [
+                    "Enter the BRI Mobile Banking application",
+                    "Select “BRI Mobile Banking”",
+                    "Select the \"Info\" menu",
+                    "Select the “BRIVA” menu",
+                    "Enter BRIVA number 9887874930099369 and click correct",
+                    "Enter the payment amount according to the invoice",
+                    "Enter your PIN",
+                    "The transaction is successful"
+                ]
+            }
+        ]
+    },
+    "card_payment": {
+        "payment_Instruction": "Payment Instruction",
+        "card_payment_length": 3,
+        "steps": [
+            "Enter the card holder name, card number, validity period and also your CVV code in the form provided, make sure the number entered is valid and not written incorrectly.",
+            "Then verify your Debit Card by pressing the \"Process Payment\" button. After the Debit Card is verified, you can continue the payment.",
+            "After payment is successful and verified, your order status will be successful and your transaction will be comfortable and safe."
+        ]
+    },
+    "instant_payment": {
+        "payment_instruction": "Panduan Pembayaran",
+        "gopay_length": 2,
+        "gopay": [{
+                "title": "Payment instructions via QR Code",
+                "step_length": 7,
+                "steps": [
+                    "Click pay using GoPay.",
+                    "Select Continue Payment. Then a QR code will appear.",
+                    "Or open an application that can use QRIS, installed on your cellphone, such as Gojek",
+                    "Click Pay and Scan the QR code.",
+                    "Check Payment detail then click Pay",
+                    "Enter you Gopay PIN",
+                    "Transaction Completed"
+
+                ]
+            },
+            {
+                "title": "Instruksi pembayaran Aplikasi Gojek",
+                "step_length": 7,
+                "steps": [
+                    "Make sure you have a Gojek account on your cellphone",
+                    "Choose payment using GoPay",
+                    "Click Continue Payment, then choose Continue",
+                    "Click Continue to the Gojek Application, you will be directed to the Gojek application",
+                    "Check payment details then click Pay",
+                    "Enter Gopay PIN",
+                    "Transaction completed"
+
+
+                ]
+            }
+        ]
+    },
+    "manual_transfer": {
+        "payment_instruction": "Payment Instructions",
+        "bca_length": 2,
+        "bca": [{
+                "title": "Transfer via ATM",
+                "step_length": 11,
+                "steps": [
+                    "Insert ATM Card and ATM PIN",
+                    "Select the Cash Withdrawal/Other Transactions menu",
+                    "Select the Other Transactions menu",
+                    "Select the Transfer menu",
+                    "Enter the BCA Get & Ride account number, 5205979988 a/n. PT ITC and click Correct",
+                    "Enter the Enter the amount of money that must be transferred through BCA ATMs",
+                    "If all processes are complete and correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
+                    "After the transfer is successful, open Payment Confirmation on the website / application",
+                    "Enter the Sender's name and upload Proof of Transfer",
+                    "Click Confirm Transfer",
+                    "Payment will be checked"
+
+                ]
+            },
+            {
+                "title": "Transfer via Mobile Banking",
+                "step_length": 11,
+                "steps": [
+                    "Open the Mobile Banking Application, select the m-Transfer menu",
+                    "Click the Transfer List menu",
+                    "Select the menu Between Accounts (for BCA users) and Interbank (for users other than BCA)",
+                    "Enter the BCA Get & Ride account number, 5205979988 a/n. PT Indo Teknologi Cemerlang and click Correct",
+                    "Enter the amount of money that must be transferred via ATM BCA",
+                    "Enter your PIN",
+                    "If all processes have been completed and are correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
+                    "After the transfer is successful, open Payment Confirmation on the website / application",
+                    "Enter the Sender's name and upload Proof of Transfer",
+                    "Click Confirm Transfer",
+                    "Payment will be checked"
+
+                ]
+            }
+        ],
+        "mandiri_length": 2,
+        "mandiri": [{
+                "title": "Transfer via ATM",
+                "step_length": 11,
+                "steps": [
+                    "Insert ATM Card and ATM PIN",
+                    "Select the Cash Withdrawal/Other Transactions menu",
+                    "Select the Other Transactions menu",
+                    "Select the Transfer menu",
+                    "Enter the MANDIRI Get & Ride account number, 5205979988 a/n. PT ITC and click Correct",
+                    "Enter the Enter the amount of money that must be transferred through MANDIRI ATMs",
+                    "If all processes are complete and correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
+                    "After the transfer is successful, open Payment Confirmation on the website / application",
+                    "Enter the Sender's name and upload Proof of Transfer",
+                    "Click Confirm Transfer",
+                    "Payment will be checked"
+
+                ]
+            },
+            {
+                "title": "Transfer via Mobile Banking",
+                "step_length": 11,
+                "steps": [
+                    "Open the Mobile Banking Application, select the m-Transfer menu",
+                    "Click the Transfer List menu",
+                    "Select the menu Between Accounts (for MANDIRI users) and Interbank (for users other than MANDIRI)",
+                    "Enter the MANDIRI Get & Ride account number, 5205979988 a/n. PT Indo Teknologi Cemerlang and click Correct",
+                    "Enter the amount of money that must be transferred via ATM MANDIRI",
+                    "Enter your PIN",
+                    "If all processes have been completed and are correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
+                    "After the transfer is successful, open Payment Confirmation on the website / application",
+                    "Enter the Sender's name and upload Proof of Transfer",
+                    "Click Confirm Transfer",
+                    "Payment will be checked"
+
+                ]
+            }
+        ]
     }
 }

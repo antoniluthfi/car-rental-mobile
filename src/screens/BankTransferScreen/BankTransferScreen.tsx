@@ -22,6 +22,7 @@ import {RootStackParamList} from 'types/navigator';
 import {currencyFormat} from 'utils/currencyFormat';
 import { showToast } from 'utils/Toast';
 import { Clipboard } from '@react-native-clipboard/clipboard/dist/Clipboard';
+import { useTranslation } from 'react-i18next';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
@@ -37,6 +38,7 @@ type BankTransferScreenRouteProp = RouteProp<
 const BankTransferScreen = () => {
   const navigation = useNavigation();
   const route = useRoute<BankTransferScreenRouteProp>();
+  const {t} = useTranslation();
 
   useEffect(() => {
     navigation.setOptions(
@@ -63,7 +65,7 @@ const BankTransferScreen = () => {
   }, [navigation]);
 
   const methods = {
-    handleFAQ: () => {
+    handleFAQ: (index: number) => {
       showBSheet({
         content: (
           <View
@@ -73,12 +75,22 @@ const BankTransferScreen = () => {
               margin: 16,
             }}>
             <Text style={[h1, {margin: 16, fontSize: 18}]}>
-              Cara Pembayaran
+              {t('instant_payment.payment_instruction')}
             </Text>
-            {FAQ.map((x, i) => (
+            {[
+              ...Array(
+                t(
+                  `manual_transfer.${route.params?.selectedPayment.code.toLowerCase()}.${index}.step_length`,
+                ),
+              ).fill(''),
+            ].map((x, i) => (
               <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
                 <Text>{i + 1}. </Text>
-                <Text>{x}</Text>
+                <Text>
+                  {t(
+                    `manual_transfer.${route.params?.selectedPayment.code.toLowerCase()}.${index}.steps.${i}`,
+                  )}
+                </Text>
               </View>
             ))}
           </View>
@@ -169,37 +181,37 @@ const BankTransferScreen = () => {
 
       <View style={styles.lineHorizontal} />
 
-      <Text style={[h1, {marginTop: 20}]}>Cara Pembayaran</Text>
+      <Text style={[h1, {marginTop: 20}]}>
+          {t('virtual_account.payment_Instruction')}
+        </Text>
 
-      <TouchableOpacity
-        style={[
-          styles.HowToWrapper,
-          rowCenter,
-          {justifyContent: 'space-between'},
-        ]}
-        onPress={methods.handleFAQ}>
-        <Text style={h4}>Transfer melalui Bank Mandiri</Text>
-        <Image
-          source={ic_arrow_right}
-          style={iconCustomSize(10)}
-          resizeMode={'contain'}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[
-          styles.HowToWrapper,
-          rowCenter,
-          {justifyContent: 'space-between'},
-        ]}
-        onPress={methods.handleFAQ}>
-        <Text style={h4}>Transfer melalui Bank BCA</Text>
-        <Image
-          source={ic_arrow_right}
-          style={iconCustomSize(10)}
-          resizeMode={'contain'}
-        />
-      </TouchableOpacity>
+        {[
+          ...Array(
+            t(
+              `manual_transfer.${route.params?.selectedPayment.code.toLowerCase()}_length`,
+            ),
+          ).fill(''),
+        ].map((x, i) => (
+          <TouchableOpacity
+            style={[
+              styles.HowToWrapper,
+              rowCenter,
+              {justifyContent: 'space-between'},
+            ]}
+            key={i.toString()}
+            onPress={() => methods.handleFAQ(i)}>
+            <Text style={h4}>
+              {t(
+                `manual_transfer.${route.params?.selectedPayment.code.toLowerCase()}.${i}.title`,
+              )}
+            </Text>
+            <Image
+              source={ic_arrow_right}
+              style={iconCustomSize(10)}
+              resizeMode={'contain'}
+            />
+          </TouchableOpacity>
+        ))}
 
       <Button
         _theme="navy"
