@@ -1,6 +1,5 @@
 import {
   Image,
-  StyleProp,
   StyleSheet,
   Text,
   TextInput,
@@ -10,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {deepClone, theme} from 'utils';
-import {ic_eye_close, ic_warning} from 'assets/icons';
+import {ic_eye_close} from 'assets/icons';
 import {FONT_SIZE_12} from 'utils/typography';
 import {h1, radius} from 'utils/styles';
 import {iconSize} from 'utils/mixins';
@@ -19,7 +18,6 @@ import Animated, {
   useSharedValue,
   withRepeat,
   withSequence,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 
