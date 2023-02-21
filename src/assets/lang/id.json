@@ -259,7 +259,8 @@
       "done": "Selesai",
       "send_otp": "Kirim OTP",
       "download_update": "Unduh Pembaruan",
-      "send_email": "Kirim Email"
+      "send_email": "Kirim Email",
+      "confirm": "Konfirmasi"
     },
     "alert": {
       "payment_confirm": "Apakah anda yakin melanjutkan Pembayaran ini?",
@@ -279,7 +280,8 @@
       "password_and_confirmation_password_do_not_match": "Kata sandi baru dan Konfirmasi kata sandi tidak sesuai",
       "password_length": "Kata sandi minimal 8 karakter dan terdiri dari angka dan juga huruf",
       "please_login_to_continue": "Silakan login terlebih dahulu untuk melanjutkan!",
-      "payment_can_not_be_made": "Pembayaran tidak dapat dilakukan"
+      "payment_can_not_be_made": "Pembayaran tidak dapat dilakukan",
+      "enter_password": "Masukkan Kata Sandi"
     },
     "data_not_found": "Data Tidak Ditemukan",
     "select_options": "Pilih Opsi",

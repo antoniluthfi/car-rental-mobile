@@ -1,749 +1,750 @@
 {
-    "Account": {
-        "header": "My Profile",
-        "menu_1": "Profile",
-        "menu_2": "Change Password",
-        "menu_3": "Notification",
-        "password": "Password",
-        "insert_password_to_update": "Enter Password to make changes",
-        "your_password": "Kata sandi anda",
-        "logout": "Logout",
-        "id_card_photo": "ID Card Photo",
-        "license_photo": "Driver's License Photo",
-        "select_country_code": "Select Country Code",
-        "search_country_code": "Search Country Code"
+  "Account": {
+    "header": "My Profile",
+    "menu_1": "Profile",
+    "menu_2": "Change Password",
+    "menu_3": "Notification",
+    "password": "Password",
+    "insert_password_to_update": "Enter Password to make changes",
+    "your_password": "Kata sandi anda",
+    "logout": "Logout",
+    "id_card_photo": "ID Card Photo",
+    "license_photo": "Driver's License Photo",
+    "select_country_code": "Select Country Code",
+    "search_country_code": "Search Country Code"
+  },
+  "Home": {
+    "tabBarLabel": "Home",
+    "daily": {
+      "title": "Daily",
+      "location": "Choose your location",
+      "placeholder_location": "Choose your location",
+      "your_location": "Your Location",
+      "available_location": "Available Location",
+      "search_history": "Search History",
+      "without_driver": "Without Driver",
+      "with_driver": "With Driver",
+      "select_date": "Select Date",
+      "rent_start_date": "Rental Start Date",
+      "rent_end_date": "Rental End Date",
+      "rent_start_time": "Rental Start Time",
+      "rent_end_time": "Rental End Time",
+      "btn_search": "Find a Car",
+      "error_location": "Enter your location",
+      "error_rent_date": "Enter the Date first",
+      "error_rent_time": "Choose Your Clock",
+      "day": "Day",
+      "days": "Days",
+      "continue_to_whatsapp": "Continue to Whatsapp",
+      "car_rental": "Car Rental",
+      "motorcycle_rental": "Motorcycle Rental",
+      "bike_rental": "Bike Rental",
+      "startTime": "Rental Start Time",
+      "headerStartDate": "The time chosen is in accordance with the car rental time (WITA)",
+      "footerStartDate": "When selecting rental hours will be the same as Return hours",
+      "format_time_24_hours": "24 Hours Format Time - WITA"
     },
-    "Home": {
-        "tabBarLabel": "Home",
-        "daily": {
-            "title": "Daily",
-            "location": "Choose your location",
-            "placeholder_location": "Choose your location",
-            "your_location": "Your Location",
-            "available_location": "Available Location",
-            "search_history": "Search History",
-            "without_driver": "Without Driver",
-            "with_driver": "With Driver",
-            "select_date": "Select Date",
-            "rent_start_date": "Rental Start Date",
-            "rent_end_date": "Rental End Date",
-            "rent_start_time": "Rental Start Time",
-            "rent_end_time": "Rental End Time",
-            "btn_search": "Find a Car",
-            "error_location": "Enter your location",
-            "error_rent_date": "Enter the Date first",
-            "error_rent_time": "Choose Your Clock",
-            "day": "Day",
-            "days": "Days",
-            "continue_to_whatsapp": "Continue to Whatsapp",
-            "car_rental": "Car Rental",
-            "motorcycle_rental": "Motorcycle Rental",
-            "bike_rental": "Bike Rental",
-            "startTime": "Rental Start Time",
-            "headerStartDate": "The time chosen is in accordance with the car rental time (WITA)",
-            "footerStartDate": "When selecting rental hours will be the same as Return hours",
-            "format_time_24_hours": "24 Hours Format Time - WITA"
-        },
-        "getrideDescription": {
-            "title": "What is Get & Ride?",
-            "description": "Get & Ride is an online application that provides car rental and rental services with a driver or off key specifically for the Bali area. We provide various types of cars at affordable prices. Immediately submit a business trip, vacation, or private event to us."
-        },
-        "destinationFavTitle": "Popular Destination in Bali",
-        "destinationFavList": [{
-                "name": "Tirta Gangga Water Palace in Bali",
-                "description": "The name Tirta Gangga itself comes from the word Tirta which means water, and Gangga which means the name of a river in India. The flowing water is also believed to be holy water and can wash away bad energy. You can also feed the Koi fishes around and swim here. Don't forget to pack a change of clothes!",
-                "image": "tirtaGangga"
-            },
-            {
-                "name": "Ulun Danu Batur Temple in Kintamani",
-                "description": "Ulun Danu Batur Temple is one of the most iconic spots that offers a beautiful panorama, since it is located above Lake Batur with Mount Batur as a background. The air temperature is also very cool and fresh, which is perfect for you who want to refresh or calm your mind.",
-                "image": "pagoda"
-            },
-            {
-                "name": "Melasti Beach Ungasan",
-                "description": "In a list of the best beaches on Bali, Melasti Beach cannot be missing! This beach is much admired by tourists for its beautiful sea views and cleanliness. The waves on this beach are not too big and safe for those of you who want to play in the water or swim.",
-                "image": "melastiBeach"
-            },
-            {
-                "name": "Kanto Lampo Waterfall, Ubud",
-                "description": "Waterfalls are usually found around forests or mountains, uniquely, Kanto Lampo is located near the residential area of Gianyar, Bali. The waterfall does not flow directly into the river, but passes through the rocks which creates a beautiful and cool atmosphere because of the splashing water around it.",
-                "image": "kantoLampo"
-            }
-        ],
-        "carFavTitle": "Type of Cars",
-        "carFavList": [{
-                "title": "Toyota Veloz",
-                "description": "This Toyota Veloz type has been in great demand before it was launched. The newest design looks cooler and more modern and the capacity can also reach up to 7 passengers! You and your family will definitely be comfortable during the holidays",
-                "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/v3.webp"
-            },
-            {
-                "title": "Suzuki Ertiga Gx",
-                "description": "The Suzuki Ertiga Gx car type can also be an option for traveling around the island of Bali. Apart from the large passenger capacity, the security features are also pretty good. Your vacation is guaranteed to be safer & calmer!",
-                "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/g2.jpeg"
-            },
-            {
-                "title": "Toyota Hiace Premio",
-                "description": "If you want a relaxing, comfortable, and large-capacity vacation, you can immediately choose the Toyota Hiace Premio. The cabin design is spacious, it will reduce the feeling of aches and fatigue during trips around the city. ",
-                "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/h4.jpg"
-            }
-        ],
-        "articleTitle": "Article",
-        "whyChooseUs": {
-            "title": "Why Rent a Car at Get&Ride",
-            "list_1": {
-                "subtitle": "Time-saving",
-                "description": "Hire a car online, anywhere and anytime. Choose your schedule and car type easily and reliably at Get & Ride."
-            },
-            "list_2": {
-                "subtitle": "Competitive Price",
-                "description": "Don't worry! Get & Ride's rental prices are affordable and guaranteed to be competitive."
-            },
-            "list_3": {
-                "subtitle": "Best Cars",
-                "description": "Get & Ride provides the best quality and cleanest cars. All cars are serviced regularly for convenience."
-            },
-            "list_4": {
-                "subtitle": "Best Services",
-                "description": "Providing professional drivers, implementation of health protocols, and vehicle protection. All cars at Get & Ride are covered by insurance."
-            }
-        },
-        "withDriver": {
-            "description_1": "If you select the car rental \"With Driver\" then you will be redirected to Whatsapp",
-            "description_2": "Once you have selected the time and date, you will select an available car and driver.",
-            "description_3": "Once you have selected a car, you will receive an invoice for your car rental."
-        },
-        "airportTransfer": {
-            "title": "Airport Transfer"
-        },
-        "tour": {
-            "title": "Tour"
-        }
+    "getrideDescription": {
+      "title": "What is Get & Ride?",
+      "description": "Get & Ride is an online application that provides car rental and rental services with a driver or off key specifically for the Bali area. We provide various types of cars at affordable prices. Immediately submit a business trip, vacation, or private event to us."
     },
-    "list_car": {
-        "header": "Choose Car Type",
-        "change_search": "Change Search",
-        "rent_price": "Rent Price",
-        "day": "Day",
-        "car_type": "Car Type",
-        "seat": "Seat",
-        "bag": "Case",
-        "available": "Available",
-        "booked": "Booked"
+    "destinationFavTitle": "Popular Destination in Bali",
+    "destinationFavList": [
+      {
+        "name": "Tirta Gangga Water Palace in Bali",
+        "description": "The name Tirta Gangga itself comes from the word Tirta which means water, and Gangga which means the name of a river in India. The flowing water is also believed to be holy water and can wash away bad energy. You can also feed the Koi fishes around and swim here. Don't forget to pack a change of clothes!",
+        "image": "tirtaGangga"
+      },
+      {
+        "name": "Ulun Danu Batur Temple in Kintamani",
+        "description": "Ulun Danu Batur Temple is one of the most iconic spots that offers a beautiful panorama, since it is located above Lake Batur with Mount Batur as a background. The air temperature is also very cool and fresh, which is perfect for you who want to refresh or calm your mind.",
+        "image": "pagoda"
+      },
+      {
+        "name": "Melasti Beach Ungasan",
+        "description": "In a list of the best beaches on Bali, Melasti Beach cannot be missing! This beach is much admired by tourists for its beautiful sea views and cleanliness. The waves on this beach are not too big and safe for those of you who want to play in the water or swim.",
+        "image": "melastiBeach"
+      },
+      {
+        "name": "Kanto Lampo Waterfall, Ubud",
+        "description": "Waterfalls are usually found around forests or mountains, uniquely, Kanto Lampo is located near the residential area of Gianyar, Bali. The waterfall does not flow directly into the river, but passes through the rocks which creates a beautiful and cool atmosphere because of the splashing water around it.",
+        "image": "kantoLampo"
+      }
+    ],
+    "carFavTitle": "Type of Cars",
+    "carFavList": [
+      {
+        "title": "Toyota Veloz",
+        "description": "This Toyota Veloz type has been in great demand before it was launched. The newest design looks cooler and more modern and the capacity can also reach up to 7 passengers! You and your family will definitely be comfortable during the holidays",
+        "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/v3.webp"
+      },
+      {
+        "title": "Suzuki Ertiga Gx",
+        "description": "The Suzuki Ertiga Gx car type can also be an option for traveling around the island of Bali. Apart from the large passenger capacity, the security features are also pretty good. Your vacation is guaranteed to be safer & calmer!",
+        "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/g2.jpeg"
+      },
+      {
+        "title": "Toyota Hiace Premio",
+        "description": "If you want a relaxing, comfortable, and large-capacity vacation, you can immediately choose the Toyota Hiace Premio. The cabin design is spacious, it will reduce the feeling of aches and fatigue during trips around the city. ",
+        "image": "https://overseas.sgp1.digitaloceanspaces.com/cars/h4.jpg"
+      }
+    ],
+    "articleTitle": "Article",
+    "whyChooseUs": {
+      "title": "Why Rent a Car at Get&Ride",
+      "list_1": {
+        "subtitle": "Time-saving",
+        "description": "Hire a car online, anywhere and anytime. Choose your schedule and car type easily and reliably at Get & Ride."
+      },
+      "list_2": {
+        "subtitle": "Competitive Price",
+        "description": "Don't worry! Get & Ride's rental prices are affordable and guaranteed to be competitive."
+      },
+      "list_3": {
+        "subtitle": "Best Cars",
+        "description": "Get & Ride provides the best quality and cleanest cars. All cars are serviced regularly for convenience."
+      },
+      "list_4": {
+        "subtitle": "Best Services",
+        "description": "Providing professional drivers, implementation of health protocols, and vehicle protection. All cars at Get & Ride are covered by insurance."
+      }
     },
-    "carDetail": {
-        "carDetail": "Car Detail",
-        "carPrice": "Rent Price",
-        "perDay": "/ Day",
-        "seatCapacity": "Seat Capacity",
-        "seat": "Kursi",
-        "bagDetail": "Case Detail",
-        "bag": "Case",
-        "transmision": "Transmission",
-        "car_conditions": "Car Conditions",
-        "smoking": "No Smoking",
-        "pet": "Pet Allowed",
-        "disability": "Disability Support",
-        "priceTerm": "Price Term",
-        "include": "Include",
-        "important": "Important",
-        "rentalRules": "Rental Terms & Conditions",
-        "rentalTerm": "Rental Term",
-        "learnMore": "Read More",
-        "rentalRequirement": "Rental Policy & Conditions",
-        "policy": "Rental Policy",
-        "requirement": "Rental Condition",
-        "otherInfo": "Other Info",
-        "carInsurance": "Car Insurance",
-        "rentalGas": "Return the fuel as before",
-        "rentalTime": "Use up to 24 hours per rental day",
-        "agreeState": "I agree to the terms that apply",
-        "rental_rules": "Rental Rules",
-        "requirements": {
-            "list_1": "SIM A/International SIM",
-            "list_2": "KTP/Passport",
-            "list_3": "Social Media Account Username",
-            "list_4": "Deposit IDR 500.000"
-        },
-        "policies": {
-            "list_1": "The duration of car rental per day is 24 hours",
-            "list_2": "Overtime fee per hour 10% of the rental price",
-            "list_3": "Prices include VAT",
-            "list_4": "Not including fuel, parking, toll and driver"
-        }
+    "withDriver": {
+      "description_1": "If you select the car rental \"With Driver\" then you will be redirected to Whatsapp",
+      "description_2": "Once you have selected the time and date, you will select an available car and driver.",
+      "description_3": "Once you have selected a car, you will receive an invoice for your car rental."
     },
-    "priceTerm": {
-        "handSanitizer": "Hand Sanitizer",
-        "mineralWater": "Mineral Water",
-        "mask": "Mask",
-        "tissue": "Tissue",
-        "driver": "Driver",
-        "parking": "Parking",
-        "snacks": "Snacks",
-        "additional_needs": "Additional Needs",
-        "fuel": "Fuel",
-        "toll": "Toll"
+    "airportTransfer": {
+      "title": "Airport Transfer"
     },
-    "dailyRules": {
-        "sebelum_pengambilan": {
-            "title": "Before Rental",
-            "list_1": "Renters must share with the provider a photo of their driver's license (SIM A or International SIM), as well as their ID Card (KTP or Passport).",
-            "list_2": "Renters must pay a deposit of IDR 500,000 to the provider before the rental start, with the available payment methods.",
-            "list_3": "The deposit will be returned at the latest 7 days after the rental ends."
-        },
-        "saat_pengambilan": {
-            "title": "During Pick-Up",
-            "list_1": "Renters are required to show a valid driver's license and ID card (KTP or Passport and SIM A or International SIM)",
-            "list_2": "Renters must be over 17 years old.",
-            "list_3": "All documents provided must be original, not in the name of another person, and in accordance with the data registered when ordering at Get & Ride Apps.",
-            "list_4": "Renters must ensure that the rented vehicle is properly used and returned in the same condition as it was originally."
-        },
-        "penggunaan": {
-            "title": "Rental Policies Usage",
-            "list_1": "Vehicles are not allowed to be transferred to other parties who are not verified by Get & Ride data. Get & Ride parties can forcefully take the vehicle if the following indications occur.",
-            "list_2": "Renters will be charged an additional fee, if the pick-up and return outside the available zone",
-            "list_3": "Renters are allowed to bring pets in certain cars. Make sure pets don't damage or contaminate the vehicle facilities in the car.",
-            "list_4": "Renters are not allowed to carry passengers or luggage that exceeds the capacity of the car being rented.",
-            "list_5": "Renters are responsible for replacement or repair costs in the event of loss or damage to Vehicle Registration Cerfticicate (STNK), car keys, accessories, car tools, head units, tools sets, scratches, stains, and other costs arising from the renters.",
-            "list_6": "Renters are responsible for all parking, traffic and other fines incurred as a result of violations of law during the rental."
-        },
-        "pengembalian": {
-            "title": "After Rental Policy",
-            "list_1": "The provider has the right not to return the deposit, if the car is damaged or if the tenant violates the law during the rental period.",
-            "list_2": "The provider is not responsible for items left in the car after the renter returns the car to the rental provider.",
-            "list_3": "The renter must return the car with the same volume of fuel as the car was received (bar to bar)",
-            "list_4": "If there is an electronic traffic ticket during the rental period, the rental provider will return the deposit by deducting the fine of the electronic ticket.",
-            "list_5": "Get & Ride is not responsible for accidents, losses, and treatment caused by the accident."
-        },
-        "overtime": {
-            "title": "Overtime",
-            "list_1": "An overtime fee will be charged if the rental exceeds 24 hours per day.",
-            "list_2": "Renters are given an additional 1 (one) hour of compensation time, and if it is exceeded, the tenant will be charged 10% per hour of the rental price, with a maximum limit of 4 (four) hours.",
-            "list_3": "Overtime of more than 4 hours, will be charged a one-day rental fee."
-        },
-        "asuransi": {
-            "title": "Asuransi (belum ready)",
-            "list_1": "Jika terjadi kecelakaan, penyewa diwajibkan untuk menyerahkan kepada penyedia semua dokumen yang dibutuhkan oleh perusahan asuransi, termasuk namun tidak terbatas pada KTP/paspor dan SIM A mereka.",
-            "list_2": "Penyewa wajib menanggung beban biaya Risiko Sendiri sebesar Rp350.000 untuk setiap kejadian kecelakan (per panel).",
-            "list_3": "Penyewa wajib menanggung Biaya Risiko Kehilangan (Total Lost Risk) sebesar Rp500.000 jika mobil hilang.",
-            "list_4": "Perselisihan antara pihak akan diselesaikan via musyawarah mufakat. Jika dalam waktu 30 hari para pihak belum mencapai mufakat, masalah akan diselesaikan di Pengadilan Negeri Jakarta Utara."
-        },
-        "refund": {
-            "title": "Refund & Cancellation Policy",
-            "list_1": "Cancellations submitted more than 24 hours prior to pick-up will receive a 100% refund of the total rental fee.",
-            "list_2": "If the cancellation is submitted within 24 to 6 hours before the pick up time, a 50% refund of the total rental fee will be received",
-            "list_3": "Cancellation submitted less than 6 hours before the pick-up time will incur a cancellation fee of 100% of the total rental fee.",
-            "list_4": "The refund process does not apply to promo rental prices and certain types of vehicles.",
-            "list_5": "Refunds are processed up to 14 working days after the refund process has been approved"
-        }
-    },
-    "global": {
-        "button": {
-            "back": "Back",
-            "login": "Login",
-            "signup": "Sign Up",
-            "findACar": "Find a Car",
-            "pick": "Select",
-            "next": "Next",
-            "nextPayment": "Continue Payment",
-            "orderNow": "Order Now",
-            "payNow": "Pay Now",
-            "choosePayment": "Choose Payment",
-            "verification": "Verification",
-            "save": "Save",
-            "cancelOrder": "Cancel Order",
-            "extendOrder": "Extend Order",
-            "yesNext": "Yes, Continue",
-            "orderDetail": "Order Detail",
-            "done": "Done",
-            "send_otp": "Send OTP",
-            "download_update": "Download Update",
-            "send_email": "Send Email"
-        },
-        "alert": {
-            "payment_confirm": "Are you sure to proceed with this Payment?",
-            "success": "Success",
-            "failed": "Failed",
-            "error": "Error",
-            "warning": "Warning",
-            "success_change_profile_picture": "Successfully change profile picture",
-            "success_change_profile_data": "Successfully change profile data",
-            "error_occurred": "Error occurred",
-            "success_copy_text": "Successfully copy the text",
-            "success_change_password": "Successfully changed the password",
-            "success_change_notification": "Successfully changed the notification",
-            "success_change_password_login_again": "Successfully changed the password, please login again",
-            "success_upload_proof_payment": "Successfully upload proof of payment",
-            "cancellation_failed": "Cancellation failed",
-            "password_and_confirmation_password_do_not_match": "New password and Confirm password do not match",
-            "password_length": "The password must be at least 8 characters long and consist of both numbers and letters.",
-            "please_login_to_continue": "Please login first to continue!",
-            "payment_can_not_be_made": "Payment cannot be made"
-        },
-        "data_not_found": "Data Not Found",
-        "select_options": "Select Options",
-        "camera": "Camera",
-        "gallery": "Gallery",
-        "credit_debit_card_no": "Credit/Debit Card No.",
-        "cardholder_name": "Cardholder Name",
-        "validity_period": "Validity Period",
-        "bank_name": "Bank Name",
-        "choose_your_bank": "Choose your Bank",
-        "upload_your_image_here": "Upload your image here, or",
-        "browse": "browse",
-        "search": "Search"
-    },
-    "detail_order": {
-        "title": "Order Detail",
-        "formDetail": {
-            "title": "Order Details Form",
-            "fullName": "Full Name",
-            "phone": "Phone Number",
-            "sameAsPhone": "Same as Phone Number"
-        },
-        "tripDetail": {
-            "title": "Trip Details",
-            "pickAtGarage": "Taking To The Rental Place",
-            "deliveryLocationTaking": "Choose a taking location",
-            "deliveryLocation": "Delivery location",
-            "deliveryLocationTakingPlaceholder": "Choose a taking location",
-            "deliveryLocationPlaceholder": "Delivery location",
-            "returnLocation": "Return location",
-            "returnLocationPlaceHolder": "Choose a return location"
-        },
-        "specialReq": {
-            "title": "Special Request Form (Optional)",
-            "placeholder": "Write down what you need for your travel needs, e.g. Baby Chair, Wheel Chair, etc."
-        },
-        "summary": {
-            "title": "Rental",
-            "passanger": "Passenger",
-            "deliveryLocation": "Delivery Location",
-            "deliveryLocationPlaceholder": "Delivery Location",
-            "pickLocation": "Taking Location",
-            "pickLocationPlaceholder": "Taking Location",
-            "returnLocation": "Return Location",
-            "returnLocationPlaceHolder": "Return Location",
-            "startDate": "Order Start's Date",
-            "startTime": "Order Start's Time",
-            "endDate": "Order End's Date",
-            "endTime": "Order Start's Time",
-            "rentalFee": "Rental Fee",
-            "price": "Price",
-            "day": "day",
-            "otherFee": "Other's Fee",
-            "serviceFee": "Service Fee",
-            "insuranceFee": "Insurance Fee",
-            "totalPayment": "Total Payment"
-        },
-        "extendOrder": {
-            "numberOfDays": "Number of Days",
-            "numberOfDaysPlaceholder": "Input Jumlah Hari",
-            "rentalHours": "Rental Hours",
-            "returnTime": "Return Time"
-        },
-        "cancel_request_in_process": "Cancellation request in process",
-        "refunds_will_be_made_in_7_days": "Refunds will be made within 7 business days",
-        "order_no": "Order No.",
-        "order_cancellation": "Pembatalan Pesanan",
-        "write_reason_cancellation": "Write the reason for cancellation",
-        "name": "Name",
-        "account_number": "Account Number",
-        "enter_account_number": "Enter Account Number",
-        "write_description": "Tulis Keterangan"
-    },
-    "payment_method": {
-        "header": "Select Payment Method"
-    },
-    "settings": {
-        "tabBarLabel": "My Profile",
-        "profile": "Profile",
-        "changePassword": "Change Password",
-        "notification": "Notification",
-        "fullName": "Full Name",
-        "fullNamePlaceholder": "Full Name",
-        "oldPassword": "Old Password",
-        "oldPasswordPlaceholder": "Old Password",
-        "newPassword": "New Password",
-        "newPasswordPlaceholder": "New Password",
-        "confirmPassword": "Confirm New Password",
-        "confirmPasswordPlaceholder": "Confirm New Password",
-        "activity": "Activity",
-        "activityDesc": "Notifications for promotions from us, enjoy various discounts from us",
-        "reminder": "Reminder",
-        "reminderDesc": "Notifications for your order"
-    },
-    "myBooking": {
-        "tabBarLabel": "My Booking",
-        "noOrder": "No orders yet",
-        "noRental": "No rental history yet",
-        "paymentMethod": "Payment Method",
-        "paymentMethodNotSelected": "Payment Method Not Selected",
-        "totalPrice": "Total Price",
-        "paymentStatus": "Payment Status",
-        "rentStatus": "Rent Status",
-        "downloadEticket": "Download E-Tickets",
-        "pickupLocation": "Pickup Location",
-        "deliveryLocation": "Delivery Location",
-        "returnLocation": "Return Location",
-        "car": "Car",
-        "startTime": "Rental Start Time",
-        "endTime": "Rental End Time",
-        "orderDetail": "Order Detail",
-        "startDate": "Rental Start Date",
-        "endDate": "Rental End Date",
-        "totalPassenger": "Total Passenger",
-        "are_you_sure_want_to_continue": "Are you sure want to continue",
-        "this_payment": "this payment",
-        "cancel_this_order": "cancel this order"
-    },
-    "myInbox": {
-        "tabBarLabel": "My Inbox"
-    },
-    "virtual_account": {
-        "payment_Instruction": "Payment Instruction",
-        "bca_length": 3,
-        "bca": [{
-                "title": "Transfer via ATM",
-                "step_length": 8,
-                "steps": [
-                    "Insert the ATM card and enter ATM BCA PIN",
-                    "Select Cash Withdrawal/Other Transactions",
-                    "Select Other Transactions",
-                    "Select Transfer",
-                    "Select To BCA Virtual Account",
-                    "Enter the BCA Virtual Account number,  78749222178 and click Correct",
-                    "Check the transaction details and select Yes",
-                    "Transaction is successful"
-                ]
-            },
-            {
-                "title": "Transfer via Mobile Banking",
-                "step_length": 6,
-                "steps": [
-                    "Open BCA mobile, select m-Transfer",
-                    "Select BCA Virtual Account",
-                    "Enter the BCA Virtual Account number, 78749222178 and click Send",
-                    "Check the amount that shows",
-                    "Enter m-BCA PIN",
-                    "Transaction is successful"
-                ]
-            },
-            {
-                "title": "Transfer via Klik BCA",
-                "step_length": 5,
-                "steps": [
-                    "Login to KlikBCA and select Fund Transfer",
-                    "Select Transfer to BCA Virtual Account",
-                    "Enter the BCA Virtual Account number, 78749222178 and click Continue",
-                    "Enter the KeyBCA Appli 1 response and click Send",
-                    "Transaction is successful"
-
-                ]
-            }
-        ],
-        "mandiri_length": 2,
-        "mandiri": [{
-                "title": "Transfer via ATM",
-                "step_length": 6,
-                "steps": [
-                    "Enter your ATM PIN.",
-                    "On the main menu, select “Pay / Buy”.",
-                    "Select \"Other\" until you find the \"Multipayment\" menu.",
-                    "Enter the company code with the number: “70012” (without quotes) a / n Midtrans. After that, select \"Correct\".",
-                    "Enter your payment code, then select \"Correct\".",
-                    "Re-check your transaction after that complete the payment process."
-                ]
-            },
-            {
-                "title": "Transfer via Mobile Banking",
-                "step_length": 7,
-                "steps": [
-                    "Log in to Mandiri Livin' or Mandiri Internet Banking.",
-                    "On the main menu, select “Pay”.",
-                    "Select “Make New Payment”.",
-                    "After that, select the “Multipayment” menu.",
-                    "Enter the company code with the number: “70012” (without quotes) a / n Midtrans. After that select \"True\".",
-                    "Enter your payment code, then select \"Correct\".",
-                    "Re-check your transaction after that complete the payment process."
-
-                ]
-            }
-        ],
-        "permata_length": 2,
-        "permata": [{
-                "title": "Transfer via ATM",
-                "step_length": 7,
-                "steps": [
-                    "Enter your ATM PIN.",
-                    "On the main menu, select Other Transactions.",
-                    "Select the Payment menu.",
-                    "Choose Other Payment.",
-                    "Select Virtual Account.",
-                    "Enter the Virtual Account number: 787007381079144.",
-                    "The amount to be paid and the account number will appear on the payment confirmation page. If the information is correct, select True."
-                ]
-            },
-            {
-                "title": "Transfer via Mobile Banking",
-                "step_length": 9,
-                "steps": [
-                    "Open the Permata Mobile app.",
-                    "Enter User ID & Password.",
-                    "Choose Pay Bill.",
-                    "Select Virtual Account.",
-                    "Enter the Virtual Account Number: 787007381079144.",
-                    "Enter the payment amount.",
-                    "Payment confirmation appears.",
-                    "Enter Mobile PIN.",
-                    "Transaction complete."
-                ]
-            }
-        ],
-        "bni_length": 2,
-        "bni": [{
-                "title": "Transfer via ATM",
-                "step_length": 8,
-                "steps": [
-                    "Enter your ATM and BNI PIN.",
-                    "On the main menu, select “Other Menu”.",
-                    "Select \"Transfer\"",
-                    "After that, select \"Savings Account\".",
-                    "Select \"BNI Account\".",
-                    "Enter the Virtual Account number 9887874930099369",
-                    "Enter the payment amount according to the invoice.",
-                    "Check your transaction again, then select \"Yes\"."
-
-                ]
-            },
-            {
-                "title": "Transfer via Mobile Banking",
-                "step_length": 8,
-                "steps": [
-                    "Enter the BNI Mobile Banking application.",
-                    "Enter User ID and Password.",
-                    "Select the \"Transfer\" menu.",
-                    "After that, select “Between BNI Accounts”.",
-                    "Select \"Input New Account\".",
-                    "Enter the Virtual Account number 9887874930099369",
-                    "Check your transaction again, then select \"Yes\".",
-                    "Enter the password to confirm payment."
-
-                ]
-            }
-        ],
-        "bri_length": 2,
-        "bri": [{
-                "title": "Transfer via ATM",
-                "step_length": 8,
-                "steps": [
-                    "Enter your ATM Card and BRI PIN.",
-                    "On the main menu, select the menu \"Other Transactions\"",
-                    "Select the \"Payment\" menu",
-                    "Select the \"More\" menu",
-                    "Select the “BRIVA” menu",
-                    "Enter the BRIVA (Virtual Account) number “9887874930099369” and click Correct",
-                    "On the confirmation page, make sure the transaction data is correct then select \"Yes\"",
-                    "Transaction completed"
-                ]
-            },
-            {
-                "title": "Transfer via Mobile Banking",
-                "step_length": 8,
-                "steps": [
-                    "Enter the BRI Mobile Banking application",
-                    "Select “BRI Mobile Banking”",
-                    "Select the \"Info\" menu",
-                    "Select the “BRIVA” menu",
-                    "Enter BRIVA number 9887874930099369 and click correct",
-                    "Enter the payment amount according to the invoice",
-                    "Enter your PIN",
-                    "The transaction is successful"
-                ]
-            }
-        ]
-    },
-    "card_payment": {
-        "tabBarLabel": "Card Payment",
-        "insert_card_info": "Insert Card Info",
-        "your_data_will_be_protected": "Your data will be protected",
-        "payment_Instruction": "Payment Instruction",
-        "card_payment_length": 3,
-        "steps": [
-            "Enter the card holder name, card number, validity period and also your CVV code in the form provided, make sure the number entered is valid and not written incorrectly.",
-            "Then verify your Debit Card by pressing the \"Process Payment\" button. After the Debit Card is verified, you can continue the payment.",
-            "After payment is successful and verified, your order status will be successful and your transaction will be comfortable and safe."
-        ]
-    },
-    "instant_payment": {
-        "payment_instruction": "Panduan Pembayaran",
-        "gopay_length": 2,
-        "gopay": [{
-                "title": "Payment instructions via QR Code",
-                "step_length": 7,
-                "steps": [
-                    "Click pay using GoPay.",
-                    "Select Continue Payment. Then a QR code will appear.",
-                    "Or open an application that can use QRIS, installed on your cellphone, such as Gojek",
-                    "Click Pay and Scan the QR code.",
-                    "Check Payment detail then click Pay",
-                    "Enter you Gopay PIN",
-                    "Transaction Completed"
-
-                ]
-            },
-            {
-                "title": "Instruksi pembayaran Aplikasi Gojek",
-                "step_length": 7,
-                "steps": [
-                    "Make sure you have a Gojek account on your cellphone",
-                    "Choose payment using GoPay",
-                    "Click Continue Payment, then choose Continue",
-                    "Click Continue to the Gojek Application, you will be directed to the Gojek application",
-                    "Check payment details then click Pay",
-                    "Enter Gopay PIN",
-                    "Transaction completed"
-
-
-                ]
-            }
-        ]
-    },
-    "manual_transfer": {
-        "payment_instruction": "Payment Instructions",
-        "bca_length": 2,
-        "bca": [{
-                "title": "Transfer via ATM",
-                "step_length": 11,
-                "steps": [
-                    "Insert ATM Card and ATM PIN",
-                    "Select the Cash Withdrawal/Other Transactions menu",
-                    "Select the Other Transactions menu",
-                    "Select the Transfer menu",
-                    "Enter the BCA Get & Ride account number, 5205979988 a/n. PT ITC and click Correct",
-                    "Enter the Enter the amount of money that must be transferred through BCA ATMs",
-                    "If all processes are complete and correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
-                    "After the transfer is successful, open Payment Confirmation on the website / application",
-                    "Enter the Sender's name and upload Proof of Transfer",
-                    "Click Confirm Transfer",
-                    "Payment will be checked"
-
-                ]
-            },
-            {
-                "title": "Transfer via Mobile Banking",
-                "step_length": 11,
-                "steps": [
-                    "Open the Mobile Banking Application, select the m-Transfer menu",
-                    "Click the Transfer List menu",
-                    "Select the menu Between Accounts (for BCA users) and Interbank (for users other than BCA)",
-                    "Enter the BCA Get & Ride account number, 5205979988 a/n. PT Indo Teknologi Cemerlang and click Correct",
-                    "Enter the amount of money that must be transferred via ATM BCA",
-                    "Enter your PIN",
-                    "If all processes have been completed and are correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
-                    "After the transfer is successful, open Payment Confirmation on the website / application",
-                    "Enter the Sender's name and upload Proof of Transfer",
-                    "Click Confirm Transfer",
-                    "Payment will be checked"
-
-                ]
-            }
-        ],
-        "mandiri_length": 2,
-        "mandiri": [{
-                "title": "Transfer via ATM",
-                "step_length": 11,
-                "steps": [
-                    "Insert ATM Card and ATM PIN",
-                    "Select the Cash Withdrawal/Other Transactions menu",
-                    "Select the Other Transactions menu",
-                    "Select the Transfer menu",
-                    "Enter the MANDIRI Get & Ride account number, 5205979988 a/n. PT ITC and click Correct",
-                    "Enter the Enter the amount of money that must be transferred through MANDIRI ATMs",
-                    "If all processes are complete and correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
-                    "After the transfer is successful, open Payment Confirmation on the website / application",
-                    "Enter the Sender's name and upload Proof of Transfer",
-                    "Click Confirm Transfer",
-                    "Payment will be checked"
-
-                ]
-            },
-            {
-                "title": "Transfer via Mobile Banking",
-                "step_length": 11,
-                "steps": [
-                    "Open the Mobile Banking Application, select the m-Transfer menu",
-                    "Click the Transfer List menu",
-                    "Select the menu Between Accounts (for MANDIRI users) and Interbank (for users other than MANDIRI)",
-                    "Enter the MANDIRI Get & Ride account number, 5205979988 a/n. PT Indo Teknologi Cemerlang and click Correct",
-                    "Enter the amount of money that must be transferred via ATM MANDIRI",
-                    "Enter your PIN",
-                    "If all processes have been completed and are correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
-                    "After the transfer is successful, open Payment Confirmation on the website / application",
-                    "Enter the Sender's name and upload Proof of Transfer",
-                    "Click Confirm Transfer",
-                    "Payment will be checked"
-
-                ]
-            }
-        ]
-    },
-    "auth": {
-        "try_now": "Try Now",
-        "sign_up": "Sign Up",
-        "sign_in": "Sign In",
-        "enter_email_to_login": "Enter Email to login to Get & Ride",
-        "or_login_using": "Or login using",
-        "do_not_have_an_account": "Don't have an account yet",
-        "sign_up_now": "Sign Up Now",
-        "enter_your_password": "Enter your Password",
-        "confirm_your_password": "Confirm your password",
-        "password_confirmation": "Password Confirmation"
-    },
-    "bank_transfer": {
-        "bank_transfer": "Bank Transfer",
-        "payment_method": "Payment Method",
-        "make_payment": "Make Payment",
-        "mandiri_transfer": "Mandiri Transfer",
-        "bca_transfer": "BCA Transfer",
-        "total_payment": "Total Payment",
-        "transfer_via": "Transfer via",
-        "upload_proof_payment": "Upload Bukti Pembayaran",
-        "finish_before": "Finish Before"
-    },
-    "register": {
-        "have_not_received_otp": "Haven't received your OTP yet?",
-        "resend": "Resend",
-        "phone_number": "Phone Number",
-        "send_otp_code_to": "Send OTP Code to",
-        "create_password": "Create a Password",
-        "create_account": "Create an account to log in to the app",
-        "same_as_phone_number": "Same as phone number",
-        "verification": "Verification",
-        "choose_verification_method": "Choose your verification method for security and proceed with the payment of your order.",
-        "enter_phone_number": "Enter your Phone Number",
-        "enter_whatsapp_number": "Enter Whatsapp Number"
-    },
-    "upload_bank_transfer": {
-        "sender_name": "Sender Name",
-        "proof_of_payment_image": "Proof of Payment.jpg",
-        "upload_photo": "Upload Photo"
-    },
-    "codepush": {
-        "updates_available": "Updates Available"
-    },
-    "forgot_password": {
-        "forgot_password": "Forgot Password",
-        "enter_email_to_reset_password": "Enter your email to reset your password",
-        "enter_email": "Enter Email",
-        "enter_your_email": "Enter your Email"
-    },
-    "reset_password": {
-        "reset_password": "Reset Password",
-        "reset_your_password": "Reset your Password",
-        "enter_your_password": "Enter your Password"
-    },
-    "notification": {
-        "not_found_title": "No notification yet",
-        "not_found_description": "No notification at this time"
+    "tour": {
+      "title": "Tour"
     }
+  },
+  "list_car": {
+    "header": "Choose Car Type",
+    "change_search": "Change Search",
+    "rent_price": "Rent Price",
+    "day": "Day",
+    "car_type": "Car Type",
+    "seat": "Seat",
+    "bag": "Case",
+    "available": "Available",
+    "booked": "Booked"
+  },
+  "carDetail": {
+    "carDetail": "Car Detail",
+    "carPrice": "Rent Price",
+    "perDay": "/ Day",
+    "seatCapacity": "Seat Capacity",
+    "seat": "Kursi",
+    "bagDetail": "Case Detail",
+    "bag": "Case",
+    "transmision": "Transmission",
+    "car_conditions": "Car Conditions",
+    "smoking": "No Smoking",
+    "pet": "Pet Allowed",
+    "disability": "Disability Support",
+    "priceTerm": "Price Term",
+    "include": "Include",
+    "important": "Important",
+    "rentalRules": "Rental Terms & Conditions",
+    "rentalTerm": "Rental Term",
+    "learnMore": "Read More",
+    "rentalRequirement": "Rental Policy & Conditions",
+    "policy": "Rental Policy",
+    "requirement": "Rental Condition",
+    "otherInfo": "Other Info",
+    "carInsurance": "Car Insurance",
+    "rentalGas": "Return the fuel as before",
+    "rentalTime": "Use up to 24 hours per rental day",
+    "agreeState": "I agree to the terms that apply",
+    "rental_rules": "Rental Rules",
+    "requirements": {
+      "list_1": "SIM A/International SIM",
+      "list_2": "KTP/Passport",
+      "list_3": "Social Media Account Username",
+      "list_4": "Deposit IDR 500.000"
+    },
+    "policies": {
+      "list_1": "The duration of car rental per day is 24 hours",
+      "list_2": "Overtime fee per hour 10% of the rental price",
+      "list_3": "Prices include VAT",
+      "list_4": "Not including fuel, parking, toll and driver"
+    }
+  },
+  "priceTerm": {
+    "handSanitizer": "Hand Sanitizer",
+    "mineralWater": "Mineral Water",
+    "mask": "Mask",
+    "tissue": "Tissue",
+    "driver": "Driver",
+    "parking": "Parking",
+    "snacks": "Snacks",
+    "additional_needs": "Additional Needs",
+    "fuel": "Fuel",
+    "toll": "Toll"
+  },
+  "dailyRules": {
+    "sebelum_pengambilan": {
+      "title": "Before Rental",
+      "list_1": "Renters must share with the provider a photo of their driver's license (SIM A or International SIM), as well as their ID Card (KTP or Passport).",
+      "list_2": "Renters must pay a deposit of IDR 500,000 to the provider before the rental start, with the available payment methods.",
+      "list_3": "The deposit will be returned at the latest 7 days after the rental ends."
+    },
+    "saat_pengambilan": {
+      "title": "During Pick-Up",
+      "list_1": "Renters are required to show a valid driver's license and ID card (KTP or Passport and SIM A or International SIM)",
+      "list_2": "Renters must be over 17 years old.",
+      "list_3": "All documents provided must be original, not in the name of another person, and in accordance with the data registered when ordering at Get & Ride Apps.",
+      "list_4": "Renters must ensure that the rented vehicle is properly used and returned in the same condition as it was originally."
+    },
+    "penggunaan": {
+      "title": "Rental Policies Usage",
+      "list_1": "Vehicles are not allowed to be transferred to other parties who are not verified by Get & Ride data. Get & Ride parties can forcefully take the vehicle if the following indications occur.",
+      "list_2": "Renters will be charged an additional fee, if the pick-up and return outside the available zone",
+      "list_3": "Renters are allowed to bring pets in certain cars. Make sure pets don't damage or contaminate the vehicle facilities in the car.",
+      "list_4": "Renters are not allowed to carry passengers or luggage that exceeds the capacity of the car being rented.",
+      "list_5": "Renters are responsible for replacement or repair costs in the event of loss or damage to Vehicle Registration Cerfticicate (STNK), car keys, accessories, car tools, head units, tools sets, scratches, stains, and other costs arising from the renters.",
+      "list_6": "Renters are responsible for all parking, traffic and other fines incurred as a result of violations of law during the rental."
+    },
+    "pengembalian": {
+      "title": "After Rental Policy",
+      "list_1": "The provider has the right not to return the deposit, if the car is damaged or if the tenant violates the law during the rental period.",
+      "list_2": "The provider is not responsible for items left in the car after the renter returns the car to the rental provider.",
+      "list_3": "The renter must return the car with the same volume of fuel as the car was received (bar to bar)",
+      "list_4": "If there is an electronic traffic ticket during the rental period, the rental provider will return the deposit by deducting the fine of the electronic ticket.",
+      "list_5": "Get & Ride is not responsible for accidents, losses, and treatment caused by the accident."
+    },
+    "overtime": {
+      "title": "Overtime",
+      "list_1": "An overtime fee will be charged if the rental exceeds 24 hours per day.",
+      "list_2": "Renters are given an additional 1 (one) hour of compensation time, and if it is exceeded, the tenant will be charged 10% per hour of the rental price, with a maximum limit of 4 (four) hours.",
+      "list_3": "Overtime of more than 4 hours, will be charged a one-day rental fee."
+    },
+    "asuransi": {
+      "title": "Asuransi (belum ready)",
+      "list_1": "Jika terjadi kecelakaan, penyewa diwajibkan untuk menyerahkan kepada penyedia semua dokumen yang dibutuhkan oleh perusahan asuransi, termasuk namun tidak terbatas pada KTP/paspor dan SIM A mereka.",
+      "list_2": "Penyewa wajib menanggung beban biaya Risiko Sendiri sebesar Rp350.000 untuk setiap kejadian kecelakan (per panel).",
+      "list_3": "Penyewa wajib menanggung Biaya Risiko Kehilangan (Total Lost Risk) sebesar Rp500.000 jika mobil hilang.",
+      "list_4": "Perselisihan antara pihak akan diselesaikan via musyawarah mufakat. Jika dalam waktu 30 hari para pihak belum mencapai mufakat, masalah akan diselesaikan di Pengadilan Negeri Jakarta Utara."
+    },
+    "refund": {
+      "title": "Refund & Cancellation Policy",
+      "list_1": "Cancellations submitted more than 24 hours prior to pick-up will receive a 100% refund of the total rental fee.",
+      "list_2": "If the cancellation is submitted within 24 to 6 hours before the pick up time, a 50% refund of the total rental fee will be received",
+      "list_3": "Cancellation submitted less than 6 hours before the pick-up time will incur a cancellation fee of 100% of the total rental fee.",
+      "list_4": "The refund process does not apply to promo rental prices and certain types of vehicles.",
+      "list_5": "Refunds are processed up to 14 working days after the refund process has been approved"
+    }
+  },
+  "global": {
+    "button": {
+      "back": "Back",
+      "login": "Login",
+      "signup": "Sign Up",
+      "findACar": "Find a Car",
+      "pick": "Select",
+      "next": "Next",
+      "nextPayment": "Continue Payment",
+      "orderNow": "Order Now",
+      "payNow": "Pay Now",
+      "choosePayment": "Choose Payment",
+      "verification": "Verification",
+      "save": "Save",
+      "cancelOrder": "Cancel Order",
+      "extendOrder": "Extend Order",
+      "yesNext": "Yes, Continue",
+      "orderDetail": "Order Detail",
+      "done": "Done",
+      "send_otp": "Send OTP",
+      "download_update": "Download Update",
+      "send_email": "Send Email",
+      "confirm": "Confirm"
+    },
+    "alert": {
+      "payment_confirm": "Are you sure to proceed with this Payment?",
+      "success": "Success",
+      "failed": "Failed",
+      "error": "Error",
+      "warning": "Warning",
+      "success_change_profile_picture": "Successfully change profile picture",
+      "success_change_profile_data": "Successfully change profile data",
+      "error_occurred": "Error occurred",
+      "success_copy_text": "Successfully copy the text",
+      "success_change_password": "Successfully changed the password",
+      "success_change_notification": "Successfully changed the notification",
+      "success_change_password_login_again": "Successfully changed the password, please login again",
+      "success_upload_proof_payment": "Successfully upload proof of payment",
+      "cancellation_failed": "Cancellation failed",
+      "password_and_confirmation_password_do_not_match": "New password and Confirm password do not match",
+      "password_length": "The password must be at least 8 characters long and consist of both numbers and letters.",
+      "please_login_to_continue": "Please login first to continue!",
+      "payment_can_not_be_made": "Payment cannot be made",
+      "enter_password": "Enter Password"
+    },
+    "data_not_found": "Data Not Found",
+    "select_options": "Select Options",
+    "camera": "Camera",
+    "gallery": "Gallery",
+    "credit_debit_card_no": "Credit/Debit Card No.",
+    "cardholder_name": "Cardholder Name",
+    "validity_period": "Validity Period",
+    "bank_name": "Bank Name",
+    "choose_your_bank": "Choose your Bank",
+    "upload_your_image_here": "Upload your image here, or",
+    "browse": "browse",
+    "search": "Search"
+  },
+  "detail_order": {
+    "title": "Order Detail",
+    "formDetail": {
+      "title": "Order Details Form",
+      "fullName": "Full Name",
+      "phone": "Phone Number",
+      "sameAsPhone": "Same as Phone Number"
+    },
+    "tripDetail": {
+      "title": "Trip Details",
+      "pickAtGarage": "Taking To The Rental Place",
+      "deliveryLocationTaking": "Choose a taking location",
+      "deliveryLocation": "Delivery location",
+      "deliveryLocationTakingPlaceholder": "Choose a taking location",
+      "deliveryLocationPlaceholder": "Delivery location",
+      "returnLocation": "Return location",
+      "returnLocationPlaceHolder": "Choose a return location"
+    },
+    "specialReq": {
+      "title": "Special Request Form (Optional)",
+      "placeholder": "Write down what you need for your travel needs, e.g. Baby Chair, Wheel Chair, etc."
+    },
+    "summary": {
+      "title": "Rental",
+      "passanger": "Passenger",
+      "deliveryLocation": "Delivery Location",
+      "deliveryLocationPlaceholder": "Delivery Location",
+      "pickLocation": "Taking Location",
+      "pickLocationPlaceholder": "Taking Location",
+      "returnLocation": "Return Location",
+      "returnLocationPlaceHolder": "Return Location",
+      "startDate": "Order Start's Date",
+      "startTime": "Order Start's Time",
+      "endDate": "Order End's Date",
+      "endTime": "Order Start's Time",
+      "rentalFee": "Rental Fee",
+      "price": "Price",
+      "day": "day",
+      "otherFee": "Other's Fee",
+      "serviceFee": "Service Fee",
+      "insuranceFee": "Insurance Fee",
+      "totalPayment": "Total Payment"
+    },
+    "extendOrder": {
+      "numberOfDays": "Number of Days",
+      "numberOfDaysPlaceholder": "Input Jumlah Hari",
+      "rentalHours": "Rental Hours",
+      "returnTime": "Return Time"
+    },
+    "cancel_request_in_process": "Cancellation request in process",
+    "refunds_will_be_made_in_7_days": "Refunds will be made within 7 business days",
+    "order_no": "Order No.",
+    "order_cancellation": "Pembatalan Pesanan",
+    "write_reason_cancellation": "Write the reason for cancellation",
+    "name": "Name",
+    "account_number": "Account Number",
+    "enter_account_number": "Enter Account Number",
+    "write_description": "Tulis Keterangan"
+  },
+  "payment_method": {
+    "header": "Select Payment Method"
+  },
+  "settings": {
+    "tabBarLabel": "My Profile",
+    "profile": "Profile",
+    "changePassword": "Change Password",
+    "notification": "Notification",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Full Name",
+    "oldPassword": "Old Password",
+    "oldPasswordPlaceholder": "Old Password",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "confirmPasswordPlaceholder": "Confirm New Password",
+    "activity": "Activity",
+    "activityDesc": "Notifications for promotions from us, enjoy various discounts from us",
+    "reminder": "Reminder",
+    "reminderDesc": "Notifications for your order"
+  },
+  "myBooking": {
+    "tabBarLabel": "My Booking",
+    "noOrder": "No orders yet",
+    "noRental": "No rental history yet",
+    "paymentMethod": "Payment Method",
+    "paymentMethodNotSelected": "Payment Method Not Selected",
+    "totalPrice": "Total Price",
+    "paymentStatus": "Payment Status",
+    "rentStatus": "Rent Status",
+    "downloadEticket": "Download E-Tickets",
+    "pickupLocation": "Pickup Location",
+    "deliveryLocation": "Delivery Location",
+    "returnLocation": "Return Location",
+    "car": "Car",
+    "startTime": "Rental Start Time",
+    "endTime": "Rental End Time",
+    "orderDetail": "Order Detail",
+    "startDate": "Rental Start Date",
+    "endDate": "Rental End Date",
+    "totalPassenger": "Total Passenger",
+    "are_you_sure_want_to_continue": "Are you sure want to continue",
+    "this_payment": "this payment",
+    "cancel_this_order": "cancel this order"
+  },
+  "myInbox": {
+    "tabBarLabel": "My Inbox"
+  },
+  "virtual_account": {
+    "payment_Instruction": "Payment Instruction",
+    "bca_length": 3,
+    "bca": [
+      {
+        "title": "Transfer via ATM",
+        "step_length": 8,
+        "steps": [
+          "Insert the ATM card and enter ATM BCA PIN",
+          "Select Cash Withdrawal/Other Transactions",
+          "Select Other Transactions",
+          "Select Transfer",
+          "Select To BCA Virtual Account",
+          "Enter the BCA Virtual Account number,  78749222178 and click Correct",
+          "Check the transaction details and select Yes",
+          "Transaction is successful"
+        ]
+      },
+      {
+        "title": "Transfer via Mobile Banking",
+        "step_length": 6,
+        "steps": [
+          "Open BCA mobile, select m-Transfer",
+          "Select BCA Virtual Account",
+          "Enter the BCA Virtual Account number, 78749222178 and click Send",
+          "Check the amount that shows",
+          "Enter m-BCA PIN",
+          "Transaction is successful"
+        ]
+      },
+      {
+        "title": "Transfer via Klik BCA",
+        "step_length": 5,
+        "steps": [
+          "Login to KlikBCA and select Fund Transfer",
+          "Select Transfer to BCA Virtual Account",
+          "Enter the BCA Virtual Account number, 78749222178 and click Continue",
+          "Enter the KeyBCA Appli 1 response and click Send",
+          "Transaction is successful"
+        ]
+      }
+    ],
+    "mandiri_length": 2,
+    "mandiri": [
+      {
+        "title": "Transfer via ATM",
+        "step_length": 6,
+        "steps": [
+          "Enter your ATM PIN.",
+          "On the main menu, select “Pay / Buy”.",
+          "Select \"Other\" until you find the \"Multipayment\" menu.",
+          "Enter the company code with the number: “70012” (without quotes) a / n Midtrans. After that, select \"Correct\".",
+          "Enter your payment code, then select \"Correct\".",
+          "Re-check your transaction after that complete the payment process."
+        ]
+      },
+      {
+        "title": "Transfer via Mobile Banking",
+        "step_length": 7,
+        "steps": [
+          "Log in to Mandiri Livin' or Mandiri Internet Banking.",
+          "On the main menu, select “Pay”.",
+          "Select “Make New Payment”.",
+          "After that, select the “Multipayment” menu.",
+          "Enter the company code with the number: “70012” (without quotes) a / n Midtrans. After that select \"True\".",
+          "Enter your payment code, then select \"Correct\".",
+          "Re-check your transaction after that complete the payment process."
+        ]
+      }
+    ],
+    "permata_length": 2,
+    "permata": [
+      {
+        "title": "Transfer via ATM",
+        "step_length": 7,
+        "steps": [
+          "Enter your ATM PIN.",
+          "On the main menu, select Other Transactions.",
+          "Select the Payment menu.",
+          "Choose Other Payment.",
+          "Select Virtual Account.",
+          "Enter the Virtual Account number: 787007381079144.",
+          "The amount to be paid and the account number will appear on the payment confirmation page. If the information is correct, select True."
+        ]
+      },
+      {
+        "title": "Transfer via Mobile Banking",
+        "step_length": 9,
+        "steps": [
+          "Open the Permata Mobile app.",
+          "Enter User ID & Password.",
+          "Choose Pay Bill.",
+          "Select Virtual Account.",
+          "Enter the Virtual Account Number: 787007381079144.",
+          "Enter the payment amount.",
+          "Payment confirmation appears.",
+          "Enter Mobile PIN.",
+          "Transaction complete."
+        ]
+      }
+    ],
+    "bni_length": 2,
+    "bni": [
+      {
+        "title": "Transfer via ATM",
+        "step_length": 8,
+        "steps": [
+          "Enter your ATM and BNI PIN.",
+          "On the main menu, select “Other Menu”.",
+          "Select \"Transfer\"",
+          "After that, select \"Savings Account\".",
+          "Select \"BNI Account\".",
+          "Enter the Virtual Account number 9887874930099369",
+          "Enter the payment amount according to the invoice.",
+          "Check your transaction again, then select \"Yes\"."
+        ]
+      },
+      {
+        "title": "Transfer via Mobile Banking",
+        "step_length": 8,
+        "steps": [
+          "Enter the BNI Mobile Banking application.",
+          "Enter User ID and Password.",
+          "Select the \"Transfer\" menu.",
+          "After that, select “Between BNI Accounts”.",
+          "Select \"Input New Account\".",
+          "Enter the Virtual Account number 9887874930099369",
+          "Check your transaction again, then select \"Yes\".",
+          "Enter the password to confirm payment."
+        ]
+      }
+    ],
+    "bri_length": 2,
+    "bri": [
+      {
+        "title": "Transfer via ATM",
+        "step_length": 8,
+        "steps": [
+          "Enter your ATM Card and BRI PIN.",
+          "On the main menu, select the menu \"Other Transactions\"",
+          "Select the \"Payment\" menu",
+          "Select the \"More\" menu",
+          "Select the “BRIVA” menu",
+          "Enter the BRIVA (Virtual Account) number “9887874930099369” and click Correct",
+          "On the confirmation page, make sure the transaction data is correct then select \"Yes\"",
+          "Transaction completed"
+        ]
+      },
+      {
+        "title": "Transfer via Mobile Banking",
+        "step_length": 8,
+        "steps": [
+          "Enter the BRI Mobile Banking application",
+          "Select “BRI Mobile Banking”",
+          "Select the \"Info\" menu",
+          "Select the “BRIVA” menu",
+          "Enter BRIVA number 9887874930099369 and click correct",
+          "Enter the payment amount according to the invoice",
+          "Enter your PIN",
+          "The transaction is successful"
+        ]
+      }
+    ]
+  },
+  "card_payment": {
+    "tabBarLabel": "Card Payment",
+    "insert_card_info": "Insert Card Info",
+    "your_data_will_be_protected": "Your data will be protected",
+    "payment_Instruction": "Payment Instruction",
+    "card_payment_length": 3,
+    "steps": [
+      "Enter the card holder name, card number, validity period and also your CVV code in the form provided, make sure the number entered is valid and not written incorrectly.",
+      "Then verify your Debit Card by pressing the \"Process Payment\" button. After the Debit Card is verified, you can continue the payment.",
+      "After payment is successful and verified, your order status will be successful and your transaction will be comfortable and safe."
+    ]
+  },
+  "instant_payment": {
+    "payment_instruction": "Panduan Pembayaran",
+    "gopay_length": 2,
+    "gopay": [
+      {
+        "title": "Payment instructions via QR Code",
+        "step_length": 7,
+        "steps": [
+          "Click pay using GoPay.",
+          "Select Continue Payment. Then a QR code will appear.",
+          "Or open an application that can use QRIS, installed on your cellphone, such as Gojek",
+          "Click Pay and Scan the QR code.",
+          "Check Payment detail then click Pay",
+          "Enter you Gopay PIN",
+          "Transaction Completed"
+        ]
+      },
+      {
+        "title": "Instruksi pembayaran Aplikasi Gojek",
+        "step_length": 7,
+        "steps": [
+          "Make sure you have a Gojek account on your cellphone",
+          "Choose payment using GoPay",
+          "Click Continue Payment, then choose Continue",
+          "Click Continue to the Gojek Application, you will be directed to the Gojek application",
+          "Check payment details then click Pay",
+          "Enter Gopay PIN",
+          "Transaction completed"
+        ]
+      }
+    ]
+  },
+  "manual_transfer": {
+    "payment_instruction": "Payment Instructions",
+    "bca_length": 2,
+    "bca": [
+      {
+        "title": "Transfer via ATM",
+        "step_length": 11,
+        "steps": [
+          "Insert ATM Card and ATM PIN",
+          "Select the Cash Withdrawal/Other Transactions menu",
+          "Select the Other Transactions menu",
+          "Select the Transfer menu",
+          "Enter the BCA Get & Ride account number, 5205979988 a/n. PT ITC and click Correct",
+          "Enter the Enter the amount of money that must be transferred through BCA ATMs",
+          "If all processes are complete and correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
+          "After the transfer is successful, open Payment Confirmation on the website / application",
+          "Enter the Sender's name and upload Proof of Transfer",
+          "Click Confirm Transfer",
+          "Payment will be checked"
+        ]
+      },
+      {
+        "title": "Transfer via Mobile Banking",
+        "step_length": 11,
+        "steps": [
+          "Open the Mobile Banking Application, select the m-Transfer menu",
+          "Click the Transfer List menu",
+          "Select the menu Between Accounts (for BCA users) and Interbank (for users other than BCA)",
+          "Enter the BCA Get & Ride account number, 5205979988 a/n. PT Indo Teknologi Cemerlang and click Correct",
+          "Enter the amount of money that must be transferred via ATM BCA",
+          "Enter your PIN",
+          "If all processes have been completed and are correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
+          "After the transfer is successful, open Payment Confirmation on the website / application",
+          "Enter the Sender's name and upload Proof of Transfer",
+          "Click Confirm Transfer",
+          "Payment will be checked"
+        ]
+      }
+    ],
+    "mandiri_length": 2,
+    "mandiri": [
+      {
+        "title": "Transfer via ATM",
+        "step_length": 11,
+        "steps": [
+          "Insert ATM Card and ATM PIN",
+          "Select the Cash Withdrawal/Other Transactions menu",
+          "Select the Other Transactions menu",
+          "Select the Transfer menu",
+          "Enter the MANDIRI Get & Ride account number, 5205979988 a/n. PT ITC and click Correct",
+          "Enter the Enter the amount of money that must be transferred through MANDIRI ATMs",
+          "If all processes are complete and correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
+          "After the transfer is successful, open Payment Confirmation on the website / application",
+          "Enter the Sender's name and upload Proof of Transfer",
+          "Click Confirm Transfer",
+          "Payment will be checked"
+        ]
+      },
+      {
+        "title": "Transfer via Mobile Banking",
+        "step_length": 11,
+        "steps": [
+          "Open the Mobile Banking Application, select the m-Transfer menu",
+          "Click the Transfer List menu",
+          "Select the menu Between Accounts (for MANDIRI users) and Interbank (for users other than MANDIRI)",
+          "Enter the MANDIRI Get & Ride account number, 5205979988 a/n. PT Indo Teknologi Cemerlang and click Correct",
+          "Enter the amount of money that must be transferred via ATM MANDIRI",
+          "Enter your PIN",
+          "If all processes have been completed and are correct, select \"Yes\" (Don't forget to screenshot proof of transfer)",
+          "After the transfer is successful, open Payment Confirmation on the website / application",
+          "Enter the Sender's name and upload Proof of Transfer",
+          "Click Confirm Transfer",
+          "Payment will be checked"
+        ]
+      }
+    ]
+  },
+  "auth": {
+    "try_now": "Try Now",
+    "sign_up": "Sign Up",
+    "sign_in": "Sign In",
+    "enter_email_to_login": "Enter Email to login to Get & Ride",
+    "or_login_using": "Or login using",
+    "do_not_have_an_account": "Don't have an account yet",
+    "sign_up_now": "Sign Up Now",
+    "enter_your_password": "Enter your Password",
+    "confirm_your_password": "Confirm your password",
+    "password_confirmation": "Password Confirmation"
+  },
+  "bank_transfer": {
+    "bank_transfer": "Bank Transfer",
+    "payment_method": "Payment Method",
+    "make_payment": "Make Payment",
+    "mandiri_transfer": "Mandiri Transfer",
+    "bca_transfer": "BCA Transfer",
+    "total_payment": "Total Payment",
+    "transfer_via": "Transfer via",
+    "upload_proof_payment": "Upload Bukti Pembayaran",
+    "finish_before": "Finish Before"
+  },
+  "register": {
+    "have_not_received_otp": "Haven't received your OTP yet?",
+    "resend": "Resend",
+    "phone_number": "Phone Number",
+    "send_otp_code_to": "Send OTP Code to",
+    "create_password": "Create a Password",
+    "create_account": "Create an account to log in to the app",
+    "same_as_phone_number": "Same as phone number",
+    "verification": "Verification",
+    "choose_verification_method": "Choose your verification method for security and proceed with the payment of your order.",
+    "enter_phone_number": "Enter your Phone Number",
+    "enter_whatsapp_number": "Enter Whatsapp Number"
+  },
+  "upload_bank_transfer": {
+    "sender_name": "Sender Name",
+    "proof_of_payment_image": "Proof of Payment.jpg",
+    "upload_photo": "Upload Photo"
+  },
+  "codepush": {
+    "updates_available": "Updates Available"
+  },
+  "forgot_password": {
+    "forgot_password": "Forgot Password",
+    "enter_email_to_reset_password": "Enter your email to reset your password",
+    "enter_email": "Enter Email",
+    "enter_your_email": "Enter your Email"
+  },
+  "reset_password": {
+    "reset_password": "Reset Password",
+    "reset_your_password": "Reset your Password",
+    "enter_your_password": "Enter your Password"
+  },
+  "notification": {
+    "not_found_title": "No notification yet",
+    "not_found_description": "No notification at this time"
+  }
 }
