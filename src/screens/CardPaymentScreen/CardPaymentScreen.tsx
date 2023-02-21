@@ -1,25 +1,8 @@
 import appBar from 'components/AppBar/AppBar';
-import axios from 'axios';
-import Button from 'components/Button';
 import hoc from 'components/hoc';
 import React, {useEffect, useRef, useState} from 'react';
-import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
-import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
-import TextInputName from 'components/TextInputName/TextInputName';
-import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
-import {API_MIDTRANS, MIDTRANS_CLIENT} from '@env';
-import {createDisbursements} from 'redux/features/order/orderAPI';
-import {h1, h2, h3, h4, h5} from 'utils/styles';
+
 import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
-import {orderState} from 'redux/features/order/orderSlice';
-import {RootStackParamList} from 'types/navigator';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {showBSheet} from 'utils/BSheet';
-import {showToast} from 'utils/Toast';
-import {theme} from 'utils';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {useTranslation} from 'react-i18next';
-import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
 import {
   Image,
   Linking,
@@ -38,6 +21,24 @@ import {
   ic_shield,
   ic_visa,
 } from 'assets/icons';
+import {h1, h2, h3, h4, h5} from 'utils/styles';
+import {theme} from 'utils';
+import TextInputCredit from 'components/TextInputCredit/TextInputCredit';
+import TextInputTimeExpired from 'components/TextInputTimeExpired/TextInputTimeExpired';
+import TextInputCVV from 'components/TextInputCVV/TextInputCVV';
+import Button from 'components/Button';
+import {showToast} from 'utils/Toast';
+import {showBSheet} from 'utils/BSheet';
+import {WINDOW_WIDTH} from '@gorhom/bottom-sheet';
+import axios from 'axios';
+import {API_MIDTRANS, MIDTRANS_CLIENT} from '@env';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {createDisbursements} from 'redux/features/order/orderAPI';
+import {orderState} from 'redux/features/order/orderSlice';
+import {RootStackParamList} from 'types/navigator';
+import TextInputName from 'components/TextInputName/TextInputName';
+import { useTranslation } from 'react-i18next';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
@@ -101,12 +102,24 @@ const CardPaymentScreen = () => {
               margin: 16,
             }}>
             <Text style={[h1, {margin: 16, fontSize: 18}]}>
-              {t('bank_transfer.payment_method')}
+            {t(
+                    `card_payment.payment_Instruction`,
+                  )}
             </Text>
-            {FAQ.map((x, i) => (
+            {[
+              ...Array(
+                t(
+                  `card_payment.card_payment_length`,
+                ),
+              ).fill(''),
+            ].map((x, i) => (
               <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
                 <Text>{i + 1}. </Text>
-                <Text>{x}</Text>
+                <Text>
+                  {t(
+                    `card_payment.steps.${i}`,
+                  )}
+                </Text>
               </View>
             ))}
           </View>
@@ -229,7 +242,7 @@ const CardPaymentScreen = () => {
       />
       <View style={styles.lineHorizontal} />
 
-      <Text style={[h1, {marginTop: 20}]}>FAQ</Text>
+      <Text style={[h1, {marginTop: 20}]}>{t('virtual_account.payment_Instruction')}</Text>
 
       <TouchableOpacity
         style={[
@@ -238,7 +251,7 @@ const CardPaymentScreen = () => {
           {justifyContent: 'space-between'},
         ]}
         onPress={methods.handleFAQ}>
-        <Text style={h4}>{t('bank_transfer.payment_method')}</Text>
+        <Text style={h4}>{t('virtual_account.payment_Instruction')}</Text>
         <Image
           source={ic_arrow_right}
           style={iconCustomSize(10)}

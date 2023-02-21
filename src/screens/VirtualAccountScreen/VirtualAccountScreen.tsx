@@ -45,7 +45,7 @@ const VirtualAccountScreen = () => {
   const [seconds, setSeconds] = useState(0);
 
   const methods = {
-    handleFAQ: () => {
+    handleFAQ: (index: number) => {
       showBSheet({
         content: (
           <View
@@ -57,10 +57,20 @@ const VirtualAccountScreen = () => {
             <Text style={[h1, {margin: 16, fontSize: 18}]}>
               {t('bank_transfer.payment_method')}
             </Text>
-            {FAQ.map((x, i) => (
+            {[
+              ...Array(
+                t(
+                  `virtual_account.${route.params?.selectedPayment.code.toLowerCase()}.${index}.step_length`,
+                ),
+              ).fill(''),
+            ].map((x, i) => (
               <View key={i} style={[{margin: 16, flexDirection: 'row'}]}>
                 <Text>{i + 1}. </Text>
-                <Text>{x}</Text>
+                <Text>
+                  {t(
+                    `virtual_account.${route.params?.selectedPayment.code.toLowerCase()}.${index}.steps.${i}`,
+                  )}
+                </Text>
               </View>
             ))}
           </View>
@@ -107,6 +117,11 @@ const VirtualAccountScreen = () => {
   });
 
   useEffect(() => {
+    console.log('lang = ', JSON.stringify(t('virtual_account.bca.0.steps.1')));
+    [...Array(t('virtual_account.bca_length')).fill('')].map((x, i) => {
+      console.log('lgth ', t(`virtual_account.bca.${i}.title`));
+    });
+
     navigation.setOptions(
       appBar({
         leading: (
@@ -295,24 +310,31 @@ const VirtualAccountScreen = () => {
 
         <View style={styles.lineHorizontal} />
 
-        <Text style={[h1, {marginTop: 20}]}>FAQ</Text>
+        <Text style={[h1, {marginTop: 20}]}>
+          {t('virtual_account.payment_Instruction')}
+        </Text>
 
-        <TouchableOpacity
-          style={[
-            styles.HowToWrapper,
-            rowCenter,
-            {justifyContent: 'space-between'},
-          ]}
-          onPress={methods.handleFAQ}>
-          <Text style={h4}>
-            {t('bank_transfer.transfer_via')} Mobile Banking
-          </Text>
-          <Image
-            source={ic_arrow_right}
-            style={iconCustomSize(10)}
-            resizeMode={'contain'}
-          />
-        </TouchableOpacity>
+        {[...Array(t(`virtual_account.${route.params?.selectedPayment.code.toLowerCase()}_length`)).fill('')].map((x, i) => (
+          <TouchableOpacity
+            style={[
+              styles.HowToWrapper,
+              rowCenter,
+              {justifyContent: 'space-between'},
+            ]}
+            key={i.toString()}
+            onPress={() => methods.handleFAQ(i)}>
+            <Text style={h4}>
+              {t(
+                `virtual_account.${route.params?.selectedPayment.code.toLowerCase()}.${i}.title`,
+              )}
+            </Text>
+            <Image
+              source={ic_arrow_right}
+              style={iconCustomSize(10)}
+              resizeMode={'contain'}
+            />
+          </TouchableOpacity>
+        ))}
 
         <Button
           _theme="navy"
