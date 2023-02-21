@@ -1,6 +1,5 @@
 import Button from 'components/Button';
 import CancelOrderModalContent from './CancelOrderModalContent';
-import ConfirmationModalContent from '../ConfirmationModalContent/ConfirmationModalContent';
 import ModalSuccessCancelOrder from 'components/ModalSuccessCancelOrder/ModalSuccessCancelOrder';
 import React, {useState} from 'react';
 import {cancelOrder} from 'redux/features/order/orderAPI';
@@ -28,26 +27,9 @@ const CancelOrderButtonAction: React.FC<CancelOrderButtonActionProps> = ({
 
   const [showModalSuccess, setShowModalSuccess] = useState(false);
 
-  const handleConfirmation = () => {
-    showBSheet({
-      content: (
-        <ConfirmationModalContent
-          status="cancel_order"
-          onPress={() => {
-            handleConfirmation();
-            setTimeout(() => {
-              handleCancelOrder();
-            }, 500);
-          }}
-          onClose={handleConfirmation}
-        />
-      ),
-    });
-  };
-
   const handleCancelOrder = () => {
     showBSheet({
-      snapPoint: ['100%', '100%'],
+      snapPoint: ['85%', '85%'],
       content: (
         <CancelOrderModalContent
           onSubmit={async val => {
@@ -78,7 +60,7 @@ const CancelOrderButtonAction: React.FC<CancelOrderButtonActionProps> = ({
       <Button
         _theme="red"
         title={t('global.button.cancelOrder')}
-        onPress={handleConfirmation}
+        onPress={handleCancelOrder}
         styleWrapper={{
           marginBottom: 10,
         }}

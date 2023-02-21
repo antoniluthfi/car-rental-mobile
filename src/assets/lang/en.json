@@ -335,6 +335,12 @@
             "insuranceFee": "Insurance Fee",
             "totalPayment": "Total Payment"
         },
+        "extendOrder": {
+            "numberOfDays": "Number of Days",
+            "numberOfDaysPlaceholder": "Input Jumlah Hari",
+            "rentalHours": "Rental Hours",
+            "returnTime": "Return Time"
+        },
         "cancel_request_in_process": "Cancellation request in process",
         "refunds_will_be_made_in_7_days": "Refunds will be made within 7 business days",
         "order_no": "Order No.",
@@ -735,5 +741,9 @@
         "reset_password": "Reset Password",
         "reset_your_password": "Reset your Password",
         "enter_your_password": "Enter your Password"
+    },
+    "notification": {
+        "not_found_title": "No notification yet",
+        "not_found_description": "No notification at this time"
     }
 }
