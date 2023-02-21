@@ -1,26 +1,32 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {FC} from 'react';
 import Button from 'components/Button';
-import {h1, h2, h3} from 'utils/styles';
-import {FONT_SIZE_16, FONT_SIZE_20} from 'utils/typography';
+import React, {FC} from 'react';
+import {appDataState} from 'redux/features/appData/appDataSlice';
+import {authRegister} from 'redux/features/auth/authAPI';
+import {FONT_SIZE_20} from 'utils/typography';
+import {h1, h3} from 'utils/styles';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {StyleSheet, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {utilsState} from 'redux/features/utils/utilsSlice';
-import { authRegister } from 'redux/features/auth/authAPI';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { appDataState } from 'redux/features/appData/appDataSlice';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 const sentOtp: FC = () => {
+  const {t} = useTranslation();
   const userData = useAppSelector(appDataState).userData;
   const dispatch = useAppDispatch();
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const methods = {
-    handleSentOtp:async()=> {
+    handleSentOtp: async () => {
       const res = await dispatch(authRegister(userData));
-      if(res.type.includes('rejected')) {
+      if (res.type.includes('rejected')) {
         // console.log(JSON.stringify(res));
-        if(res.payload?.detail?.find((x: any)=> x.field === 'password' || x.field === 'password_confirmation')) {
+        if (
+          res.payload?.detail?.find(
+            (x: any) =>
+              x.field === 'password' || x.field === 'password_confirmation',
+          )
+        ) {
           navigation.navigate('RegisterPassword');
           return;
         }
@@ -29,10 +35,8 @@ const sentOtp: FC = () => {
       }
 
       navigation.push('RegisterVerification', {page: 'inputOtp'});
-      
-      
-    }
-  }
+    },
+  };
 
   return (
     <View
@@ -41,7 +45,7 @@ const sentOtp: FC = () => {
         alignItems: 'center',
       }}>
       <Text style={[h3, {marginTop: 24}]}>
-        Kirim Kode OTP ke{' '}
+        {t('register.send_otp_code_to')}{' '}
         {userData?.registration_type === 'email' ? 'Email' : 'Nomor'} :
       </Text>
       <Text style={[h1, styles.textPhone]}>
@@ -51,7 +55,11 @@ const sentOtp: FC = () => {
           ? userData.phone
           : userData.wa}
       </Text>
-      <Button _theme="navy" title="Kirim OTP" onPress={methods.handleSentOtp} />
+      <Button
+        _theme="navy"
+        title={t('global.button.send_otp')}
+        onPress={methods.handleSentOtp}
+      />
     </View>
   );
 };

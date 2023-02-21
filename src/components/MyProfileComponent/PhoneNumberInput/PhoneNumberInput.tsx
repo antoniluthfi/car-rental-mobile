@@ -1,3 +1,12 @@
+import CountryFlag from 'react-native-country-flag';
+import CustomModal from 'components/CustomModal/CustomModal';
+import dialCodePhone from 'assets/data/dialCodePhone.json';
+import React, {useEffect, useState} from 'react';
+import {h5} from 'utils/styles';
+import {rowCenter} from 'utils/mixins';
+import {theme} from 'utils';
+import {useTranslation} from 'react-i18next';
+import {WINDOW_HEIGHT} from '@gorhom/bottom-sheet';
 import {
   FlatList,
   StyleSheet,
@@ -6,14 +15,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import CountryFlag from 'react-native-country-flag';
-import {rowCenter} from 'utils/mixins';
-import {h5} from 'utils/styles';
-import React, {useEffect, useState} from 'react';
-import CustomModal from 'components/CustomModal/CustomModal';
-import dialCodePhone from 'assets/data/dialCodePhone.json';
-import {WINDOW_HEIGHT} from '@gorhom/bottom-sheet';
-import {theme} from 'utils';
 
 const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
   onChangeText,
@@ -22,6 +23,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
   editable,
   defaultCode,
 }) => {
+  const {t} = useTranslation();
   const [trigger, setTrigger] = useState<boolean>(false);
   const [code, setCode] = useState<string>('62');
   const [flag, setFlag] = useState<string>('ID');
@@ -100,12 +102,12 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
       <CustomModal
         trigger={trigger}
         onClose={() => setTrigger(false)}
-        headerTitle="Pilih Kode Negara">
+        headerTitle={t('Account.select_country_code')}>
         <View style={styles.container}>
           <View style={[styles.inputContainer, styles.inputSearchContainer]}>
             <TextInput
               onChangeText={text => setKeyword(text)}
-              placeholder="Cari Kode Negara"
+              placeholder={t('Account.search_country_code') as any}
               style={{padding: 0, margin: 0}}
               value={keyword}
             />

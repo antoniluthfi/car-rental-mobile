@@ -1,13 +1,14 @@
-import {apiWithInterceptor} from '../../../utils/interceptorV2';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {IResponApi} from 'types/global.types';
+import i18n from 'i18next';
+import { apiWithInterceptor } from '../../../utils/interceptorV2';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IResponApi } from 'types/global.types';
+import { showToast } from 'utils/Toast';
 import {
   IParamConfirmation,
   IParamLogin,
   IParamRegister,
   IResultLogin,
 } from 'types/auth.types';
-import {showToast} from 'utils/Toast';
 
 export const authLogin = createAsyncThunk(
   'auth/login',
@@ -19,14 +20,14 @@ export const authLogin = createAsyncThunk(
       const response: any = await apiWithInterceptor({
         method: 'post',
         url: '/api/authorization',
-        data: {...params, scope: 'app'},
+        data: { ...params, scope: 'app' },
       });
 
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -44,14 +45,14 @@ export const authRegister = createAsyncThunk(
       const response: any = await apiWithInterceptor({
         method: 'post',
         url: '/api/authorization/register',
-        data: {...params},
+        data: { ...params },
       });
 
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -69,14 +70,14 @@ export const authRegisterConfirmation = createAsyncThunk(
       const response: any = await apiWithInterceptor({
         method: 'post',
         url: '/api/authorization/register/confirmation',
-        data: {...params},
+        data: { ...params },
       });
 
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -91,16 +92,11 @@ export const refreshToken = createAsyncThunk(
       const response: any = await apiWithInterceptor({
         method: 'post',
         url: '/api/authorization/refresh',
-        data: {refresh_token: params},
+        data: { refresh_token: params },
       });
 
       return response.data;
     } catch (error: any) {
-      // showToast({
-      //   message: error?.response.data?.slug || 'Terjadi kesalahan',
-      //   title: 'Warning',
-      //   type: 'error',
-      // });
       return thunkAPI.rejectWithValue(error.response.data);
     }
   },

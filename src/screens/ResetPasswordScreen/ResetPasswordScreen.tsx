@@ -1,24 +1,24 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {FC, useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
-import hoc from 'components/hoc';
-import {container} from 'utils/mixins';
-import {h1, h3} from 'utils/styles';
-import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
-import {theme} from 'utils';
-import CustomTextInput from 'components/TextInput';
 import Button from 'components/Button';
-import {useAppDispatch} from 'redux/hooks';
-import {toggleLoader} from 'redux/features/utils/utilsSlice';
-import {showToast} from 'utils/Toast';
+import CustomTextInput from 'components/TextInput';
+import hoc from 'components/hoc';
+import React, {FC, useEffect, useState} from 'react';
+import {container} from 'utils/mixins';
+import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
+import {h1, h3} from 'utils/styles';
 import {IParamsResetPassword} from 'types/forgot-password.types';
+import {RootState} from 'redux/store';
+import {showToast} from 'utils/Toast';
+import {StyleSheet, Text, View} from 'react-native';
+import {theme} from 'utils';
+import {toggleLoader} from 'redux/features/utils/utilsSlice';
+import {useAppDispatch} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 import {
   forgotPasswordConfirmation,
   forgotPasswordReset,
 } from 'redux/features/forgotPassword/forgotPasswordAPI';
-import {useSelector} from 'react-redux';
-import {RootState} from 'redux/store';
 // import {toggleLoader} from 'redux/features/loader/loaderSlice';
 
 interface IErrorMessage {
@@ -27,6 +27,7 @@ interface IErrorMessage {
 }
 
 const ResetPasswordScreen: FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const forgotPasswordState = useSelector(
@@ -45,12 +46,12 @@ const ResetPasswordScreen: FC = () => {
   useEffect(() => {
     if (forgotPasswordState.status === 'success_reset') {
       showToast({
-        message: 'Kata sandi berhasil diubah, silakan login kembali',
-        title: 'Success',
+        message: t('global.alert.success_change_password_login_again'),
+        title: t('global.alert.success'),
         type: 'success',
       });
 
-      navigation.navigate('Login')
+      navigation.navigate('Login');
     }
   }, [forgotPasswordState]);
 
@@ -78,8 +79,8 @@ const ResetPasswordScreen: FC = () => {
       } catch (error) {
         dispatch(toggleLoader(false));
         showToast({
-          message: 'Terjadi kesalahan',
-          title: 'Warning',
+          message: t("global.alert.error_occurred"),
+          title: t("global.alert.warning"),
           type: 'error',
         });
       }
@@ -88,12 +89,12 @@ const ResetPasswordScreen: FC = () => {
 
   return (
     <View style={[container]}>
-      <Text style={[h1, styles.textHeader]}>Reset Password</Text>
-      <Text style={[h3, styles.textDesc]}>Reset Password Anda</Text>
+      <Text style={[h1, styles.textHeader]}>{t('reset_password.reset_password')}</Text>
+      <Text style={[h3, styles.textDesc]}>{t('reset_password.reset_your_password')}</Text>
       <View style={styles.inputWrapper}>
         <CustomTextInput
-          placeholder="Masukan Password anda"
-          title="Password"
+          placeholder={t('reset_password.enter_your_password')}
+          title={t('Account.password') as any}
           secureTextEntry
           onChangeText={v => {
             setForm({...form, password: v});
@@ -106,8 +107,8 @@ const ResetPasswordScreen: FC = () => {
         <View style={{marginTop: 18}} />
 
         <CustomTextInput
-          placeholder="Konfirmasi Password anda"
-          title="Konfirmasi Password"
+          placeholder={t('auth.confirm_your_password')}
+          title={t('auth.password_confirmation') as any}
           secureTextEntry
           onChangeText={v => {
             setForm({...form, password_confirmation: v});
@@ -121,7 +122,7 @@ const ResetPasswordScreen: FC = () => {
       </View>
       <Button
         _theme="navy"
-        title="Simpan"
+        title={t('global.button.save')}
         styleWrapper={{marginTop: 40}}
         onPress={methods.handleConfirmPassword}
       />

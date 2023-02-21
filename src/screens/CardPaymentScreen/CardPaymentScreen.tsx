@@ -1,3 +1,8 @@
+import appBar from 'components/AppBar/AppBar';
+import hoc from 'components/hoc';
+import React, {useEffect, useRef, useState} from 'react';
+
+import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
 import {
   Image,
   Linking,
@@ -7,11 +12,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import hoc from 'components/hoc';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, iconSize, rowCenter} from 'utils/mixins';
 import {
   ic_american_express,
   ic_arrow_left_white,
@@ -38,6 +38,7 @@ import {orderState} from 'redux/features/order/orderSlice';
 import {RootStackParamList} from 'types/navigator';
 import TextInputName from 'components/TextInputName/TextInputName';
 import { useTranslation } from 'react-i18next';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 const FAQ = [
   'Masukan No. kartu, Masa berlaku dan juga kode CVV  anda di form yang telah disediakan, pastikan nomor yang diinput valid dan tidak salah dalam penulisan',
@@ -53,8 +54,8 @@ interface IForm {
 }
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'CardPayment'>;
 const CardPaymentScreen = () => {
-  const route = useRoute<ProfileScreenRouteProp>();
   const {t} = useTranslation();
+  const route = useRoute<ProfileScreenRouteProp>();
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const order = useAppSelector(orderState).order;
@@ -82,7 +83,7 @@ const CardPaymentScreen = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Card Payment
+              {t('card_payment.tabBarLabel')}
             </Text>
           </TouchableOpacity>
         ),
@@ -157,7 +158,7 @@ const CardPaymentScreen = () => {
             message:
               data.data.validation_messages?.toString() ||
               data.data.status_message,
-            title: 'Error',
+            title: t('global.alert.error'),
             type: 'error',
           });
           return;
@@ -180,8 +181,8 @@ const CardPaymentScreen = () => {
             }, 1000);
           } catch (error) {
             showToast({
-              message: 'Pembayaran tidak dapat dilakukan',
-              title: 'Error',
+              message: t('global.alert.payment_can_not_be_made'),
+              title: t('global.alert.error'),
               type: 'error',
             });
           }
@@ -199,7 +200,7 @@ const CardPaymentScreen = () => {
         flex: 1,
         margin: 16,
       }}>
-      <Text style={[h1]}>Masukkan Info Kartu</Text>
+      <Text style={[h1]}>{t('card_payment.insert_card_info')}</Text>
 
       <TextInputName
         onChangeText={(c: string) => setForm({...form, card_owner_name: c})}
@@ -227,7 +228,7 @@ const CardPaymentScreen = () => {
           style={iconCustomSize(25)}
           resizeMode={'contain'}
         />
-        <Text style={h3}> Data anda akan terlindungi</Text>
+        <Text style={h3}> {t('card_payment.your_data_will_be_protected')}</Text>
       </View>
       <Button
         _theme="navy"

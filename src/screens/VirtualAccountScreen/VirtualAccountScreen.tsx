@@ -55,7 +55,7 @@ const VirtualAccountScreen = () => {
               margin: 16,
             }}>
             <Text style={[h1, {margin: 16, fontSize: 18}]}>
-              Cara Pembayaran
+              {t('bank_transfer.payment_method')}
             </Text>
             {[
               ...Array(
@@ -94,9 +94,9 @@ const VirtualAccountScreen = () => {
     copyText: () => {
       Clipboard.setString(bookingDetail?.disbursement?.va_number as any);
       showToast({
-        title: 'Berhasil',
+        title: t('global.alert.success'),
         type: 'success',
-        message: 'berhasil menyalin teks',
+        message: t('global.alert.success_copy_text'),
       });
     },
     getPaymentLabel: () => {
@@ -159,7 +159,7 @@ const VirtualAccountScreen = () => {
     const remainingSeconds = totalSeconds - fifteenMinutesInSeconds;
 
     console.log('time scnd = ', remainingSeconds?.toFixed());
-    setTimeLeft(remainingSeconds.toFixed());
+    setTimeLeft(remainingSeconds.toFixed() as any);
   }, [navigation]);
 
   useEffect(() => {
@@ -208,7 +208,7 @@ const VirtualAccountScreen = () => {
           justifyContent: 'space-between',
         }}>
         <View>
-          <Text style={[h1]}>Selesaikan Sebelum</Text>
+          <Text style={[h1]}>{t('bank_transfer.finish_before')}</Text>
           <Text style={[h4, {marginTop: 10, fontSize: 12}]}>
             {moment(bookingDetail?.expired_time).format(
               'ddd, DD MMMM YYYY: HH:mm',
@@ -261,7 +261,9 @@ const VirtualAccountScreen = () => {
         </TouchableOpacity>
         <View style={styles.lineHorizontal} />
 
-        <Text style={[h1, {marginTop: 20}]}>Lakukan Pembayaran</Text>
+        <Text style={[h1, {marginTop: 20}]}>
+          {t('bank_transfer.make_payment')}
+        </Text>
 
         <View>
           <View style={[rowCenter, {marginTop: 10}]}>
@@ -293,7 +295,7 @@ const VirtualAccountScreen = () => {
 
         <View style={styles.lineHorizontal} />
         <Text style={[h1, {marginTop: 20, marginBottom: 10}]}>
-          Total Pembayaran
+          {t('bank_transfer.total_payment')}
         </Text>
 
         <View

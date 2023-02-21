@@ -3,13 +3,13 @@ import {h2, h5} from 'utils/styles';
 import {showToast} from 'utils/Toast';
 import {toggleBSheet} from 'redux/features/utils/utilsSlice';
 import {useAppDispatch} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   PermissionsAndroid,
-  // Image,
 } from 'react-native';
 import {
   ImagePickerResponse,
@@ -26,6 +26,7 @@ const ImagePickerModal: React.FC<IProps> = ({
   onCameraChange,
   onImageLibraryChange,
 }) => {
+  const {t} = useTranslation();
   const dispatch = useAppDispatch();
 
   const onOpenCamera = async () => {
@@ -59,9 +60,9 @@ const ImagePickerModal: React.FC<IProps> = ({
       }
     } catch (error: any) {
       showToast({
-        title: 'Gagal',
+        title: t('global.alert.failed'),
         type: 'error',
-        message: error?.message || 'Terjadi kesalahan',
+        message: error?.message || t('global.alert.error_occurred'),
       });
     }
   };
@@ -82,9 +83,9 @@ const ImagePickerModal: React.FC<IProps> = ({
       }
     } catch (error: any) {
       showToast({
-        title: 'Gagal',
+        title: t('global.alert.failed'),
         type: 'error',
-        message: error?.message || 'Terjadi kesalahan',
+        message: error?.message || t('global.alert.error_occurred'),
       });
     }
   };
@@ -94,20 +95,20 @@ const ImagePickerModal: React.FC<IProps> = ({
       <View style={styles.header}>
         <View style={styles.headerTitleContainer}>
           <Text textBreakStrategy="simple" style={h2}>
-            Pilih Opsi
+            {t('global.select_options')}
           </Text>
         </View>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={onOpenCamera}>
         {/* <Image source={ic_profile_active} style={styles.icon} /> */}
-        <Text style={[h5]}>Kamera</Text>
+        <Text style={[h5]}>{t('global.camera')}</Text>
       </TouchableOpacity>
       <View style={styles.line} />
 
       <TouchableOpacity style={styles.button} onPress={onOpenImageLibrary}>
         {/* <Image source={ic_password_lock} style={styles.icon} /> */}
-        <Text style={[h5]}>Galeri</Text>
+        <Text style={[h5]}>{t('global.gallery')}</Text>
       </TouchableOpacity>
     </View>
   );

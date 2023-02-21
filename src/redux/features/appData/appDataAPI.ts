@@ -1,3 +1,4 @@
+import i18n from 'i18next';
 import { apiWithInterceptor } from '../../../utils/interceptorV2';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ICities, IResponApi } from 'types/global.types';
@@ -6,7 +7,7 @@ import { showToast } from 'utils/Toast';
 export const getAllCities = createAsyncThunk(
   'appData/getAllCities',
   async function (params, thunkAPI)
-  : Promise<IResponApi<ICities> | any> {
+    : Promise<IResponApi<ICities> | any> {
     try {
       const response: any = await apiWithInterceptor({
         method: 'get',
@@ -16,8 +17,8 @@ export const getAllCities = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -28,7 +29,7 @@ export const getAllCities = createAsyncThunk(
 export const getUser = createAsyncThunk(
   'appData/getUser',
   async function (params, thunkAPI)
-  : Promise<IResponApi<any> | any> {
+    : Promise<IResponApi<any> | any> {
     try {
       const response: any = await apiWithInterceptor({
         method: 'get',
@@ -37,11 +38,6 @@ export const getUser = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
-      // showToast({
-      //   message: error?.response.data?.slug || 'Terjadi kesalahan',
-      //   title: 'Warning',
-      //   type: 'error',
-      // });
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
@@ -50,7 +46,7 @@ export const getUser = createAsyncThunk(
 export const getGarages = createAsyncThunk(
   'appData/getGarages',
   async function (params, thunkAPI)
-  : Promise<IResponApi<any> | any> {
+    : Promise<IResponApi<any> | any> {
     try {
       const response: any = await apiWithInterceptor({
         method: 'get',
@@ -60,8 +56,8 @@ export const getGarages = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);
@@ -73,7 +69,7 @@ export const getGarages = createAsyncThunk(
 export const getPayments = createAsyncThunk(
   'appData/getPayments',
   async function (params, thunkAPI)
-  : Promise<IResponApi<any> | any> {
+    : Promise<IResponApi<any> | any> {
     try {
       const response: any = await apiWithInterceptor({
         method: 'get',
@@ -83,8 +79,8 @@ export const getPayments = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data);

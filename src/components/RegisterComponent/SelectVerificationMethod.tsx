@@ -1,27 +1,31 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {FC} from 'react';
+import {
+  appDataState,
+  saveFormRegister,
+} from 'redux/features/appData/appDataSlice';
+import {FONT_SIZE_14} from 'utils/typography';
 import {ic_mail, ic_phone, ic_wa} from 'assets/icons';
 import {iconSize, rowCenter} from 'utils/mixins';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {IRegisterVerificationMethod} from 'types/global.types';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {theme} from 'utils';
-import { FONT_SIZE_14 } from 'utils/typography';
-import { IRegisterVerificationMethod, IRegisterVerificationStep } from 'types/global.types';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { utilsState } from 'redux/features/utils/utilsSlice';
-import { appDataState, saveFormRegister } from 'redux/features/appData/appDataSlice';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 const SelectVerificationMethod: FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation<StackNavigationProp<any>>();
   const dispatch = useAppDispatch();
   const userData = useAppSelector(appDataState).userData;
 
   const methods = {
-    handleNavigate:(method: IRegisterVerificationMethod) => {
+    handleNavigate: (method: IRegisterVerificationMethod) => {
       dispatch(saveFormRegister({...userData, registration_type: method}));
       navigation.push('RegisterVerification', {page: 'sendOtp'});
-    }
-  }
+    },
+  };
 
   return (
     <View
@@ -29,17 +33,23 @@ const SelectVerificationMethod: FC = () => {
         width: '100%',
         alignItems: 'center',
       }}>
-      <TouchableOpacity style={[rowCenter, styles.boxWrapper]} onPress={()=> methods.handleNavigate('phone')}>
+      <TouchableOpacity
+        style={[rowCenter, styles.boxWrapper]}
+        onPress={() => methods.handleNavigate('phone')}>
         <Image source={ic_phone} style={iconSize} />
-        <Text style={styles.textBox}>No. Handphone</Text>
+        <Text style={styles.textBox}>{t('register.phone_number')}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[rowCenter, styles.boxWrapper]} onPress={()=> methods.handleNavigate('email')}>
+      <TouchableOpacity
+        style={[rowCenter, styles.boxWrapper]}
+        onPress={() => methods.handleNavigate('email')}>
         <Image source={ic_mail} style={iconSize} />
         <Text style={styles.textBox}>Email</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[rowCenter, styles.boxWrapper]} onPress={()=> methods.handleNavigate('wa')}>
+      <TouchableOpacity
+        style={[rowCenter, styles.boxWrapper]}
+        onPress={() => methods.handleNavigate('wa')}>
         <Image source={ic_wa} style={iconSize} />
         <Text style={styles.textBox}>Whatsapp</Text>
       </TouchableOpacity>

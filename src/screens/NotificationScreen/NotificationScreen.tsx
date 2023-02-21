@@ -86,9 +86,9 @@ const NotificationScreen: React.FC = () => {
   useEffect(() => {
     if (notifications.isUpdateSuccess) {
       showToast({
-        title: 'Berhasil',
+        title: t('global.alert.success'),
         type: 'success',
-        message: 'Berhasil memperbarui notifikasi',
+        message: t('global.alert.success_change_notification'),
       });
       navigation.goBack();
     }

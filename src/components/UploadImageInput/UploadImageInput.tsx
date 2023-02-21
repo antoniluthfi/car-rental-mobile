@@ -1,3 +1,7 @@
+import {h1} from 'utils/styles';
+import {iconCustomSize, rowCenter} from 'utils/mixins';
+import {theme} from 'utils';
+import {useTranslation} from 'react-i18next';
 import {
   ic_image_file,
   ic_info_error,
@@ -12,9 +16,6 @@ import {
   StyleSheet,
   ViewStyle,
 } from 'react-native';
-import {theme} from 'utils';
-import {iconCustomSize, rowCenter} from 'utils/mixins';
-import {h1} from 'utils/styles';
 
 interface IProps {
   onPress: () => void;
@@ -35,6 +36,8 @@ const UploadImageInput: React.FC<IProps> = ({
   selectedImageLabel,
   containerStyle = {marginTop: 10},
 }) => {
+  const {t} = useTranslation();
+
   return (
     <View style={containerStyle}>
       {label && (
@@ -48,9 +51,9 @@ const UploadImageInput: React.FC<IProps> = ({
       <TouchableOpacity style={styles.uploadInputContainer} onPress={onPress}>
         <Image source={ic_image_file} style={{width: 29, height: 37}} />
         <Text>
-          Upload your image here, or{' '}
+          {t('global.upload_your_image_here')}{' '}
           <Text style={[h1, {fontSize: 14, color: theme.colors.blue}]}>
-            browse
+            {t('global.browse')}
           </Text>
         </Text>
       </TouchableOpacity>

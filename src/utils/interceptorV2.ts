@@ -19,7 +19,7 @@ export const apiWithInterceptor = async (config: ApiConfig) => {
         const TOKEN = store.getState().auth.auth.access_token;
         request.baseURL = URL_API;
         request.headers.Authorization = 'Bearer ' + TOKEN;
-        request.timeout = 10000;
+        request.timeout = 15000;
         return request;
       } catch (error) {}
     },

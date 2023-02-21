@@ -1,6 +1,7 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {apiWithInterceptor} from 'utils/interceptorV2';
-import {IResponApi} from 'types/global.types';
+import i18n from 'i18next';
+import { apiWithInterceptor } from 'utils/interceptorV2';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IResponApi } from 'types/global.types';
 import { NotificationDataResult } from 'types/notification';
 import { showToast } from 'utils/Toast';
 
@@ -16,8 +17,8 @@ export const getNotificationSettings = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data.data.message);
@@ -40,8 +41,8 @@ export const updateNotificationSettings = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       showToast({
-        message: error?.response.data?.slug || 'Terjadi kesalahan',
-        title: 'Warning',
+        message: error?.response.data?.slug || i18n.t('global.alert.error_occurred'),
+        title: i18n.t('global.alert.warning'),
         type: 'error',
       });
       return thunkAPI.rejectWithValue(error.response.data.data.message);

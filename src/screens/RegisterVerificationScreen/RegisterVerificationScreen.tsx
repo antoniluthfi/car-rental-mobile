@@ -1,24 +1,25 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, {FC, useEffect} from 'react';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import appBar from 'components/AppBar/AppBar';
 import hoc from 'components/hoc';
-import {container} from 'utils/mixins';
-import {h1, h3} from 'utils/styles';
-import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
-import {theme} from 'utils';
-import { RootStackParamList } from 'types/navigator';
+import InputOtp from 'components/RegisterComponent/InputOtp';
+import React, {FC, useEffect} from 'react';
 import SelectVerificationMethod from 'components/RegisterComponent/SelectVerificationMethod';
 import SentOtp from 'components/RegisterComponent/SentOtp';
-import InputOtp from 'components/RegisterComponent/InputOtp';
+import {container} from 'utils/mixins';
+import {FONT_SIZE_12, FONT_SIZE_20} from 'utils/typography';
+import {h1, h3} from 'utils/styles';
+import {RootStackParamList} from 'types/navigator';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {theme} from 'utils';
+import {useTranslation} from 'react-i18next';
+import {StyleSheet, Text, View} from 'react-native';
 
-type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'RegisterVerification'>;
+type ProfileScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'RegisterVerification'
+>;
 
 const RegisterVerificationScreen: FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const route = useRoute<ProfileScreenRouteProp>();
 
@@ -31,20 +32,22 @@ const RegisterVerificationScreen: FC = () => {
   }, [navigation]);
 
   return (
-    <View style={[container, {
-        alignItems: 'center',
-        justifyContent: 'center',
-    }]}>
-      <Text style={[h1, styles.textHeader]}>Verification</Text>
+    <View
+      style={[
+        container,
+        {
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+      ]}>
+      <Text style={[h1, styles.textHeader]}>{t('register.verification')}</Text>
       <Text style={[h3, styles.textDesc]}>
-        Pilih metode verifikasi anda untuk kemanan dan melanjutkan pembayaran
-        pemesanan anda
+        {t('register.choose_verification_method')}
       </Text>
 
-      {route.params?.page === 'selectMethod' && <SelectVerificationMethod/>}
+      {route.params?.page === 'selectMethod' && <SelectVerificationMethod />}
       {route.params?.page === 'sendOtp' && <SentOtp />}
-      {route.params?.page === 'inputOtp' && <InputOtp/>}
-
+      {route.params?.page === 'inputOtp' && <InputOtp />}
     </View>
   );
 };
@@ -60,6 +63,6 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_12,
     color: theme.colors.grey5,
     marginTop: 12,
-    textAlign: 'center'
+    textAlign: 'center',
   },
 });

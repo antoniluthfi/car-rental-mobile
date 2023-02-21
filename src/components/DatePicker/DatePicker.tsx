@@ -1,9 +1,9 @@
-import React, { ReactNode, useRef, useState } from 'react';
-import { dateFormatter } from 'utils/functions';
-import { h1, h5 } from 'utils/styles';
-import { ic_calendar, ic_clock, ic_info_error } from 'assets/icons';
-import { showBSheet } from 'utils/BSheet';
-import { theme } from 'utils';
+import React, {ReactNode, useState} from 'react';
+import {dateFormatter} from 'utils/functions';
+import {h1, h5} from 'utils/styles';
+import {ic_calendar, ic_clock, ic_info_error} from 'assets/icons';
+import {showBSheet} from 'utils/BSheet';
+import {theme} from 'utils';
 import {
   Image,
   StyleSheet,
@@ -18,6 +18,7 @@ import {
   iconCustomSize,
   colorSelecting,
 } from 'utils/mixins';
+import {useTranslation} from 'react-i18next';
 
 interface IProps {
   title: string;
@@ -46,9 +47,8 @@ const CustomDatePicker = ({
   errorMessage,
   snapPoint,
 }: IProps) => {
-  // const [showBSheet, setShowSheet] = useState(false);
+  const {t} = useTranslation();
   const [alertHour, setAlertHour] = useState('');
-  const ref2 = useRef<any>(null);
 
   const methods = {
     handleBSheet: () => {
@@ -97,7 +97,9 @@ const CustomDatePicker = ({
         )}
       </View>
       {mode === 'clock' && (
-        <Text style={styles.textFormatHour}>24 Hours Format Time - WITA</Text>
+        <Text style={styles.textFormatHour}>
+          {t('Home.daily.format_time_24_hours')}
+        </Text>
       )}
       {errorMessage && (
         <View

@@ -1,8 +1,15 @@
-import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
-import {ic_arrow_left_white} from 'assets/icons';
 import appBar from 'components/AppBar/AppBar';
+import {colors, h1, h5} from 'utils/styles';
+import {getInboxDetail} from 'redux/features/inbox/myInboxAPI';
+import {ic_arrow_left_white} from 'assets/icons';
+import {inboxState} from 'redux/features/inbox/myInboxSlice';
 import {notifIcon} from 'components/MyInboxComponent/MyInboxCard/MyInboxCard';
+import {RootStackParamList} from 'types/navigator';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {rowCenter} from 'utils/mixins';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {useEffect} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   ScrollView,
@@ -11,15 +18,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {getInboxDetail} from 'redux/features/inbox/myInboxAPI';
-import {inboxState} from 'redux/features/inbox/myInboxSlice';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {RootStackParamList} from 'types/navigator';
-import {rowCenter} from 'utils/mixins';
-import {colors, h1, h5} from 'utils/styles';
 
 type InboxDetailRouteProp = RouteProp<RootStackParamList, 'InboxDetail'>;
 const InboxDetailScreen: React.FC = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const route = useRoute<InboxDetailRouteProp>();
   const dispatch = useAppDispatch();
@@ -44,7 +46,9 @@ const InboxDetailScreen: React.FC = () => {
                 marginLeft: 16,
               }}
             />
-            <Text style={[h1, {color: 'white', marginLeft: 10}]}>My Inbox</Text>
+            <Text style={[h1, {color: 'white', marginLeft: 10}]}>
+              {t('myInbox.tabBarLabel')}
+            </Text>
           </TouchableOpacity>
         ),
       }),

@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import {Alert, BackHandler, StyleSheet, Text, View} from 'react-native';
 import {ProgressBar} from '@react-native-community/progress-bar-android';
 import {theme} from 'utils';
+import i18next from 'i18next';
 
 type UpdateVersionState = {
   restartAllowed: boolean;
@@ -136,11 +137,13 @@ class CodepushUpdateManager extends Component<any, UpdateVersionState> {
     let percentage = 0;
     let progressView = (
       <>
-        <Text style={styles.messages}>Update Tersedia</Text>
+        <Text style={styles.messages}>
+          {i18next.t('codepush.updates_available')}
+        </Text>
         <View style={styles.buttonContainer}>
           <Button
             _theme="navy"
-            title="Unduh Pembaruan"
+            title={i18next.t('global.button.download_update')}
             onPress={this.sync.bind(this)}
             styleWrapper={{
               width: '95%',

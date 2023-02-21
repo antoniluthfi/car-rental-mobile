@@ -36,9 +36,9 @@ type BankTransferScreenRouteProp = RouteProp<
 >;
 
 const BankTransferScreen = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const route = useRoute<BankTransferScreenRouteProp>();
-  const {t} = useTranslation();
 
   useEffect(() => {
     navigation.setOptions(
@@ -56,7 +56,7 @@ const BankTransferScreen = () => {
               }}
             />
             <Text style={[h1, {color: 'white', marginLeft: 10}]}>
-              Bank Transfer
+              {t('bank_transfer.bank_transfer')}
             </Text>
           </TouchableOpacity>
         ),
@@ -100,9 +100,9 @@ const BankTransferScreen = () => {
     copyText: (text: string) => {
       Clipboard.setString(text);
       showToast({
-        title: 'Berhasil',
+        title: t('global.alert.success'),
         type: 'success',
-        message: 'berhasil menyalin teks',
+        message: t('global.alert.success_copy_text'),
       });
     },
   };
@@ -113,12 +113,14 @@ const BankTransferScreen = () => {
         flex: 1,
         margin: 16,
       }}>
-      <Text style={[h1, {marginTop: 20}]}>Lakukan Pembayaran</Text>
+      <Text style={[h1, {marginTop: 20}]}>
+        {t('bank_transfer.make_payment')}
+      </Text>
 
       <View style={[rowCenter, {marginTop: 10}]}>
         <Image source={ic_mandiri} style={iconCustomSize(30)} />
         <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
-          Mandiri Transfer
+          {t('bank_transfer.mandiri_transfer')}
         </Text>
       </View>
 
@@ -143,7 +145,9 @@ const BankTransferScreen = () => {
 
       <View style={[rowCenter, {marginTop: 10}]}>
         <Image source={ic_bca} style={iconCustomSize(30)} />
-        <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>BCA Transfer</Text>
+        <Text style={[h5, {fontSize: 12, marginLeft: 10}]}>
+          {t('bank_transfer.bca_transfer')}
+        </Text>
       </View>
 
       <View
@@ -166,7 +170,7 @@ const BankTransferScreen = () => {
       </View>
       <View style={styles.lineHorizontal} />
       <Text style={[h1, {marginTop: 20, marginBottom: 10}]}>
-        Total Pembayaran
+        {t('bank_transfer.total_payment')}
       </Text>
 
       <View
@@ -218,7 +222,7 @@ const BankTransferScreen = () => {
         onPress={() => {
           navigation.navigate('UploadBankTransfer', route.params);
         }}
-        title={'Upload Bukti Pembayaran'}
+        title={t('bank_transfer.upload_proof_payment')}
         styleWrapper={{
           marginTop: 26,
         }}
