@@ -1,43 +1,29 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import appBar from 'components/AppBar/AppBar';
+import CancelOrderButtonAction from 'components/MyBookingOrderDetailComponents/CancelOrderButtonAction/CancelOrderButtonAction';
+import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
+import ExtendOrderButtonAction from 'components/MyBookingOrderDetailComponents/ExtendOrderButtonAction/ExtendOrderButtonAction';
 import hoc from 'components/hoc';
+import React, {useEffect, useState} from 'react';
+import {getOrderById} from 'redux/features/myBooking/myBookingAPI';
+import {h1, h5} from 'utils/styles';
+import {ic_arrow_left_white, ic_download, ic_pinpoin} from 'assets/icons';
+import {iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
+import {idrFormatter, slugify} from 'utils/functions';
+import {img_car_2} from 'assets/images';
+import {isFuture} from 'date-fns';
+import {RootStackParamList} from 'types/navigator';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {URL_IMAGE} from '@env';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import appBar from 'components/AppBar/AppBar';
-import {iconCustomSize, iconSize, rowCenter, WINDOW_WIDTH} from 'utils/mixins';
-import {
-  ic_arrow_left_white,
-  ic_confirmation,
-  ic_download,
-  ic_pinpoin,
-} from 'assets/icons';
-import {h1, h5} from 'utils/styles';
-import CustomCarousel from 'components/CustomCarousel/CustomCarousel';
-import {img_car_2} from 'assets/images';
-import {RootStackParamList} from 'types/navigator';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {getOrderById, getOrders} from 'redux/features/myBooking/myBookingAPI';
-import {URL_IMAGE} from '@env';
-import {idrFormatter, slugify} from 'utils/functions';
-import Button from 'components/Button';
-import {theme} from 'utils';
-import {showBSheet} from 'utils/BSheet';
-import CustomTextInput from 'components/TextInput';
-import DropdownBank from 'components/UploadBankTransferComponent/DropdownBank/DropdwonBank';
-import ModalSuccessCancelOrder from 'components/ModalSuccessCancelOrder/ModalSuccessCancelOrder';
-import {IPayments} from 'types/global.types';
-import {cancelOrder} from 'redux/features/order/orderAPI';
-import BottomSheet from '@gorhom/bottom-sheet';
-import {isFuture} from 'date-fns';
-import {showToast} from 'utils/Toast';
-import {useTranslation} from 'react-i18next';
 
 type DailyBookingOrderDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -52,29 +38,13 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
   const garages = useAppSelector(state => state.garages.data);
   const {t} = useTranslation();
 
-  const [showModalSuccess, setShowModalSuccess] = useState(false);
   const [images, setImages] = useState<any[]>([]);
   const [orderState, setOrderState] = useState<string>('');
-  const [formCancel, setFormCancel] = useState({
-    name: '',
-    bank: '',
-    bank_account_number: '',
-    cancelation_reason: '',
-  });
 
   const {selected, vehicleData} = bookingDetail;
   const vehicle = vehicleData?.find(
     v => v?.id === selected?.order_detail?.vehicle_id,
   );
-  const bottomSheetRef = useRef<BottomSheet>(null);
-
-  // variables
-  const snapPoints = useMemo(() => ['100%', '100%'], []);
-
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
 
   const getPaymentLabel = () => {
     if (selected?.disbursement) {
@@ -100,8 +70,6 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
   };
 
   useEffect(() => {
-    bottomSheetRef.current?.close();
-    bottomSheetRef.current?.snapToIndex(-1);
     navigation.setOptions(
       appBar({
         leading: (
@@ -169,56 +137,8 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
     }
   }, [selected?.order_status, selected?.expired_time]);
 
-  const methods = {
-    handleConfirmation: (status: 'extend_order' | 'cancel_order' | 'close') => {
-      showBSheet({
-        content: (
-          <View style={styles.bsheetWrapper}>
-            <Image
-              source={ic_confirmation}
-              style={iconCustomSize(200)}
-              resizeMode={'contain'}
-            />
-            <Text>
-              {t('myBooking.are_you_sure_want_to_continue')}{' '}
-              {status === 'extend_order'
-                ? `${t('myBooking.this_paymenr')}?`
-                : `${t('myBooking.cancel_this_order')}?`}
-            </Text>
-            <View style={{width: '95%', margin: 16}}>
-              <Button
-                _theme="navy"
-                title={t('global.button.yesNext')}
-                onPress={() => {
-                  methods.handleConfirmation('close');
-                  if (status === 'extend_order') {
-                    methods.handleExtendOrder();
-                    return;
-                  }
-                  bottomSheetRef.current?.snapToIndex(0);
-                  // methods.handleCancelOrder(setFormCancel, formCancel);
-                }}
-                styleWrapper={{marginBottom: 20}}
-              />
-              <Button
-                _theme="white"
-                title={t('global.button.back')}
-                onPress={() => methods.handleConfirmation('close')}
-              />
-            </View>
-          </View>
-        ),
-      });
-    },
-    handleExtendOrder: () => {
-      showBSheet({
-        content: <View style={styles.bsheetWrapper}></View>,
-      });
-    },
-  };
-
   return (
-    <View style={styles.container}>
+    <View>
       <ScrollView contentContainerStyle={styles.container}>
         <CustomCarousel
           data={images}
@@ -336,158 +256,20 @@ const DailyBookingOrderDetailScreen: React.FC = () => {
           </View>
         </View>
         <View style={styles.solidLine} />
-        <View style={{marginHorizontal: 16}}>
+        <View style={styles.buttonContainer}>
           {isFuture(
             new Date(selected?.order_detail?.start_booking_date as any),
           ) &&
             slugify(orderState) !== 'failed' &&
             slugify(orderState) !== 'cancelled' && (
-              <Button
-                _theme="red"
-                title={t('global.button.cancelOrder')}
-                onPress={() => {
-                  methods.handleConfirmation('cancel_order');
-                }}
-                styleWrapper={{
-                  marginBottom: 10,
-                }}
-                lineColor={theme.colors.navy}
+              <CancelOrderButtonAction
+                transactionKey={route.params.transaction_key}
               />
             )}
 
-          {slugify(orderState) == 'completed' && (
-            <Button
-              _theme="navy"
-              title={t('global.button.extendOrder')}
-              onPress={() => methods.handleConfirmation('extend_order')}
-            />
-          )}
+          {slugify(orderState) == 'completed' && <ExtendOrderButtonAction />}
         </View>
       </ScrollView>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={-1}
-        enablePanDownToClose
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}>
-        <View style={styles.contentContainer}>
-          <View
-            style={[
-              styles.bsheetWrapper,
-              {alignItems: 'flex-start', paddingLeft: 16, width: '100%'},
-            ]}>
-            <Text style={h1}>{t('detail_order.order_cancellation')}</Text>
-            <View style={{marginTop: 20}} />
-            <CustomTextInput
-              title={t('detail_order.name') as any}
-              placeholder={t('settings.fullNamePlaceholder')}
-              errorMessage=""
-              onChangeText={v => setFormCancel({...formCancel, name: v})}
-              value={formCancel.name}
-              styleTitle={{
-                fontSize: 12,
-              }}
-            />
-            <View style={{marginTop: 15}} />
-            <DropdownBank
-              styleDropdown={{
-                width: '95%',
-                marginTop: 10,
-              }}
-              onSelect={(v: IPayments) => {
-                setFormCancel({...formCancel, bank: v.code});
-                // setFormError({...formError, sender_bank_name: ''});
-              }}
-              selected={formCancel.bank}
-            />
-            <View style={{marginTop: 15}} />
-            <CustomTextInput
-              title={t('detail_order.account_number') as any}
-              placeholder={t('detail_order.enter_account_number')}
-              errorMessage=""
-              onChangeText={v =>
-                setFormCancel({...formCancel, bank_account_number: v})
-              }
-              value={formCancel.bank_account_number}
-              styleTitle={{
-                fontSize: 12,
-              }}
-            />
-            {/* <View style={{marginTop: 20}} /> */}
-            <View style={{marginVertical: 20, width: '95%'}}>
-              <Text style={[h1, {fontSize: 12}]}>
-                {t('detail_order.write_reason_cancellation')}
-              </Text>
-              <View style={styles.formWrapper}>
-                <TextInput
-                  multiline={true}
-                  placeholder={t('detail_order.write_description') as any}
-                  style={{
-                    height: 100,
-                    paddingRight: 15,
-                  }}
-                  maxLength={150}
-                  onChangeText={v =>
-                    setFormCancel({...formCancel, cancelation_reason: v})
-                  }
-                  value={formCancel.cancelation_reason}
-                  // onChangeText={v => setForm({...form, special_request: v})}
-                />
-              </View>
-            </View>
-
-            <View
-              style={[
-                styles.btnWrapper,
-                // rowCenter,
-              ]}>
-              <Button
-                _theme="white"
-                title={t('global.button.back')}
-                onPress={() => {
-                  bottomSheetRef.current?.close();
-                }}
-                styleWrapper={{width: '48%'}}
-              />
-
-              <Button
-                _theme="navy"
-                title={t('global.button.yesNext')}
-                onPress={async () => {
-                  const res = await dispatch(
-                    cancelOrder({
-                      ...formCancel,
-                      transaction_key: route.params.transaction_key,
-                    }),
-                  );
-                  console.log('res = ', res);
-                  if (res?.type.includes('fulfilled')) {
-                    setShowModalSuccess(true);
-                    return;
-                  }
-                  showToast({
-                    message: t('global.alert.cancellation_failed'),
-                    title: t('global.alert.error_occurred'),
-                    type: 'warning',
-                  });
-                }}
-                styleWrapper={{width: '48%'}}
-              />
-            </View>
-          </View>
-        </View>
-      </BottomSheet>
-      {
-        <ModalSuccessCancelOrder
-          visible={showModalSuccess}
-          setVisible={setShowModalSuccess}
-          onFinish={() => {
-            navigation.goBack();
-            bottomSheetRef.current?.close();
-            dispatch(getOrders());
-          }}
-        />
-      }
     </View>
   );
 };
@@ -498,10 +280,6 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#F5F5F5',
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: 'center',
   },
   descriptionContainer: {
     padding: '5%',
@@ -538,28 +316,6 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
   },
-  bsheetWrapper: {
-    width: WINDOW_WIDTH,
-    flex: 1,
-    alignItems: 'center',
-    margin: 16,
-  },
-  formWrapper: {
-    borderWidth: 1,
-    borderColor: theme.colors.grey6,
-    padding: 10,
-    borderRadius: 8,
-    marginTop: 10,
-  },
-  btnWrapper: {
-    position: 'absolute',
-    bottom: 0,
-    left: 16,
-    right: 0,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   carouselTitleContainer: {
     padding: 10,
     backgroundColor: '#F0F0F0',
@@ -569,4 +325,5 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     top: 20,
   },
+  buttonContainer: {marginHorizontal: 16, marginVertical: 20},
 });

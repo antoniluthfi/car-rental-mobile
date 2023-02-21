@@ -112,12 +112,12 @@ const DailyLayoutCard: React.FC<IProps> = ({item}) => {
 
   return (
     <View style={styles.card}>
-      <View style={[rowCenter]}>
+      <View style={styles.detailContainer}>
         <View style={styles.roundedImage}>
           <Image source={img_car_2} style={styles.imgCar} resizeMode="cover" />
         </View>
 
-        <View>
+        <View style={{flexBasis: '75%'}}>
           <View style={styles.title}>
             <Text style={styles.daily}>{t('Home.daily.title')}</Text>
             <Text style={[styles.status, paymentStatusStyle(orderState)]}>
@@ -227,6 +227,11 @@ const styles = StyleSheet.create({
     shadowColor: '#E8E8E8',
     width: '100%',
   },
+  detailContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    flexWrap: 'wrap',
+  },
   roundedImage: {
     borderRadius: 100,
     width: 48,
@@ -234,6 +239,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     overflow: 'hidden',
     marginRight: 30,
+    flexBasis: '15%',
   },
   imgCar: {
     width: 48,
@@ -247,7 +253,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '68%',
+    // width: '68%',
   },
   status: {
     fontSize: 14,

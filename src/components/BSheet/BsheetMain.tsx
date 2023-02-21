@@ -44,15 +44,15 @@ const BsheetMain = () => {
 
     return () => backHandler.remove();
   }, []);
-  // renders
+
   return (
     <View style={[styles.container, {height: WINDOW_HEIGHT}]}>
       <BottomSheet
         ref={bottomSheetRef}
-        index={isShowBsheet.height === 'half' ? 0 : 1}
+        index={1}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
-        enablePanDownToClose={true}>
+        enablePanDownToClose>
         <View style={styles.contentContainer}>
           {isShowBsheet?.contentBsheet && isShowBsheet?.contentBsheet}
         </View>
@@ -65,10 +65,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    // backgroundColor: 'grey',
     backgroundColor: 'rgba(52, 52, 52, 0.8)',
     position: 'absolute',
-    // bottom: 0,
     width: WINDOW_WIDTH,
   },
   contentContainer: {

@@ -409,7 +409,7 @@ const DetailCarScreen: FC = () => {
 
       <View style={styles.bottomWrapper}>
         <View>
-          <Text style={[h4]}>{t('myBooking.carPrice')}</Text>
+          <Text style={[h4]}>{t('carDetail.carPrice')}</Text>
           <Text style={[h1, {color: theme.colors.navy, fontSize: 15}]}>
             {currencyFormat(vehicle.price - (vehicle.discount_price || 0))}{' '}
             <Text style={[h3, {fontSize: 12}]}>{t('carDetail.perDay')}</Text>
